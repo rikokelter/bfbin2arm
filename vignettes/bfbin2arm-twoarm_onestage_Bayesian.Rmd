@@ -21,13 +21,13 @@ date: "`r format(Sys.Date(), '%d %B %Y')`"
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment  = "#>",
-  fig.width = 7,
+  comment = "#>",
+  fig.width  = 7,
   fig.height = 5,
-  echo = TRUE,
-  eval = TRUE,      # default, but heavy chunks override with eval = FALSE
-  message = FALSE,
-  warning = FALSE
+  dpi        = 100,
+  fig.retina = 1,
+  dev        = "png",
+  dev.args   = list(type = "cairo-png")
 )
 options(bfbin2arm.ncores = 1L)
 library(bfbin2arm)
@@ -42,10 +42,15 @@ $$Y_1\sim \mathrm{Bin}(n_1,p_1), \hspace{1cm} Y_2\sim \mathrm{Bin}(n_2,p_2)$$
 In its current form, the package implements four different hypothesis tests for such trials:
 
 $$H_0:p_1=p_2 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:p_1\neq p_2$$
+
 Alternatively, a well-known parameterization of this test introduces a difference parameter $\eta=p_2-p_1$ and the grand mean $\zeta=\frac{1}{2}(p_1+p_2)$. Using this parameterization, we have
+
 $$p_1=\zeta-\frac{\eta}{2}, \hspace{1cm} p_2=\zeta+\frac{\eta}{2}$$
+
 and the hypotheses can be rewritten as:
+
 $$H_0:\eta = 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta \neq 0$$
+
 Next to this two-sided test, three directional tests are available in the package:
 
 - $$H_0:\eta \leq 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta > 0$$
@@ -56,16 +61,25 @@ For each of the four tests, a separate Bayes factor exists and can be used. For 
 
 ## Design and analysis priors
 The $\mathrm{Beta}(a_0,b_0)$ distribution is a conjugate prior for the binomial likelihood, and when chosen as the prior, the posterior $P_{p \mid Y}$ is also Beta-distributed. A natural choice for the priors is the beta distribution. We assume independent Beta design priors $H_0$ as follows:
+
 $$p_1 =p_2 = p\mid H_0 \sim \mathrm{Beta}(a_0^d,b_0^d)$$
+
 Thus, under $H_0:\eta = 0$, both probabilities are identical, $p_1=p_2$, and take some value $p\in [0,1]$, which has a beta design prior. Likewise, we pick independent Beta design priors under $H_1:\eta \neq 0$:
+
 $$p_1 \mid H_1 \sim \mathrm{Beta}(a_1^d,b_1^d), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_2^d,b_2^d)$$
+
 For the analysis priors $P_{p_1}^a$, $P_{p_2}^a$ under $H_1$, we also choose independent Beta priors, with possibly different values $a_i^a$ and $b_i^a$ for $i=1,2$, where the superscript signals that the hyperparameters belong to our analysis instead of design prior:
+
 $$p_1 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a)$$
+
 Lastly, for the analysis prior $P_{p}^a$ under $H_0:\eta=0$, we choose a Dirac prior with all probability on $\eta=p_2-p_1=0$ conditionally on a uniform prior on $\zeta$, that is
+
 $$p_1=p_2=p|H_0 \sim 1_{\{\eta=0\}}| \zeta \sim U(0,1)$$
+
 for the analysis with the Bayes factor.
 
 # Using the package
+
 First, we load the package after installation:
 ```{r}
 library(bfbin2arm)
@@ -73,7 +87,7 @@ library(bfbin2arm)
 
 Next, we illustrate the main calibration function for a two-arm one-stage trial by re-analyzing a phase II trial in the context of oncology. While no Bayesian approach was used in the original statistical analysis of the trial, the step-by-step walktrough below showcases how a structured approach to designing and calibrating a Bayesian two-arm one-stage phase II trial with the `bfbin2arm` package looks like. Importantly, the trial must have two trial arms (treatment and control) and binary endpoints. We assume further that one of the four tests detailed above is carried out using Bayes factors as the test criterion. 
 
-## ICT-107 Phase II Trial Overview
+# ICT-107 Phase II Trial Overview
 
 The ICT-107 trial [@wenRandomizedDoubleBlindPlaceboControlled2019] was a randomized phase II study in newly diagnosed glioblastoma patients (n=124, 2:1 randomization). The primary binary endpoint is progression status at 6 months (PFS6), and the secondary binary endpoint immunologic status. Here, we focus on the secondary endpoint for illustration purposes. 
 
@@ -686,7 +700,7 @@ To fulfill all four requirements, it thus suffices if $n_1=29$ patients in the c
 
 For a Bayesian calibration only, it suffices if $n_1=28$ patients in the control arm and $n_2=55$ in the treatment arm are enrolled in the trial.
 
-## Summary
+# Summary
 
 This vignette has illustrated how to design and calibrate two‑arm one‑stage Bayes factor trials with binary endpoints using the `bfbin2arm` package. The core workflow starts from specifying a Bayes factor test (two‑sided or directional), choosing coherent design and analysis priors under the competing hypotheses, and then mapping clinical requirements onto calibration targets for Bayesian power, Bayesian type‑I error, and the Bayesian probability of compelling evidence for the null (or \(H_-\) in directional tests). The central calibration function `design_twoarm_onestage_bf()` searches over a user‑defined grid of total sample sizes and returns a design object that contains the selected allocation \((n_1, n_2)\), the corresponding total sample size \(n_{\text{total}}\), and both Bayesian and frequentist operating characteristics at the chosen design.
 

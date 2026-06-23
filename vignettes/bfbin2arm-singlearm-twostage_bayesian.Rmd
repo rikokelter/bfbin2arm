@@ -18,14 +18,16 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width = 7,
+  fig.width  = 7,
   fig.height = 5,
-  warning = FALSE,
-  message = FALSE
+  dpi        = 100,
+  fig.retina = 1,
+  dev        = "png",
+  dev.args   = list(type = "cairo-png")
 )
 
 library(bfbin2arm)
@@ -317,7 +319,7 @@ power, type-I error, and, if requested, compelling evidence under \(H_0\).
 ```{r, eval = FALSE}
 plot(res)
 ```
-```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 2: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. The top left panel shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability p0."}
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 2: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. The top left panel shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability `p0`."}
 knitr::include_graphics("figures/optimal_single_arm_two_stage_bayes_fig2.png")
 ```
 
@@ -333,10 +335,18 @@ Several points become apparent when inspecting the results above:
 - The Bayesian power is $0.80$, while the frequentist power calculated under the point prior at $p_1=0.4$ is $0.7251$. Thus, the design is not fully calibrated in terms of frequentist power. The Bayesian power is calculated under the design prior shown in the bottom left panel, which averages the resulting power values under the different prior probabilities under the design prior. Note that it is currently not possible to calibrate the design both in terms of frequentist and Bayesian constraints on power and type-I-error. The frequentist operating characteristics are solely computed post-hoc, after the design is calibrated in terms of Bayesian power, type-I-error, and, if specified, probability of compelling evidence. An extension of the algorithm and existing methodology might add this feature in the future.
 - The design prior is slightly optimistic about the treatment effect, as we specified `da = 2.5` and `db = 2` when calling the function. Thus, our prior assumptions can be interpreted as follows: We pretend as if we have already observed 2.5 successes and 2 failures for this drug / treatment. However, all of these assumptions are only influencing the resulting operating characteristics of the single-arm two-stage design via the **design priors**, and any analysis eventually carried out during the trial (interim analysis or final analysis) makes use of the **analysis priors**. These are shown in the bottom panels, too, and are flat under $H_1$. Under $H_0$, for the two-sided test both the design and analysis priors become point masses at the null parameter $p_0=0.2$.
 - Lastly, the frequentist type-I-error is reported as $0.0169$, which here coincides with the Bayesian type-I-error. In general, these differ as the frequentist type-I-error is more conservative and a worst-case calculation. In the setting of the two-sided test of $H_0:p=p_0$ against $H_1:p \neq p_0$, however, the Bayesian type-I-error is calculated like the frequentist type-I-error under a single parameter value and thus both type-I-errors (Bayesian and frequentist) coincide, because
+
 $$\sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p = p_0}[Pr(BF_{01}(y)<k|p)]=Pr(BF_{01}(y)<k|p=p_0)$$
+
 where the right-hand side of the above display is precisely the frequentist type-I-error under $H_0:p=p_0$. For directional tests such as $H_0:p\leq p_0$ against $H_1:p>p_0$, however, these should, in general, differ substantially. In those cases, the frequentist type-I-error is the supremum 
-$$\sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p\leq p_0}[Pr(BF_{01}(y)<k|p)]$$ while the Bayesian type-I-error is the design prior averaged probability 
-$$\int_{p \leq p_0}Pr(BF_{01}(y)<k|p)\pi(p)dp$$ where $\pi(p)$ denotes the design prior truncated to the parameter space of $H_0:p\leq p_0$. We turn to such an example demonstrating this phenomenon later in this vignette.
+
+$$\sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p\leq p_0}[Pr(BF_{01}(y)<k|p)]$$ 
+
+while the Bayesian type-I-error is the design prior averaged probability
+
+$$\int_{p \leq p_0}Pr(BF_{01}(y)<k|p)\pi(p)dp$$
+
+where $\pi(p)$ denotes the design prior truncated to the parameter space of $H_0:p\leq p_0$. We turn to such an example demonstrating this phenomenon later in this vignette.
 
 ### Inspecting the result object
 
@@ -369,7 +379,9 @@ particular interim sample size was selected.
 A compelling-evidence constraint under \(H_0\) can be added during calibration.
 In that case, only designs with sufficiently large corrected probability of
 compelling evidence under \(H_0\) are regarded as feasible. This implies, that when $H_0$ holds, we can assert a minimum probability to stop the trial early for futility. That minimum probability can be specified in advance of the trial during the planning stage, and formally, the trial design must then satisfy the condition
+
 $$Pr(BF_{01}>k_f|H_0)>f$$
+
 for some futility probability threshold $f\in (0,1)$.
 
 As above, `da = 2.5` and `db = 2` specify the slightly optimistic Bayesian design prior, whereas
@@ -409,7 +421,7 @@ We can plot the resulting design with the probability of compelling evidence con
 plot(res_ce)
 ```
 
-```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 3: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. In addition to the previous calibration requirements in terms of power and type-I-error rate, this design also adds a constraint on the probability of compelling evidence in favour of the null hypothesis $H_0$. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability p0."}
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 3: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. In addition to the previous calibration requirements in terms of power and type-I-error rate, this design also adds a constraint on the probability of compelling evidence in favour of the null hypothesis $H_0$. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability `p0`."}
 knitr::include_graphics("figures/optimal_single_arm_two_stage_bayes_fig3.png")
 ```
 The upper left panel in Figure 3 shows that now the probability of compelling evidence (PCE) constraint for $H_0$ is also visible in the plot for different interim sample sizes. The horizontal dashed line at $y=0.60$ shows that essentially all two-stage designs satisfy our target constraint
@@ -469,7 +481,7 @@ summary(res_dir)
 plot(res_dir)
 ```
 
-```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 4: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors in the directional test setting. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability p0."}
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 4: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors in the directional test setting. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability `p0`."}
 knitr::include_graphics("figures/optimal_single_arm_two_stage_bayes_fig4.png")
 ```
 This example illustrates how the optimal design and its operating
@@ -623,13 +635,5 @@ infeasible even at fairly large sample sizes. In such cases, it is
 recommended to explore the attainable region of operating characteristics
 first and to choose targets and priors that are both scientifically
 plausible and jointly achievable.
-
-
-
-## Session information
-
-```{r}
-sessionInfo()
-```
 
 ## References

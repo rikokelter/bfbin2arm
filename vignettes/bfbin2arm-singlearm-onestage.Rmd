@@ -17,13 +17,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
   
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width = 8,
-  fig.height = 5
+  fig.width  = 8,
+  fig.height = 5,
+  dpi        = 100,
+  fig.retina = 1,
+  dev        = "png",
+  dev.args   = list(type = "cairo-png")
 )
+
 library(bfbin2arm)
 ```
 
@@ -32,11 +37,11 @@ library(bfbin2arm)
 This vignette illustrates how to calibrate a one-stage single-arm Bayes factor
 design for a binary endpoint. The goal is to determine the smallest total sample
 size that satisfies pre-specified Bayesian and/or frequentist operating
-characteristics. The underlying statistical theory is developed in [@kelter_third_2025], extended to the single-arm two-stage optimal setting by [@kelter_two_stage_2025], and further developed to the two-arm single-stage setting by [@kelter_power_2026].
+characteristics. The underlying statistical theory is developed in [@kelter_third_2025], extended to the single-arm two-stage optimal setting in [@kelter_two_stage_2025], and further developed to the two-arm single-stage setting in [@kelter_power_2026].
 
 ## How to design a Bayesian trial: Overview of the calibration algorithm
 
-The workflow implemented in the package follows the fixed-sample Bayes factor calibration framework proposed by [@kelter_third_2025]:
+The workflow implemented in the package follows the fixed-sample Bayes factor calibration framework proposed in @kelter_third_2025:
   Choose design and analysis priors, specify an evidence threshold on the
 \eqn{BF_{01}} scale, compute operating characteristics as a function of the
 sample size, and select the smallest feasible design.
@@ -45,17 +50,27 @@ sample size, and select the smallest feasible design.
 knitr::include_graphics("figures/optimal_single_arm_two_stage_bayes_flowchart_rootfinding.png")
 ```
 Figure 1 visualizes the calibration methodology in detail. Based on the selected design and analysis priors, the prior predictive and the Bayes factor, the critical value $y_{crit}$ is found via numerical root finding (step 5. and 6. in Figure 1). Based on this critical value, in the single-arm setting, the relationship 
+
 $$P(BF_{01}<1/k|H_i)=P(y>y_{crit}|H_i)$$
+
 holds for both hypotheses $H_i$, $i\in \{0,1\}$. When $i=0$, this implies one can easily calculate the Bayesian type-I-error rate as
+
 $$P(BF_{01}<1/k|H_0)=P(y>y_{crit}|H_0)$$
+
 while for $i=1$, the latter becomes the Bayesian power:
+
 $$P(BF_{01}<1/k|H_1)=P(y>y_{crit}|H_1)$$
+
 For specified target constraints $\alpha \in (0,1)$ and $\beta \in (0,1)$, one can then calculate the smallest $n\in \mathbb{N}$, for which
 $$P(BF_{01}<1/k|H_0)=P(y>y_{crit}|H_0)\leq \alpha$$
 and 
+
 $$P(BF_{01}<1/k|H_1)=P(y>y_{crit}|H_1)> 1-\beta$$
+
 A further metric for calibration is the probability of compelling evidence
+
 $$P(BF_{01}>k_f|H_0)$$
+
 which can likewise be calibrated to achieve at least a threshold $f\in (0,1)$. Here, the event $BF_{01}>k_f$ can be interpreted as the Bayes factor providing sufficient evidence $k_f >0$ in favour of $H_0$, when $H_0$ is indeed true. If this probability is calibrated, additionally to Bayesian type-I-error rate and power, one can be certain when the trial is carried out, the event $BF_{01}>k_f$ is reached with probability $f$ when $H_0$ indeed holds. Thus, when the null hypothesis is true we will often find sufficient evidence to really accept $H_0$ instead of remaining indecisive about whether $H_0$ or $H_1$ is true.
 
 ---
@@ -64,7 +79,9 @@ which can likewise be calibrated to achieve at least a threshold $f\in (0,1)$. H
 
 We consider a phase II setting with null response probability `p0 = 0.2` and
 an efficacy threshold `k = 1/3` on the \eqn{BF_{01}} scale. We assume slightly optimistic design priors via `da1 = 2.5` and `db1 = 2` under $H_1$, a flat design prior under $H_0$, specified via `da0 = 1` and `db0 = 1`, and flat analysis priors under both $H_0$ and $H_1$ (specified via `a0 = 1`, `b0 = 1`, `a1 = 1` and `b1 = 1`). We test the hypotheses
+
 $$H_0:p\leq 0.2 \text{ versus } H_1:p>0.2$$
+
 against each other, so we use the argument `type = "direction"` and set `p0 = 0.2`. We limit the sample size range to the minimum and maximum values `n_min = 10` and `n_max = 200`, and require 80% Bayesian power, specified via `target_power = 0.80`. Also, we require a Bayesian type-I-error rate of 5% or less, specified via the argument `target_type1 = 0.05`:
 ```{r}
 des_bayes <- design_singlearm_onestage_bf(
@@ -107,7 +124,9 @@ Note that the beta-binomial model induces the zig-zag shape of the resulting cur
 Next, we could add a constraint on the probability of compelling evidence for $H_0$. An optional CE(H0) constraint can be imposed through `target_ce_h0`. This is
 useful when one also wants the design to have a sufficient probability of
 yielding compelling evidence in favour of the null hypothesis
+
 $$P(BF_01>k_f|H_0)>f$$
+
 for some $f\in (0,1)$ and futility evidence threshold $k_f>1$. Now, we use $f=0.60$ and $k_f=3$, specified via the arguments `target_ce_h0 = 0.60` and `k_ce = 3`. Everything else remains the same, but we also add the argument `dp = 0.4` to compute frequentist power under the point alternative $p=0.4$:
 ```{r}
 des_bayes_ce <- design_singlearm_onestage_bf(

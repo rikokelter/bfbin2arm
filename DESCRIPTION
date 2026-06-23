@@ -2,7 +2,7 @@ Package: bfbin2arm
 Type: Package
 Title: Bayes Factor Design for Two-Arm Binomial Trials
 Version: 0.1.4
-Date: 2026-06-22
+Date: 2026-06-23
 Authors@R: 
     c(person(given = "Riko", family = "Kelter", role = c("aut", "cre"),
              email = "rkelter@uni-koeln.de"))

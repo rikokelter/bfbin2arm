@@ -21,11 +21,15 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment  = "#>",
-  fig.width = 7,
+  comment = "#>",
+  fig.width  = 7,
   fig.height = 5,
+  dpi        = 100,
+  fig.retina = 1,
+  dev        = "png",
+  dev.args   = list(type = "cairo-png"),
   echo = TRUE,
-  eval = TRUE,      # default, but heavy chunks override with eval = FALSE
+  eval = TRUE,
   message = FALSE,
   warning = FALSE
 )
@@ -62,14 +66,20 @@ The package distinguishes **design priors** used for calibrating power and type 
 
 Design priors describe our assumptions about the response probabilities under each hypothesis when computing operating characteristics.
 
--   Under $H_0: p_1 = p_2$: We assume a common response probability $p$ with $$
-    p \sim \mathrm{Beta}(a_{0d}, b_{0d}),
-    $$ set via the parameters `a_0_d` and `b_0_d`.
+-   Under $H_0: p_1 = p_2$: We assume a common response probability $p$ with 
+    
+    $$p \sim \mathrm{Beta}(a_{0d}, b_{0d}),$$ 
+    
+    set via the parameters `a_0_d` and `b_0_d`.
 
--   Under $H_1: p_1 \neq p_2$: We assume independent priors for the two arms: $$
+-   Under $H_1: p_1 \neq p_2$: We assume independent priors for the two arms: 
+    
+    $$
     p_1 \sim \mathrm{Beta}(a_{1d}, b_{1d}), \quad
     p_2 \sim \mathrm{Beta}(a_{2d}, b_{2d}),
-    $$ set via the parameters `a_1_d, b_1_d` (for the control group) and `a_2_d, b_2_d` ( for the treatment group).
+    $$
+    
+    set via the parameters `a_1_d, b_1_d` (for the control group) and `a_2_d, b_2_d` ( for the treatment group).
 
 For directional tests (`test = "BF+0"`, `"BF-0"`, or `"BF+-"`), there are additional design priors under a directional-null $H_-$ (e.g. $p_2 \le p_1$), specified by `a_1_d_Hminus, b_1_d_Hminus, a_2_d_Hminus, b_2_d_Hminus`. These are used for one-sided Bayes factors only. For details on the precise specification of these tests, see @kelter_two_stage_2025.
 
@@ -77,14 +87,21 @@ For directional tests (`test = "BF+0"`, `"BF-0"`, or `"BF+-"`), there are additi
 
 Analysis priors are the priors used *inside* the Bayes factor for each hypothesis. When the hypothesis of interest is tested via the Bayes factor, the analysis priors is the prior used in the calculation of the Bayes factor itself.
 
--   Under $H_0: p_1 = p_2$, the analysis prior for the common response probability again is Beta distributed, $$
+-   Under $H_0: p_1 = p_2$, the analysis prior for the common response probability again is Beta distributed, 
+    $$
     p \sim \mathrm{Beta}(a_{0a}, b_{0a}),
-    $$ specified by the parameters `a_0_a` and `b_0_a`.
+    $$ 
+    
+    specified by the parameters `a_0_a` and `b_0_a`.
 
--   Under $H_1: p_1 \neq p_2$, we again use independent Betas for the analysis prior: $$
+-   Under $H_1: p_1 \neq p_2$, we again use independent Betas for the analysis prior: 
+
+    $$
     p_1 \sim \mathrm{Beta}(a_{1a}, b_{1a}), \quad
     p_2 \sim \mathrm{Beta}(a_{2a}, b_{2a}),
-    $$ specified via the parameters `a_1_a, b_1_a` and `a_2_a, b_2_a`.
+    $$ 
+    
+    specified via the parameters `a_1_a, b_1_a` and `a_2_a, b_2_a`.
 
 Typically, analysis priors are chosen to be relatively diffuse (e.g. Beta(1,1)), while design priors can express more specific beliefs about plausible response rates under each hypothesis. The design priors should express the assumptions or expectations about the effect of the novel treatment or drug. It influences the operating characteristics in the planning stage of the trial substantially. Even though the design priors can be highly subjective, it might still be possible to calibrate a design in terms of the resulting power and type-I-error rate. This way, even though the expectations about the effect of the novel drug or treatment might be quite optimistic, the design is legible from a regulatory agency's point of view, such as the Food and Drug Administration (FDA), see @FDA_ComplexInnovativeDesignsDecember2020 and @FDA_UseOfBayesianMethodologyJanuary2026 or @europeanmedicinesagencyICHE20Adaptive2025. In contrast, the analysis prior should be objective in the sense that the actual test carried out at the interim and final analysis is neither in favour of the null nor the alternative hypothesis.
 
@@ -105,13 +122,17 @@ The calibration algorithm proceeds in two steps:
     Conditional on this fixed-sample design, it considers all admissible interim sample sizes $(n_1^1, n_1^2)$ on a grid and, for each candidate, computes the corrected operating characteristics. Among those that satisfy the constraints, it selects the design that minimizes the expected sample size under $H_0$.
 
 The **number of interim designs** considered in step 2 is
+
 \[
 \#\{\text{interim designs}\} = \#\{n_1^1\} \times \#\{n_1^2\},
 \]
+
 where, for each arm \(j\), the admissible interim sample sizes form a grid
+
 \[
 \{n_1^j\} = \{n_{1,\min}^j,\, n_{1,\min}^j + \texttt{grid\_step},\, \dots,\, n_{2}^j - 1\}
 \]
+
 after applying the `interim_fraction` bounds. Thus \(\#\{n_1^j\}\) is the **number of grid points** between the lower and upper interim limits in arm \(j\), not the product of those bounds. Consequently, the larger the sufficient fixed-sample sizes \(n_2^1, n_2^2\) found in step 1, the larger the sets \(\{n_1^1\}\) and \(\{n_1^2\}\), the more interim designs are explored in step 2, and the longer the runtime.
 
 For example, if \(n_2^1 = n_2^2 = 40\), `n1_min = c(10, 10)` and `grid_step = 1`, then
