@@ -32,17 +32,43 @@ logo](reference/figures/imsb_logo.png)
 
 ## Main articles
 
-- [Bayes-factor-based designs in
+The software package `bfbin2arm` emerged from clinical trial designs for
+two-arm clinical phase II trials with binary endpoints, using Bayes
+factors as the primary measure of evidence. Over time, more designs were
+implemented, including one- and two-stage designs, single-arm and
+two-arm designs, designs for equivalence, non-inferiority and
+superiority tests, optimal designs which minimize the expected sample
+size under the null hypothesis, as well as different calibration modes
+for the available designs such as Bayesian, frequentist or hybrid
+calibration.
+
+![Diagram showing that bfbin2arm includes single-arm and two-arm,
+one-stage and two-stage designs, multiple calibration modes, and
+directional, two-sided, and ROPE equivalence
+tests.](reference/figures/bfbin2arm_overview.png)
+
+An overview about the implemented designs is given in:
+
+- [Clinical trial designs in
   bfbin2arm](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-overview.md)
+
+Equivalence testing in single-arm one-stage designs:
+
 - [ROPE-based trial design for single-arm one-stage phase II trials with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-design.md)
 - [Frequentist and hybrid calibration of one-stage ROPE-based designs
   for single-arm phase II
-  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage-calibration.md)
+  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-calibration.md)
+
+One-stage single-arm designs:
+
 - [Calibration of Bayesian one-stage designs for single-arm phase II
   trials with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage.md)
+
+Two-stage (optimal) single-arm designs:
+
 - [Optimal Bayesian calibration for single-arm two-stage Bayes factor
   designs](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-twostage_bayesian.md)
 - [Optimal frequentist calibration for single-arm two-stage Bayes factor
@@ -54,9 +80,15 @@ logo](reference/figures/imsb_logo.png)
 - [Optimal full calibration for single-arm two-stage Bayes factor
   designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm_twostage_full.md)
+
+One-stage two-arm designs:
+
 - [Bayesian calibration of two-arm one-stage Bayes factor designs with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm_onestage_Bayesian.md)
+
+Two-stage (optimal) two-arm designs:
+
 - [Optimal Bayesian calibration of two-arm two-stage Bayes factor
   designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm-twostage_Bayesian.md)
@@ -159,8 +191,11 @@ logo](reference/figures/imsb_logo.png)
 
 ### All vignettes
 
-- [Bayes-factor-based designs in
+- [Clinical trial designs in
   bfbin2arm](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-overview.md):
+- [Frequentist and hybrid calibration of one-stage ROPE-based designs
+  for single-arm phase II
+  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-calibration.md):
 - [ROPE-based trial design for single-arm one-stage phase II trials with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-design.md):
@@ -173,9 +208,6 @@ logo](reference/figures/imsb_logo.png)
 - [Optimal hybrid calibration for single-arm two-stage Bayes factor
   designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm_twostage_hybrid.md):
-- [Frequentist and hybrid calibration of one-stage ROPE-based designs
-  for single-arm phase II
-  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage-calibration.md):
 - [Calibration of Bayesian one-stage designs for single-arm phase II
   trials with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage.md):

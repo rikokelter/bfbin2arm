@@ -42,12 +42,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/bfbin2arm-overview.html">Bayes-factor-based designs in bfbin2arm</a></li>
+<li><a class="dropdown-item" href="articles/bfbin2arm-overview.html">Clinical trial designs in bfbin2arm</a></li>
+    <li><a class="dropdown-item" href="articles/bfbin2arm-rope-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-rope-singlearm-onestage-design.html">ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-singlearm_twostage_frequentist.html">Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-singlearm_twostage_full.html">Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-singlearm_twostage_hybrid.html">Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
-    <li><a class="dropdown-item" href="articles/bfbin2arm-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-singlearm-onestage.html">Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-singlearm-twostage_bayesian.html">Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</a></li>
     <li><a class="dropdown-item" href="articles/bfbin2arm-twoarm_onestage_Bayesian.html">Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</a></li>
@@ -97,16 +97,36 @@ bfbin2arm
 <div class="section level2">
 <h2 id="main-articles">Main articles<a class="anchor" aria-label="anchor" href="#main-articles"></a>
 </h2>
+<p>The software package <code>bfbin2arm</code> emerged from clinical trial designs for two-arm clinical phase II trials with binary endpoints, using Bayes factors as the primary measure of evidence. Over time, more designs were implemented, including one- and two-stage designs, single-arm and two-arm designs, designs for equivalence, non-inferiority and superiority tests, optimal designs which minimize the expected sample size under the null hypothesis, as well as different calibration modes for the available designs such as Bayesian, frequentist or hybrid calibration.</p>
+<div style="text-align: center; margin: 1.5em 0;">
+<p><img src="reference/figures/bfbin2arm_overview.png" alt="Diagram showing that bfbin2arm includes single-arm and two-arm, one-stage and two-stage designs, multiple calibration modes, and directional, two-sided, and ROPE equivalence tests." style="max-width: 100%; width: 700px;"></p>
+</div>
+<p>An overview about the implemented designs is given in:</p>
 <ul>
-<li><a href="articles/bfbin2arm-overview.html">Bayes-factor-based designs in bfbin2arm</a></li>
+<li><a href="articles/bfbin2arm-overview.html">Clinical trial designs in bfbin2arm</a></li>
+</ul>
+<p>Equivalence testing in single-arm one-stage designs:</p>
+<ul>
 <li><a href="articles/bfbin2arm-rope-singlearm-onestage-design.html">ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</a></li>
-<li><a href="articles/bfbin2arm-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
+<li><a href="articles/bfbin2arm-rope-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
+</ul>
+<p>One-stage single-arm designs:</p>
+<ul>
 <li><a href="articles/bfbin2arm-singlearm-onestage.html">Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</a></li>
+</ul>
+<p>Two-stage (optimal) single-arm designs:</p>
+<ul>
 <li><a href="articles/bfbin2arm-singlearm-twostage_bayesian.html">Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</a></li>
 <li><a href="articles/bfbin2arm-singlearm_twostage_frequentist.html">Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
 <li><a href="articles/bfbin2arm-singlearm_twostage_hybrid.html">Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
 <li><a href="articles/bfbin2arm-singlearm_twostage_full.html">Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
+</ul>
+<p>One-stage two-arm designs:</p>
+<ul>
 <li><a href="articles/bfbin2arm-twoarm_onestage_Bayesian.html">Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</a></li>
+</ul>
+<p>Two-stage (optimal) two-arm designs:</p>
+<ul>
 <li><a href="articles/bfbin2arm-twoarm-twostage_Bayesian.html">Optimal Bayesian calibration of two-arm two-stage Bayes factor designs with binary endpoints</a></li>
 </ul>
 </div>

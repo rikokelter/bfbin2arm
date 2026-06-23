@@ -2,8 +2,11 @@
 
 ### All vignettes
 
-- [Bayes-factor-based designs in
+- [Clinical trial designs in
   bfbin2arm](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-overview.md):
+- [Frequentist and hybrid calibration of one-stage ROPE-based designs
+  for single-arm phase II
+  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-calibration.md):
 - [ROPE-based trial design for single-arm one-stage phase II trials with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-design.md):
@@ -16,9 +19,6 @@
 - [Optimal hybrid calibration for single-arm two-stage Bayes factor
   designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm_twostage_hybrid.md):
-- [Frequentist and hybrid calibration of one-stage ROPE-based designs
-  for single-arm phase II
-  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage-calibration.md):
 - [Calibration of Bayesian one-stage designs for single-arm phase II
   trials with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage.md):

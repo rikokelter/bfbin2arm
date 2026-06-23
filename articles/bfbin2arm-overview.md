@@ -1,4 +1,4 @@
-# Bayes-factor-based designs in bfbin2arm
+# Clinical trial designs in bfbin2arm
 
 ## Introduction
 
@@ -22,6 +22,10 @@ The package covers:
   group is assumed
 - Bayesian, frequentist, hybrid, and fully calibrated design modes for
   each of these designs
+
+It is strongly recommended to use the detailed vignettes at
+<https://rikokelter.github.io/bfbin2arm/> instead of the ones provided
+here at CRAN.
 
 ## Bayes factors in single-arm phase II designs
 
