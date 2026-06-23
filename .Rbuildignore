@@ -1,0 +1,7 @@
+^doc$
+^Meta$
+^bfbin2arm-twostage\.md$
+^cran-comments\.md$
+^figure$
+^vignettes/.+_cache$
+^vignettes/.+_files$
