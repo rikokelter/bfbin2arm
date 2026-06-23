@@ -7,13 +7,13 @@ factor design for a binary endpoint. The goal is to determine the
 smallest total sample size that satisfies pre-specified Bayesian and/or
 frequentist operating characteristics. The underlying statistical theory
 is developed in (Kelter and Pawel 2025a), extended to the single-arm
-two-stage optimal setting by (Kelter and Pawel 2025b), and further
-developed to the two-arm single-stage setting by (Kelter 2026).
+two-stage optimal setting in (Kelter and Pawel 2025b), and further
+developed to the two-arm single-stage setting in (Kelter 2026).
 
 ### How to design a Bayesian trial: Overview of the calibration algorithm
 
 The workflow implemented in the package follows the fixed-sample Bayes
-factor calibration framework proposed by (Kelter and Pawel 2025a):
+factor calibration framework proposed in Kelter and Pawel (2025a):
 Choose design and analysis priors, specify an evidence threshold on the
 scale, compute operating characteristics as a function of the sample
 size, and select the smallest feasible design.
@@ -30,18 +30,24 @@ selected design and analysis priors, the prior predictive and the Bayes
 factor, the critical value $`y_{crit}`$ is found via numerical root
 finding (step 5. and 6. in Figure 1). Based on this critical value, in
 the single-arm setting, the relationship
+
 ``` math
 P(BF_{01}<1/k|H_i)=P(y>y_{crit}|H_i)
 ```
+
 holds for both hypotheses $`H_i`$, $`i\in \{0,1\}`$. When $`i=0`$, this
 implies one can easily calculate the Bayesian type-I-error rate as
+
 ``` math
 P(BF_{01}<1/k|H_0)=P(y>y_{crit}|H_0)
 ```
+
 while for $`i=1`$, the latter becomes the Bayesian power:
+
 ``` math
 P(BF_{01}<1/k|H_1)=P(y>y_{crit}|H_1)
 ```
+
 For specified target constraints $`\alpha \in (0,1)`$ and
 $`\beta \in (0,1)`$, one can then calculate the smallest
 $`n\in \mathbb{N}`$, for which
@@ -49,14 +55,18 @@ $`n\in \mathbb{N}`$, for which
 P(BF_{01}<1/k|H_0)=P(y>y_{crit}|H_0)\leq \alpha
 ```
 and
+
 ``` math
 P(BF_{01}<1/k|H_1)=P(y>y_{crit}|H_1)> 1-\beta
 ```
+
 A further metric for calibration is the probability of compelling
 evidence
+
 ``` math
 P(BF_{01}>k_f|H_0)
 ```
+
 which can likewise be calibrated to achieve at least a threshold
 $`f\in (0,1)`$. Here, the event $`BF_{01}>k_f`$ can be interpreted as
 the Bayes factor providing sufficient evidence $`k_f >0`$ in favour of
@@ -78,9 +88,11 @@ optimistic design priors via `da1 = 2.5` and `db1 = 2` under $`H_1`$, a
 flat design prior under $`H_0`$, specified via `da0 = 1` and `db0 = 1`,
 and flat analysis priors under both $`H_0`$ and $`H_1`$ (specified via
 `a0 = 1`, `b0 = 1`, `a1 = 1` and `b1 = 1`). We test the hypotheses
+
 ``` math
 H_0:p\leq 0.2 \text{ versus } H_1:p>0.2
 ```
+
 against each other, so we use the argument `type = "direction"` and set
 `p0 = 0.2`. We limit the sample size range to the minimum and maximum
 values `n_min = 10` and `n_max = 200`, and require 80% Bayesian power,
@@ -139,7 +151,7 @@ The search results can be visualized directly.
 plot(des_bayes)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-5-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-4-1.png)
 
 The left panel shows Bayesian power and type-I error, together with
 optional frequentist overlays if a point alternative is supplied.
@@ -171,9 +183,11 @@ evidence for $`H_0`$. An optional CE(H0) constraint can be imposed
 through `target_ce_h0`. This is useful when one also wants the design to
 have a sufficient probability of yielding compelling evidence in favour
 of the null hypothesis
+
 ``` math
 P(BF_01>k_f|H_0)>f
 ```
+
 for some $`f\in (0,1)`$ and futility evidence threshold $`k_f>1`$. Now,
 we use $`f=0.60`$ and $`k_f=3`$, specified via the arguments
 `target_ce_h0 = 0.60` and `k_ce = 3`. Everything else remains the same,
@@ -233,7 +247,7 @@ We can plot the resulting design:
 plot(des_bayes_ce)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-8-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-7-1.png)
 
 The plot shows that the factor which causes problems is the probability
 of compelling evidence. In the sample size range up to $`n=200`$, it
@@ -293,7 +307,7 @@ We can plot the resulting design:
 plot(des_bayes_ce50)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-11-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-10-1.png)
 Now a calibrated design can be found, as expected.
 
 ## Full Bayes-frequentist calibration
@@ -437,7 +451,7 @@ We plot the fit:
 plot(des_full_strong_ev)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-17-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-16-1.png)
 
 ### Frequentist calibration
 
@@ -560,7 +574,7 @@ fewer patients.
 plot(des_hybrid_strong_ev)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-20-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-19-1.png)
 
 The plot clearly shows that Bayesian power is the limiting factor here:
 From $`n=23`$ patients on, it passes the required 80% threshold.
@@ -616,7 +630,7 @@ specified. The following plot shows why:
 plot(des_hybrid_strong_ev_with_ce)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-22-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-21-1.png)
 The probability of compelling evidence simply does not reach the target
 60% in the specified sample size range. Thus, we could either increase
 that range by increasing `n_max` or adopting different design priors.
@@ -671,7 +685,7 @@ summary(des_hybrid_strong_ev_with_ce50)
 plot(des_hybrid_strong_ev_with_ce50)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-24-1.png)
+![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-23-1.png)
 
 ### Relationship to the two-stage design
 

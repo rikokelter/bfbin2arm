@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 <script src="bfbin2arm-singlearm_twostage_hybrid_files/kePrint-0.0.1/kePrint.js"></script><link href="bfbin2arm-singlearm_twostage_hybrid_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</h1>
                         <h4 data-toc-skip class="author"></h4>
 <p>Riko
 Kelter<br>
@@ -90,13 +94,18 @@ two-stage designs, this is often attractive because it allows you
 to:</p>
 <ul>
 <li>treat power as a prior-predictive Bayesian quantity under a
-realistic design prior for \(H_1\), and</li>
+realistic design prior for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>,
+and</li>
 <li>control type-I error in the classical frequentist sense at the null
-boundary \(p_0\).</li>
+boundary
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>.</li>
 </ul>
-<p>The decision statistic is still a Bayes factor \(BF_{01}\), and the
-design includes an interim analysis at \(n_1\) with the possibility to
-stop early for futility.</p>
+<p>The decision statistic is still a Bayes factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>,
+and the design includes an interim analysis at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mn>1</mn></msub><annotation encoding="application/x-tex">n_1</annotation></semantics></math>
+with the possibility to stop early for futility.</p>
 <div class="section level3">
 <h3 id="basics-of-hybrid-calibration">Basics of hybrid calibration<a class="anchor" aria-label="anchor" href="#basics-of-hybrid-calibration"></a>
 </h3>
@@ -106,13 +115,17 @@ stop early for futility.</p>
 <p>in <code><a href="../reference/design_singlearm_bf.html">design_singlearm_bf()</a></code>. In this mode:</p>
 <ul>
 <li>
-<em>Bayesian power</em> is calibrated using the \(H_1\) design
-prior, i.e. averaged over \(p &gt; p_0\) under a truncated Beta prior
-for directional tests.</li>
+<em>Bayesian power</em> is calibrated using the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+design prior, i.e. averaged over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p &gt; p_0</annotation></semantics></math>
+under a truncated Beta prior for directional tests.</li>
 <li>
-<em>Frequentist type-I error</em> is calibrated at \(p = p_0\),
-i.e. the probability of incorrectly rejecting \(H_0\) is controlled in
-the classical frequentist sense.</li>
+<em>Frequentist type-I error</em> is calibrated at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p = p_0</annotation></semantics></math>,
+i.e. the probability of incorrectly rejecting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+is controlled in the classical frequentist sense.</li>
 </ul>
 <p>You must specify:</p>
 <ul>
@@ -133,9 +146,9 @@ and frequentist type-I-error.</p>
 <h3 id="finding-an-optimal-hybrid-design">Finding an optimal hybrid design<a class="anchor" aria-label="anchor" href="#finding-an-optimal-hybrid-design"></a>
 </h3>
 <p>We start by constructing a hybrid-optimal design. Therefore, we
-consider the test of
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>≤</mo><mn>0.2</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>&gt;</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">H_0:p\leq 0.2 \text{ versus }H_1:p&gt;0.2</annotation></semantics></math>
-for a clinical phase II trial with binary endpoints in the treatment
+consider the test of</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>≤</mo><mn>0.2</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>&gt;</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">H_0:p\leq 0.2 \text{ versus }H_1:p&gt;0.2</annotation></semantics></math></p>
+<p>for a clinical phase II trial with binary endpoints in the treatment
 group (success / failure). The novel treatment or drug is deemed
 effective if we find sufficient evidence in favour of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>,
@@ -213,7 +226,10 @@ as follows:</p>
 <li>Bayesian power and Bayesian type-I error,</li>
 <li>frequentist type-I error and frequentist power at
 <code>dp</code>,</li>
-<li>expected sample sizes under \(H_0\) and \(H_1\),</li>
+<li>expected sample sizes under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>,</li>
 <li>feasibility and a status message.</li>
 </ul>
 <p>The search results can be plotted, too:</p>
@@ -239,17 +255,21 @@ irrelevant. They influence only the Bayesian operating characteristics.
 <p>The result shown in Figure 1 visualizes the most relevant aspects
 about the isolated optimal trial design. In the hybrid mode:</p>
 <ul>
-<li>The Bayesian power target ensures that, on average under the \(H_1\)
+<li>The Bayesian power target ensures that, on average under the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
 design prior, the design has at least the specified probability of
-producing evidence against \(H_0\). In this case, the plot shows both
-the Bayesian and frequentist power of the isolated optimal design. Note
-that while the Bayesian power meets the target constraint of 80% power,
-the frequentist power of the optimal hybrid design isolated by the
-algorithm is only about 59%.</li>
-<li>The frequentist type-I error target ensures that when \(p = p_0\),
-the probability of erroneously rejecting \(H_0\) is bounded in the usual
-sense. We see from the plot that the frequentist type-I-error rate is
-below the target threshold of 5%.</li>
+producing evidence against
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.
+In this case, the plot shows both the Bayesian and frequentist power of
+the isolated optimal design. Note that while the Bayesian power meets
+the target constraint of 80% power, the frequentist power of the optimal
+hybrid design isolated by the algorithm is only about 59%.</li>
+<li>The frequentist type-I error target ensures that when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p = p_0</annotation></semantics></math>,
+the probability of erroneously rejecting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+is bounded in the usual sense. We see from the plot that the frequentist
+type-I-error rate is below the target threshold of 5%.</li>
 <li>The probabilities to stop early for futility are also shown as well
 as the expected sample sizes under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
@@ -278,10 +298,11 @@ be the total sample size when the true response probability is
 be the probability of stopping early for futility at the interim
 analysis when the true response probability is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</p>
-<p>By construction,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<p>By construction,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 N(p) = n_1 \cdot \pi_{\text{fut}}(p) + n_2 \cdot \{1 - \pi_{\text{fut}}(p)\},
-</annotation></semantics></math> because the trial enrolls
+</annotation></semantics></math></p>
+<p>because the trial enrolls
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mn>1</mn></msub><annotation encoding="application/x-tex">n_1</annotation></semantics></math>
 patients if it stops early, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mn>2</mn></msub><annotation encoding="application/x-tex">n_2</annotation></semantics></math>
@@ -291,8 +312,8 @@ patients otherwise.</p>
 </h4>
 <p>The frequentist expected sample size at a fixed true probability
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-is simply
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">E</mi><mo>⁡</mo></mrow><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+is simply</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">E</mi><mo>⁡</mo></mrow><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \operatorname{E}_p(N) =
 n_1 \cdot \pi_{\text{fut}}(p) + n_2 \cdot \{1 - \pi_{\text{fut}}(p)\}.
 </annotation></semantics></math></p>
@@ -326,8 +347,8 @@ with support
 (for example, a truncated beta prior), the Bayesian expected sample size
 under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
-is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">E</mi><mo>⁡</mo></mrow><mi>g</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>I</mi></msub><mrow><mo stretchy="true" form="prefix">{</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo stretchy="true" form="postfix">}</mo></mrow><mspace width="0.167em"></mspace><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>p</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">E</mi><mo>⁡</mo></mrow><mi>g</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>I</mi></msub><mrow><mo stretchy="true" form="prefix">{</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo stretchy="true" form="postfix">}</mo></mrow><mspace width="0.167em"></mspace><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>p</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \operatorname{E}_g(N) =
 \int_I \left\{ n_1 \cdot \pi_{\text{fut}}(p) +
                n_2 \cdot \bigl(1 - \pi_{\text{fut}}(p)\bigr) \right\}
@@ -339,8 +360,8 @@ on the null region
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mn>0</mn></msub><annotation encoding="application/x-tex">I_0</annotation></semantics></math>,
 the Bayesian expected sample size under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
-is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">E</mi><mo>⁡</mo></mrow><msub><mi>g</mi><mn>0</mn></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><msub><mi>I</mi><mn>0</mn></msub></msub><mrow><mo stretchy="true" form="prefix">{</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo stretchy="true" form="postfix">}</mo></mrow><mspace width="0.167em"></mspace><msub><mi>g</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>p</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">E</mi><mo>⁡</mo></mrow><msub><mi>g</mi><mn>0</mn></msub></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><msub><mi>I</mi><mn>0</mn></msub></msub><mrow><mo stretchy="true" form="prefix">{</mo><msub><mi>n</mi><mn>1</mn></msub><mo>⋅</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mn>2</mn></msub><mo>⋅</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mtext mathvariant="normal">fut</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo stretchy="true" form="postfix">}</mo></mrow><mspace width="0.167em"></mspace><msub><mi>g</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>p</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \operatorname{E}_{g_0}(N) =
 \int_{I_0} \left\{ n_1 \cdot \pi_{\text{fut}}(p) +
                   n_2 \cdot \bigl(1 - \pi_{\text{fut}}(p)\bigr) \right\}
@@ -387,12 +408,15 @@ for which the trial stops more often for futility.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="sensitivity-to-the-h_1-design-prior">Sensitivity to the \(H_1\) design prior<a class="anchor" aria-label="anchor" href="#sensitivity-to-the-h_1-design-prior"></a>
+<h3 id="sensitivity-to-the-h_1-design-prior">Sensitivity to the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+design prior<a class="anchor" aria-label="anchor" href="#sensitivity-to-the-h_1-design-prior"></a>
 </h3>
-<p>Hybrid calibration naturally depends on the \(H_1\) design prior
-because Bayesian power is a prior-predictive quantity. We can explore
-this by varying <code>da1</code> and <code>db1</code> while keeping
-other settings fixed.</p>
+<p>Hybrid calibration naturally depends on the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+design prior because Bayesian power is a prior-predictive quantity. We
+can explore this by varying <code>da1</code> and <code>db1</code> while
+keeping other settings fixed.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prior_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>da1 <span class="op">=</span> <span class="fl">1.5</span>, db1 <span class="op">=</span> <span class="fl">1.0</span>, label <span class="op">=</span> <span class="st">"weakly informative"</span><span class="op">)</span>,</span>
@@ -532,23 +556,29 @@ other settings fixed.</p>
 </tbody>
 </table>
 <p>This table shows how the optimal design and its operating
-characteristics change with the \(H_1\) design prior. In particular:</p>
+characteristics change with the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+design prior. In particular:</p>
 <ul>
 <li>more concentrated priors around optimistic response rates can lead
 to smaller sample sizes and higher Bayesian power,</li>
-<li>priors with substantial mass near \(p_0\) may require larger sample
-sizes to reach the same power target.</li>
+<li>priors with substantial mass near
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>
+may require larger sample sizes to reach the same power target.</li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="adding-a-compelling-evidence-constraint-under-h_0">Adding a compelling-evidence constraint under \(H_0\)<a class="anchor" aria-label="anchor" href="#adding-a-compelling-evidence-constraint-under-h_0"></a>
+<h3 id="adding-a-compelling-evidence-constraint-under-h_0">Adding a compelling-evidence constraint under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math><a class="anchor" aria-label="anchor" href="#adding-a-compelling-evidence-constraint-under-h_0"></a>
 </h3>
 <p>Hybrid calibration can also be combined with a constraint on the
-probability of compelling evidence in favour of \(H_0\). In formulas,
-this implies we require the additional target constraint
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">Pr(BF_{01}&lt;k_f)&gt;f</annotation></semantics></math>
-for the optimal hybrid two-stage design, next to our Bayesian power and
-frequentist type-I-error requirements. Here,
+probability of compelling evidence in favour of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.
+In formulas, this implies we require the additional target
+constraint</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">Pr(BF_{01}&lt;k_f)&gt;f</annotation></semantics></math></p>
+<p>for the optimal hybrid two-stage design, next to our Bayesian power
+and frequentist type-I-error requirements. Here,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f\in (0,1)</annotation></semantics></math>
 is the threshold we set for the probability of compelling evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.
@@ -610,8 +640,9 @@ which have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">n_2 = 25</annotation></semantics></math>.</p>
 <p>In some settings, no design can satisfy all three constraints
 (Bayesian power, frequentist type-I error, compelling evidence under
-\(H_0\)). In that case, the function returns a message explaining that
-no feasible design was found.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>).
+In that case, the function returns a message explaining that no feasible
+design was found.</p>
 </div>
 </div>
 <div class="section level2">
@@ -780,7 +811,7 @@ requirement.</p>
 <span><span class="co">#&gt; $freq_en_h1</span></span>
 <span><span class="co">#&gt; [1] 28.03424</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="interpretation-of-power_cushion">Interpretation of <code>power_cushion</code><a class="anchor" aria-label="anchor" href="#interpretation-of-power_cushion"></a>
+<h3 id="interpretation-of-the-power_cushion-parameter">Interpretation of the <code>power_cushion</code> parameter<a class="anchor" aria-label="anchor" href="#interpretation-of-the-power_cushion-parameter"></a>
 </h3>
 <p>The argument <code>power_cushion</code> modifies only the first step
 of the optimization, that is, the fixed-sample anchor search. If
@@ -1009,21 +1040,25 @@ calling</p>
 <code class="sourceCode R"><span><span class="va">res_hybrid_ce_with_power_cushion</span></span></code></pre></div>
 <p>The example exemplifies that is is recommended to always use a small
 power cushion to isolate optimal designs reliably with the two-step
-algorithm underlying the function. For further details, see also <span class="citation">(Kelter and Pawel 2025a)</span> and <span class="citation">(Kelter and Pawel 2025b)</span>.</p>
+algorithm underlying the function. For further details, see also <span class="citation">Kelter and Pawel (2025a)</span> and <span class="citation">Kelter and Pawel (2025b)</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="practical-recommendations-for-hybrid-calibration">Practical recommendations for hybrid calibration<a class="anchor" aria-label="anchor" href="#practical-recommendations-for-hybrid-calibration"></a>
 </h3>
 <p>When using the hybrid mode in practice:</p>
 <ul>
-<li>Choose the \(H_1\) design prior to reflect realistic expectations
-about the treatment effect; it directly impacts Bayesian power.</li>
+<li>Choose the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+design prior to reflect realistic expectations about the treatment
+effect; it directly impacts Bayesian power.</li>
 <li>Keep the frequentist type-I error target in line with regulatory or
 scientific standards for early-phase trials (often 0.1, 0.05 or
 0.025).</li>
 <li>Use the optional <code>target_ce_h0</code> only when a minimum
-probability of compelling evidence under \(H_0\) is truly required;
-otherwise, omit it to avoid overconstraining the problem.</li>
+probability of compelling evidence under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+is truly required; otherwise, omit it to avoid overconstraining the
+problem.</li>
 </ul>
 </div>
 <div class="section level3">

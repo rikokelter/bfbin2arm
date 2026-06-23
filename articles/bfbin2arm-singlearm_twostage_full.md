@@ -1,6 +1,6 @@
 # Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints
 
-## Introduction: Background on hybrid and full calibration
+## Introduction: Hybrid and full calibration
 
 In a Bayes-factor based design, decision rules are specified through
 evidence thresholds for the Bayes factor $`BF_{01}`$ comparing a null
@@ -66,14 +66,14 @@ error control in phase II trial design.
 
 Full calibration enforces both Bayesian and frequentist constraints
 simultaneously for a single-arm two-stage design based on the Bayes
-factor \\BF\_{01}\\.
+factor $`BF_{01}`$.
 
 In this mode, the design must satisfy:
 
 - Bayesian power and Bayesian type-I error targets under specified
-  design priors for \\H_1\\ and \\H_0\\,
+  design priors for $`H_1`$ and $`H_0`$,
 - frequentist power and frequentist type-I error targets at a fixed
-  point alternative \\dp\\ and at \\p = p_0\\.
+  point alternative $`dp`$ and at $`p = p_0`$.
 
 This yields designs that simultaneously meet Bayesian planning criteria
 and frequentist calibration requirements.
@@ -89,17 +89,17 @@ in
 [`design_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.md).
 In this mode, feasibility requires:
 
-- Bayesian power (prior-predictive under \\H_1\\) to be at least
+- Bayesian power (prior-predictive under $`H_1`$) to be at least
   `target_power`,
-- Bayesian type-I error (averaged under \\H_0\\) to be at most
+- Bayesian type-I error (averaged under $`H_0`$) to be at most
   `target_type1`,
-- frequentist power at \\p = dp\\ to be at least `target_freq_power`,
-- frequentist type-I error at \\p = p_0\\ to be at most
+- frequentist power at $`p = dp`$ to be at least `target_freq_power`,
+- frequentist type-I error at $`p = p_0`$ to be at most
   `target_freq_type1`.
 
 The optional `target_ce_h0` can also be used to impose a lower bound on
-the Bayesian probability of compelling evidence in favour of \\H_0\\,
-computed under the \\H_0\\ design prior.
+the Bayesian probability of compelling evidence in favour of $`H_0`$,
+computed under the $`H_0`$ design prior.
 
 ## Overview of the different calibration modes
 
@@ -196,9 +196,9 @@ The summary reports:
 
 - the selected interim and final sample sizes (`n1`, `n2`),
 - Bayesian operating characteristics: power, type-I error, expected
-  sample sizes, and (optionally) compelling evidence under \\H_0\\,
+  sample sizes, and (optionally) compelling evidence under $`H_0`$,
 - frequentist operating characteristics: power and type-I error at
-  \\dp\\ and \\p_0\\, expected sample sizes under \\H_0\\ and \\H_1\\.
+  $`dp`$ and $`p_0`$, expected sample sizes under $`H_0`$ and $`H_1`$.
 
 A diagnostic plot illustrates how the search over interim sample sizes
 balances these constraints:
@@ -231,7 +231,7 @@ visualize the analysis and design priors under the null and alternative
 hypothesis. For the frequentist operating characteristics, these are
 irrelevant. They influence only the Bayesian operating characteristics.
 
-## Why the design with $`n_1 = 8`$ is selected
+## Why the design is selected
 
 In this example, several two-stage designs satisfy the full calibration
 constraints. In particular, both the designs with $`n_1 = 6`$ and
@@ -248,14 +248,18 @@ selected design is the one with the smallest value of `en_h0`.
 
 For the present example, the design with $`n_1 = 6`$ is fully
 calibrated, but its Bayesian expected sample size under $`H_0`$ is
+
 ``` math
 \operatorname{EN}_{H_0}^{\mathrm{Bayes}} = 13.40.
 ```
+
 The design with $`n_1 = 8`$ is also fully calibrated, but has the
 smaller value
+
 ``` math
 \operatorname{EN}_{H_0}^{\mathrm{Bayes}} = 11.09.
 ```
+
 Because $`11.09 < 13.40`$, the design with $`n_1 = 8`$ is preferred and
 is therefore returned as the optimal fully calibrated design (see also
 the upper right panel in Figure 1 which reports that expected sample
@@ -274,12 +278,14 @@ changed. For example, one might instead minimize the **frequentist**
 expected sample size under $`H_0`$, or define a compromise criterion
 based on a weighted average of the Bayesian and frequentist expected
 sample sizes under $`H_0`$, such as
+
 ``` math
 w \cdot \operatorname{EN}_{H_0}^{\mathrm{Bayes}}
 +
 (1-w) \cdot \operatorname{EN}_{H_0}^{\mathrm{Freq}},
 \qquad 0 \le w \le 1.
 ```
+
 Such extensions would make it possible to tailor the notion of
 optimality more closely to the user’s preferred balance between Bayesian
 and frequentist design perspectives.
@@ -378,7 +384,7 @@ This comparison table highlights:
 - how the chosen calibration mode influences `n1`, `n2`,
 - the trade-offs between Bayesian and frequentist power and type-I
   error,
-- differences in expected sample size under \\H_0\\ and \\H_1\\.
+- differences in expected sample size under $`H_0`$ and $`H_1`$.
 
 The full calibration design will usually be more demanding in terms of
 sample size than the purely Bayesian, purely frequentist, or hybrid

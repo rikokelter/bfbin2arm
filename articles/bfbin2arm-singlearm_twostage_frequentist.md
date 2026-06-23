@@ -3,30 +3,32 @@
 ## Introduction
 
 This vignette illustrates how to construct *frequentist* optimal
-two-stage single-arm designs using the Bayes factor \\BF\_{01}\\ as the
+two-stage single-arm designs using the Bayes factor $`BF_{01}`$ as the
 test statistic.
 
 We consider a proof-of-concept phase II trial with binary endpoint and
 hypotheses
 
-\\ H_0 : p \le p_0, \qquad H_1 : p \> p_0, \\
+``` math
+H_0 : p \leq p_0, \text{ versus } H_1 : p > p_0,
+```
 
-where \\p_0\\ is a benchmark response probability, compare (Kelter and
+where $`p_0`$ is a benchmark response probability, compare (Kelter and
 Pawel 2025a).
 
-The decision rule is based on the Bayes factor \\BF\_{01}\\ for \\H_0\\
-versus \\H_1\\:
+The decision rule is based on the Bayes factor $`BF_{01}`$ for $`H_0`$
+versus $`H_1`$:
 
-- small \\BF\_{01}\\ indicate evidence against \\H_0\\ (efficacy),
-- large \\BF\_{01}\\ indicate evidence in favour of \\H_0\\ (futility).
+- small $`BF_{01}`$ indicate evidence against $`H_0`$ (efficacy),
+- large $`BF_{01}`$ indicate evidence in favour of $`H_0`$ (futility).
 
-At the final analysis, efficacy is concluded when \\BF\_{01} \le k\\. At
-the interim analysis, futility is concluded when \\BF\_{01} \ge k_f\\.
+At the final analysis, efficacy is concluded when $`BF_{01} \leq k`$. At
+the interim analysis, futility is concluded when $`BF_{01} \geq k_f`$.
 
 In *frequentist calibration*, we require that:
 
-- the type-I error is controlled at \\p = p_0\\,
-- the power is controlled at a fixed point alternative \\p = dp\\,
+- the type-I error is controlled at $`p = p_0`$,
+- the power is controlled at a fixed point alternative $`p = dp`$,
 
 even though the decision statistic is a Bayes factor.
 
@@ -66,11 +68,8 @@ A typical choice is
 ## Manual evaluation of a two-stage design
 
 We start with a concrete two-stage design chosen manually, for example
-
-\\ n_1 = 12, \qquad n_2 = 24, \\
-
-and investigate its operating characteristics under frequentist
-calibration.
+$`n_1 = 12, n_2 = 24`$, and investigate its operating characteristics
+under frequentist calibration.
 
 ``` r
 
@@ -282,13 +281,13 @@ Under `calibration = "frequentist"`, the design has the following key
 properties:
 
 - The frequentist type-I error (probability of wrongly rejecting
-  \\H_0\\) is controlled at or below `target_freq_type1` when the true
-  response rate is \\p = p_0\\.
-- The frequentist power (probability of rejecting \\H_0\\ when \\p =
-  dp\\) is at or above `target_freq_power`.
+  $`H_0`$) is controlled at or below `target_freq_type1` when the true
+  response rate is $`p = p_0`$.
+- The frequentist power (probability of rejecting $`H_0`$ when
+  $`p = dp`$) is at or above `target_freq_power`.
 - Among all designs within the specified bounds that satisfy these
   constraints, the selected design minimizes the expected sample size
-  under \\H_0\\. Details are also provided in (Kelter and Pawel 2025b).
+  under $`H_0`$. Details are also provided in (Kelter and Pawel 2025b).
 
 The Bayesian operating characteristics are still reported, but they do
 not drive the calibration; they serve as additional information about
@@ -298,9 +297,9 @@ how the design performs under the specified design priors.
 
 When using the frequentist mode in practice:
 
-- Choose `dp` as the clinically relevant response rate under \\H_1\\
+- Choose `dp` as the clinically relevant response rate under $`H_1`$
   where you want to guarantee power.
-- Use joint priors under \\H_0\\ and \\H_1\\ that reflect realistic
+- Use joint priors under $`H_0`$ and $`H_1`$ that reflect realistic
   beliefs, even though they do not drive the calibration. The resulting
   Bayesian summaries can be informative.
 - If no feasible design is found, consider relaxing the targets or

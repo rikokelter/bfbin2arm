@@ -20,16 +20,21 @@ tests for such trials:
 ``` math
 H_0:p_1=p_2 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:p_1\neq p_2
 ```
+
 Alternatively, a well-known parameterization of this test introduces a
 difference parameter $`\eta=p_2-p_1`$ and the grand mean
 $`\zeta=\frac{1}{2}(p_1+p_2)`$. Using this parameterization, we have
+
 ``` math
 p_1=\zeta-\frac{\eta}{2}, \hspace{1cm} p_2=\zeta+\frac{\eta}{2}
 ```
+
 and the hypotheses can be rewritten as:
+
 ``` math
 H_0:\eta = 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta \neq 0
 ```
+
 Next to this two-sided test, three directional tests are available in
 the package:
 
@@ -60,29 +65,37 @@ binomial likelihood, and when chosen as the prior, the posterior
 $`P_{p \mid Y}`$ is also Beta-distributed. A natural choice for the
 priors is the beta distribution. We assume independent Beta design
 priors $`H_0`$ as follows:
+
 ``` math
 p_1 =p_2 = p\mid H_0 \sim \mathrm{Beta}(a_0^d,b_0^d)
 ```
+
 Thus, under $`H_0:\eta = 0`$, both probabilities are identical,
 $`p_1=p_2`$, and take some value $`p\in [0,1]`$, which has a beta design
 prior. Likewise, we pick independent Beta design priors under
 $`H_1:\eta \neq 0`$:
+
 ``` math
 p_1 \mid H_1 \sim \mathrm{Beta}(a_1^d,b_1^d), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_2^d,b_2^d)
 ```
+
 For the analysis priors $`P_{p_1}^a`$, $`P_{p_2}^a`$ under $`H_1`$, we
 also choose independent Beta priors, with possibly different values
 $`a_i^a`$ and $`b_i^a`$ for $`i=1,2`$, where the superscript signals
 that the hyperparameters belong to our analysis instead of design prior:
+
 ``` math
 p_1 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a)
 ```
+
 Lastly, for the analysis prior $`P_{p}^a`$ under $`H_0:\eta=0`$, we
 choose a Dirac prior with all probability on $`\eta=p_2-p_1=0`$
 conditionally on a uniform prior on $`\zeta`$, that is
+
 ``` math
 p_1=p_2=p|H_0 \sim 1_{\{\eta=0\}}| \zeta \sim U(0,1)
 ```
+
 for the analysis with the Bayes factor.
 
 ## Using the package
@@ -105,7 +118,7 @@ and control) and binary endpoints. We assume further that one of the
 four tests detailed above is carried out using Bayes factors as the test
 criterion.
 
-### ICT-107 Phase II Trial Overview
+## ICT-107 Phase II Trial Overview
 
 The ICT-107 trial (Wen et al. 2019) was a randomized phase II study in
 newly diagnosed glioblastoma patients (n=124, 2:1 randomization). The
@@ -923,7 +936,7 @@ For a Bayesian calibration only, it suffices if $`n_1=28`$ patients in
 the control arm and $`n_2=55`$ in the treatment arm are enrolled in the
 trial.
 
-### Summary
+## Summary
 
 This vignette has illustrated how to design and calibrate two‑arm
 one‑stage Bayes factor trials with binary endpoints using the

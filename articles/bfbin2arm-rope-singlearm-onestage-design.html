@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</h1>
                         <h4 data-toc-skip class="author"><div class="line-block">Riko Kelter<br>
 Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine<br>
@@ -94,13 +98,15 @@ al. (2020)</span>, <span class="citation">Linde et al. (2023)</span>,
 <span class="citation">Lakens et al. (2018)</span>, <span class="citation">Wellek (2010)</span> and <span class="citation">Pan et
 al. (2025)</span>. The idea to replace the test of a point-null
 hypothesis with a small-interval goes at least back until <span class="citation">Hodges and Lehmann (1954)</span>.</p>
-<div class="section level3">
-<h3 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
-</h3>
-<p>We consider a single-arm binomial model
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>∣</mo><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+</div>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
+<p>We consider a single-arm binomial model</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>∣</mo><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 Y \mid p \sim \mathrm{Binomial}(n, p),
-</annotation></semantics></math> where
+</annotation></semantics></math></p>
+<p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>
 is the number of responders among
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -110,75 +116,84 @@ is the true response probability under the experimental treatment. We
 fix a benchmark response rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>
 (e.g. historical control or standard of care) and define the risk
-difference
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">
+difference</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">
 \Delta = p - p_0
-</annotation></semantics></math> We work with a symmetric ROPE
-formulation on the risk-difference scale. Let
+</annotation></semantics></math></p>
+<p>We work with a symmetric ROPE formulation on the risk-difference
+scale. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\Delta = p - p_0</annotation></semantics></math>
 denote the risk difference between the experimental treatment and the
 benchmark response probability
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>,
 and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta &gt; 0</annotation></semantics></math>
-be the equivalence margin. On the risk-difference scale we define
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>δ</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">
+be the equivalence margin. On the risk-difference scale we define</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>δ</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">
 H_0:\; |\Delta| &gt; \delta,
-</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>δ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>δ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
 H_1:\; |\Delta| \le \delta.
 </annotation></semantics></math></p>
-<p>Equivalently, on the response-probability scale the ROPE is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>∩</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<p>Equivalently, on the response-probability scale the ROPE is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>∩</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 [p_0 - \delta,\; p_0 + \delta] \cap (0,1),
-</annotation></semantics></math> and the hypotheses can be written as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mi>p</mi><mo>∉</mo><mo stretchy="false" form="prefix">[</mo><mspace width="0.167em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">]</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></p>
+<p>and the hypotheses can be written as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mi>p</mi><mo>∉</mo><mo stretchy="false" form="prefix">[</mo><mspace width="0.167em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">]</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 H_0:\; p \notin [\,p_0 - \delta,\; p_0 + \delta\,],
-</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mspace width="0.167em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mspace width="0.278em"></mspace><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mspace width="0.167em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 H_1:\; p \in [\,p_0 - \delta,\; p_0 + \delta\,].
 </annotation></semantics></math></p>
 </div>
-<div class="section level3">
-<h3 id="the-region-of-practical-equivalence-rope">The region of practical equivalence (ROPE)<a class="anchor" aria-label="anchor" href="#the-region-of-practical-equivalence-rope"></a>
-</h3>
+<div class="section level2">
+<h2 id="the-region-of-practical-equivalence-rope">The region of practical equivalence (ROPE)<a class="anchor" aria-label="anchor" href="#the-region-of-practical-equivalence-rope"></a>
+</h2>
 <p>The <strong>region of practical equivalence (ROPE)</strong> on the
-risk-difference scale is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℛ</mi><mi mathvariant="normal">Δ</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mi>δ</mi><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+risk-difference scale is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℛ</mi><mi mathvariant="normal">Δ</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mi>δ</mi><mo>,</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \mathcal{R}_\Delta = [-\delta, \delta],
-</annotation></semantics></math> where
+</annotation></semantics></math></p>
+<p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta &gt; 0</annotation></semantics></math>
 is a prespecified equivalence margin. Equivalently, on the
 response-probability scale the ROPE for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℛ</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>∩</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℛ</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>∩</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \mathcal{R}_p = [p_0 - \delta,\; p_0 + \delta] \cap (0,1).
 </annotation></semantics></math></p>
-<p>Given a beta analysis prior
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<p>Given a beta analysis prior</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \sim \mathrm{Beta}(a, b),
-</annotation></semantics></math> the posterior after observing
+</annotation></semantics></math></p>
+<p>the posterior after observing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">Y = y</annotation></semantics></math>
-is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>y</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>y</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \mid y \sim \mathrm{Beta}(a + y,\; b + n - y),
-</annotation></semantics></math> and the posterior ROPE probability is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>y</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><msub><mi>F</mi><mrow><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>F</mi><mrow><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></p>
+<p>and the posterior ROPE probability is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>y</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><msub><mi>F</mi><mrow><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>F</mi><mrow><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \Pr\bigl(p \in \mathcal{R}_p \mid y\bigr)
   = F_{\mathrm{Beta}(a+y,\,b+n-y)}(p_0 + \delta)
   - F_{\mathrm{Beta}(a+y,\,b+n-y)}(p_0 - \delta),
-</annotation></semantics></math> with endpoints truncated to
+</annotation></semantics></math></p>
+<p>with endpoints truncated to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>
 if needed. A ROPE-based equivalence decision rule declares
-<strong>practical equivalence</strong> if
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>y</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<strong>practical equivalence</strong> if</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>y</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \Pr\bigl(p \in \mathcal{R}_p \mid y\bigr) \ge \gamma_{\mathrm{eq}},
-</annotation></semantics></math> where
+</annotation></semantics></math></p>
+<p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\gamma_{\mathrm{eq}} \in (0.5, 1)</annotation></semantics></math>
 is a pre-specified evidence threshold.</p>
 </div>
-<div class="section level3">
-<h3 id="design-and-analysis-priors">Design and analysis priors<a class="anchor" aria-label="anchor" href="#design-and-analysis-priors"></a>
-</h3>
+<div class="section level2">
+<h2 id="design-and-analysis-priors">Design and analysis priors<a class="anchor" aria-label="anchor" href="#design-and-analysis-priors"></a>
+</h2>
 <p>At the <strong>design stage</strong> we distinguish between three
 priors:</p>
 <ul>
@@ -202,22 +217,22 @@ centred away from the ROPE.</li>
 under equivalence and non-equivalence, respectively. Under the
 equivalence design prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\pi_1</annotation></semantics></math>
-we define <strong>ROPE-based Bayesian power</strong> as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Power</mtext><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>1</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+we define <strong>ROPE-based Bayesian power</strong> as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Power</mtext><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>1</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \text{Power}_\text{ROPE}(n)
 = \Pr_{\pi_1}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr),
-</annotation></semantics></math> and under the non-equivalence design
-prior
+</annotation></semantics></math></p>
+<p>and under the non-equivalence design prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\pi_0</annotation></semantics></math>
-we define the <strong>ROPE-based Bayesian type-I error</strong> as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>0</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+we define the <strong>ROPE-based Bayesian type-I error</strong> as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>0</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \alpha_\text{ROPE}(n)
 = \Pr_{\pi_0}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr).
 </annotation></semantics></math></p>
 </div>
-<div class="section level3">
-<h3 id="rope-decision-illustrations">ROPE decision illustrations<a class="anchor" aria-label="anchor" href="#rope-decision-illustrations"></a>
-</h3>
+<div class="section level2">
+<h2 id="rope-decision-illustrations">ROPE decision illustrations<a class="anchor" aria-label="anchor" href="#rope-decision-illustrations"></a>
+</h2>
 <p>In this section we illustrate the ROPE-based decision rule for four
 prototypical outcomes in a single-arm binomial model with analysis prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p \sim \mathrm{Beta}(1,1)</annotation></semantics></math>,
@@ -231,11 +246,12 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">Y = y</annotation></semantics></math>
 out of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-patients, the posterior is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>y</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+patients, the posterior is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>y</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>y</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \mid y \sim \mathrm{Beta}(a + y,\; b + n - y),
-</annotation></semantics></math> and the symmetric ROPE probability is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>δ</mi><mo>∣</mo><mi>y</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>≤</mo><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo>∣</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></p>
+<p>and the symmetric ROPE probability is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>δ</mi><mo>∣</mo><mi>y</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>≤</mo><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo>∣</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \Pr\bigl(|p - p_0| \le \delta \mid y\bigr)
   = \Pr(p_0 - \delta \le p \le p_0 + \delta \mid y).
 </annotation></semantics></math></p>
@@ -253,16 +269,16 @@ p \mid y \sim \mathrm{Beta}(a + y,\; b + n - y),
 <p>with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo>=</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></msub><mo>=</mo><mn>0.80</mn></mrow><annotation encoding="application/x-tex">\gamma_{\mathrm{eq}} = \gamma_{\mathrm{diff}} = 0.80</annotation></semantics></math>
 in the examples below.</p>
-<div class="section level4">
-<h4 id="equivalence-accepted">1) Equivalence accepted<a class="anchor" aria-label="anchor" href="#equivalence-accepted"></a>
-</h4>
+<div class="section level3">
+<h3 id="equivalence-accepted">1) Equivalence accepted<a class="anchor" aria-label="anchor" href="#equivalence-accepted"></a>
+</h3>
 <p>We choose an outcome
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n, y)</annotation></semantics></math>
 for which the posterior is concentrated inside the ROPE and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>δ</mi><mo>∣</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\Pr(|p - p_0| \le \delta \mid y) \ge \gamma_{\mathrm{eq}}</annotation></semantics></math>,
 so the decision is to <strong>accept equivalence</strong>.</p>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="Figure 1: Illustration of the first possible scenario in a ROPE-based clinical phase II trial with binary endpoints: Equivalence is accepted, because sufficient posterior probability mass concentrates inside the ROPE. The true data-generating process follows the alternative hypothesis, that is, equivalence indeed holds." width="80%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-scenario1.png" class="r-plt" alt="Figure 1: Illustration of the first possible scenario in a ROPE-based clinical phase II trial with binary endpoints: Equivalence is accepted, because sufficient posterior probability mass concentrates inside the ROPE. The true data-generating process follows the alternative hypothesis, that is, equivalence indeed holds." width="80%"><p class="caption">
 Figure 1: Illustration of the first possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Equivalence is accepted,
 because sufficient posterior probability mass concentrates inside the
@@ -272,10 +288,10 @@ hypothesis, that is, equivalence indeed holds.
 </div>
 <p>The plot illustrates this first possible outcome.</p>
 </div>
-<div class="section level4">
-<h4 id="type-i-error-equivalence-concluded-under-the-null-hypothesis">2) Type-I error: equivalence concluded under the null
+<div class="section level3">
+<h3 id="type-i-error-equivalence-concluded-under-the-null-hypothesis">2) Type-I error: equivalence concluded under the null
 hypothesis<a class="anchor" aria-label="anchor" href="#type-i-error-equivalence-concluded-under-the-null-hypothesis"></a>
-</h4>
+</h3>
 <p>Conceptually, a type-I error occurs when the <em>true</em>
 data-generating process is non-equivalent
 (e.g. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.55</mn></mrow><annotation encoding="application/x-tex">p = 0.55</annotation></semantics></math>
@@ -305,7 +321,7 @@ is plausible under a non-equivalence scenario (e.g. generated from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
 so that this happens:</p>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="Figure 2: Illustration of the second possible scenario in a ROPE-based clinical phase II trial with binary endpoints: Equivalence is accepted, because sufficient posterior probability mass concentrates inside the ROPE. In contrast to the first possible scenario, the true data-generating process follows the null hypothesis. Thus, a ROPE-based type-I-error occurs." width="80%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-scenario2.png" class="r-plt" alt="Figure 2: Illustration of the second possible scenario in a ROPE-based clinical phase II trial with binary endpoints: Equivalence is accepted, because sufficient posterior probability mass concentrates inside the ROPE. In contrast to the first possible scenario, the true data-generating process follows the null hypothesis. Thus, a ROPE-based type-I-error occurs." width="80%"><p class="caption">
 Figure 2: Illustration of the second possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Equivalence is accepted,
 because sufficient posterior probability mass concentrates inside the
@@ -321,9 +337,9 @@ lies outside the ROPE (under
 but due to sampling variability the posterior still concentrates enough
 mass inside the ROPE to meet the equivalence threshold.</p>
 </div>
-<div class="section level4">
-<h4 id="indecisive-result">3) Indecisive result<a class="anchor" aria-label="anchor" href="#indecisive-result"></a>
-</h4>
+<div class="section level3">
+<h3 id="indecisive-result">3) Indecisive result<a class="anchor" aria-label="anchor" href="#indecisive-result"></a>
+</h3>
 <p>Here we choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n,y)</annotation></semantics></math>
 such that neither threshold is reached:</p>
@@ -336,7 +352,7 @@ such that neither threshold is reached:</p>
 <p>The posterior spreads substantial mass both inside and outside the
 ROPE, and the decision is <strong>indecisive</strong>.</p>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="Figure 3: Illustration of the third possible scenario in a ROPE-based clinical phase II trial with binary endpoints: The result is indecisive, because neither does sufficient posterior probability mass concentrate inside the ROPE, nor outside the ROPE." width="80%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-scenario3.png" class="r-plt" alt="Figure 3: Illustration of the third possible scenario in a ROPE-based clinical phase II trial with binary endpoints: The result is indecisive, because neither does sufficient posterior probability mass concentrate inside the ROPE, nor outside the ROPE." width="80%"><p class="caption">
 Figure 3: Illustration of the third possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: The result is indecisive,
 because neither does sufficient posterior probability mass concentrate
@@ -344,15 +360,15 @@ inside the ROPE, nor outside the ROPE.
 </p>
 </div>
 </div>
-<div class="section level4">
-<h4 id="clear-non-equivalence">4) Clear non-equivalence<a class="anchor" aria-label="anchor" href="#clear-non-equivalence"></a>
-</h4>
+<div class="section level3">
+<h3 id="clear-non-equivalence">4) Clear non-equivalence<a class="anchor" aria-label="anchor" href="#clear-non-equivalence"></a>
+</h3>
 <p>Finally, we choose an outcome where the posterior lies mostly outside
 the ROPE, so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo>−</mo><msub><mi>p</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>δ</mi><mo>∣</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\Pr(|p - p_0| &gt; \delta \mid y) \ge \gamma_{\mathrm{diff}}</annotation></semantics></math>
 and we <strong>accept non-equivalence</strong>.</p>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="Figure 4: Illustration of the fourth possible scenario in a ROPE-based clinical phase II trial with binary endpoints: Non-equivalence is accepted, because sufficient posterior probability mass concentrates outside the ROPE." width="80%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-scenario4.png" class="r-plt" alt="Figure 4: Illustration of the fourth possible scenario in a ROPE-based clinical phase II trial with binary endpoints: Non-equivalence is accepted, because sufficient posterior probability mass concentrates outside the ROPE." width="80%"><p class="caption">
 Figure 4: Illustration of the fourth possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Non-equivalence is
 accepted, because sufficient posterior probability mass concentrates
@@ -362,7 +378,6 @@ outside the ROPE.
 <p>In this last case, the treatment is worse than the standard of care
 with success probability
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>.</p>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -518,7 +533,7 @@ textual summary:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_baseline</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="Figure 5: Illustration of calibrated single-arm one-stage design of a ROPE-based clinical phase II trial with binary endpoint." width="100%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig5.png" class="r-plt" alt="Figure 5: Illustration of calibrated single-arm one-stage design of a ROPE-based clinical phase II trial with binary endpoint." width="100%"><p class="caption">
 Figure 5: Illustration of calibrated single-arm one-stage design of a
 ROPE-based clinical phase II trial with binary endpoint.
 </p>
@@ -547,7 +562,7 @@ decision region:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_baseline</span>, what <span class="op">=</span> <span class="st">"operating_characteristics"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="Figure 6: Visualization of the operating characteristics of a calibrated single-arm one-stage design of a ROPE-based clinical phase II trial with binary endpoint." width="80%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig6.png" class="r-plt" alt="Figure 6: Visualization of the operating characteristics of a calibrated single-arm one-stage design of a ROPE-based clinical phase II trial with binary endpoint." width="80%"><p class="caption">
 Figure 6: Visualization of the operating characteristics of a calibrated
 single-arm one-stage design of a ROPE-based clinical phase II trial with
 binary endpoint.
@@ -556,7 +571,7 @@ binary endpoint.
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_baseline</span>, what <span class="op">=</span> <span class="st">"decision_region"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="Figure 7: Visualization of the equivalence region for increasing sample size of a calibrated single-arm one-stage design of a ROPE-based clinical phase II trial with binary endpoint." width="80%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig7.png" class="r-plt" alt="Figure 7: Visualization of the equivalence region for increasing sample size of a calibrated single-arm one-stage design of a ROPE-based clinical phase II trial with binary endpoint." width="80%"><p class="caption">
 Figure 7: Visualization of the equivalence region for increasing sample
 size of a calibrated single-arm one-stage design of a ROPE-based
 clinical phase II trial with binary endpoint.
@@ -596,8 +611,8 @@ when the true ORR is clearly better or worse than 0.25
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>0</mn></msub><mo>=</mo><mn>0.30</mn></mrow><annotation encoding="application/x-tex">p_0 = 0.30</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>0.12</mn></mrow><annotation encoding="application/x-tex">\delta = 0.12</annotation></semantics></math>.
-The ROPE for equivalence is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℛ</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mn>0.18</mn><mo>,</mo><mn>0.42</mn><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+The ROPE for equivalence is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℛ</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>p</mi><mn>0</mn></msub><mo>−</mo><mi>δ</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>p</mi><mn>0</mn></msub><mo>+</mo><mi>δ</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mn>0.18</mn><mo>,</mo><mn>0.42</mn><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \mathcal{R}_p = [p_0 - \delta,\; p_0 + \delta] = [0.18, 0.42].
 </annotation></semantics></math></p>
 <p>We formulate the hypotheses as</p>
@@ -631,33 +646,42 @@ if
 </h3>
 <p>We separate the analysis prior from the design priors.</p>
 <ul>
-<li><p><strong>Analysis prior</strong> for ORR:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+<li>
+<p><strong>Analysis prior</strong> for ORR:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \sim \mathrm{Beta}(1,1),
-</annotation></semantics></math> a uniform prior on
+</annotation></semantics></math></p>
+<p>a uniform prior on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>,
-reflecting weak prior information.</p></li>
-<li><p><strong>Design prior under equivalence</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>b</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>36</mn><mo>,</mo><mn>84</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+reflecting weak prior information.</p>
+</li>
+<li>
+<p><strong>Design prior under equivalence</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>b</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>36</mn><mo>,</mo><mn>84</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \sim \mathrm{Beta}(a_1, b_1) = \mathrm{Beta}(36, 84),
-</annotation></semantics></math> which has mean
+</annotation></semantics></math></p>
+<p>which has mean
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>36</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>36</mn><mo>+</mo><mn>84</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.30</mn></mrow><annotation encoding="application/x-tex">36 / (36 + 84) = 0.30</annotation></semantics></math>
 and moderate concentration around
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>0</mn></msub><mo>=</mo><mn>0.30</mn></mrow><annotation encoding="application/x-tex">p_0 = 0.30</annotation></semantics></math>.
 This prior represents plausible ORR values under practical
-equivalence.</p></li>
-<li><p><strong>Design prior under non-equivalence</strong>
+equivalence.</p>
+</li>
+<li>
+<p><strong>Design prior under non-equivalence</strong>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>:
 we consider superior scenarios where ORR is clinically higher than 0.42.
-For concreteness we choose
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>60</mn><mo>,</mo><mn>40</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+For concreteness we choose</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>60</mn><mo>,</mo><mn>40</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \sim \mathrm{Beta}(60, 40),
-</annotation></semantics></math> which is centred at 0.6 and places most
-mass clearly outside the ROPE interval [0.18, 0.42]. This prior
-represents clinically relevant departures from equivalence (e.g. strong
-improvement), and is used to quantify ROPE-based type-I error for
-wrongly declaring equivalence in such scenarios.</p></li>
+</annotation></semantics></math></p>
+<p>which is centred at 0.6 and places most mass clearly outside the ROPE
+interval [0.18, 0.42]. This prior represents clinically relevant
+departures from equivalence (e.g. strong improvement), and is used to
+quantify ROPE-based type-I error for wrongly declaring equivalence in
+such scenarios.</p>
+</li>
 </ul>
 <p>These design priors induce beta–binomial predictive distributions for
 the response count
@@ -669,15 +693,15 @@ and
 respectively.</p>
 <p>Under the equivalence design prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\pi_1</annotation></semantics></math>,
-the ROPE-based Bayesian power is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Power</mtext><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>1</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+the ROPE-based Bayesian power is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Power</mtext><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>1</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \text{Power}_\text{ROPE}(n)
 = \Pr_{\pi_1}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr),
-</annotation></semantics></math> and under the non-equivalence design
-prior
+</annotation></semantics></math></p>
+<p>and under the non-equivalence design prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\pi_0</annotation></semantics></math>,
-the ROPE-based Bayesian type-I error is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>0</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+the ROPE-based Bayesian type-I error is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mtext mathvariant="normal">ROPE</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">Pr</mi><msub><mi>π</mi><mn>0</mn></msub></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∈</mo><msub><mi>ℛ</mi><mi>p</mi></msub><mo>∣</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>γ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \alpha_\text{ROPE}(n)
 = \Pr_{\pi_0}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr).
 </annotation></semantics></math></p>
@@ -775,7 +799,7 @@ more detail.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_onc</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="Figure 8: Visualization of the calibrated ROPE-based oncology single-arm one-stage phase II design with binary endpoints." width="100%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig8.png" class="r-plt" alt="Figure 8: Visualization of the calibrated ROPE-based oncology single-arm one-stage phase II design with binary endpoints." width="100%"><p class="caption">
 Figure 8: Visualization of the calibrated ROPE-based oncology single-arm
 one-stage phase II design with binary endpoints.
 </p>
@@ -801,7 +825,7 @@ we can plot the decision region directly:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_onc</span>, what <span class="op">=</span> <span class="st">"decision_region"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="Figure 9: Visualization of the equivalence region of ROPE-based oncology single-arm one-stage phase II designs with binary endpoints for increasing sample size." width="100%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig9.png" class="r-plt" alt="Figure 9: Visualization of the equivalence region of ROPE-based oncology single-arm one-stage phase II designs with binary endpoints for increasing sample size." width="100%"><p class="caption">
 Figure 9: Visualization of the equivalence region of ROPE-based oncology
 single-arm one-stage phase II designs with binary endpoints for
 increasing sample size.
@@ -926,15 +950,16 @@ and posterior probability thresholds.</caption>
 </tbody>
 </table>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="Figure 10: Calibrated sample size n* across ROPE widths and posterior thresholds for the oncology equivalence phase II trial." width="100%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig10.png" class="r-plt" alt="Figure 10: Calibrated sample size n* across ROPE widths and posterior thresholds for the oncology equivalence phase II trial." width="80%"><p class="caption">
 Figure 10: Calibrated sample size n* across ROPE widths and posterior
 thresholds for the oncology equivalence phase II trial.
 </p>
 </div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="Figure 10: Calibrated sample size n* across ROPE widths and posterior thresholds for the oncology equivalence phase II trial." width="100%"><p class="caption">
-Figure 10: Calibrated sample size n* across ROPE widths and posterior
-thresholds for the oncology equivalence phase II trial.
+<img src="figures/singlearm-onestage-rope-fig11.png" class="r-plt" alt="Figure 10: ROPE-based Bayesian type-I-error at the calibrated sample sizes for the oncology equivalence phase II trial for different ROPE widths." width="80%"><p class="caption">
+Figure 10: ROPE-based Bayesian type-I-error at the calibrated sample
+sizes for the oncology equivalence phase II trial for different ROPE
+widths.
 </p>
 </div>
 <hr>
@@ -1041,9 +1066,9 @@ design:</p>
 <span><span class="co">#&gt;  at p0 + delta: 0.0784 </span></span>
 <span><span class="co">#&gt; Equivalence region: {39-63}</span></span>
 <span><span class="co">#&gt; Compelling evidence for non-equivalence region: {0-24, 81-173}</span></span></code></pre></div>
-You can summarise and visualise the calibrated design:
+<p>You can summarise and visualise the calibrated design:</p>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="Figure 12: Calibrated one-stage ROPE-based oncology equivalence phase II design with additional constraints on the probability of compelling evidence for the null hypothesis. In contrast to the earlier example, the probability of compelling evidence must reach 80% now, and frequentist power and type-I-error rate must also fulfill their respective target constraints of 80% and 10%." width="100%"><p class="caption">
+<img src="figures/singlearm-onestage-rope-fig12.png" class="r-plt" alt="Figure 12: Calibrated one-stage ROPE-based oncology equivalence phase II design with additional constraints on the probability of compelling evidence for the null hypothesis. In contrast to the earlier example, the probability of compelling evidence must reach 80% now, and frequentist power and type-I-error rate must also fulfill their respective target constraints of 80% and 10%." width="100%"><p class="caption">
 Figure 12: Calibrated one-stage ROPE-based oncology equivalence phase II
 design with additional constraints on the probability of compelling
 evidence for the null hypothesis. In contrast to the earlier example,
@@ -1215,9 +1240,10 @@ how the <strong>same posterior-threshold decision rule</strong> can be
 calibrated to satisfy additional Bayesian and frequentist criteria,
 including a lower bound on predictive compelling evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.</p>
-<div class="section level3">
-<h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 <p>This vignette has shown how
 <code><a href="../reference/design_singlearm_onestage_rope.html">design_singlearm_onestage_rope()</a></code> can be used to:</p>
 <ul>
@@ -1232,9 +1258,9 @@ collaboratively with clinicians, to arrive at a design where the ROPE
 region, evidence thresholds, and priors are all clinically interpretable
 and the resulting sample size is operationally feasible.</p>
 </div>
-<div class="section level3">
-<h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h3>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-chenBayesianTwostageDesign2022" class="csl-entry">
 Chen, Lichang, Jianhong Pan, Yanpeng Wu, et al. 2022. <span>“Bayesian
@@ -1321,7 +1347,6 @@ Wellek, Stefan. 2010. <em>Testing <span>Statistical Hypotheses</span> of
 <span>Equivalence</span> and <span>Noninferiority</span></em>. In
 <em>Testing Statistical Hypotheses of Equivalence and
 Noninferiority</em>. CRC Press. <a href="https://doi.org/10.1201/ebk1439808184" class="external-link">https://doi.org/10.1201/ebk1439808184</a>.
-</div>
 </div>
 </div>
 </div>

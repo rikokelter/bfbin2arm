@@ -63,17 +63,21 @@ under each hypothesis when computing operating characteristics.
 
 - Under $`H_0: p_1 = p_2`$: We assume a common response probability
   $`p`$ with
+
   ``` math
   p \sim \mathrm{Beta}(a_{0d}, b_{0d}),
   ```
+
   set via the parameters `a_0_d` and `b_0_d`.
 
 - Under $`H_1: p_1 \neq p_2`$: We assume independent priors for the two
   arms:
+
   ``` math
   p_1 \sim \mathrm{Beta}(a_{1d}, b_{1d}), \quad
   p_2 \sim \mathrm{Beta}(a_{2d}, b_{2d}),
   ```
+
   set via the parameters `a_1_d, b_1_d` (for the control group) and
   `a_2_d, b_2_d` ( for the treatment group).
 
@@ -96,14 +100,17 @@ Bayes factor itself.
   ``` math
   p \sim \mathrm{Beta}(a_{0a}, b_{0a}),
   ```
+
   specified by the parameters `a_0_a` and `b_0_a`.
 
 - Under $`H_1: p_1 \neq p_2`$, we again use independent Betas for the
   analysis prior:
+
   ``` math
   p_1 \sim \mathrm{Beta}(a_{1a}, b_{1a}), \quad
   p_2 \sim \mathrm{Beta}(a_{2a}, b_{2a}),
   ```
+
   specified via the parameters `a_1_a, b_1_a` and `a_2_a, b_2_a`.
 
 Typically, analysis priors are chosen to be relatively diffuse
@@ -157,14 +164,18 @@ The calibration algorithm proceeds in two steps:
     minimizes the expected sample size under $`H_0`$.
 
 The **number of interim designs** considered in step 2 is
+
 ``` math
 \#\{\text{interim designs}\} = \#\{n_1^1\} \times \#\{n_1^2\},
 ```
+
 where, for each arm $`j`$, the admissible interim sample sizes form a
 grid
+
 ``` math
 \{n_1^j\} = \{n_{1,\min}^j,\, n_{1,\min}^j + \texttt{grid\_step},\, \dots,\, n_{2}^j - 1\}
 ```
+
 after applying the `interim_fraction` bounds. Thus $`\#\{n_1^j\}`$ is
 the **number of grid points** between the lower and upper interim limits
 in arm $`j`$, not the product of those bounds. Consequently, the larger

@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</h1>
                         <h4 data-toc-skip class="author"><div class="line-block">Riko Kelter<br>
 Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine<br>
@@ -102,17 +106,17 @@ respectively
 </h3>
 <p>In its current form, the package implements four different hypothesis
 tests for such trials:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mspace width="2.381em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><mspace width="2.381em"></mspace><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>≠</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p_1=p_2 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:p_1\neq p_2</annotation></semantics></math>
-Alternatively, a well-known parameterization of this test introduces a
-difference parameter
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mspace width="2.381em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><mspace width="2.381em"></mspace><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>≠</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p_1=p_2 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:p_1\neq p_2</annotation></semantics></math></p>
+<p>Alternatively, a well-known parameterization of this test introduces
+a difference parameter
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\eta=p_2-p_1</annotation></semantics></math>
 and the grand mean
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\zeta=\frac{1}{2}(p_1+p_2)</annotation></semantics></math>.
-Using this parameterization, we have
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mi>ζ</mi><mo>−</mo><mfrac><mi>η</mi><mn>2</mn></mfrac><mo>,</mo><mspace width="2.381em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi>ζ</mi><mo>+</mo><mfrac><mi>η</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">p_1=\zeta-\frac{\eta}{2}, \hspace{1cm} p_2=\zeta+\frac{\eta}{2}</annotation></semantics></math>
-and the hypotheses can be rewritten as:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>η</mi><mo>=</mo><mn>0</mn><mspace width="2.381em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><mspace width="2.381em"></mspace><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>η</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\eta = 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta \neq 0</annotation></semantics></math>
-Next to this two-sided test, three directional tests are available in
+Using this parameterization, we have</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mi>ζ</mi><mo>−</mo><mfrac><mi>η</mi><mn>2</mn></mfrac><mo>,</mo><mspace width="2.381em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi>ζ</mi><mo>+</mo><mfrac><mi>η</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">p_1=\zeta-\frac{\eta}{2}, \hspace{1cm} p_2=\zeta+\frac{\eta}{2}</annotation></semantics></math></p>
+<p>and the hypotheses can be rewritten as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>η</mi><mo>=</mo><mn>0</mn><mspace width="2.381em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><mspace width="2.381em"></mspace><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>η</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\eta = 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta \neq 0</annotation></semantics></math></p>
+<p>Next to this two-sided test, three directional tests are available in
 the package:</p>
 <ul>
 <li><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>η</mi><mo>≤</mo><mn>0</mn><mspace width="2.381em"></mspace><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><mspace width="2.381em"></mspace><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\eta \leq 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta &gt; 0</annotation></semantics></math></li>
@@ -147,9 +151,9 @@ chosen as the prior, the posterior
 is also Beta-distributed. A natural choice for the priors is the beta
 distribution. We assume independent Beta design priors
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
-as follows:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi>p</mi><mo>∣</mo><msub><mi>H</mi><mn>0</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>0</mn><mi>d</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>0</mn><mi>d</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1 =p_2 = p\mid H_0 \sim \mathrm{Beta}(a_0^d,b_0^d)</annotation></semantics></math>
-Thus, under
+as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi>p</mi><mo>∣</mo><msub><mi>H</mi><mn>0</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>0</mn><mi>d</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>0</mn><mi>d</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1 =p_2 = p\mid H_0 \sim \mathrm{Beta}(a_0^d,b_0^d)</annotation></semantics></math></p>
+<p>Thus, under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>η</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\eta = 0</annotation></semantics></math>,
 both probabilities are identical,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">p_1=p_2</annotation></semantics></math>,
@@ -157,9 +161,9 @@ and take some value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">p\in [0,1]</annotation></semantics></math>,
 which has a beta design prior. Likewise, we pick independent Beta design
 priors under
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>η</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_1:\eta \neq 0</annotation></semantics></math>:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>1</mn><mi>d</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>1</mn><mi>d</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.381em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>2</mn><mi>d</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>2</mn><mi>d</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1 \mid H_1 \sim \mathrm{Beta}(a_1^d,b_1^d), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_2^d,b_2^d)</annotation></semantics></math>
-For the analysis priors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>η</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_1:\eta \neq 0</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>1</mn><mi>d</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>1</mn><mi>d</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.381em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>2</mn><mi>d</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>2</mn><mi>d</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1 \mid H_1 \sim \mathrm{Beta}(a_1^d,b_1^d), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_2^d,b_2^d)</annotation></semantics></math></p>
+<p>For the analysis priors
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><msub><mi>p</mi><mn>1</mn></msub><mi>a</mi></msubsup><annotation encoding="application/x-tex">P_{p_1}^a</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><msub><mi>p</mi><mn>2</mn></msub><mi>a</mi></msubsup><annotation encoding="application/x-tex">P_{p_2}^a</annotation></semantics></math>
 under
@@ -171,9 +175,9 @@ and
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">i=1,2</annotation></semantics></math>,
 where the superscript signals that the hyperparameters belong to our
-analysis instead of design prior:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>1</mn><mi>a</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>1</mn><mi>a</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.381em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>1</mn><mi>a</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>1</mn><mi>a</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a)</annotation></semantics></math>
-Lastly, for the analysis prior
+analysis instead of design prior:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>1</mn><mi>a</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>1</mn><mi>a</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.381em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∣</mo><msub><mi>H</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mn>1</mn><mi>a</mi></msubsup><mo>,</mo><msubsup><mi>b</mi><mn>1</mn><mi>a</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a), \hspace{1cm} p_2 \mid H_1 \sim \mathrm{Beta}(a_1^a,b_1^a)</annotation></semantics></math></p>
+<p>Lastly, for the analysis prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>P</mi><mi>p</mi><mi>a</mi></msubsup><annotation encoding="application/x-tex">P_{p}^a</annotation></semantics></math>
 under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>η</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_0:\eta=0</annotation></semantics></math>,
@@ -181,9 +185,9 @@ we choose a Dirac prior with all probability on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta=p_2-p_1=0</annotation></semantics></math>
 conditionally on a uniform prior on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ζ</mi><annotation encoding="application/x-tex">\zeta</annotation></semantics></math>,
-that is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo>∼</mo><msub><mn>1</mn><mrow><mo stretchy="false" form="prefix">{</mo><mi>η</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ζ</mi><mo>∼</mo><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1=p_2=p|H_0 \sim 1_{\{\eta=0\}}| \zeta \sim U(0,1)</annotation></semantics></math>
-for the analysis with the Bayes factor.</p>
+that is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo>∼</mo><msub><mn>1</mn><mrow><mo stretchy="false" form="prefix">{</mo><mi>η</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>ζ</mi><mo>∼</mo><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_1=p_2=p|H_0 \sim 1_{\{\eta=0\}}| \zeta \sim U(0,1)</annotation></semantics></math></p>
+<p>for the analysis with the Bayes factor.</p>
 </div>
 </div>
 <div class="section level2">
@@ -202,9 +206,10 @@ Bayesian two-arm one-stage phase II trial with the
 have two trial arms (treatment and control) and binary endpoints. We
 assume further that one of the four tests detailed above is carried out
 using Bayes factors as the test criterion.</p>
-<div class="section level3">
-<h3 id="ict-107-phase-ii-trial-overview">ICT-107 Phase II Trial Overview<a class="anchor" aria-label="anchor" href="#ict-107-phase-ii-trial-overview"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="ict-107-phase-ii-trial-overview">ICT-107 Phase II Trial Overview<a class="anchor" aria-label="anchor" href="#ict-107-phase-ii-trial-overview"></a>
+</h2>
 <p>The ICT-107 trial <span class="citation">(Wen et al. 2019)</span> was
 a randomized phase II study in newly diagnosed glioblastoma patients
 (n=124, 2:1 randomization). The primary binary endpoint is progression
@@ -220,7 +225,6 @@ rate</strong>
 rate</strong>
 </li>
 </ul>
-</div>
 <div class="section level3">
 <h3 id="bayes-factor-analysis">1. Bayes Factor Analysis<a class="anchor" aria-label="anchor" href="#bayes-factor-analysis"></a>
 </h3>
@@ -1084,9 +1088,10 @@ patients in the control arm and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>55</mn></mrow><annotation encoding="application/x-tex">n_2=55</annotation></semantics></math>
 in the treatment arm are enrolled in the trial.</p>
 </div>
-<div class="section level3">
-<h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 <p>This vignette has illustrated how to design and calibrate two‑arm
 one‑stage Bayes factor trials with binary endpoints using the
 <code>bfbin2arm</code> package. The core workflow starts from specifying
@@ -1144,7 +1149,6 @@ frequentist, hybrid, and fully dual calibrations can be performed and
 visualised in a way that is directly tied to clinically meaningful
 decision thresholds.</p>
 <p>Further details on the methodology can be found in <span class="citation">(Kelter 2026)</span>.</p>
-</div>
 <div class="section level3">
 <h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>

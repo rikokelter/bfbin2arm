@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</h1>
                         <h4 data-toc-skip class="author"></h4>
 <p>Riko
 Kelter<br>
@@ -89,15 +93,15 @@ Bayes factor design for a binary endpoint. The goal is to determine the
 smallest total sample size that satisfies pre-specified Bayesian and/or
 frequentist operating characteristics. The underlying statistical theory
 is developed in <span class="citation">(Kelter and Pawel 2025a)</span>,
-extended to the single-arm two-stage optimal setting by <span class="citation">(Kelter and Pawel 2025b)</span>, and further developed
-to the two-arm single-stage setting by <span class="citation">(Kelter
+extended to the single-arm two-stage optimal setting in <span class="citation">(Kelter and Pawel 2025b)</span>, and further developed
+to the two-arm single-stage setting in <span class="citation">(Kelter
 2026)</span>.</p>
 <div class="section level3">
 <h3 id="how-to-design-a-bayesian-trial-overview-of-the-calibration-algorithm">How to design a Bayesian trial: Overview of the calibration
 algorithm<a class="anchor" aria-label="anchor" href="#how-to-design-a-bayesian-trial-overview-of-the-calibration-algorithm"></a>
 </h3>
 <p>The workflow implemented in the package follows the fixed-sample
-Bayes factor calibration framework proposed by <span class="citation">(Kelter and Pawel 2025a)</span>: Choose design and
+Bayes factor calibration framework proposed in <span class="citation">Kelter and Pawel (2025a)</span>: Choose design and
 analysis priors, specify an evidence threshold on the scale, compute
 operating characteristics as a function of the sample size, and select
 the smallest feasible design.</p>
@@ -112,20 +116,21 @@ the selected design and analysis priors, the prior predictive and the
 Bayes factor, the critical value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">y_{crit}</annotation></semantics></math>
 is found via numerical root finding (step 5. and 6. in Figure 1). Based
-on this critical value, in the single-arm setting, the relationship
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_i)=P(y&gt;y_{crit}|H_i)</annotation></semantics></math>
-holds for both hypotheses
+on this critical value, in the single-arm setting, the relationship</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_i)=P(y&gt;y_{crit}|H_i)</annotation></semantics></math></p>
+<p>holds for both hypotheses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>i</mi></msub><annotation encoding="application/x-tex">H_i</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">i\in \{0,1\}</annotation></semantics></math>.
 When
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">i=0</annotation></semantics></math>,
-this implies one can easily calculate the Bayesian type-I-error rate as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_0)=P(y&gt;y_{crit}|H_0)</annotation></semantics></math>
-while for
+this implies one can easily calculate the Bayesian type-I-error rate
+as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_0)=P(y&gt;y_{crit}|H_0)</annotation></semantics></math></p>
+<p>while for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i=1</annotation></semantics></math>,
-the latter becomes the Bayesian power:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_1)=P(y&gt;y_{crit}|H_1)</annotation></semantics></math>
-For specified target constraints
+the latter becomes the Bayesian power:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_1)=P(y&gt;y_{crit}|H_1)</annotation></semantics></math></p>
+<p>For specified target constraints
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha \in (0,1)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta \in (0,1)</annotation></semantics></math>,
@@ -133,12 +138,12 @@ one can then calculate the smallest
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>∈</mo><mi>ℕ</mi></mrow><annotation encoding="application/x-tex">n\in \mathbb{N}</annotation></semantics></math>,
 for which
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_0)=P(y&gt;y_{crit}|H_0)\leq \alpha</annotation></semantics></math>
-and
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mo>−</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_1)=P(y&gt;y_{crit}|H_1)&gt; 1-\beta</annotation></semantics></math>
-A further metric for calibration is the probability of compelling
-evidence
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&gt;k_f|H_0)</annotation></semantics></math>
-which can likewise be calibrated to achieve at least a threshold
+and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>&gt;</mo><msub><mi>y</mi><mrow><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mo>−</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">P(BF_{01}&lt;1/k|H_1)=P(y&gt;y_{crit}|H_1)&gt; 1-\beta</annotation></semantics></math></p>
+<p>A further metric for calibration is the probability of compelling
+evidence</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(BF_{01}&gt;k_f|H_0)</annotation></semantics></math></p>
+<p>which can likewise be calibrated to achieve at least a threshold
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f\in (0,1)</annotation></semantics></math>.
 Here, the event
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">BF_{01}&gt;k_f</annotation></semantics></math>
@@ -183,9 +188,9 @@ analysis priors under both
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
 (specified via <code>a0 = 1</code>, <code>b0 = 1</code>,
-<code>a1 = 1</code> and <code>b1 = 1</code>). We test the hypotheses
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>≤</mo><mn>0.2</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>&gt;</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">H_0:p\leq 0.2 \text{ versus } H_1:p&gt;0.2</annotation></semantics></math>
-against each other, so we use the argument
+<code>a1 = 1</code> and <code>b1 = 1</code>). We test the hypotheses</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>≤</mo><mn>0.2</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>&gt;</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">H_0:p\leq 0.2 \text{ versus } H_1:p&gt;0.2</annotation></semantics></math></p>
+<p>against each other, so we use the argument
 <code>type = "direction"</code> and set <code>p0 = 0.2</code>. We limit
 the sample size range to the minimum and maximum values
 <code>n_min = 10</code> and <code>n_max = 200</code>, and require 80%
@@ -233,7 +238,7 @@ argument <code>target_type1 = 0.05</code>:</p>
 <p>The search results can be visualized directly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
 <p>The left panel shows Bayesian power and type-I error, together with
 optional frequentist overlays if a point alternative is supplied.</p>
 <p>The right panel showsthe relevant operating characteristics of the
@@ -269,9 +274,9 @@ evidence for
 An optional CE(H0) constraint can be imposed through
 <code>target_ce_h0</code>. This is useful when one also wants the design
 to have a sufficient probability of yielding compelling evidence in
-favour of the null hypothesis
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">P(BF_01&gt;k_f|H_0)&gt;f</annotation></semantics></math>
-for some
+favour of the null hypothesis</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">P(BF_01&gt;k_f|H_0)&gt;f</annotation></semantics></math></p>
+<p>for some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f\in (0,1)</annotation></semantics></math>
 and futility evidence threshold
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k_f&gt;1</annotation></semantics></math>.
@@ -327,7 +332,7 @@ power and type-I-error rate.</p>
 <p>We can plot the resulting design:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes_ce</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
 <p>The plot shows that the factor which causes problems is the
 probability of compelling evidence. In the sample size range up to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">n=200</annotation></semantics></math>,
@@ -375,7 +380,7 @@ If we lower the requirement to, say, 50%, we get:</p>
 <p>We can plot the resulting design:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes_ce50</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;">
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;">
 Now a calibrated design can be found, as expected.</p>
 </div>
 </div>
@@ -501,7 +506,7 @@ frequentist ones). Thus, we refit our design as follows by changing
 <p>We plot the fit:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_full_strong_ev</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="frequentist-calibration">Frequentist calibration<a class="anchor" aria-label="anchor" href="#frequentist-calibration"></a>
 </h3>
@@ -621,7 +626,7 @@ to only
 Thus, the hybrid design required fewer patients.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
 <p>The plot clearly shows that Bayesian power is the limiting factor
 here: From
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">n=23</annotation></semantics></math>
@@ -675,7 +680,7 @@ based on a evidence threshold
 range specified. The following plot shows why:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev_with_ce</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;">
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;">
 The probability of compelling evidence simply does not reach the target
 60% in the specified sample size range. Thus, we could either increase
 that range by increasing <code>n_max</code> or adopting different design
@@ -723,7 +728,7 @@ of compelling evidence to, say, 50% as follows:</p>
 <span><span class="co">#&gt;   Freq type-I      : 0.026</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev_with_ce50</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="relationship-to-the-two-stage-design">Relationship to the two-stage design<a class="anchor" aria-label="anchor" href="#relationship-to-the-two-stage-design"></a>

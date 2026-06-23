@@ -14,79 +14,100 @@ Wellek (2010) and Pan et al. (2025). The idea to replace the test of a
 point-null hypothesis with a small-interval goes at least back until
 Hodges and Lehmann (1954).
 
-### Setup
+## Setup
 
 We consider a single-arm binomial model
+
 ``` math
 Y \mid p \sim \mathrm{Binomial}(n, p),
 ```
+
 where $`Y`$ is the number of responders among $`n`$ patients and
 $`p \in (0,1)`$ is the true response probability under the experimental
 treatment. We fix a benchmark response rate $`p_0`$ (e.g. historical
 control or standard of care) and define the risk difference
+
 ``` math
 \Delta = p - p_0
 ```
+
 We work with a symmetric ROPE formulation on the risk-difference scale.
 Let $`\Delta = p - p_0`$ denote the risk difference between the
 experimental treatment and the benchmark response probability $`p_0`$,
 and let $`\delta > 0`$ be the equivalence margin. On the risk-difference
 scale we define
+
 ``` math
 H_0:\; |\Delta| > \delta,
 ```
+
 ``` math
 H_1:\; |\Delta| \le \delta.
 ```
 
 Equivalently, on the response-probability scale the ROPE is
+
 ``` math
 [p_0 - \delta,\; p_0 + \delta] \cap (0,1),
 ```
+
 and the hypotheses can be written as
+
 ``` math
 H_0:\; p \notin [\,p_0 - \delta,\; p_0 + \delta\,],
 ```
+
 ``` math
 H_1:\; p \in [\,p_0 - \delta,\; p_0 + \delta\,].
 ```
 
-### The region of practical equivalence (ROPE)
+## The region of practical equivalence (ROPE)
 
 The **region of practical equivalence (ROPE)** on the risk-difference
 scale is
+
 ``` math
 \mathcal{R}_\Delta = [-\delta, \delta],
 ```
+
 where $`\delta > 0`$ is a prespecified equivalence margin. Equivalently,
 on the response-probability scale the ROPE for $`p`$ is
+
 ``` math
 \mathcal{R}_p = [p_0 - \delta,\; p_0 + \delta] \cap (0,1).
 ```
 
 Given a beta analysis prior
+
 ``` math
 p \sim \mathrm{Beta}(a, b),
 ```
+
 the posterior after observing $`Y = y`$ is
+
 ``` math
 p \mid y \sim \mathrm{Beta}(a + y,\; b + n - y),
 ```
+
 and the posterior ROPE probability is
+
 ``` math
 \Pr\bigl(p \in \mathcal{R}_p \mid y\bigr)
   = F_{\mathrm{Beta}(a+y,\,b+n-y)}(p_0 + \delta)
   - F_{\mathrm{Beta}(a+y,\,b+n-y)}(p_0 - \delta),
 ```
+
 with endpoints truncated to $`[0,1]`$ if needed. A ROPE-based
 equivalence decision rule declares **practical equivalence** if
+
 ``` math
 \Pr\bigl(p \in \mathcal{R}_p \mid y\bigr) \ge \gamma_{\mathrm{eq}},
 ```
+
 where $`\gamma_{\mathrm{eq}} \in (0.5, 1)`$ is a pre-specified evidence
 threshold.
 
-### Design and analysis priors
+## Design and analysis priors
 
 At the **design stage** we distinguish between three priors:
 
@@ -103,18 +124,21 @@ These design priors induce beta–binomial predictive distributions for
 $`Y`$ under equivalence and non-equivalence, respectively. Under the
 equivalence design prior $`\pi_1`$ we define **ROPE-based Bayesian
 power** as
+
 ``` math
 \text{Power}_\text{ROPE}(n)
 = \Pr_{\pi_1}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr),
 ```
+
 and under the non-equivalence design prior $`\pi_0`$ we define the
 **ROPE-based Bayesian type-I error** as
+
 ``` math
 \alpha_\text{ROPE}(n)
 = \Pr_{\pi_0}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr).
 ```
 
-### ROPE decision illustrations
+## ROPE decision illustrations
 
 In this section we illustrate the ROPE-based decision rule for four
 prototypical outcomes in a single-arm binomial model with analysis prior
@@ -124,10 +148,13 @@ with $`\delta = 0.12`$.
 
 For an observed responder count $`Y = y`$ out of $`n`$ patients, the
 posterior is
+
 ``` math
 p \mid y \sim \mathrm{Beta}(a + y,\; b + n - y),
 ```
+
 and the symmetric ROPE probability is
+
 ``` math
 \Pr\bigl(|p - p_0| \le \delta \mid y\bigr)
   = \Pr(p_0 - \delta \le p \le p_0 + \delta \mid y).
@@ -144,7 +171,7 @@ We adopt the following simple decision rule:
 with $`\gamma_{\mathrm{eq}} = \gamma_{\mathrm{diff}} = 0.80`$ in the
 examples below.
 
-#### 1) Equivalence accepted
+### 1) Equivalence accepted
 
 We choose an outcome $`(n, y)`$ for which the posterior is concentrated
 inside the ROPE and
@@ -156,7 +183,7 @@ clinical phase II trial with binary endpoints: Equivalence is accepted,
 because sufficient posterior probability mass concentrates inside the
 ROPE. The true data-generating process follows the alternative
 hypothesis, that is, equivalence indeed
-holds.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-2-1.png)
+holds.](figures/singlearm-onestage-rope-scenario1.png)
 
 Figure 1: Illustration of the first possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Equivalence is accepted,
@@ -166,7 +193,7 @@ hypothesis, that is, equivalence indeed holds.
 
 The plot illustrates this first possible outcome.
 
-#### 2) Type-I error: equivalence concluded under the null hypothesis
+### 2) Type-I error: equivalence concluded under the null hypothesis
 
 Conceptually, a type-I error occurs when the *true* data-generating
 process is non-equivalent (e.g. $`p = 0.55`$ or 0.60), but the observed
@@ -189,8 +216,7 @@ clinical phase II trial with binary endpoints: Equivalence is accepted,
 because sufficient posterior probability mass concentrates inside the
 ROPE. In contrast to the first possible scenario, the true
 data-generating process follows the null hypothesis. Thus, a ROPE-based
-type-I-error
-occurs.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-3-1.png)
+type-I-error occurs.](figures/singlearm-onestage-rope-scenario2.png)
 
 Figure 2: Illustration of the second possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Equivalence is accepted,
@@ -204,7 +230,7 @@ outside the ROPE (under $`H_0`$), but due to sampling variability the
 posterior still concentrates enough mass inside the ROPE to meet the
 equivalence threshold.
 
-#### 3) Indecisive result
+### 3) Indecisive result
 
 Here we choose $`(n,y)`$ such that neither threshold is reached:
 
@@ -218,14 +244,14 @@ and the decision is **indecisive**.
 clinical phase II trial with binary endpoints: The result is indecisive,
 because neither does sufficient posterior probability mass concentrate
 inside the ROPE, nor outside the
-ROPE.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-4-1.png)
+ROPE.](figures/singlearm-onestage-rope-scenario3.png)
 
 Figure 3: Illustration of the third possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: The result is indecisive,
 because neither does sufficient posterior probability mass concentrate
 inside the ROPE, nor outside the ROPE.
 
-#### 4) Clear non-equivalence
+### 4) Clear non-equivalence
 
 Finally, we choose an outcome where the posterior lies mostly outside
 the ROPE, so that
@@ -235,8 +261,7 @@ $`\Pr(|p - p_0| > \delta \mid y) \ge \gamma_{\mathrm{diff}}`$ and we
 ![Figure 4: Illustration of the fourth possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Non-equivalence is
 accepted, because sufficient posterior probability mass concentrates
-outside the
-ROPE.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-5-1.png)
+outside the ROPE.](figures/singlearm-onestage-rope-scenario4.png)
 
 Figure 4: Illustration of the fourth possible scenario in a ROPE-based
 clinical phase II trial with binary endpoints: Non-equivalence is
@@ -390,7 +415,7 @@ plot(des_baseline)
 
 ![Figure 5: Illustration of calibrated single-arm one-stage design of a
 ROPE-based clinical phase II trial with binary
-endpoint.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-9-1.png)
+endpoint.](figures/singlearm-onestage-rope-fig5.png)
 
 Figure 5: Illustration of calibrated single-arm one-stage design of a
 ROPE-based clinical phase II trial with binary endpoint.
@@ -419,8 +444,7 @@ plot(des_baseline, what = "operating_characteristics")
 
 ![Figure 6: Visualization of the operating characteristics of a
 calibrated single-arm one-stage design of a ROPE-based clinical phase II
-trial with binary
-endpoint.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-10-1.png)
+trial with binary endpoint.](figures/singlearm-onestage-rope-fig6.png)
 
 Figure 6: Visualization of the operating characteristics of a calibrated
 single-arm one-stage design of a ROPE-based clinical phase II trial with
@@ -434,7 +458,7 @@ plot(des_baseline, what = "decision_region")
 ![Figure 7: Visualization of the equivalence region for increasing
 sample size of a calibrated single-arm one-stage design of a ROPE-based
 clinical phase II trial with binary
-endpoint.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-11-1.png)
+endpoint.](figures/singlearm-onestage-rope-fig7.png)
 
 Figure 7: Visualization of the equivalence region for increasing sample
 size of a calibrated single-arm one-stage design of a ROPE-based
@@ -466,6 +490,7 @@ definiteness, we assume:
 
 On the response-probability scale we set $`p_0 = 0.30`$ and
 $`\delta = 0.12`$. The ROPE for equivalence is
+
 ``` math
 \mathcal{R}_p = [p_0 - \delta,\; p_0 + \delta] = [0.18, 0.42].
 ```
@@ -497,15 +522,19 @@ $`\gamma_{\mathrm{eq}} = \gamma_{\mathrm{diff}} = 0.80`$.
 We separate the analysis prior from the design priors.
 
 - **Analysis prior** for ORR:
+
   ``` math
   p \sim \mathrm{Beta}(1,1),
   ```
+
   a uniform prior on $`(0,1)`$, reflecting weak prior information.
 
 - **Design prior under equivalence** $`H_1`$:
+
   ``` math
   p \sim \mathrm{Beta}(a_1, b_1) = \mathrm{Beta}(36, 84),
   ```
+
   which has mean $`36 / (36 + 84) = 0.30`$ and moderate concentration
   around $`p_0 = 0.30`$. This prior represents plausible ORR values
   under practical equivalence.
@@ -513,9 +542,11 @@ We separate the analysis prior from the design priors.
 - **Design prior under non-equivalence** $`H_0`$: we consider superior
   scenarios where ORR is clinically higher than 0.42. For concreteness
   we choose
+
   ``` math
   p \sim \mathrm{Beta}(60, 40),
   ```
+
   which is centred at 0.6 and places most mass clearly outside the ROPE
   interval \[0.18, 0.42\]. This prior represents clinically relevant
   departures from equivalence (e.g. strong improvement), and is used to
@@ -527,12 +558,15 @@ the response count $`Y`$ under $`H_1`$ and $`H_0`$, respectively.
 
 Under the equivalence design prior $`\pi_1`$, the ROPE-based Bayesian
 power is
+
 ``` math
 \text{Power}_\text{ROPE}(n)
 = \Pr_{\pi_1}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr),
 ```
+
 and under the non-equivalence design prior $`\pi_0`$, the ROPE-based
 Bayesian type-I error is
+
 ``` math
 \alpha_\text{ROPE}(n)
 = \Pr_{\pi_0}\bigl( \Pr(p \in \mathcal{R}_p \mid Y) \ge \gamma_{\mathrm{eq}} \bigr).
@@ -629,7 +663,7 @@ plot(des_onc)
 
 ![Figure 8: Visualization of the calibrated ROPE-based oncology
 single-arm one-stage phase II design with binary
-endpoints.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-14-1.png)
+endpoints.](figures/singlearm-onestage-rope-fig8.png)
 
 Figure 8: Visualization of the calibrated ROPE-based oncology single-arm
 one-stage phase II design with binary endpoints.
@@ -656,8 +690,7 @@ plot(des_onc, what = "decision_region")
 
 ![Figure 9: Visualization of the equivalence region of ROPE-based
 oncology single-arm one-stage phase II designs with binary endpoints for
-increasing sample
-size.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-15-1.png)
+increasing sample size.](figures/singlearm-onestage-rope-fig9.png)
 
 Figure 9: Visualization of the equivalence region of ROPE-based oncology
 single-arm one-stage phase II designs with binary endpoints for
@@ -713,17 +746,18 @@ probability thresholds. {.table}
 
 ![Figure 10: Calibrated sample size n\* across ROPE widths and posterior
 thresholds for the oncology equivalence phase II
-trial.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-16-1.png)
+trial.](figures/singlearm-onestage-rope-fig10.png)
 
 Figure 10: Calibrated sample size n\* across ROPE widths and posterior
 thresholds for the oncology equivalence phase II trial.
 
-![Figure 10: Calibrated sample size n\* across ROPE widths and posterior
-thresholds for the oncology equivalence phase II
-trial.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-17-1.png)
+![Figure 10: ROPE-based Bayesian type-I-error at the calibrated sample
+sizes for the oncology equivalence phase II trial for different ROPE
+widths.](figures/singlearm-onestage-rope-fig11.png)
 
-Figure 10: Calibrated sample size n\* across ROPE widths and posterior
-thresholds for the oncology equivalence phase II trial.
+Figure 10: ROPE-based Bayesian type-I-error at the calibrated sample
+sizes for the oncology equivalence phase II trial for different ROPE
+widths.
 
 ------------------------------------------------------------------------
 
@@ -837,7 +871,7 @@ evidence for the null hypothesis. In contrast to the earlier example,
 the probability of compelling evidence must reach 80% now, and
 frequentist power and type-I-error rate must also fulfill their
 respective target constraints of 80% and
-10%.](bfbin2arm-rope-singlearm-onestage-design_files/figure-html/unnamed-chunk-18-1.png)
+10%.](figures/singlearm-onestage-rope-fig12.png)
 
 Figure 12: Calibrated one-stage ROPE-based oncology equivalence phase II
 design with additional constraints on the probability of compelling
@@ -960,7 +994,7 @@ the **same posterior-threshold decision rule** can be calibrated to
 satisfy additional Bayesian and frequentist criteria, including a lower
 bound on predictive compelling evidence for $`H_0`$.
 
-### Summary
+## Summary
 
 This vignette has shown how
 [`design_singlearm_onestage_rope()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_rope.md)
@@ -978,7 +1012,7 @@ collaboratively with clinicians, to arrive at a design where the ROPE
 region, evidence thresholds, and priors are all clinically interpretable
 and the resulting sample size is operationally feasible.
 
-### References
+## References
 
 Chen, Lichang, Jianhong Pan, Yanpeng Wu, et al. 2022. “Bayesian
 Two-Stage Design for Phase II Oncology Trials with Binary Endpoint.”

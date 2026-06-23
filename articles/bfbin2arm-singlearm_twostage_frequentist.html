@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</h1>
                         <h4 data-toc-skip class="author"></h4>
 <p>Riko
 Kelter<br>
@@ -85,27 +89,45 @@ Cologne, Germany</p>
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>This vignette illustrates how to construct <em>frequentist</em>
-optimal two-stage single-arm designs using the Bayes factor \(BF_{01}\)
+optimal two-stage single-arm designs using the Bayes factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>
 as the test statistic.</p>
 <p>We consider a proof-of-concept phase II trial with binary endpoint
 and hypotheses</p>
-<p>\[ H_0 : p \le p_0, \qquad H_1 : p &gt; p_0, \]</p>
-<p>where \(p_0\) is a benchmark response probability, compare <span class="citation">(Kelter and Pawel 2025a)</span>.</p>
-<p>The decision rule is based on the Bayes factor \(BF_{01}\) for
-\(H_0\) versus \(H_1\):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> versus </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>&gt;</mo><msub><mi>p</mi><mn>0</mn></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">
+H_0 : p \leq p_0, \text{ versus } H_1 : p &gt; p_0,
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>
+is a benchmark response probability, compare <span class="citation">(Kelter and Pawel 2025a)</span>.</p>
+<p>The decision rule is based on the Bayes factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+versus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>:</p>
 <ul>
-<li>small \(BF_{01}\) indicate evidence against \(H_0\) (efficacy),</li>
-<li>large \(BF_{01}\) indicate evidence in favour of \(H_0\)
+<li>small
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>
+indicate evidence against
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+(efficacy),</li>
+<li>large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>
+indicate evidence in favour of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
 (futility).</li>
 </ul>
-<p>At the final analysis, efficacy is concluded when \(BF_{01} \le k\).
-At the interim analysis, futility is concluded when \(BF_{01} \ge
-k_f\).</p>
+<p>At the final analysis, efficacy is concluded when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>≤</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">BF_{01} \leq k</annotation></semantics></math>.
+At the interim analysis, futility is concluded when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>≥</mo><msub><mi>k</mi><mi>f</mi></msub></mrow><annotation encoding="application/x-tex">BF_{01} \geq k_f</annotation></semantics></math>.</p>
 <p>In <em>frequentist calibration</em>, we require that:</p>
 <ul>
-<li>the type-I error is controlled at \(p = p_0\),</li>
-<li>the power is controlled at a fixed point alternative \(p =
-dp\),</li>
+<li>the type-I error is controlled at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p = p_0</annotation></semantics></math>,</li>
+<li>the power is controlled at a fixed point alternative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">p = dp</annotation></semantics></math>,</li>
 </ul>
 <p>even though the decision statistic is a Bayes factor.</p>
 </div>
@@ -155,9 +177,9 @@ test used (directional or two-sided).</li>
 <h2 id="manual-evaluation-of-a-two-stage-design">Manual evaluation of a two-stage design<a class="anchor" aria-label="anchor" href="#manual-evaluation-of-a-two-stage-design"></a>
 </h2>
 <p>We start with a concrete two-stage design chosen manually, for
-example</p>
-<p>\[ n_1 = 12, \qquad n_2 = 24, \]</p>
-<p>and investigate its operating characteristics under frequentist
+example
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>12</mn><mo>,</mo><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">n_1 = 12, n_2 = 24</annotation></semantics></math>,
+and investigate its operating characteristics under frequentist
 calibration.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_singlearm_bf.html">design_singlearm_bf</a></span><span class="op">(</span></span>
@@ -345,13 +367,21 @@ optimal choice selected by the algorithm.</p>
 following key properties:</p>
 <ul>
 <li>The frequentist type-I error (probability of wrongly rejecting
-\(H_0\)) is controlled at or below <code>target_freq_type1</code> when
-the true response rate is \(p = p_0\).</li>
-<li>The frequentist power (probability of rejecting \(H_0\) when \(p =
-dp\)) is at or above <code>target_freq_power</code>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>)
+is controlled at or below <code>target_freq_type1</code> when the true
+response rate is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p = p_0</annotation></semantics></math>.</li>
+<li>The frequentist power (probability of rejecting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">p = dp</annotation></semantics></math>)
+is at or above <code>target_freq_power</code>.</li>
 <li>Among all designs within the specified bounds that satisfy these
 constraints, the selected design minimizes the expected sample size
-under \(H_0\). Details are also provided in <span class="citation">(Kelter and Pawel 2025b)</span>.</li>
+under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.
+Details are also provided in <span class="citation">(Kelter and Pawel
+2025b)</span>.</li>
 </ul>
 <p>The Bayesian operating characteristics are still reported, but they
 do not drive the calibration; they serve as additional information about
@@ -363,10 +393,15 @@ how the design performs under the specified design priors.</p>
 <p>When using the frequentist mode in practice:</p>
 <ul>
 <li>Choose <code>dp</code> as the clinically relevant response rate
-under \(H_1\) where you want to guarantee power.</li>
-<li>Use joint priors under \(H_0\) and \(H_1\) that reflect realistic
-beliefs, even though they do not drive the calibration. The resulting
-Bayesian summaries can be informative.</li>
+under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+where you want to guarantee power.</li>
+<li>Use joint priors under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+that reflect realistic beliefs, even though they do not drive the
+calibration. The resulting Bayesian summaries can be informative.</li>
 <li>If no feasible design is found, consider relaxing the targets or
 enlarging <code>n2_max</code>. In particular, very high power with very
 small type-I error can be incompatible with tight sample size

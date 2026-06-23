@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 <script src="bfbin2arm-singlearm_twostage_full_files/kePrint-0.0.1/kePrint.js"></script><link href="bfbin2arm-singlearm_twostage_full_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</h1>
                         <h4 data-toc-skip class="author"></h4>
 <p>Riko
 Kelter<br>
@@ -82,7 +86,7 @@ Cologne, Germany</p>
     
     
 <div class="section level2">
-<h2 id="introduction-background-on-hybrid-and-full-calibration">Introduction: Background on hybrid and full calibration<a class="anchor" aria-label="anchor" href="#introduction-background-on-hybrid-and-full-calibration"></a>
+<h2 id="introduction-hybrid-and-full-calibration">Introduction: Hybrid and full calibration<a class="anchor" aria-label="anchor" href="#introduction-hybrid-and-full-calibration"></a>
 </h2>
 <p>In a Bayes-factor based design, decision rules are specified through
 evidence thresholds for the Bayes factor
@@ -162,13 +166,20 @@ design.</p>
 </h2>
 <p>Full calibration enforces both Bayesian and frequentist constraints
 simultaneously for a single-arm two-stage design based on the Bayes
-factor \(BF_{01}\).</p>
+factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>.</p>
 <p>In this mode, the design must satisfy:</p>
 <ul>
 <li>Bayesian power and Bayesian type-I error targets under specified
-design priors for \(H_1\) and \(H_0\),</li>
+design priors for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>,</li>
 <li>frequentist power and frequentist type-I error targets at a fixed
-point alternative \(dp\) and at \(p = p_0\).</li>
+point alternative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math>
+and at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p = p_0</annotation></semantics></math>.</li>
 </ul>
 <p>This yields designs that simultaneously meet Bayesian planning
 criteria and frequentist calibration requirements.</p>
@@ -178,18 +189,26 @@ criteria and frequentist calibration requirements.</p>
 <p>in <code><a href="../reference/design_singlearm_bf.html">design_singlearm_bf()</a></code>. In this mode, feasibility
 requires:</p>
 <ul>
-<li>Bayesian power (prior-predictive under \(H_1\)) to be at least
-<code>target_power</code>,</li>
-<li>Bayesian type-I error (averaged under \(H_0\)) to be at most
-<code>target_type1</code>,</li>
-<li>frequentist power at \(p = dp\) to be at least
-<code>target_freq_power</code>,</li>
-<li>frequentist type-I error at \(p = p_0\) to be at most
-<code>target_freq_type1</code>.</li>
+<li>Bayesian power (prior-predictive under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>)
+to be at least <code>target_power</code>,</li>
+<li>Bayesian type-I error (averaged under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>)
+to be at most <code>target_type1</code>,</li>
+<li>frequentist power at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">p = dp</annotation></semantics></math>
+to be at least <code>target_freq_power</code>,</li>
+<li>frequentist type-I error at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p = p_0</annotation></semantics></math>
+to be at most <code>target_freq_type1</code>.</li>
 </ul>
 <p>The optional <code>target_ce_h0</code> can also be used to impose a
 lower bound on the Bayesian probability of compelling evidence in favour
-of \(H_0\), computed under the \(H_0\) design prior.</p>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>,
+computed under the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+design prior.</p>
 </div>
 <div class="section level2">
 <h2 id="overview-of-the-different-calibration-modes">Overview of the different calibration modes<a class="anchor" aria-label="anchor" href="#overview-of-the-different-calibration-modes"></a>
@@ -381,10 +400,16 @@ results produced by the calibration algorithm:</p>
 <li>the selected interim and final sample sizes (<code>n1</code>,
 <code>n2</code>),</li>
 <li>Bayesian operating characteristics: power, type-I error, expected
-sample sizes, and (optionally) compelling evidence under \(H_0\),</li>
+sample sizes, and (optionally) compelling evidence under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>,</li>
 <li>frequentist operating characteristics: power and type-I error at
-\(dp\) and \(p_0\), expected sample sizes under \(H_0\) and
-\(H_1\).</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>,
+expected sample sizes under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>.</li>
 </ul>
 <p>A diagnostic plot illustrates how the search over interim sample
 sizes balances these constraints:</p>
@@ -407,9 +432,7 @@ irrelevant. They influence only the Bayesian operating characteristics.
 </div>
 </div>
 <div class="section level2">
-<h2 id="why-the-design-with-n_1-8-is-selected">Why the design with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">n_1 = 8</annotation></semantics></math>
-is selected<a class="anchor" aria-label="anchor" href="#why-the-design-with-n_1-8-is-selected"></a>
+<h2 id="why-the-design-is-selected">Why the design is selected<a class="anchor" aria-label="anchor" href="#why-the-design-is-selected"></a>
 </h2>
 <p>In this example, several two-stage designs satisfy the full
 calibration constraints. In particular, both the designs with
@@ -431,15 +454,17 @@ with the smallest value of <code>en_h0</code>.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n_1 = 6</annotation></semantics></math>
 is fully calibrated, but its Bayesian expected sample size under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
-is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow></msubsup><mo>=</mo><mn>13.40</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow></msubsup><mo>=</mo><mn>13.40</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \operatorname{EN}_{H_0}^{\mathrm{Bayes}} = 13.40.
-</annotation></semantics></math> The design with
+</annotation></semantics></math></p>
+<p>The design with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">n_1 = 8</annotation></semantics></math>
-is also fully calibrated, but has the smaller value
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow></msubsup><mo>=</mo><mn>11.09</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+is also fully calibrated, but has the smaller value</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow></msubsup><mo>=</mo><mn>11.09</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \operatorname{EN}_{H_0}^{\mathrm{Bayes}} = 11.09.
-</annotation></semantics></math> Because
+</annotation></semantics></math></p>
+<p>Because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11.09</mn><mo>&lt;</mo><mn>13.40</mn></mrow><annotation encoding="application/x-tex">11.09 &lt; 13.40</annotation></semantics></math>,
 the design with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">n_1 = 8</annotation></semantics></math>
@@ -461,15 +486,16 @@ be changed. For example, one might instead minimize the
 or define a compromise criterion based on a weighted average of the
 Bayesian and frequentist expected sample sizes under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>,
-such as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>⋅</mo><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow></msubsup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msubsup><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>w</mi><mo>≤</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+such as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>⋅</mo><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow></msubsup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><msubsup><mrow><mi mathvariant="normal">EN</mi><mo>⁡</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></msubsup><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>w</mi><mo>≤</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
 w \cdot \operatorname{EN}_{H_0}^{\mathrm{Bayes}}
 +
 (1-w) \cdot \operatorname{EN}_{H_0}^{\mathrm{Freq}},
 \qquad 0 \le w \le 1.
-</annotation></semantics></math> Such extensions would make it possible
-to tailor the notion of optimality more closely to the user’s preferred
-balance between Bayesian and frequentist design perspectives.</p>
+</annotation></semantics></math></p>
+<p>Such extensions would make it possible to tailor the notion of
+optimality more closely to the user’s preferred balance between Bayesian
+and frequentist design perspectives.</p>
 </div>
 <div class="section level2">
 <h2 id="comparison-of-calibration-modes">Comparison of calibration modes<a class="anchor" aria-label="anchor" href="#comparison-of-calibration-modes"></a>
@@ -750,7 +776,10 @@ full
 <code>n2</code>,</li>
 <li>the trade-offs between Bayesian and frequentist power and type-I
 error,</li>
-<li>differences in expected sample size under \(H_0\) and \(H_1\).</li>
+<li>differences in expected sample size under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>.</li>
 </ul>
 <p>The full calibration design will usually be more demanding in terms
 of sample size than the purely Bayesian, purely frequentist, or hybrid

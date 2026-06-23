@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Optimal Bayesian calibration for single-arm two-stage Bayes factor designs • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</h1>
                         <h4 data-toc-skip class="author"><div class="line-block">Riko Kelter<br>
 Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine<br>
@@ -520,7 +524,7 @@ requested, compelling evidence under
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="figures/optimal_single_arm_two_stage_bayes_fig2.png" class="r-plt" alt="Figure 2: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. The top left panel shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability p0." width="100%"><p class="caption">
+<img src="figures/optimal_single_arm_two_stage_bayes_fig2.png" class="r-plt" alt="Figure 2: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. The top left panel shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability `p0`." width="100%"><p class="caption">
 Figure 2: Output of the plot function for a calibrated optimal
 single-arm two-stage design using Bayes factors. The top left panel
 shows Bayesian and frequentist power, Bayesian type-I-error and
@@ -532,7 +536,7 @@ and design priors under the null and alternative hypothesis. Under the
 null hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p=p_0</annotation></semantics></math>,
 the design and analysis priors are point masses at the specified null
-probability p0.
+probability <code>p0</code>.
 </p>
 </div>
 <p>This plot is useful for understanding the trade-off induced by the
@@ -595,9 +599,10 @@ against
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>≠</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_1:p \neq p_0</annotation></semantics></math>,
 however, the Bayesian type-I-error is calculated like the frequentist
 type-I-error under a single parameter value and thus both type-I-errors
-(Bayesian and frequentist) coincide, because
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>∈</mo><msub><mi>H</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sup_{p \in H_0}[Pr(BF_{01}(y)&lt;k|p)]=\sup_{p = p_0}[Pr(BF_{01}(y)&lt;k|p)]=Pr(BF_{01}(y)&lt;k|p=p_0)</annotation></semantics></math>
-where the right-hand side of the above display is precisely the
+(Bayesian and frequentist) coincide, because</li>
+</ul>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>∈</mo><msub><mi>H</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sup_{p \in H_0}[Pr(BF_{01}(y)&lt;k|p)]=\sup_{p = p_0}[Pr(BF_{01}(y)&lt;k|p)]=Pr(BF_{01}(y)&lt;k|p=p_0)</annotation></semantics></math></p>
+<p>where the right-hand side of the above display is precisely the
 frequentist type-I-error under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p=p_0</annotation></semantics></math>.
 For directional tests such as
@@ -605,17 +610,17 @@ For directional tests such as
 against
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>p</mi><mo>&gt;</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_1:p&gt;p_0</annotation></semantics></math>,
 however, these should, in general, differ substantially. In those cases,
-the frequentist type-I-error is the supremum
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>∈</mo><msub><mi>H</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\sup_{p \in H_0}[Pr(BF_{01}(y)&lt;k|p)]=\sup_{p\leq p_0}[Pr(BF_{01}(y)&lt;k|p)]</annotation></semantics></math>
-while the Bayesian type-I-error is the design prior averaged probability
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><mrow><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub></mrow></msub><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">\int_{p \leq p_0}Pr(BF_{01}(y)&lt;k|p)\pi(p)dp</annotation></semantics></math>
-where
+the frequentist type-I-error is the supremum</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>∈</mo><msub><mi>H</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><munder><mi mathvariant="normal">sup</mi><mrow><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub></mrow></munder><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\sup_{p \in H_0}[Pr(BF_{01}(y)&lt;k|p)]=\sup_{p\leq p_0}[Pr(BF_{01}(y)&lt;k|p)]</annotation></semantics></math></p>
+<p>while the Bayesian type-I-error is the design prior averaged
+probability</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∫</mo><mrow><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub></mrow></msub><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>k</mi><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">\int_{p \leq p_0}Pr(BF_{01}(y)&lt;k|p)\pi(p)dp</annotation></semantics></math></p>
+<p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi(p)</annotation></semantics></math>
 denotes the design prior truncated to the parameter space of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>≤</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p\leq p_0</annotation></semantics></math>.
 We turn to such an example demonstrating this phenomenon later in this
-vignette.</li>
-</ul>
+vignette.</p>
 </div>
 <div class="section level3">
 <h3 id="inspecting-the-result-object">Inspecting the result object<a class="anchor" aria-label="anchor" href="#inspecting-the-result-object"></a>
@@ -656,9 +661,9 @@ are regarded as feasible. This implies, that when
 holds, we can assert a minimum probability to stop the trial early for
 futility. That minimum probability can be specified in advance of the
 trial during the planning stage, and formally, the trial design must
-then satisfy the condition
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">Pr(BF_{01}&gt;k_f|H_0)&gt;f</annotation></semantics></math>
-for some futility probability threshold
+then satisfy the condition</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub><mo>&gt;</mo><msub><mi>k</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">Pr(BF_{01}&gt;k_f|H_0)&gt;f</annotation></semantics></math></p>
+<p>for some futility probability threshold
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f\in (0,1)</annotation></semantics></math>.</p>
 <p>As above, <code>da = 2.5</code> and <code>db = 2</code> specify the
 slightly optimistic Bayesian design prior, whereas <code>dp = 0.4</code>
@@ -745,7 +750,7 @@ evidence constraint now also shown in the upper left panel:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res_ce</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="figures/optimal_single_arm_two_stage_bayes_fig3.png" class="r-plt" alt="Figure 3: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. In addition to the previous calibration requirements in terms of power and type-I-error rate, this design also adds a constraint on the probability of compelling evidence in favour of the null hypothesis $H_0$. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability p0." width="100%"><p class="caption">
+<img src="figures/optimal_single_arm_two_stage_bayes_fig3.png" class="r-plt" alt="Figure 3: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors. In addition to the previous calibration requirements in terms of power and type-I-error rate, this design also adds a constraint on the probability of compelling evidence in favour of the null hypothesis $H_0$. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability `p0`." width="100%"><p class="caption">
 Figure 3: Output of the plot function for a calibrated optimal
 single-arm two-stage design using Bayes factors. In addition to the
 previous calibration requirements in terms of power and type-I-error
@@ -761,7 +766,7 @@ visualize the analysis and design priors under the null and alternative
 hypothesis. Under the null hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p=p_0</annotation></semantics></math>,
 the design and analysis priors are point masses at the specified null
-probability p0.
+probability <code>p0</code>.
 </p>
 </div>
 <p>The upper left panel in Figure 3 shows that now the probability of
@@ -849,7 +854,7 @@ when calibrating the design.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res_dir</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="figures/optimal_single_arm_two_stage_bayes_fig4.png" class="r-plt" alt="Figure 4: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors in the directional test setting. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability p0." width="100%"><p class="caption">
+<img src="figures/optimal_single_arm_two_stage_bayes_fig4.png" class="r-plt" alt="Figure 4: Output of the plot function for a calibrated optimal single-arm two-stage design using Bayes factors in the directional test setting. The top left panel again shows Bayesian and frequentist power, Bayesian type-I-error and probability of compelling evidence (if specified) for varying interim sample sizes. The top right panel provides information about the optimal design found by the algorithm and its Bayesian and frequentist operating characteristics. The lower left and right panels visualize the analysis and design priors under the null and alternative hypothesis. Under the null hypothesis $H_0:p=p_0$, the design and analysis priors are point masses at the specified null probability `p0`." width="100%"><p class="caption">
 Figure 4: Output of the plot function for a calibrated optimal
 single-arm two-stage design using Bayes factors in the directional test
 setting. The top left panel again shows Bayesian and frequentist power,
@@ -861,7 +866,7 @@ and right panels visualize the analysis and design priors under the null
 and alternative hypothesis. Under the null hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>p</mi><mo>=</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0:p=p_0</annotation></semantics></math>,
 the design and analysis priors are point masses at the specified null
-probability p0.
+probability <code>p0</code>.
 </p>
 </div>
 <p>This example illustrates how the optimal design and its operating
@@ -981,7 +986,7 @@ and
 <span>       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"darkorange"</span>, <span class="st">"steelblue"</span>, <span class="st">"darkmagenta"</span><span class="op">)</span>,</span>
 <span>       lwd <span class="op">=</span> <span class="fl">2</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="bfbin2arm-singlearm-twostage_bayesian_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="Figure 5: Relationship between the probability of compelling evidence PCE(H0) and the fixed-sample size for the selected design and analysis priors and evidence thresholds in the directional test example." width="75%"><p class="caption">
+<img src="bfbin2arm-singlearm-twostage_bayesian_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="Figure 5: Relationship between the probability of compelling evidence PCE(H0) and the fixed-sample size for the selected design and analysis priors and evidence thresholds in the directional test example." width="75%"><p class="caption">
 Figure 5: Relationship between the probability of compelling evidence
 PCE(H0) and the fixed-sample size for the selected design and analysis
 priors and evidence thresholds in the directional test example.
@@ -1117,47 +1122,6 @@ at fairly large sample sizes. In such cases, it is recommended to
 explore the attainable region of operating characteristics first and to
 choose targets and priors that are both scientifically plausible and
 jointly achievable.</p>
-</div>
-<div class="section level2">
-<h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
-</h2>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
-<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 24.04.4 LTS</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt;  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
-<span><span class="co">#&gt;  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
-<span><span class="co">#&gt;  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
-<span><span class="co">#&gt; [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; time zone: UTC</span></span>
-<span><span class="co">#&gt; tzcode source: system (glibc)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attached base packages:</span></span>
-<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] bfbin2arm_0.1.4</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] gtable_0.3.6       jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.0    </span></span>
-<span><span class="co">#&gt;  [5] tidyselect_1.2.1   parallel_4.6.0     jquerylib_0.1.4    systemfonts_1.3.2 </span></span>
-<span><span class="co">#&gt;  [9] scales_1.4.0       textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     </span></span>
-<span><span class="co">#&gt; [13] ggplot2_4.0.3      R6_2.6.1           patchwork_1.3.2    generics_0.1.4    </span></span>
-<span><span class="co">#&gt; [17] knitr_1.51         tibble_3.3.1       desc_1.4.3         bslib_0.11.0      </span></span>
-<span><span class="co">#&gt; [21] pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.2.0        cachem_1.1.0      </span></span>
-<span><span class="co">#&gt; [25] xfun_0.59          S7_0.2.2           fs_2.1.0           sass_0.4.10       </span></span>
-<span><span class="co">#&gt; [29] otel_0.2.0         cli_3.6.6          pkgdown_2.2.0      magrittr_2.0.5    </span></span>
-<span><span class="co">#&gt; [33] digest_0.6.39      grid_4.6.0         lifecycle_1.0.5    vctrs_0.7.3       </span></span>
-<span><span class="co">#&gt; [37] evaluate_1.0.5     glue_1.8.1         farver_2.1.2       ragg_1.5.2        </span></span>
-<span><span class="co">#&gt; [41] rmarkdown_2.31     tools_4.6.0        pkgconfig_2.0.3    htmltools_0.5.9</span></span></code></pre></div>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

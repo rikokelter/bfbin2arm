@@ -375,7 +375,7 @@ characteristics. The lower left and right panels visualize the analysis
 and design priors under the null and alternative hypothesis. Under the
 null hypothesis \$H_0:p=p_0\$, the design and analysis priors are point
 masses at the specified null probability
-p0.](figures/optimal_single_arm_two_stage_bayes_fig2.png)
+\`p0\`.](figures/optimal_single_arm_two_stage_bayes_fig2.png)
 
 Figure 2: Output of the plot function for a calibrated optimal
 single-arm two-stage design using Bayes factors. The top left panel
@@ -386,7 +386,7 @@ design found by the algorithm and its Bayesian and frequentist operating
 characteristics. The lower left and right panels visualize the analysis
 and design priors under the null and alternative hypothesis. Under the
 null hypothesis $`H_0:p=p_0`$, the design and analysis priors are point
-masses at the specified null probability p0.
+masses at the specified null probability `p0`.
 
 This plot is useful for understanding the trade-off induced by the
 interim analysis. In particular, it shows how power, type-I error, and
@@ -434,25 +434,30 @@ Several points become apparent when inspecting the results above:
   type-I-error is calculated like the frequentist type-I-error under a
   single parameter value and thus both type-I-errors (Bayesian and
   frequentist) coincide, because
-  ``` math
-  \sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p = p_0}[Pr(BF_{01}(y)<k|p)]=Pr(BF_{01}(y)<k|p=p_0)
-  ```
-  where the right-hand side of the above display is precisely the
-  frequentist type-I-error under $`H_0:p=p_0`$. For directional tests
-  such as $`H_0:p\leq p_0`$ against $`H_1:p>p_0`$, however, these
-  should, in general, differ substantially. In those cases, the
-  frequentist type-I-error is the supremum
-  ``` math
-  \sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p\leq p_0}[Pr(BF_{01}(y)<k|p)]
-  ```
-  while the Bayesian type-I-error is the design prior averaged
-  probability
-  ``` math
-  \int_{p \leq p_0}Pr(BF_{01}(y)<k|p)\pi(p)dp
-  ```
-  where $`\pi(p)`$ denotes the design prior truncated to the parameter
-  space of $`H_0:p\leq p_0`$. We turn to such an example demonstrating
-  this phenomenon later in this vignette.
+
+``` math
+\sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p = p_0}[Pr(BF_{01}(y)<k|p)]=Pr(BF_{01}(y)<k|p=p_0)
+```
+
+where the right-hand side of the above display is precisely the
+frequentist type-I-error under $`H_0:p=p_0`$. For directional tests such
+as $`H_0:p\leq p_0`$ against $`H_1:p>p_0`$, however, these should, in
+general, differ substantially. In those cases, the frequentist
+type-I-error is the supremum
+
+``` math
+\sup_{p \in H_0}[Pr(BF_{01}(y)<k|p)]=\sup_{p\leq p_0}[Pr(BF_{01}(y)<k|p)]
+```
+
+while the Bayesian type-I-error is the design prior averaged probability
+
+``` math
+\int_{p \leq p_0}Pr(BF_{01}(y)<k|p)\pi(p)dp
+```
+
+where $`\pi(p)`$ denotes the design prior truncated to the parameter
+space of $`H_0:p\leq p_0`$. We turn to such an example demonstrating
+this phenomenon later in this vignette.
 
 ### Inspecting the result object
 
@@ -498,9 +503,11 @@ as feasible. This implies, that when $`H_0`$ holds, we can assert a
 minimum probability to stop the trial early for futility. That minimum
 probability can be specified in advance of the trial during the planning
 stage, and formally, the trial design must then satisfy the condition
+
 ``` math
 Pr(BF_{01}>k_f|H_0)>f
 ```
+
 for some futility probability threshold $`f\in (0,1)`$.
 
 As above, `da = 2.5` and `db = 2` specify the slightly optimistic
@@ -597,7 +604,7 @@ frequentist operating characteristics. The lower left and right panels
 visualize the analysis and design priors under the null and alternative
 hypothesis. Under the null hypothesis \$H_0:p=p_0\$, the design and
 analysis priors are point masses at the specified null probability
-p0.](figures/optimal_single_arm_two_stage_bayes_fig3.png)
+\`p0\`.](figures/optimal_single_arm_two_stage_bayes_fig3.png)
 
 Figure 3: Output of the plot function for a calibrated optimal
 single-arm two-stage design using Bayes factors. In addition to the
@@ -611,7 +618,7 @@ about the optimal design found by the algorithm and its Bayesian and
 frequentist operating characteristics. The lower left and right panels
 visualize the analysis and design priors under the null and alternative
 hypothesis. Under the null hypothesis $`H_0:p=p_0`$, the design and
-analysis priors are point masses at the specified null probability p0.
+analysis priors are point masses at the specified null probability `p0`.
 
 The upper left panel in Figure 3 shows that now the probability of
 compelling evidence (PCE) constraint for $`H_0`$ is also visible in the
@@ -713,7 +720,8 @@ its Bayesian and frequentist operating characteristics. The lower left
 and right panels visualize the analysis and design priors under the null
 and alternative hypothesis. Under the null hypothesis \$H_0:p=p_0\$, the
 design and analysis priors are point masses at the specified null
-probability p0.](figures/optimal_single_arm_two_stage_bayes_fig4.png)
+probability
+\`p0\`.](figures/optimal_single_arm_two_stage_bayes_fig4.png)
 
 Figure 4: Output of the plot function for a calibrated optimal
 single-arm two-stage design using Bayes factors in the directional test
@@ -725,7 +733,7 @@ its Bayesian and frequentist operating characteristics. The lower left
 and right panels visualize the analysis and design priors under the null
 and alternative hypothesis. Under the null hypothesis $`H_0:p=p_0`$, the
 design and analysis priors are point masses at the specified null
-probability p0.
+probability `p0`.
 
 This example illustrates how the optimal design and its operating
 characteristics may change when the evidential assessment is based on a
@@ -847,7 +855,7 @@ legend("bottomright",
 ![Figure 5: Relationship between the probability of compelling evidence
 PCE(H0) and the fixed-sample size for the selected design and analysis
 priors and evidence thresholds in the directional test
-example.](bfbin2arm-singlearm-twostage_bayesian_files/figure-html/unnamed-chunk-21-1.png)
+example.](bfbin2arm-singlearm-twostage_bayesian_files/figure-html/unnamed-chunk-20-1.png)
 
 Figure 5: Relationship between the probability of compelling evidence
 PCE(H0) and the fixed-sample size for the selected design and analysis
@@ -935,48 +943,6 @@ and high power) may be infeasible even at fairly large sample sizes. In
 such cases, it is recommended to explore the attainable region of
 operating characteristics first and to choose targets and priors that
 are both scientifically plausible and jointly achievable.
-
-## Session information
-
-``` r
-
-sessionInfo()
-#> R version 4.6.0 (2026-04-24)
-#> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.4 LTS
-#> 
-#> Matrix products: default
-#> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
-#> 
-#> locale:
-#>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-#>  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-#>  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-#> [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-#> 
-#> time zone: UTC
-#> tzcode source: system (glibc)
-#> 
-#> attached base packages:
-#> [1] stats     graphics  grDevices utils     datasets  methods   base     
-#> 
-#> other attached packages:
-#> [1] bfbin2arm_0.1.4
-#> 
-#> loaded via a namespace (and not attached):
-#>  [1] gtable_0.3.6       jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.0    
-#>  [5] tidyselect_1.2.1   parallel_4.6.0     jquerylib_0.1.4    systemfonts_1.3.2 
-#>  [9] scales_1.4.0       textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
-#> [13] ggplot2_4.0.3      R6_2.6.1           patchwork_1.3.2    generics_0.1.4    
-#> [17] knitr_1.51         tibble_3.3.1       desc_1.4.3         bslib_0.11.0      
-#> [21] pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.2.0        cachem_1.1.0      
-#> [25] xfun_0.59          S7_0.2.2           fs_2.1.0           sass_0.4.10       
-#> [29] otel_0.2.0         cli_3.6.6          pkgdown_2.2.0      magrittr_2.0.5    
-#> [33] digest_0.6.39      grid_4.6.0         lifecycle_1.0.5    vctrs_0.7.3       
-#> [37] evaluate_1.0.5     glue_1.8.1         farver_2.1.2       ragg_1.5.2        
-#> [41] rmarkdown_2.31     tools_4.6.0        pkgconfig_2.0.3    htmltools_0.5.9
-```
 
 ## References
 

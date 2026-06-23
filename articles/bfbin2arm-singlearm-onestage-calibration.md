@@ -15,12 +15,15 @@ flexibility and a wide range of applications.
 The design is then based on a region of practical equivalence (ROPE)
 around the benchmark response probability $`p_0`$. The ROPE is defined
 as
+
 ``` math
 \mathcal{R}_p = [p_0 - \delta,\; p_0 + \delta]\cap(0,1),
 ```
+
 where $`\delta > 0`$ denotes the half-width of the ROPE. Equivalence is
 accepted when the posterior probability that $`p`$ lies inside the ROPE
 exceeds a chosen threshold,
+
 ``` math
 \Pr(p \in \mathcal{R}_p \mid Y=y) \ge \gamma_{\mathrm{eq}}.
 ```
@@ -50,9 +53,11 @@ of these parameters in a worked example.
 
 We consider a single-arm phase II trial with a binary response. We
 formally test the hypotheses
+
 ``` math
 H_0:p\in \mathcal{R}_p \text{ versus } H_1:p\notin \mathcal{R}_p
 ```
+
 The null hypothesis $`H_0`$ implies that the novel drug or treatment is
 equivalent from a clinical perspective to the standard of care. The
 alternative hypothesis $`H_1`$ implies that it is not. In the latter
@@ -63,6 +68,7 @@ drug or treatment, both of these results are undesirable.
 
 The benchmark response probability is $`p_0 = 0.30`$, and the ROPE
 half-width is chosen as $`\delta = 0.12`$, so that
+
 ``` math
 \mathcal{R}_p = [0.18, 0.42].
 ```
@@ -96,6 +102,7 @@ under our specification.
 
 For a fixed sample size $`n`$, the ROPE decision rule induces an
 equivalence acceptance region
+
 ``` math
 \mathcal{A}_{\mathrm{eq}}(n)
 =
@@ -104,48 +111,58 @@ y \in \{0,\dots,n\} :
 \Pr(p \in \mathcal{R}_p \mid Y=y) \ge \gamma_{\mathrm{eq}}
 \bigr\}.
 ```
+
 If the region is contiguous, we can write
+
 $`\mathcal{A}_{\mathrm{eq}}(n) = \{y_{\min}^{\mathrm{eq}}(n),\dots,y_{\max}^{\mathrm{eq}}(n)\}`$.
 
 Predictive (Bayesian) operating characteristics are computed under the
 design priors:
 
 - predictive power under equivalence:
-  ``` math
-  \mathrm{power}(n) =
-  \Pr(\text{equivalence accepted} \mid H_1)
-  = \sum_{y \in \mathcal{A}_{\mathrm{eq}}(n)} \Pr(Y=y \mid H_1),
-  ```
+
+``` math
+\mathrm{power}(n) =
+\Pr(\text{equivalence accepted} \mid H_1)
+= \sum_{y \in \mathcal{A}_{\mathrm{eq}}(n)} \Pr(Y=y \mid H_1),
+```
+
 - predictive type-I error under non-equivalence:
-  ``` math
-  \mathrm{type1}(n) =
-  \Pr(\text{equivalence accepted} \mid H_0)
-  = \sum_{y \in \mathcal{A}_{\mathrm{eq}}(n)} \Pr(Y=y \mid H_0).
-  ```
+
+``` math
+\mathrm{type1}(n) =
+\Pr(\text{equivalence accepted} \mid H_0)
+= \sum_{y \in \mathcal{A}_{\mathrm{eq}}(n)} \Pr(Y=y \mid H_0).
+```
 
 Frequentist operating characteristics are computed under fixed response
 probabilities:
 
 - frequentist power at a point alternative $`p \in \mathcal{R}_p`$:
-  ``` math
-  \mathrm{freq\_power}(n; p)
-  = \Pr_{p}(\text{equivalence accepted})
-  = \sum_{y \in \mathcal{A}_{\mathrm{eq}}(n)}
+
+``` math
+\mathrm{freq\_power}(n; p)
+= \Pr_{p}(\text{equivalence accepted})
+= \sum_{y \in \mathcal{A}_{\mathrm{eq}}(n)}
   \binom{n}{y} p^y (1-p)^{n-y},
-  ```
+```
+
 - frequentist type-I error at a point $`p`$:
-  ``` math
-  \mathrm{freq\_type1}(n; p)
-  = \Pr_p(\text{equivalence accepted}).
-  ```
-  In this vignette, frequentist type-I error is defined as the worst
-  case at the ROPE boundaries,
-  ``` math
-  \mathrm{freq\_type1}^{\max}(n)
-  =
-  \max\{ \mathrm{freq\_type1}(n; p_0-\delta),\;
+
+``` math
+\mathrm{freq\_type1}(n; p)
+= \Pr_p(\text{equivalence accepted}).
+```
+
+In this vignette, frequentist type-I error is defined as the worst case
+at the ROPE boundaries,
+
+``` math
+\mathrm{freq\_type1}^{\max}(n)
+=
+\max\{ \mathrm{freq\_type1}(n; p_0-\delta),\;
        \mathrm{freq\_type1}(n; p_0+\delta)\}.
-  ```
+```
 
 The calibration modes select the sample size $`n`$ such that these
 operating characteristics meet specified targets.
@@ -472,11 +489,13 @@ characteristics, three parameters play a central role:
 2.  the ROPE half-width $`\delta`$,
 3.  the point alternative $`dp`$.
 
-### Posterior threshold $`\gamma_{\mathrm{eq}}`$
+### The posterior probability threshold $`\gamma_{\mathrm{eq}}`$
 
 The threshold $`\gamma_{\mathrm{eq}}`$ controls how demanding the ROPE
-decision rule is. Larger values of $`\gamma_{\mathrm{eq}}`$ shrink the
-set of $`y`$ for which equivalence is accepted, which:
+decision rule is. It is the posterior probability which is required to
+be located inside the ROPE to establish equivalence. Larger values of
+$`\gamma_{\mathrm{eq}}`$ shrink the set of $`y`$ for which equivalence
+is accepted, which:
 
 - decreases frequentist type-I error at the ROPE boundary,
 - typically decreases predictive power and frequentist power as well.
@@ -512,7 +531,7 @@ res_gamma <- lapply(gamma_grid, function(gam) {
 })
 ```
 
-### ROPE half-width $`\delta`$
+### The ROPE half-width $`\delta`$
 
 The ROPE half-width $`\delta`$ encodes what is considered “clinically
 equivalent” to $`p_0`$. A narrower ROPE:
@@ -530,7 +549,7 @@ Users can combine changes in $`\delta`$ and $`\gamma_{\mathrm{eq}}`$ to
 achieve desired trade-offs between clinical tolerance and statistical
 error control.
 
-### Point alternative $`dp`$
+### The Point alternative $`dp`$
 
 The point alternative `dp` determines where frequentist power is
 evaluated. It should lie inside the ROPE, for example at the center

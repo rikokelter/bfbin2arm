@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Optimal Bayesian calibration of two-arm two-stage Bayes factor designs with binary endpoints • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -64,8 +69,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Optimal Bayesian calibration of two-arm two-stage Bayes factor designs with binary endpoints</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Optimal Bayesian calibration of two-arm two-stage Bayes factor designs with binary endpoints</h1>
                         <h4 data-toc-skip class="author"><div class="line-block">Riko Kelter<br>
 Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine<br>
@@ -171,24 +175,28 @@ used inside the Bayes factor itself.</p>
 probabilities under each hypothesis when computing operating
 characteristics.</p>
 <ul>
-<li><p>Under
+<li>
+<p>Under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">H_0: p_1 = p_2</annotation></semantics></math>:
 We assume a common response probability
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-with
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>0</mn><mi>d</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>0</mn><mi>d</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
-p \sim \mathrm{Beta}(a_{0d}, b_{0d}),
-</annotation></semantics></math> set via the parameters
-<code>a_0_d</code> and <code>b_0_d</code>.</p></li>
-<li><p>Under
+with</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>0</mn><mi>d</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>0</mn><mi>d</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">p \sim \mathrm{Beta}(a_{0d}, b_{0d}),</annotation></semantics></math></p>
+<p>set via the parameters <code>a_0_d</code> and
+<code>b_0_d</code>.</p>
+</li>
+<li>
+<p>Under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>≠</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">H_1: p_1 \neq p_2</annotation></semantics></math>:
-We assume independent priors for the two arms:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>1</mn><mi>d</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>1</mn><mi>d</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>2</mn><mi>d</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>2</mn><mi>d</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+We assume independent priors for the two arms:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>1</mn><mi>d</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>1</mn><mi>d</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>2</mn><mi>d</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>2</mn><mi>d</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p_1 \sim \mathrm{Beta}(a_{1d}, b_{1d}), \quad
 p_2 \sim \mathrm{Beta}(a_{2d}, b_{2d}),
-</annotation></semantics></math> set via the parameters
-<code>a_1_d, b_1_d</code> (for the control group) and
-<code>a_2_d, b_2_d</code> ( for the treatment group).</p></li>
+</annotation></semantics></math></p>
+<p>set via the parameters <code>a_1_d, b_1_d</code> (for the control
+group) and <code>a_2_d, b_2_d</code> ( for the treatment
+group).</p>
+</li>
 </ul>
 <p>For directional tests (<code>test = "BF+0"</code>,
 <code>"BF-0"</code>, or <code>"BF+-"</code>), there are additional
@@ -209,22 +217,28 @@ for each hypothesis. When the hypothesis of interest is tested via the
 Bayes factor, the analysis priors is the prior used in the calculation
 of the Bayes factor itself.</p>
 <ul>
-<li><p>Under
+<li>
+<p>Under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">H_0: p_1 = p_2</annotation></semantics></math>,
 the analysis prior for the common response probability again is Beta
 distributed,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>0</mn><mi>a</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>0</mn><mi>a</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p \sim \mathrm{Beta}(a_{0a}, b_{0a}),
-</annotation></semantics></math> specified by the parameters
-<code>a_0_a</code> and <code>b_0_a</code>.</p></li>
-<li><p>Under
+</annotation></semantics></math></p>
+<p>specified by the parameters <code>a_0_a</code> and
+<code>b_0_a</code>.</p>
+</li>
+<li>
+<p>Under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><msub><mi>p</mi><mn>1</mn></msub><mo>≠</mo><msub><mi>p</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">H_1: p_1 \neq p_2</annotation></semantics></math>,
-we again use independent Betas for the analysis prior:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>1</mn><mi>a</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>1</mn><mi>a</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>2</mn><mi>a</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+we again use independent Betas for the analysis prior:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>1</mn><mi>a</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>1</mn><mi>a</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>p</mi><mn>2</mn></msub><mo>∼</mo><mrow><mi mathvariant="normal">B</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mn>2</mn><mi>a</mi></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 p_1 \sim \mathrm{Beta}(a_{1a}, b_{1a}), \quad
 p_2 \sim \mathrm{Beta}(a_{2a}, b_{2a}),
-</annotation></semantics></math> specified via the parameters
-<code>a_1_a, b_1_a</code> and <code>a_2_a, b_2_a</code>.</p></li>
+</annotation></semantics></math></p>
+<p>specified via the parameters <code>a_1_a, b_1_a</code> and
+<code>a_2_a, b_2_a</code>.</p>
+</li>
 </ul>
 <p>Typically, analysis priors are chosen to be relatively diffuse
 (e.g. Beta(1,1)), while design priors can express more specific beliefs
@@ -282,16 +296,17 @@ the design that minimizes the expected sample size under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.</p></li>
 </ol>
 <p>The <strong>number of interim designs</strong> considered in step 2
-is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">interim designs</mtext><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mn>1</mn></msubsup><mo stretchy="false" form="postfix">}</mo><mo>×</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mn>2</mn></msubsup><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">interim designs</mtext><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mn>1</mn></msubsup><mo stretchy="false" form="postfix">}</mo><mo>×</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mn>2</mn></msubsup><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \#\{\text{interim designs}\} = \#\{n_1^1\} \times \#\{n_1^2\},
-</annotation></semantics></math> where, for each arm
+</annotation></semantics></math></p>
+<p>where, for each arm
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
-the admissible interim sample sizes form a grid
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mi>j</mi></msubsup><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mrow><mn>1</mn><mo>,</mo><mi mathvariant="normal">min</mi></mrow><mi>j</mi></msubsup><mo>,</mo><mspace width="0.167em"></mspace><msubsup><mi>n</mi><mrow><mn>1</mn><mo>,</mo><mi mathvariant="normal">min</mi></mrow><mi>j</mi></msubsup><mo>+</mo><mtext mathvariant="monospace">𝚐𝚛𝚒𝚍_𝚜𝚝𝚎𝚙</mtext><mo>,</mo><mspace width="0.167em"></mspace><mi>…</mi><mo>,</mo><mspace width="0.167em"></mspace><msubsup><mi>n</mi><mn>2</mn><mi>j</mi></msubsup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">
+the admissible interim sample sizes form a grid</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mi>j</mi></msubsup><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mrow><mn>1</mn><mo>,</mo><mi mathvariant="normal">min</mi></mrow><mi>j</mi></msubsup><mo>,</mo><mspace width="0.167em"></mspace><msubsup><mi>n</mi><mrow><mn>1</mn><mo>,</mo><mi mathvariant="normal">min</mi></mrow><mi>j</mi></msubsup><mo>+</mo><mtext mathvariant="monospace">𝚐𝚛𝚒𝚍_𝚜𝚝𝚎𝚙</mtext><mo>,</mo><mspace width="0.167em"></mspace><mi>…</mi><mo>,</mo><mspace width="0.167em"></mspace><msubsup><mi>n</mi><mn>2</mn><mi>j</mi></msubsup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">
 \{n_1^j\} = \{n_{1,\min}^j,\, n_{1,\min}^j + \texttt{grid\_step},\, \dots,\, n_{2}^j - 1\}
-</annotation></semantics></math> after applying the
-<code>interim_fraction</code> bounds. Thus
+</annotation></semantics></math></p>
+<p>after applying the <code>interim_fraction</code> bounds. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mn>1</mn><mi>j</mi></msubsup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\#\{n_1^j\}</annotation></semantics></math>
 is the <strong>number of grid points</strong> between the lower and
 upper interim limits in arm

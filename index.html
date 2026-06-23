@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Bayes Factor Design for Two-Arm Binomial Trials • bfbin2arm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -14,6 +19,7 @@
 <meta property="og:title" content="Bayes Factor Design for Two-Arm Binomial Trials">
 <meta name="description" content="Design and analysis of one- and two-stage binomial clinical phase II trials using Bayes factors. Implements Bayes factors for point-null and directional hypotheses, predictive densities under different hypotheses, and power and sample size calibration. Both one-arm trials with only a single treatment arm and two-arm trials with treatment and control arm are implemented for the one- and two-stage designs.">
 <meta property="og:description" content="Design and analysis of one- and two-stage binomial clinical phase II trials using Bayes factors. Implements Bayes factors for point-null and directional hypotheses, predictive densities under different hypotheses, and power and sample size calibration. Both one-arm trials with only a single treatment arm and two-arm trials with treatment and control arm are implemented for the one- and two-stage designs.">
+<meta property="og:image" content="https://rikokelter.github.io/bfbin2arm/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -61,8 +67,64 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Design and analysis of one- and two-stage binomial clinical phase II trials using Bayes factors. Implements Bayes factors for point-null and directional hypotheses, predictive densities under different hypotheses, and power and sample size calibration. Both one-arm trials with only a single treatment arm and two-arm trials with treatment and control arm are implemented for the one- and two-stage designs.
+  <main id="main" class="col-md-9"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem;">
+<img src="reference/figures/logo.png" alt="bfbin2arm logo" style="height: 84px; width: auto;"><h2 style="margin: 0;">
+bfbin2arm
+</h2>
+</div>
+<p><code>bfbin2arm</code> provides methodology and software for Bayes-factor-based and ROPE-based design, calibration, and operating-characteristic evaluation of phase II clinical trials with binary endpoints. The package focuses on single-arm and two-arm Bayesian designs, including one-stage and two-stage settings, with tools for design calibration, frequentist operating characteristics, and visualisation of trial operating behavior.</p>
+<p>The package website collects methodological articles, worked examples, and reference documentation intended to support both applied use and methodological development.</p>
+<div class="section level2">
+<h2 id="funding">Funding<a class="anchor" aria-label="anchor" href="#funding"></a>
+</h2>
+<p>Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - Project number 549296018.</p>
+<p>For any inquiries, contact Dr. Riko Kelter, <a href="mailto:riko.kelter@uni-koeln.de">riko.kelter@uni-koeln.de</a>.</p>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: center; justify-items: center; margin-top: 1em; margin-bottom: 1.5em;">
+<div style="grid-column: 1 / span 3; text-align: center;">
+<p><img src="reference/figures/imsb_logo.png" alt="Institute of Medical Statistics and Computational Biology logo" style="max-height: 110px; width: auto;"></p>
+</div>
+<div style="text-align: center;">
+<p><img src="reference/figures/ukoeln_logo.png" alt="University of Cologne logo" style="max-height: 90px; width: auto;"></p>
+</div>
+<div style="text-align: center;">
+<p><img src="reference/figures/ukkoeln_logo.png" alt="University Hospital Cologne logo" style="max-height: 90px; width: auto;"></p>
+</div>
+<div style="text-align: center;">
+<p><img src="reference/figures/dfg_logo.jpg" alt="Deutsche Forschungsgemeinschaft logo" style="max-height: 90px; width: auto;"></p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="main-articles">Main articles<a class="anchor" aria-label="anchor" href="#main-articles"></a>
+</h2>
+<ul>
+<li><a href="articles/bfbin2arm-overview.html">Bayes-factor-based designs in bfbin2arm</a></li>
+<li><a href="articles/bfbin2arm-rope-singlearm-onestage-design.html">ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</a></li>
+<li><a href="articles/bfbin2arm-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
+<li><a href="articles/bfbin2arm-singlearm-onestage.html">Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</a></li>
+<li><a href="articles/bfbin2arm-singlearm-twostage_bayesian.html">Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</a></li>
+<li><a href="articles/bfbin2arm-singlearm_twostage_frequentist.html">Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
+<li><a href="articles/bfbin2arm-singlearm_twostage_hybrid.html">Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
+<li><a href="articles/bfbin2arm-singlearm_twostage_full.html">Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
+<li><a href="articles/bfbin2arm-twoarm_onestage_Bayesian.html">Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</a></li>
+<li><a href="articles/bfbin2arm-twoarm-twostage_Bayesian.html">Optimal Bayesian calibration of two-arm two-stage Bayes factor designs with binary endpoints</a></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="reference-documentation">Reference documentation<a class="anchor" aria-label="anchor" href="#reference-documentation"></a>
+</h2>
+<ul>
+<li><a href="reference/index.html">Function reference</a></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="source-code">Source code<a class="anchor" aria-label="anchor" href="#source-code"></a>
+</h2>
+<ul>
+<li><a href="https://github.com/rikokelter/bfbin2arm" class="external-link">GitHub repository</a></li>
+</ul>
+</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

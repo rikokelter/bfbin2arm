@@ -7,12 +7,12 @@ frequentist interpretation of type-I error. In the context of single-arm
 two-stage designs, this is often attractive because it allows you to:
 
 - treat power as a prior-predictive Bayesian quantity under a realistic
-  design prior for \\H_1\\, and
+  design prior for $`H_1`$, and
 - control type-I error in the classical frequentist sense at the null
-  boundary \\p_0\\.
+  boundary $`p_0`$.
 
-The decision statistic is still a Bayes factor \\BF\_{01}\\, and the
-design includes an interim analysis at \\n_1\\ with the possibility to
+The decision statistic is still a Bayes factor $`BF_{01}`$, and the
+design includes an interim analysis at $`n_1`$ with the possibility to
 stop early for futility.
 
 ### Basics of hybrid calibration
@@ -28,11 +28,11 @@ in
 [`design_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.md).
 In this mode:
 
-- *Bayesian power* is calibrated using the \\H_1\\ design prior,
-  i.e. averaged over \\p \> p_0\\ under a truncated Beta prior for
+- *Bayesian power* is calibrated using the $`H_1`$ design prior,
+  i.e. averaged over $`p > p_0`$ under a truncated Beta prior for
   directional tests.
-- *Frequentist type-I error* is calibrated at \\p = p_0\\, i.e. the
-  probability of incorrectly rejecting \\H_0\\ is controlled in the
+- *Frequentist type-I error* is calibrated at $`p = p_0`$, i.e. the
+  probability of incorrectly rejecting $`H_0`$ is controlled in the
   classical frequentist sense.
 
 You must specify:
@@ -51,9 +51,11 @@ type-I-error.
 
 We start by constructing a hybrid-optimal design. Therefore, we consider
 the test of
+
 ``` math
 H_0:p\leq 0.2 \text{ versus }H_1:p>0.2
 ```
+
 for a clinical phase II trial with binary endpoints in the treatment
 group (success / failure). The novel treatment or drug is deemed
 effective if we find sufficient evidence in favour of $`H_1`$, when the
@@ -127,7 +129,7 @@ The output shows:
 - the selected interim and final sample sizes (`n1`, `n2`),
 - Bayesian power and Bayesian type-I error,
 - frequentist type-I error and frequentist power at `dp`,
-- expected sample sizes under \\H_0\\ and \\H_1\\,
+- expected sample sizes under $`H_0`$ and $`H_1`$,
 - feasibility and a status message.
 
 The search results can be plotted, too:
@@ -163,15 +165,15 @@ irrelevant. They influence only the Bayesian operating characteristics.
 The result shown in Figure 1 visualizes the most relevant aspects about
 the isolated optimal trial design. In the hybrid mode:
 
-- The Bayesian power target ensures that, on average under the \\H_1\\
+- The Bayesian power target ensures that, on average under the $`H_1`$
   design prior, the design has at least the specified probability of
-  producing evidence against \\H_0\\. In this case, the plot shows both
+  producing evidence against $`H_0`$. In this case, the plot shows both
   the Bayesian and frequentist power of the isolated optimal design.
   Note that while the Bayesian power meets the target constraint of 80%
   power, the frequentist power of the optimal hybrid design isolated by
   the algorithm is only about 59%.
-- The frequentist type-I error target ensures that when \\p = p_0\\, the
-  probability of erroneously rejecting \\H_0\\ is bounded in the usual
+- The frequentist type-I error target ensures that when $`p = p_0`$, the
+  probability of erroneously rejecting $`H_0`$ is bounded in the usual
   sense. We see from the plot that the frequentist type-I-error rate is
   below the target threshold of 5%.
 - The probabilities to stop early for futility are also shown as well as
@@ -192,9 +194,11 @@ stopping early for futility at the interim analysis when the true
 response probability is $`p`$.
 
 By construction,
+
 ``` math
 N(p) = n_1 \cdot \pi_{\text{fut}}(p) + n_2 \cdot \{1 - \pi_{\text{fut}}(p)\},
 ```
+
 because the trial enrolls $`n_1`$ patients if it stops early, and
 $`n_2`$ patients otherwise.
 
@@ -202,6 +206,7 @@ $`n_2`$ patients otherwise.
 
 The frequentist expected sample size at a fixed true probability $`p`$
 is simply
+
 ``` math
 \operatorname{E}_p(N) =
 n_1 \cdot \pi_{\text{fut}}(p) + n_2 \cdot \{1 - \pi_{\text{fut}}(p)\}.
@@ -221,6 +226,7 @@ design prior for $`p`$.
 Under a design prior density $`g(p)`$ with support $`I`$ (for example, a
 truncated beta prior), the Bayesian expected sample size under $`H_1`$
 is
+
 ``` math
 \operatorname{E}_g(N) =
 \int_I \left\{ n_1 \cdot \pi_{\text{fut}}(p) +
@@ -230,6 +236,7 @@ is
 
 Analogously, under a design prior $`g_0(p)`$ on the null region $`I_0`$,
 the Bayesian expected sample size under $`H_0`$ is
+
 ``` math
 \operatorname{E}_{g_0}(N) =
 \int_{I_0} \left\{ n_1 \cdot \pi_{\text{fut}}(p) +
@@ -261,9 +268,9 @@ case, flat) design prior under $`H_0`$ and includes less optimistic
 parameter values $`p\leq 0.2`$ for which the trial stops more often for
 futility.
 
-### Sensitivity to the \\H_1\\ design prior
+### Sensitivity to the $`H_1`$ design prior
 
-Hybrid calibration naturally depends on the \\H_1\\ design prior because
+Hybrid calibration naturally depends on the $`H_1`$ design prior because
 Bayesian power is a prior-predictive quantity. We can explore this by
 varying `da1` and `db1` while keeping other settings fixed.
 
@@ -346,21 +353,23 @@ knitr::kable(hybrid_sensitivity, digits = 3)
 | n12 | more concentrated | TRUE | 7 | 14 | 0.837 | 0.007 | 0.501 | 0.042 | 8.186 | 13.595 |
 
 This table shows how the optimal design and its operating
-characteristics change with the \\H_1\\ design prior. In particular:
+characteristics change with the $`H_1`$ design prior. In particular:
 
 - more concentrated priors around optimistic response rates can lead to
   smaller sample sizes and higher Bayesian power,
-- priors with substantial mass near \\p_0\\ may require larger sample
+- priors with substantial mass near $`p_0`$ may require larger sample
   sizes to reach the same power target.
 
-### Adding a compelling-evidence constraint under \\H_0\\
+### Adding a compelling-evidence constraint under $`H_0`$
 
 Hybrid calibration can also be combined with a constraint on the
-probability of compelling evidence in favour of \\H_0\\. In formulas,
+probability of compelling evidence in favour of $`H_0`$. In formulas,
 this implies we require the additional target constraint
+
 ``` math
 Pr(BF_{01}<k_f)>f
 ```
+
 for the optimal hybrid two-stage design, next to our Bayesian power and
 frequentist type-I-error requirements. Here, $`f\in (0,1)`$ is the
 threshold we set for the probability of compelling evidence for $`H_0`$.
@@ -427,7 +436,7 @@ one-stage design to yield reasonable candidate two-stage designs which
 have $`n_2 = 25`$.
 
 In some settings, no design can satisfy all three constraints (Bayesian
-power, frequentist type-I error, compelling evidence under \\H_0\\). In
+power, frequentist type-I error, compelling evidence under $`H_0`$). In
 that case, the function returns a message explaining that no feasible
 design was found.
 
@@ -614,7 +623,7 @@ res_with_cushion$operating_characteristics
 #> [1] 28.03424
 ```
 
-### Interpretation of `power_cushion`
+### Interpretation of the `power_cushion` parameter
 
 The argument `power_cushion` modifies only the first step of the
 optimization, that is, the fixed-sample anchor search. If
@@ -766,20 +775,20 @@ res_hybrid_ce_with_power_cushion
 
 The example exemplifies that is is recommended to always use a small
 power cushion to isolate optimal designs reliably with the two-step
-algorithm underlying the function. For further details, see also (Kelter
-and Pawel 2025a) and (Kelter and Pawel 2025b).
+algorithm underlying the function. For further details, see also Kelter
+and Pawel (2025a) and Kelter and Pawel (2025b).
 
 ### Practical recommendations for hybrid calibration
 
 When using the hybrid mode in practice:
 
-- Choose the \\H_1\\ design prior to reflect realistic expectations
+- Choose the $`H_1`$ design prior to reflect realistic expectations
   about the treatment effect; it directly impacts Bayesian power.
 - Keep the frequentist type-I error target in line with regulatory or
   scientific standards for early-phase trials (often 0.1, 0.05 or
   0.025).
 - Use the optional `target_ce_h0` only when a minimum probability of
-  compelling evidence under \\H_0\\ is truly required; otherwise, omit
+  compelling evidence under $`H_0`$ is truly required; otherwise, omit
   it to avoid overconstraining the problem.
 
 ### References
