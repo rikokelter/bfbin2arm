@@ -1,0 +1,18 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  bfbin2arm-overview: bfbin2arm-overview.html
+  bfbin2arm-rope-singlearm-onestage-design: bfbin2arm-rope-singlearm-onestage-design.html
+  bfbin2arm-singlearm_twostage_frequentist: bfbin2arm-singlearm_twostage_frequentist.html
+  bfbin2arm-singlearm_twostage_full: bfbin2arm-singlearm_twostage_full.html
+  bfbin2arm-singlearm_twostage_hybrid: bfbin2arm-singlearm_twostage_hybrid.html
+  bfbin2arm-singlearm-onestage-calibration: bfbin2arm-singlearm-onestage-calibration.html
+  bfbin2arm-singlearm-onestage: bfbin2arm-singlearm-onestage.html
+  bfbin2arm-singlearm-twostage_bayesian: bfbin2arm-singlearm-twostage_bayesian.html
+  bfbin2arm-twoarm_onestage_Bayesian: bfbin2arm-twoarm_onestage_Bayesian.html
+  bfbin2arm-twoarm-twostage_Bayesian: bfbin2arm-twoarm-twostage_Bayesian.html
+last_built: 2026-06-23T05:05Z
+urls:
+  reference: https://rikokelter.github.io/bfbin2arm/reference
+  article: https://rikokelter.github.io/bfbin2arm/articles

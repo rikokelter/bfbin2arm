@@ -1,0 +1,84 @@
+# Package index
+
+## All functions
+
+- [`BFminus0()`](https://rikokelter.github.io/bfbin2arm/reference/BFminus0.md)
+  : Bayes factor BF-0: H- vs H0
+- [`BFminus1()`](https://rikokelter.github.io/bfbin2arm/reference/BFminus1.md)
+  : Bayes factor BF-1: H- vs H1
+- [`BFplus0()`](https://rikokelter.github.io/bfbin2arm/reference/BFplus0.md)
+  : Bayes factor BF+0: H+ vs H0
+- [`BFplus1()`](https://rikokelter.github.io/bfbin2arm/reference/BFplus1.md)
+  : Bayes factor BF+1: H+ vs H1
+- [`BFplusMinus()`](https://rikokelter.github.io/bfbin2arm/reference/BFplusMinus.md)
+  : Bayes factor BF+-: H+ vs H-
+- [`as.data.frame(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_onestage_bf_design.md)
+  : Convert a one-stage single-arm BF design to a data frame
+- [`design_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.md)
+  : Design or evaluate a single-arm two-stage Bayes factor trial
+- [`design_singlearm_onestage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_bf.md)
+  : Design or evaluate a one-stage single-arm Bayes factor trial
+- [`design_singlearm_onestage_rope()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_rope.md)
+  : Calibrate a one-stage single-arm ROPE design for a binomial endpoint
+- [`design_twoarm_onestage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_bf.md)
+  : Design or evaluate a one-stage two-arm Bayes factor trial
+- [`design_twoarm_twostage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.md)
+  : Design an optimal two-stage two-arm Bayes factor trial
+- [`.sustained_singlearm_feasibility()`](https://rikokelter.github.io/bfbin2arm/reference/dot-sustained_singlearm_feasibility.md)
+  : Check sustained feasibility over future n
+- [`ntwoarmbinbf01()`](https://rikokelter.github.io/bfbin2arm/reference/ntwoarmbinbf01.md)
+  : Sample size calibration for two-arm binomial Bayes factor designs
+- [`optimal_onestage_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_onestage_singlearm_bf.md)
+  : Internal calibration routine for one-stage single-arm BF designs
+- [`optimal_onestage_twoarm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_onestage_twoarm_bf.md)
+  : Internal calibration routine for one-stage two-arm BF designs
+- [`optimal_twostage_2arm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_2arm_bf.md)
+  : Optimal two-stage two-arm Bayes-factor design for binary endpoints
+- [`optimal_twostage_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_singlearm_bf.md)
+  : Optimal two-stage single-arm Bayes factor design
+- [`plot(`*`<singlearm_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_bf_design.md)
+  : Plot a single-arm Bayes factor design
+- [`plot(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_onestage_bf_design.md)
+  : Plot a one-stage single-arm BF design
+- [`plot_twostage_2arm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/plot_twostage_2arm_bf.md)
+  : Plot an optimal two-stage two-arm Bayes factor design
+- [`postProbHminus()`](https://rikokelter.github.io/bfbin2arm/reference/postProbHminus.md)
+  : Posterior probability P(p2 \<= p1 \| data)
+- [`postProbHplus()`](https://rikokelter.github.io/bfbin2arm/reference/postProbHplus.md)
+  : Posterior probability P(p2 \> p1 \| data) under independent Beta
+  priors
+- [`powerbinbf01_fixed()`](https://rikokelter.github.io/bfbin2arm/reference/powerbinbf01_fixed.md)
+  : Bayesian and frequentist operating characteristics for a
+  fixed-sample single-arm BF design
+- [`powerbinbf01seq()`](https://rikokelter.github.io/bfbin2arm/reference/powerbinbf01seq.md)
+  : Bayesian and frequentist operating characteristics for a single-arm
+  two-stage BF design
+- [`powertwoarmbinbf01()`](https://rikokelter.github.io/bfbin2arm/reference/powertwoarmbinbf01.md)
+  : Bayesian power, type-I error, and PCE(H0) for two-arm binomial Bayes
+  factors
+- [`predictiveDensityH0()`](https://rikokelter.github.io/bfbin2arm/reference/predictiveDensityH0.md)
+  : Predictive density under H0: p1 = p2 = p
+- [`predictiveDensityH1()`](https://rikokelter.github.io/bfbin2arm/reference/predictiveDensityH1.md)
+  : Predictive density under H1: p1 != p2
+- [`predictiveDensityHminus_trunc()`](https://rikokelter.github.io/bfbin2arm/reference/predictiveDensityHminus_trunc.md)
+  : Predictive density under H-: p2 \<= p1 (truncated prior)
+- [`predictiveDensityHplus_trunc()`](https://rikokelter.github.io/bfbin2arm/reference/predictiveDensityHplus_trunc.md)
+  : Predictive density under H+: p2 \> p1 (truncated prior)
+- [`print(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.singlearm_onestage_bf_design.md)
+  : Print method for one-stage single-arm BF designs
+- [`print(`*`<summary.singlearm_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_bf_design.md)
+  : Print method for summary.singlearm_bf_design
+- [`print(`*`<summary.singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_onestage_bf_design.md)
+  : Print method for summaries of one-stage single-arm BF designs
+- [`priorProbHminus()`](https://rikokelter.github.io/bfbin2arm/reference/priorProbHminus.md)
+  : Prior probability P(p2 \<= p1) under independent Beta priors
+- [`priorProbHplus()`](https://rikokelter.github.io/bfbin2arm/reference/priorProbHplus.md)
+  : Prior probability P(p2 \> p1) under independent Beta priors
+- [`summary(`*`<singlearm_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_bf_design.md)
+  : Summary for single-arm BF designs
+- [`summary(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_onestage_bf_design.md)
+  : Summarize a one-stage single-arm BF design
+- [`twoarmbinbf01()`](https://rikokelter.github.io/bfbin2arm/reference/twoarmbinbf01.md)
+  : Two-arm binomial Bayes factor BF01
+- [`twoarmbinbf_plus0_direct()`](https://rikokelter.github.io/bfbin2arm/reference/twoarmbinbf_plus0_direct.md)
+  : Bayes factor BF+0 for the directional alternative vs point-null

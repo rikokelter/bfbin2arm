@@ -1,0 +1,180 @@
+# Bayes-factor-based designs in bfbin2arm
+
+## Introduction
+
+The `bfbin2arm` package implements Bayes-factor-based power and sample
+size calculations for binomial endpoints, with a focus on early-phase
+clinical trials, in particular, phase II trials. The central idea is to
+replace Monte Carlo simulation by fast numerical calculations of design
+operating characteristics, both in fixed-sample and two-stage settings.
+The underlying statistical theory is developed in (Kelter and Pawel
+2025a), extended to the single-arm two-stage optimal setting by (Kelter
+and Pawel 2025b), and further developed to the two-arm single-stage
+setting by (Kelter 2026).
+
+The package covers:
+
+- single-arm one-stage designs based on Bayes factors,
+- optimal two-stage single-arm designs with one interim analysis for
+  futility,
+- corresponding two-arm one-stage designs, where in addition to the
+  treatment group for the single-arm designs the existence of a control
+  group is assumed
+- Bayesian, frequentist, hybrid, and fully calibrated design modes for
+  each of these designs
+
+## Bayes factors in single-arm phase II designs
+
+In a typical single-arm phase II proof-of-concept trial with a binary
+endpoint, we test the null hypothesis
+
+\\ H_0 : p \le p_0 \\
+
+against the alternative
+
+\\ H_1 : p \> p_0, \\
+
+where \\p_0\\ is the response probability of a standard therapy or
+historical control. Alternatively, a two-sided test of $`H_0:p=p_0`$
+versus $`H_1:p \neq p_0`$ can be carried out.
+
+The package uses the Bayes factor \\BF\_{01}\\ as the central measure of
+evidence, with the convention that small values indicate evidence
+against \\H_0\\ and large values indicate evidence in favour of \\H_0\\.
+A two-stage design introduces a single interim analysis at \\n_1\\,
+where one can stop early for futility if the interim Bayes factor
+provides sufficiently strong evidence in favour of \\H_0\\.
+
+The underlying hypotheses in the two-arm setting are described in the
+associated vignette in detail. For brevity, we only detail some basics
+about the single-arm case in this overview.
+
+## Types of priors
+
+Two types of priors play a key role:
+
+- An *analysis prior* under \\H_1\\, used to compute the Bayes factor
+  itself.
+- *Design priors* under \\H_0\\ and \\H_1\\, used to define Bayesian
+  operating characteristics such as prior-predictive power and
+  prior-predictive type-I error.
+
+The package allows separate specification of design priors under \\H_0\\
+and \\H_1\\ via Beta distributions (truncated in the directional
+setting). This separation is important because the prior used to
+quantify evidence in the test (Bayes factor) need not coincide with the
+prior used for planning.
+
+## Calibration modes
+
+The package supports several calibration modes that determine which
+operating characteristics must satisfy user-specified targets:
+
+- **Bayesian calibration**: Bayesian power and Bayesian type-I error are
+  calibrated using design priors under \\H_1\\ and \\H_0\\.
+- **Frequentist calibration**: Frequentist power and frequentist type-I
+  error are calibrated, where power is evaluated at a single fixed point
+  alternative and type-I error at the null boundary.
+- **Hybrid calibration**: Bayesian power is combined with frequentist
+  type-I error.
+- **Full calibration**: Both Bayesian and frequentist constraints must
+  hold simultaneously. This is the strongest form of a calibrated trial
+  design.
+
+These modes are available for single-arm two-stage designs via the
+function
+[`design_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.md)
+and for underlying two-stage calibration via
+[`optimal_twostage_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_singlearm_bf.md).
+
+## Vignette overview
+
+This vignette serves as an entry point and does not include code. The
+package currently implements single-arm and two-arm designs, where the
+former only assumes the presence of a treatment group, and the latter an
+additional control group. Also, for both single- and two-arm designs,
+there are fixed-sample or one-stage designs which do not allow to stop
+the trial early after an interim analysis, and two-stage designs.
+Two-stage designs allow to stop the trial early (for futility), when the
+data show sufficient evidence in favour of the null hypothesis of no
+effect.
+
+### Single-arm designs
+
+The following vignettes provide detailed tutorials for single-arm
+designs with executable examples:
+
+1.  **Calibration of Bayesian one-stage designs for single-arm phase II
+    trials with binary endpoints** This vignette is the starting point
+    and serves as the simplest introduction detailing the power and
+    sample size calculations for Bayes factors in one-stage
+    (fixed-sample) single-arm phase II trials with binary endpoints. No
+    interim analysis and no control group are assumed.
+
+2.  **Optimal Bayesian calibration for single-arm two-stage Bayes factor
+    designs with binary endpoints**  
+    Explains how to construct optimal two-stage designs where type-I
+    error and power are calibrated in a purely Bayesian sense. No
+    control group is assumed but an interim analysis is introduced into
+    the trial design.
+
+3.  **Optimal frequentist calibration for single-arm two-stage Bayes
+    factor designs with binary endpoints**  
+    Explains how to construct optimal two-stage designs where type-I
+    error and power are calibrated in a purely frequentist sense
+    compared to the optimal Bayesian calibration in point 2. No control
+    group is assumed but an interim analysis is introduced into the
+    trial design.
+
+4.  **Optimal hybrid calibration for single-arm two-stage Bayes factor
+    designs with binary endpoints**  
+    Explains how to combine a prior-predictive Bayesian notion of power
+    with a frequentist interpretation of type-I error, which matches
+    regulatory expectations for frequentist calibration while preserving
+    Bayesian planning. Again, no control group is assumed but an interim
+    analysis is introduced into the trial design.
+
+5.  **Optimal full calibration for single-arm two-stage Bayes factor
+    designs with binary endpoints**  
+    Explains how to simultaneously enforce Bayesian and frequentist
+    constraints, resulting in designs that satisfy both perspectives at
+    once. This is the strongest form of calibrating a design. No control
+    group is assumed but an interim analysis is introduced into the
+    trial design.
+
+Each of these vignettes assumes familiarity with the basic single-arm
+phase II setup and with the terminology introduced above. All of these
+vignettes treat the single-arm case, where only a treatment group but no
+control group is available.
+
+### Two-arm designs
+
+Two-arm designs are also available in the package, and two vignettes
+detail the process of calculating an optimal design in this setting:
+
+5.  **Bayesian calibration of two-arm one-stage Bayes factor designs
+    with binary endpoints** Explains how to calibrate a two-arm phase II
+    design with binary endpoints, where no interim analysis is carried
+    out. Thus, this equals a fixed-sample standard power calculation
+    from a Bayesian point of view when both a treatment and control
+    group are available.
+
+6.  **Optimal Bayesian calibration of two-arm two-stage Bayes factor
+    designs with binary endpoints** Explains how to calibrate a two-arm
+    phase II trial with binary endpoints, where now an interim analysis
+    should be carried out which allows to stop the trial early for
+    futility. Again, a treatment and control group are assumed.
+
+## References
+
+Kelter, Riko. 2026. *Power and Sample Size Calculations for Bayes
+Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
+<https://arxiv.org/abs/2603.01715>.
+
+Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
+Calculations for Bayes Factors in the Binomial Setting*.
+<https://arxiv.org/abs/2502.02914>.
+
+Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
+Design for Clinical Phase II Trials Based on Bayes Factors*.
+<https://arxiv.org/abs/2511.23144>.
