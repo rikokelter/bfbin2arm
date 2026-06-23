@@ -18,10 +18,13 @@ tools.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://rikokelter.github.io/bfbin2arm/}
+  \item \url{https://github.com/rikokelter/bfbin2arm}
   \item \url{https://arxiv.org/abs/2511.23144}
   \item \url{https://arxiv.org/abs/2603.01715}
   \item \url{https://arxiv.org/abs/2502.02914}
   \item \url{https://arxiv.org/abs/2606.02410}
+  \item \url{https://rikokelter.github.io/bfbin2arm/}
 }
 
 }
