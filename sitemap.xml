@@ -20,11 +20,14 @@
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/BFplus1.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/BFplusMinus.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_onestage_bf_design.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/bfbin2arm.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/coef.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/compute_freq_twostage_oc_2arm.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_rope.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/dot-sustained_singlearm_feasibility.html</loc></url>
@@ -39,6 +42,7 @@
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_singlearm_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_onestage_bf_design.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot_twostage_2arm_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/postProbHminus.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/postProbHplus.html</loc></url>
@@ -50,12 +54,14 @@
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/predictiveDensityHminus_trunc.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/predictiveDensityHplus_trunc.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/print.singlearm_onestage_bf_design.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/print.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_onestage_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/priorProbHminus.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/priorProbHplus.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_onestage_bf_design.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/twoarmbinbf01.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/twoarmbinbf_plus0_direct.html</loc></url>
 </urlset>

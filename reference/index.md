@@ -14,12 +14,18 @@
   : Bayes factor BF+-: H+ vs H-
 - [`as.data.frame(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_onestage_bf_design.md)
   : Convert a one-stage single-arm BF design to a data frame
+- [`as.data.frame(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_rope_twostage_design.md)
+  : Convert candidates to a data frame
+- [`coef(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/coef.singlearm_rope_twostage_design.md)
+  : Extract design coefficients
 - [`design_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.md)
   : Design or evaluate a single-arm two-stage Bayes factor trial
 - [`design_singlearm_onestage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_bf.md)
   : Design or evaluate a one-stage single-arm Bayes factor trial
 - [`design_singlearm_onestage_rope()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_rope.md)
   : Calibrate a one-stage single-arm ROPE design for a binomial endpoint
+- [`design_singlearm_twostage_rope()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope.md)
+  : Calibrate an optimal single-arm two-stage ROPE design
 - [`design_twoarm_onestage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_bf.md)
   : Design or evaluate a one-stage two-arm Bayes factor trial
 - [`design_twoarm_twostage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.md)
@@ -40,6 +46,8 @@
   : Plot a single-arm Bayes factor design
 - [`plot(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_onestage_bf_design.md)
   : Plot a one-stage single-arm BF design
+- [`plot(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_rope_twostage_design.md)
+  : Plot a single-arm two-stage ROPE design
 - [`plot_twostage_2arm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/plot_twostage_2arm_bf.md)
   : Plot an optimal two-stage two-arm Bayes factor design
 - [`postProbHminus()`](https://rikokelter.github.io/bfbin2arm/reference/postProbHminus.md)
@@ -66,6 +74,8 @@
   : Predictive density under H+: p2 \> p1 (truncated prior)
 - [`print(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.singlearm_onestage_bf_design.md)
   : Print method for one-stage single-arm BF designs
+- [`print(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.singlearm_rope_twostage_design.md)
+  : Print a single-arm two-stage ROPE design
 - [`print(`*`<summary.singlearm_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_bf_design.md)
   : Print method for summary.singlearm_bf_design
 - [`print(`*`<summary.singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_onestage_bf_design.md)
@@ -78,6 +88,8 @@
   : Summary for single-arm BF designs
 - [`summary(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_onestage_bf_design.md)
   : Summarize a one-stage single-arm BF design
+- [`summary(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_rope_twostage_design.md)
+  : Summary for a single-arm two-stage ROPE design
 - [`twoarmbinbf01()`](https://rikokelter.github.io/bfbin2arm/reference/twoarmbinbf01.md)
   : Two-arm binomial Bayes factor BF01
 - [`twoarmbinbf_plus0_direct()`](https://rikokelter.github.io/bfbin2arm/reference/twoarmbinbf_plus0_direct.md)

@@ -2,13 +2,24 @@
 
 ## bfbin2arm
 
-`bfbin2arm` provides methodology and software for Bayes-factor-based and
-ROPE-based design, calibration, and operating-characteristic evaluation
-of phase II clinical trials with binary endpoints. The package focuses
-on single-arm and two-arm Bayesian designs, including one-stage and
-two-stage settings, with tools for design calibration, frequentist
-operating characteristics, and visualisation of trial operating
-behavior.
+## Sequential Bayesian trial design for clinical phase II trials
+
+Sequential hypothesis tests are an important tool to improve the
+efficiency of clinical trials. In contrast to study designs with a fixed
+sample size, interim analyses are carried out which allow to stop a
+trial early for futility when a novel drug or treatment is ineffective.
+Often, such designs are applied in phase II proof of concept trials,
+where the primary endpoint measures the binary response (success or
+failure) of each enrolled patient to the novel drug or treatment. The R
+software package `bfbin2arm` provides methodology and software for
+planning, design and calibration of such trials, and allows to analyze
+the operating-characteristic (such as the power and type-I-error) of
+sequential Bayesian phase II clinical trial with binary endpoint. The
+package focuses on single-arm and two-arm Bayesian designs, including
+one-stage and two-stage settings, with tools for design calibration and
+visualisation of trial operating behavior. Importantly, the package
+allows for different calibration modes for a trial design, including
+Bayesian, frequentist and hybrid calibration.
 
 The package website collects methodological articles, worked examples,
 and reference documentation intended to support both applied use and
