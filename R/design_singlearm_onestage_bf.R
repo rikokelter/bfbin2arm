@@ -129,7 +129,7 @@ design_singlearm_onestage_bf <- function(
     )
   }
   
-  k_ce_use <- if (isTRUE(target_ce_h0 > 0)) k_ce else NULL
+  k_ce_use <- k_ce
   
   eval_singlearm_onestage_constraints <- function(
     eval_res,

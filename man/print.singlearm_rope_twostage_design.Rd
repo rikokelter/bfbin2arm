@@ -10,8 +10,6 @@
 \item{x}{An object of class \code{"singlearm_rope_twostage_design"}.}
 
 \item{...}{Further arguments (currently ignored).}
-
-\item{digits}{Number of digits to display. Default \code{4L}.}
 }
 \value{
 Invisibly returns \code{x}.

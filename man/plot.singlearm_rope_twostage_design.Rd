@@ -23,12 +23,13 @@ Produces a six-panel figure in a 2-row by 3-column layout:
 \describe{
 \item{Top-left}{Predictive type-I error and power as functions of the
 stage-1 sample size \eqn{n_1} for the fixed maximum \eqn{n^*}, with
-the optimal \eqn{n_1} marked.}
+the optimal \eqn{n_1} marked. Optional dashed frequentist curves are added
+when corresponding calibration targets are present.}
 \item{Top-centre}{Predictive PCE under \eqn{H_0} as a function of
 \eqn{n_1} for the fixed maximum \eqn{n^*}, with the optimal \eqn{n_1}
 marked.}
-\item{Top-right}{Textual summary of the optimal design and its operating
-characteristics, enclosed in a full border.}
+\item{Top-right}{Compact textual summary of the optimal design and its
+operating characteristics.}
 \item{Bottom-left}{Null design prior density with the
 direction-appropriate ROPE region shaded.}
 \item{Bottom-centre}{Alternative design prior density with the

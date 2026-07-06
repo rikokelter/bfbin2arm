@@ -12,7 +12,7 @@
 \item{...}{Further arguments (currently ignored).}
 }
 \value{
-An object of class \code{"summary.singlearm_rope_twostage_design"}.
+Invisibly returns \code{object}.
 }
 \description{
 Summary for a single-arm two-stage ROPE design

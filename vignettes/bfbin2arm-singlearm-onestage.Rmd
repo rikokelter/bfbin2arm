@@ -84,6 +84,8 @@ $$H_0:p\leq 0.2 \text{ versus } H_1:p>0.2$$
 
 against each other, so we use the argument `type = "direction"` and set `p0 = 0.2`. We limit the sample size range to the minimum and maximum values `n_min = 10` and `n_max = 200`, and require 80% Bayesian power, specified via `target_power = 0.80`. Also, we require a Bayesian type-I-error rate of 5% or less, specified via the argument `target_type1 = 0.05`:
 ```{r}
+library(bfbin2arm)
+
 des_bayes <- design_singlearm_onestage_bf(
   n_min = 10,
   n_max = 200,
@@ -108,14 +110,16 @@ summary(des_bayes)
 
 The search results can be visualized directly.
 
-```{r, out.width="90%", fig.align="center"}
+```{r, out.width="100%", fig.align="center", eval = FALSE}
 plot(des_bayes)
 ```
-
-The left panel shows Bayesian power and type-I error, together with optional
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 2: Visualization of the calibrated Bayesian single-arm one-stage phase II design with a binary endpoint"}
+knitr::include_graphics("figures/singlearm-onestage-fig1.png")
+```
+The top left panel shows Bayesian power and type-I error, together with optional
 frequentist overlays if a point alternative is supplied. 
 
-The right panel showsthe relevant operating characteristics of the trial design isolated by the calibration algorithm. In this case, no frequentist power calculations were required, so the frequentist power is shown as NA (not available), and the lower part states that frequentist power calculations under a point alternative were not requested. We can quickly see that Bayesian power and type-I-error rate are calibrated for $n=13$ already, so when choosing the evidence threshold $k=1/3$, $n=13$ patients suffice to yield a calibrated Bayesian design. Also, the output shows that this design is not calibrated in terms of the frequentist type-I-error rate, which is computed via a grid-search and in this case is $9.9\%$.
+The top right panel shows the relevant operating characteristics of the trial design isolated by the calibration algorithm. In this case, no frequentist power calculations were required, so the frequentist power is shown as NA (not available), and the lower part states that frequentist power calculations under a point alternative were not requested. We can quickly see that Bayesian power and type-I-error rate are calibrated for $n=13$ already, so when choosing the evidence threshold $k=1/3$, $n=13$ patients suffice to yield a calibrated Bayesian design. Also, the output shows that this design is not calibrated in terms of the frequentist type-I-error rate, which is computed via a grid-search and in this case is $9.9\%$.
 
 Note that the beta-binomial model induces the zig-zag shape of the resulting curves for the operating characteristics such as power and type-I-error rate. As a consequence, the calibration algorithm by default requires the power not to drop below the specified target threshold for the next ten sample sizes. This is also customisably via the parameter `sustain_n`, which is also shown in the summary output above in form of the text "Sustain: 10 future n".
 
@@ -151,17 +155,19 @@ We inspect the results:
 ```{r}
 summary(des_bayes_ce)
 ```
-Now, no design could be found which fulfills our target constraints. Before we see why, note that since we added the parameter `dp = 0.4` to the above function call frequentist power is additionally calculated under the point alternative $p=0.4$ in the single-arm case. We can always add this to a design calibration, but the calibration mode (specified via the argument `calibration`) decides which metric is the benchmark for finding a feasible design (that is, a sufficiently large sample size to meet our specified target constraints). Thus, frequentist power is calculated here solely post-hoc for the calibrated design. The calibrated design itself is calibrated according to the Bayesian target power and type-I-error rate.
+Since we added the parameter `dp = 0.4` to the above function call, frequentist power is additionally calculated under the point alternative $p=0.4$ in the single-arm case. We can always add this to a design calibration, but the calibration mode (specified via the argument `calibration`) decides which metric is the benchmark for finding a feasible design (that is, a sufficiently large sample size to meet our specified target constraints). Thus, frequentist power is calculated here solely post-hoc for the calibrated design. The calibrated design itself is calibrated according to the Bayesian target power and type-I-error rate. We can see the resulting sample size in the above output, and we can plot the design as follows:
 
-We can plot the resulting design:
-```{r, out.width="90%", fig.align="center"}
+```{r, out.width="90%", fig.align="center", eval = FALSE}
 plot(des_bayes_ce)
 ```
 
-The plot shows that the factor which causes problems is the probability of compelling evidence. In the sample size range up to $n=200$, it stays below the required 60%, so no calibrated design can be found. If we lower the requirement to, say, 50%, we get:
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 3: Visualization of the calibrated Bayesian single-arm one-stage phase II design with a binary endpoint. In contrast to the earlier Bayesian calibration for power and type-I-error rate, now an additional constraint fo the probability of compelling evidence is added."}
+knitr::include_graphics("figures/singlearm-onestage-fig2.png")
+```
+If we increase the requirement on probability of compelling evidence for $H_0$ to, say, 90%, we get:
 
 ```{r}
-des_bayes_ce50 <- design_singlearm_onestage_bf(
+des_bayes_ce90 <- design_singlearm_onestage_bf(
   n_min = 10,
   n_max = 200,
   k = 1/3,
@@ -174,20 +180,22 @@ des_bayes_ce50 <- design_singlearm_onestage_bf(
   calibration = "Bayesian",
   target_power = 0.8,
   target_type1 = 0.05,
-  target_ce_h0 = 0.5,
+  target_ce_h0 = 0.9,
   k_ce = 3,
   dp = 0.4
 )
 ```
 We inspect the fit:
 ```{r}
-summary(des_bayes_ce50)
+summary(des_bayes_ce90)
 ```
 We can plot the resulting design:
-```{r, out.width="90%", fig.align="center"}
-plot(des_bayes_ce50)
+```{r, out.width="90%", fig.align="center", eval = FALSE}
+plot(des_bayes_ce90)
 ```
-Now a calibrated design can be found, as expected.
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 3: Visualization of the calibrated Bayesian single-arm one-stage phase II design with a binary endpoint. In contrast to the previous Bayesian calibration, the target probability of compelling evidence for the null hypothesis is increased to 90% now."}
+knitr::include_graphics("figures/singlearm-onestage-fig3.png")
+```
 
 # Full Bayes-frequentist calibration
 
@@ -248,8 +256,11 @@ We investigate the fit:
 summary(des_full_strong_ev)
 ```
 We plot the fit:
-```{r, out.width="90%", fig.align="center"}
+```{r, out.width="100%", fig.align="center", eval = FALSE}
 plot(des_full_strong_ev)
+```
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 4: Visualization of the fully calibrated single-arm one-stage phase II design with a binary endpoint. In contrast to the previous Bayesian calibration, both Bayesian and frequentist operating characteristics are calibrated now."}
+knitr::include_graphics("figures/singlearm-onestage-fig4.png")
 ```
 
 ## Frequentist calibration
@@ -306,8 +317,11 @@ des_hybrid_strong_ev <- design_singlearm_onestage_bf(
 summary(des_hybrid_strong_ev)
 ```
 We see that now the feasible sample size to calibrate our design has changed from $n=38$ to only $n=23$. Thus, the hybrid design required fewer patients. 
-```{r, out.width="90%", fig.align="center"}
+```{r, out.width="100%", fig.align="center", eval = FALSE}
 plot(des_hybrid_strong_ev)
+```
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 5: Visualization of the hybrid calibrated single-arm one-stage phase II design with a binary endpoint. In contrast to the previous calibration, Bayesian power is calibrated with frequentist type-I-error in this calibration mode."}
+knitr::include_graphics("figures/singlearm-onestage-fig5.png")
 ```
 
 The plot clearly shows that Bayesian power is the limiting factor here: From $n=23$ patients on, it passes the required 80% threshold. Bayesian and frequentist type-I-error are controlled for even smaller sample sizes, and from our previous fully and frequentist calibration results we know that frequentist power achieves the required 80% target power only for $n=38$. Thus, shifting to a Bayesian notion of power under the slightly informative design priors under $H_1$ yields a reduction in sample size of $15$ patients, which is non-negligible.
@@ -336,37 +350,12 @@ des_hybrid_strong_ev_with_ce <- design_singlearm_onestage_bf(
 
 summary(des_hybrid_strong_ev_with_ce)
 ```
-We see that no calibrated design could be found in the sample size range specified. The following plot shows why:
-```{r, out.width="90%", fig.align="center"}
+We see that still $n=23$ patients are required.
+```{r, out.width="100%", fig.align="center", eval = FALSE}
 plot(des_hybrid_strong_ev_with_ce)
 ```
-The probability of compelling evidence simply does not reach the target 60% in the specified sample size range. Thus, we could either increase that range by increasing `n_max` or adopting different design priors. Alternatively, we could lower our requirement on the probability of compelling evidence to, say, 50% as follows:
-
-```{r}
-des_hybrid_strong_ev_with_ce50 <- design_singlearm_onestage_bf(
-  n_min = 10,
-  n_max = 100,
-  k = 1/10,
-  k_ce = 3,
-  p0 = 0.2,
-  a0 = 1, b0 = 1,
-  a1 = 1, b1 = 1,
-  dp = 0.4,
-  da0 = 1, db0 = 1,
-  da1 = 2.5, db1 = 2,
-  type = "direction",
-  calibration = "hybrid",
-  target_power = 0.8,
-  target_type1 = 0.05,
-  target_ce_h0 = 0.5,
-  target_freq_power = 0.8,
-  target_freq_type1 = 0.05
-)
-
-summary(des_hybrid_strong_ev_with_ce50)
-```
-```{r, out.width="90%", fig.align="center"}
-plot(des_hybrid_strong_ev_with_ce50)
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.cap = "Figure 6: Visualization of the hybrid calibrated single-arm one-stage phase II design with a binary endpoint, this time with an additional constraint on the probability of compelling evidence for the null hypothesis."}
+knitr::include_graphics("figures/singlearm-onestage-fig6.png")
 ```
 
 ## Relationship to the two-stage design

@@ -4,19 +4,31 @@
 \alias{plot.singlearm_onestage_bf_design}
 \title{Plot a one-stage single-arm BF design}
 \usage{
-\method{plot}{singlearm_onestage_bf_design}(x, what = c("all", "oc"), legend_pos = "right", legend_inset = 0, ...)
+\method{plot}{singlearm_onestage_bf_design}(
+  x,
+  what = c("all", "oc"),
+  legend_pos = "right",
+  legend_inset = 0,
+  col_h0 = "#0072B2",
+  col_h1 = "#D55E00",
+  prior_lwd = 2,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{"singlearm_onestage_bf_design"}.}
 
-\item{what}{Character string; currently one of \code{"all"} or \code{"oc"}.}
+\item{what}{Character string; one of \code{"all"} or \code{"oc"}.}
 
-\item{legend_pos}{Position passed to \code{\link[graphics:legend]{legend}}.
-Either a keyword such as \code{"topright"} or a numeric vector
-\code{c(x, y)}.}
+\item{legend_pos}{Position passed to \code{legend()}.}
 
-\item{legend_inset}{Numeric inset passed to \code{legend()} when
-\code{legend_pos} is a keyword.}
+\item{legend_inset}{Numeric inset for \code{legend()}.}
+
+\item{col_h0}{Colour for H0 priors in bottom panels.}
+
+\item{col_h1}{Colour for H1 priors in bottom panels.}
+
+\item{prior_lwd}{Line width for prior density curves.}
 
 \item{...}{Currently unused.}
 }
@@ -24,5 +36,9 @@ Either a keyword such as \code{"topright"} or a numeric vector
 Invisibly returns \code{x}.
 }
 \description{
-Plot a one-stage single-arm BF design
+Produces a 2x2 figure:
+top-left: operating characteristic curves;
+top-right: table-like summary;
+bottom-left: design priors under H0 and H1;
+bottom-right: analysis priors under H0 and H1.
 }

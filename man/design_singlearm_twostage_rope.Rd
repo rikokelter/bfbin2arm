@@ -15,6 +15,11 @@ design_singlearm_twostage_rope(
   gamma_diff = gamma_eq,
   alpha = 0.1,
   power = 0.8,
+  pce = NULL,
+  alpha_freq = NULL,
+  power_freq = NULL,
+  p_t1e = NULL,
+  p_power = NULL,
   nmax = 300L,
   direction = c("equivalence", "noninferiority", "superiority"),
   minimax = FALSE,
@@ -38,8 +43,12 @@ prior.}
 \item{design_prior_h1}{Numeric vector \code{c(a, b)} for the alternative
 design prior.}
 
-\item{gamma_1}{Interim futility threshold in \eqn{(0, 1)}: continuation
-requires the interim posterior ROPE probability to exceed \code{gamma_1}.}
+\item{gamma_1}{Interim futility threshold in \eqn{(0, 1)} applied to the
+posterior support for \eqn{H_0}. In the equivalence design, the trial stops
+early for futility if
+\eqn{\Pr(p \notin \mathcal{R}_p \mid Y_1) \ge \gamma_1},
+equivalently if the interim posterior ROPE probability is at most
+\eqn{1-\gamma_1}. Continuation to stage 2 occurs otherwise.}
 
 \item{gamma_eq}{Final evidence threshold in \eqn{(0.5, 1)}: the appropriate
 posterior ROPE probability must exceed \code{gamma_eq} to declare
@@ -47,11 +56,23 @@ equivalence, non-inferiority, or superiority.}
 
 \item{gamma_diff}{Threshold for compelling evidence for \eqn{H_0}: the
 complementary posterior ROPE probability must exceed \code{gamma_diff}.
-Defaults to \code{gamma_eq}.}
+In the two-stage design, compelling evidence for \eqn{H_0} may be obtained
+either at the interim analysis or at the final analysis. Defaults to
+\code{gamma_eq}.}
 
 \item{alpha}{Target predictive type-I error level (upper bound).}
 
 \item{power}{Target predictive power (lower bound).}
+
+\item{pce}{Optional lower bound on predictive \code{PCE(H0)}.}
+
+\item{alpha_freq}{Optional upper bound on the frequentist type-I error.}
+
+\item{power_freq}{Optional lower bound on the frequentist power.}
+
+\item{p_t1e}{Point at which the frequentist type-I error is evaluated.}
+
+\item{p_power}{Point at which the frequentist power is evaluated.}
 
 \item{nmax}{Upper bound on the fixed-sample size \eqn{n^*} searched in
 step 1. An informative error is raised if no feasible size is found.}
@@ -67,24 +88,7 @@ criterion); if \code{FALSE} (default), minimise \eqn{\mathrm{EN}_0}
 \item{progress}{Logical. If \code{TRUE} (default), print progress messages.}
 }
 \value{
-An object of class \code{"singlearm_rope_twostage_design"} with
-components:
-\describe{
-\item{\code{call}}{The matched call.}
-\item{\code{p0}, \code{delta}, \code{direction}}{Design parameters.}
-\item{\code{analysis_prior}, \code{design_prior_h0},
-\code{design_prior_h1}}{Prior specifications.}
-\item{\code{alpha}, \code{target_power}}{Constraint levels.}
-\item{\code{gamma_1}, \code{gamma_eq}, \code{gamma_diff}}{Evidence
-thresholds.}
-\item{\code{optimality}}{Either \code{"optimal"} or \code{"minimax"}.}
-\item{\code{design}}{A one-row data frame with the optimal design and
-its operating characteristics.}
-\item{\code{continuation_region}}{Integer vector of stage-1 response
-counts in \eqn{\mathcal{C}_1}.}
-\item{\code{candidates}}{Data frame of all feasible two-stage designs,
-sorted by the primary optimality criterion.}
-}
+An object of class \code{"singlearm_rope_twostage_design"}.
 }
 \description{
 Finds a single-arm two-stage Bayesian design based on the region of
@@ -108,9 +112,4 @@ The search proceeds in two steps: (1) find the minimum fixed-sample size
 all two-stage splits \eqn{n_1 + n_2 = n^*} and retain those satisfying the
 two-stage constraints. The optimal design minimises \eqn{\mathrm{EN}_0}
 (or \eqn{n^*} under the minimax criterion) among all feasible splits.
-}
-\seealso{
-\code{\link{print.singlearm_rope_twostage_design}},
-\code{\link{summary.singlearm_rope_twostage_design}},
-\code{\link{plot.singlearm_rope_twostage_design}}
 }

@@ -250,6 +250,39 @@ singlearm_fixed_oc <- function(
     )
   }
   
+  ## CE(H0) under H0 design prior (directional test)
+  integrate_ce_h0 <- function(lower, upper, da, db) {
+    if (is.null(k_ce) || !is.finite(lower) || !is.finite(upper) || lower >= upper) {
+      return(NA_real_)
+    }
+    
+    mass <- pbeta(upper, shape1 = da, shape2 = db) -
+      pbeta(lower, shape1 = da, shape2 = db)
+    
+    if (!is.finite(mass) || mass <= 0) {
+      return(NA_real_)
+    }
+    
+    p_grid <- seq(lower, upper, length.out = grid_size)
+    dens   <- dbeta(p_grid, shape1 = da, shape2 = db)
+    dens[p_grid < lower | p_grid > upper] <- 0
+    w      <- dens / sum(dens)
+    
+    ## For each p in the grid, compute P_CE(H0 | p) via the binomial model
+    ce_fin <- bf_fin >= k_ce
+    
+    ce_at_p <- vapply(
+      p_grid,
+      function(p) {
+        pmf <- dbinom(x_vals, size = n, prob = p)
+        sum(pmf[ce_fin])
+      },
+      numeric(1)
+    )
+    
+    sum(ce_at_p * w)
+  }
+  
   ## Bayesian H1
   if (type == "direction") {
     lower_h1 <- p0
@@ -328,14 +361,28 @@ singlearm_fixed_oc <- function(
   ## Frequentist H0
   freq_H0 <- calc_fixed_at_p(p0)
   
-  ## Compelling evidence in favour of H0 at p0
+  ## Compelling evidence in favour of H0:
+  ## naive: at p0; corrected: prior-predictive under H0 design prior
   pce0_naive <- NA_real_
-  pce0_corr <- NA_real_
+  pce0_corr  <- NA_real_
   if (!is.null(k_ce)) {
-    ce_fin <- bf_fin >= k_ce
+    ce_fin     <- bf_fin >= k_ce
     pmf_fin_H0 <- dbinom(x_vals, size = n, prob = p0)
     pce0_naive <- sum(pmf_fin_H0[ce_fin])
-    pce0_corr <- pce0_naive
+    
+    if (type == "direction") {
+      lower_h0 <- 0
+      upper_h0 <- p0
+      pce0_corr <- integrate_ce_h0(
+        lower = lower_h0,
+        upper = upper_h0,
+        da    = da0,
+        db    = db0
+      )
+    } else {
+      ## point-null case: corrected CE(H0) coincides with naive at p0
+      pce0_corr <- pce0_naive
+    }
   }
   
   list(

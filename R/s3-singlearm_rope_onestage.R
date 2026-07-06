@@ -214,6 +214,7 @@ print.summary.bfbin2arm_rope_design <- function(x, ...) {
   }
 }
 
+#' @importFrom graphics abline plot.window polygon
 .rope_beta_panel <- function(shape1, shape2, main, p0, delta, direction, col = 4,
                              legend_pos = "topright") {
   xx <- seq(0, 1, length.out = 1000)
@@ -238,6 +239,7 @@ print.summary.bfbin2arm_rope_design <- function(x, ...) {
          bty = "n")
 }
 
+#' @importFrom graphics abline plot.window polygon
 .rope_beta_panel_two <- function(a1, b1, a2, b2, p0, delta, direction,
                                  main = "Design priors",
                                  col1 = 2, col2 = 4,
