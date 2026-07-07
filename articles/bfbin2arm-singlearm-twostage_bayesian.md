@@ -689,20 +689,20 @@ summary(res_dir)
 #> Design prior under H0: Beta(1, 1) truncated to [0, p0]
 #> Design prior under H1: Beta(2.5, 2) truncated to (p0, 1]
 #> 
-#> Selected design: n1 = 5, n2 = 11
+#> Selected design: n1 = 5, n2 = 10
 #> 
 #> Bayesian operating characteristics
-#>   Power: 0.8374
-#>   Type-I: 0.0388
-#>   CE H0: 0.8860
-#>   EN H0: 7.31
-#>   EN H1: 10.72
+#>   Power: 0.8031
+#>   Type-I: 0.0287
+#>   CE H0: 0.7689
+#>   EN H0: 6.93
+#>   EN H1: 9.76
 #> 
 #> Frequentist operating characteristics
-#>   Power: 0.6898
-#>   Type-I: 0.1556
-#>   EN H0: 9.03
-#>   EN H1: 10.53
+#>   Power: 0.6110
+#>   Type-I: 0.1187
+#>   EN H0: 8.36
+#>   EN H1: 9.61
 ```
 
 ``` r
@@ -772,12 +772,25 @@ res_dir_ce <- design_singlearm_bf(
 summary(res_dir_ce)
 #> Summary: Single-arm two-stage Bayes factor design
 #> ---------------------------------------------------------
-#> Feasible: FALSE
+#> Feasible: TRUE
 #> Calibration: Bayesian
 #> Design prior under H0: Beta(1, 1) truncated to [0, p0]
 #> Design prior under H1: Beta(2.5, 2) truncated to (p0, 1]
 #> 
-#> No feasible fixed-sample anchor found.
+#> Selected design: n1 = 5, n2 = 11
+#> 
+#> Bayesian operating characteristics
+#>   Power: 0.8374
+#>   Type-I: 0.0388
+#>   CE H0: 0.8860
+#>   EN H0: 7.31
+#>   EN H1: 10.72
+#> 
+#> Frequentist operating characteristics
+#>   Power: 0.6898
+#>   Type-I: 0.1556
+#>   EN H0: 9.03
+#>   EN H1: 10.53
 ```
 
 The results indicate that the calibration failed. This is not a

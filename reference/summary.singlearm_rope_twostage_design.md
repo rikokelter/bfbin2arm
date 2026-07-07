@@ -21,4 +21,4 @@ summary(object, ...)
 
 ## Value
 
-An object of class `"summary.singlearm_rope_twostage_design"`.
+Invisibly returns `object`.

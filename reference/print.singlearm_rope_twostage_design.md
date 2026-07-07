@@ -19,10 +19,6 @@ print(x, ...)
 
   Further arguments (currently ignored).
 
-- digits:
-
-  Number of digits to display. Default `4L`.
-
 ## Value
 
 Invisibly returns `x`.

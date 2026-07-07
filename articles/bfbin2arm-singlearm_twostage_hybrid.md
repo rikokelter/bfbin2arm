@@ -188,10 +188,13 @@ For a fixed two-stage design with interim sample size $`n_1`$ and final
 sample size $`n_2`$, the expected sample size can be written in terms of
 the probability of early stopping for futility.
 
-Let - $`N(p)`$ be the total sample size when the true response
-probability is $`p`$, - $`\pi_{\text{fut}}(p)`$ be the probability of
-stopping early for futility at the interim analysis when the true
-response probability is $`p`$.
+Let
+
+- $`N(p)`$ be the total sample size when the true response probability
+  is $`p`$,
+- $`\pi_{\text{fut}}(p)`$ be the probability of stopping early for
+  futility at the interim analysis when the true response probability is
+  $`p`$.
 
 By construction,
 

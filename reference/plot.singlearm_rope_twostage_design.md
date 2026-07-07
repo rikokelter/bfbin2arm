@@ -6,7 +6,8 @@ Produces a six-panel figure in a 2-row by 3-column layout:
 
   Predictive type-I error and power as functions of the stage-1 sample
   size \\n_1\\ for the fixed maximum \\n^\*\\, with the optimal \\n_1\\
-  marked.
+  marked. Optional dashed frequentist curves are added when
+  corresponding calibration targets are present.
 
 - Top-centre:
 
@@ -15,8 +16,8 @@ Produces a six-panel figure in a 2-row by 3-column layout:
 
 - Top-right:
 
-  Textual summary of the optimal design and its operating
-  characteristics, enclosed in a full border.
+  Compact textual summary of the optimal design and its operating
+  characteristics.
 
 - Bottom-left:
 

@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,7 @@
 <li><a class="dropdown-item" href="../articles/bfbin2arm-overview.html">Clinical trial designs in bfbin2arm</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-onestage-design.html">ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</a></li>
+    <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-twostage.html">Two-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_frequentist.html">Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_full.html">Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_hybrid.html">Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
@@ -77,7 +78,7 @@ Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine, University of Cologne<br>
 Cologne, Germany</p>
             
-            <h4 data-toc-skip class="date">26 June 2026</h4>
+            <h4 data-toc-skip class="date">07 July 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rikokelter/bfbin2arm/blob/master/vignettes/bfbin2arm-singlearm-onestage.Rmd" class="external-link"><code>vignettes/bfbin2arm-singlearm-onestage.Rmd</code></a></small>
       <div class="d-none name"><code>bfbin2arm-singlearm-onestage.Rmd</code></div>
@@ -198,7 +199,9 @@ Bayesian power, specified via <code>target_power = 0.80</code>. Also, we
 require a Bayesian type-I-error rate of 5% or less, specified via the
 argument <code>target_type1 = 0.05</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">des_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_singlearm_onestage_bf.html">design_singlearm_onestage_bf</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rikokelter.github.io/bfbin2arm/">bfbin2arm</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">des_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_singlearm_onestage_bf.html">design_singlearm_onestage_bf</a></span><span class="op">(</span></span>
 <span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  n_max <span class="op">=</span> <span class="fl">200</span>,</span>
 <span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,</span>
@@ -219,30 +222,36 @@ argument <code>target_type1 = 0.05</code>:</p>
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: Bayesian </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : TRUE </span></span>
-<span><span class="co">#&gt; Status     : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selected design</span></span>
-<span><span class="co">#&gt;   n          : 13 </span></span>
-<span><span class="co">#&gt;   k          : 0.333 </span></span>
+<span><span class="co">#&gt;  n    : 13 </span></span>
+<span><span class="co">#&gt;  k    : 0.333 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Operating characteristics</span></span>
-<span><span class="co">#&gt;   Bayes power      : 0.821 </span></span>
-<span><span class="co">#&gt;   Bayes type-I     : 0.021 </span></span>
-<span><span class="co">#&gt;   CE(H0)           :   NA </span></span>
-<span><span class="co">#&gt;   Freq power       :   NA </span></span>
-<span><span class="co">#&gt;   Freq type-I      : 0.099</span></span></code></pre></div>
+<span><span class="co">#&gt;  Bayes power  : 0.821 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.021 </span></span>
+<span><span class="co">#&gt;  CE(H0)       :   NA </span></span>
+<span><span class="co">#&gt;  Freq power   :   NA </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.099</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="operating-characteristic-curves">Operating-characteristic curves<a class="anchor" aria-label="anchor" href="#operating-characteristic-curves"></a>
 </h3>
 <p>The search results can be visualized directly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
-<p>The left panel shows Bayesian power and type-I error, together with
-optional frequentist overlays if a point alternative is supplied.</p>
-<p>The right panel showsthe relevant operating characteristics of the
-trial design isolated by the calibration algorithm. In this case, no
+<div class="figure" style="text-align: center">
+<img src="figures/singlearm-onestage-fig1.png" class="r-plt" alt="Figure 2: Visualization of the calibrated Bayesian single-arm one-stage phase II design with a binary endpoint" width="100%"><p class="caption">
+Figure 2: Visualization of the calibrated Bayesian single-arm one-stage
+phase II design with a binary endpoint
+</p>
+</div>
+<p>The top left panel shows Bayesian power and type-I error, together
+with optional frequentist overlays if a point alternative is
+supplied.</p>
+<p>The top right panel shows the relevant operating characteristics of
+the trial design isolated by the calibration algorithm. In this case, no
 frequentist power calculations were required, so the frequentist power
 is shown as NA (not available), and the lower part states that
 frequentist power calculations under a point alternative were not
@@ -314,12 +323,23 @@ the point alternative
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: Bayesian </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : FALSE </span></span>
-<span><span class="co">#&gt; Status     : No feasible one-stage design found.</span></span></code></pre></div>
-<p>Now, no design could be found which fulfills our target constraints.
-Before we see why, note that since we added the parameter
-<code>dp = 0.4</code> to the above function call frequentist power is
-additionally calculated under the point alternative
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selected design</span></span>
+<span><span class="co">#&gt;  n    : 13 </span></span>
+<span><span class="co">#&gt;  k    : 0.333 </span></span>
+<span><span class="co">#&gt;  k_ce :    3 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Operating characteristics</span></span>
+<span><span class="co">#&gt;  Bayes power  : 0.821 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.021 </span></span>
+<span><span class="co">#&gt;  CE(H0)       : 0.825 </span></span>
+<span><span class="co">#&gt;  Freq power   : 0.647 </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.099</span></span></code></pre></div>
+<p>Since we added the parameter <code>dp = 0.4</code> to the above
+function call, frequentist power is additionally calculated under the
+point alternative
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">p=0.4</annotation></semantics></math>
 in the single-arm case. We can always add this to a design calibration,
 but the calibration mode (specified via the argument
@@ -328,18 +348,24 @@ finding a feasible design (that is, a sufficiently large sample size to
 meet our specified target constraints). Thus, frequentist power is
 calculated here solely post-hoc for the calibrated design. The
 calibrated design itself is calibrated according to the Bayesian target
-power and type-I-error rate.</p>
-<p>We can plot the resulting design:</p>
+power and type-I-error rate. We can see the resulting sample size in the
+above output, and we can plot the design as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes_ce</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
-<p>The plot shows that the factor which causes problems is the
-probability of compelling evidence. In the sample size range up to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">n=200</annotation></semantics></math>,
-it stays below the required 60%, so no calibrated design can be found.
-If we lower the requirement to, say, 50%, we get:</p>
+<div class="figure" style="text-align: center">
+<img src="figures/singlearm-onestage-fig2.png" class="r-plt" alt="Figure 3: Visualization of the calibrated Bayesian single-arm one-stage phase II design with a binary endpoint. In contrast to the earlier Bayesian calibration for power and type-I-error rate, now an additional constraint fo the probability of compelling evidence is added." width="100%"><p class="caption">
+Figure 3: Visualization of the calibrated Bayesian single-arm one-stage
+phase II design with a binary endpoint. In contrast to the earlier
+Bayesian calibration for power and type-I-error rate, now an additional
+constraint fo the probability of compelling evidence is added.
+</p>
+</div>
+<p>If we increase the requirement on probability of compelling evidence
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
+to, say, 90%, we get:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">des_bayes_ce50</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_singlearm_onestage_bf.html">design_singlearm_onestage_bf</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">des_bayes_ce90</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_singlearm_onestage_bf.html">design_singlearm_onestage_bf</a></span><span class="op">(</span></span>
 <span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  n_max <span class="op">=</span> <span class="fl">200</span>,</span>
 <span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,</span>
@@ -352,36 +378,42 @@ If we lower the requirement to, say, 50%, we get:</p>
 <span>  calibration <span class="op">=</span> <span class="st">"Bayesian"</span>,</span>
 <span>  target_power <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  target_type1 <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  target_ce_h0 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  target_ce_h0 <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  k_ce <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  dp <span class="op">=</span> <span class="fl">0.4</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>We inspect the fit:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">des_bayes_ce50</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">des_bayes_ce90</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Summary: One-stage single-arm Bayes factor design</span></span>
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: Bayesian </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : TRUE </span></span>
-<span><span class="co">#&gt; Status     : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selected design</span></span>
-<span><span class="co">#&gt;   n          : 65 </span></span>
-<span><span class="co">#&gt;   k          : 0.333 </span></span>
-<span><span class="co">#&gt;   k_ce       :    3 </span></span>
+<span><span class="co">#&gt;  n    : 60 </span></span>
+<span><span class="co">#&gt;  k    : 0.333 </span></span>
+<span><span class="co">#&gt;  k_ce :    3 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Operating characteristics</span></span>
-<span><span class="co">#&gt;   Bayes power      : 0.934 </span></span>
-<span><span class="co">#&gt;   Bayes type-I     : 0.009 </span></span>
-<span><span class="co">#&gt;   CE(H0)           : 0.574 </span></span>
-<span><span class="co">#&gt;   Freq power       : 0.986 </span></span>
-<span><span class="co">#&gt;   Freq type-I      : 0.085</span></span></code></pre></div>
+<span><span class="co">#&gt;  Bayes power  : 0.928 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.008 </span></span>
+<span><span class="co">#&gt;  CE(H0)       : 0.927 </span></span>
+<span><span class="co">#&gt;  Freq power   : 0.978 </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.077</span></span></code></pre></div>
 <p>We can plot the resulting design:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes_ce50</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;">
-Now a calibrated design can be found, as expected.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_bayes_ce90</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="figures/singlearm-onestage-fig3.png" class="r-plt" alt="Figure 3: Visualization of the calibrated Bayesian single-arm one-stage phase II design with a binary endpoint. In contrast to the previous Bayesian calibration, the target probability of compelling evidence for the null hypothesis is increased to 90% now." width="100%"><p class="caption">
+Figure 3: Visualization of the calibrated Bayesian single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+Bayesian calibration, the target probability of compelling evidence for
+the null hypothesis is increased to 90% now.
+</p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -417,8 +449,8 @@ for frequentist power and type-I-error rate via the arguments
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: full </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : FALSE </span></span>
-<span><span class="co">#&gt; Status     : No feasible one-stage design found.</span></span></code></pre></div>
+<span><span class="co">#&gt; Feasible : FALSE </span></span>
+<span><span class="co">#&gt; Status : No feasible one-stage design found.</span></span></code></pre></div>
 <p>Now, given our priors and evidence thresholds no feasible one-stage
 design was found in the specified sample size range. We can see the
 reason for this by inspecting</p>
@@ -490,23 +522,30 @@ frequentist ones). Thus, we refit our design as follows by changing
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: full </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : TRUE </span></span>
-<span><span class="co">#&gt; Status     : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selected design</span></span>
-<span><span class="co">#&gt;   n          : 38 </span></span>
-<span><span class="co">#&gt;   k          :  0.1 </span></span>
+<span><span class="co">#&gt;  n    : 38 </span></span>
+<span><span class="co">#&gt;  k    :  0.1 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Operating characteristics</span></span>
-<span><span class="co">#&gt;   Bayes power      : 0.866 </span></span>
-<span><span class="co">#&gt;   Bayes type-I     : 0.003 </span></span>
-<span><span class="co">#&gt;   CE(H0)           :   NA </span></span>
-<span><span class="co">#&gt;   Freq power       : 0.814 </span></span>
-<span><span class="co">#&gt;   Freq type-I      : 0.029</span></span></code></pre></div>
+<span><span class="co">#&gt;  Bayes power  : 0.866 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.003 </span></span>
+<span><span class="co">#&gt;  CE(H0)       :   NA </span></span>
+<span><span class="co">#&gt;  Freq power   : 0.814 </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.029</span></span></code></pre></div>
 <p>We plot the fit:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_full_strong_ev</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<div class="figure" style="text-align: center">
+<img src="figures/singlearm-onestage-fig4.png" class="r-plt" alt="Figure 4: Visualization of the fully calibrated single-arm one-stage phase II design with a binary endpoint. In contrast to the previous Bayesian calibration, both Bayesian and frequentist operating characteristics are calibrated now." width="100%"><p class="caption">
+Figure 4: Visualization of the fully calibrated single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+Bayesian calibration, both Bayesian and frequentist operating
+characteristics are calibrated now.
+</p>
+</div>
 <div class="section level3">
 <h3 id="frequentist-calibration">Frequentist calibration<a class="anchor" aria-label="anchor" href="#frequentist-calibration"></a>
 </h3>
@@ -537,19 +576,19 @@ accordingly to <code>frequentist</code>:</p>
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: frequentist </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : TRUE </span></span>
-<span><span class="co">#&gt; Status     : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selected design</span></span>
-<span><span class="co">#&gt;   n          : 38 </span></span>
-<span><span class="co">#&gt;   k          :  0.1 </span></span>
+<span><span class="co">#&gt;  n    : 38 </span></span>
+<span><span class="co">#&gt;  k    :  0.1 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Operating characteristics</span></span>
-<span><span class="co">#&gt;   Bayes power      : 0.866 </span></span>
-<span><span class="co">#&gt;   Bayes type-I     : 0.003 </span></span>
-<span><span class="co">#&gt;   CE(H0)           :   NA </span></span>
-<span><span class="co">#&gt;   Freq power       : 0.814 </span></span>
-<span><span class="co">#&gt;   Freq type-I      : 0.029</span></span></code></pre></div>
+<span><span class="co">#&gt;  Bayes power  : 0.866 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.003 </span></span>
+<span><span class="co">#&gt;  CE(H0)       :   NA </span></span>
+<span><span class="co">#&gt;  Freq power   : 0.814 </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.029</span></span></code></pre></div>
 <p>Note in the above call, that the arguments
 <code>target_power = 0.8</code> and <code>target_type1 = 0.05</code>
 could also be removed, as they play no role when the calibration
@@ -605,19 +644,19 @@ informative design prior. We set the calibration mode to
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: hybrid </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : TRUE </span></span>
-<span><span class="co">#&gt; Status     : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selected design</span></span>
-<span><span class="co">#&gt;   n          : 23 </span></span>
-<span><span class="co">#&gt;   k          :  0.1 </span></span>
+<span><span class="co">#&gt;  n    : 23 </span></span>
+<span><span class="co">#&gt;  k    :  0.1 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Operating characteristics</span></span>
-<span><span class="co">#&gt;   Bayes power      : 0.809 </span></span>
-<span><span class="co">#&gt;   Bayes type-I     : 0.004 </span></span>
-<span><span class="co">#&gt;   CE(H0)           :   NA </span></span>
-<span><span class="co">#&gt;   Freq power       : 0.612 </span></span>
-<span><span class="co">#&gt;   Freq type-I      : 0.027</span></span></code></pre></div>
+<span><span class="co">#&gt;  Bayes power  : 0.809 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.004 </span></span>
+<span><span class="co">#&gt;  CE(H0)       :   NA </span></span>
+<span><span class="co">#&gt;  Freq power   : 0.612 </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.027</span></span></code></pre></div>
 <p>We see that now the feasible sample size to calibrate our design has
 changed from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">n=38</annotation></semantics></math>
@@ -626,7 +665,14 @@ to only
 Thus, the hybrid design required fewer patients.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<div class="figure" style="text-align: center">
+<img src="figures/singlearm-onestage-fig5.png" class="r-plt" alt="Figure 5: Visualization of the hybrid calibrated single-arm one-stage phase II design with a binary endpoint. In contrast to the previous calibration, Bayesian power is calibrated with frequentist type-I-error in this calibration mode." width="100%"><p class="caption">
+Figure 5: Visualization of the hybrid calibrated single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+calibration, Bayesian power is calibrated with frequentist type-I-error
+in this calibration mode.
+</p>
+</div>
 <p>The plot clearly shows that Bayesian power is the limiting factor
 here: From
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">n=23</annotation></semantics></math>
@@ -674,61 +720,33 @@ based on a evidence threshold
 <span><span class="co">#&gt; ------------------------------------------------</span></span>
 <span><span class="co">#&gt; Calibration: hybrid </span></span>
 <span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : FALSE </span></span>
-<span><span class="co">#&gt; Status     : No feasible one-stage design found.</span></span></code></pre></div>
-<p>We see that no calibrated design could be found in the sample size
-range specified. The following plot shows why:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev_with_ce</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;">
-The probability of compelling evidence simply does not reach the target
-60% in the specified sample size range. Thus, we could either increase
-that range by increasing <code>n_max</code> or adopting different design
-priors. Alternatively, we could lower our requirement on the probability
-of compelling evidence to, say, 50% as follows:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">des_hybrid_strong_ev_with_ce50</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_singlearm_onestage_bf.html">design_singlearm_onestage_bf</a></span><span class="op">(</span></span>
-<span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  n_max <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>,</span>
-<span>  k_ce <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  p0 <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span>  a0 <span class="op">=</span> <span class="fl">1</span>, b0 <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  a1 <span class="op">=</span> <span class="fl">1</span>, b1 <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  dp <span class="op">=</span> <span class="fl">0.4</span>,</span>
-<span>  da0 <span class="op">=</span> <span class="fl">1</span>, db0 <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  da1 <span class="op">=</span> <span class="fl">2.5</span>, db1 <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"direction"</span>,</span>
-<span>  calibration <span class="op">=</span> <span class="st">"hybrid"</span>,</span>
-<span>  target_power <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  target_type1 <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  target_ce_h0 <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  target_freq_power <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  target_freq_type1 <span class="op">=</span> <span class="fl">0.05</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev_with_ce50</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Summary: One-stage single-arm Bayes factor design</span></span>
-<span><span class="co">#&gt; ------------------------------------------------</span></span>
-<span><span class="co">#&gt; Calibration: hybrid </span></span>
-<span><span class="co">#&gt; Sustain:  10  future n</span></span>
-<span><span class="co">#&gt; Feasible   : TRUE </span></span>
-<span><span class="co">#&gt; Status     : Smallest feasible one-stage design found. </span></span>
+<span><span class="co">#&gt; Feasible : TRUE </span></span>
+<span><span class="co">#&gt; Status : Smallest feasible one-stage design found. </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selected design</span></span>
-<span><span class="co">#&gt;   n          : 65 </span></span>
-<span><span class="co">#&gt;   k          :  0.1 </span></span>
-<span><span class="co">#&gt;   k_ce       :    3 </span></span>
+<span><span class="co">#&gt;  n    : 23 </span></span>
+<span><span class="co">#&gt;  k    :  0.1 </span></span>
+<span><span class="co">#&gt;  k_ce :    3 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Operating characteristics</span></span>
-<span><span class="co">#&gt;   Bayes power      : 0.904 </span></span>
-<span><span class="co">#&gt;   Bayes type-I     : 0.002 </span></span>
-<span><span class="co">#&gt;   CE(H0)           : 0.574 </span></span>
-<span><span class="co">#&gt;   Freq power       : 0.952 </span></span>
-<span><span class="co">#&gt;   Freq type-I      : 0.026</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev_with_ce50</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="90%" style="display: block; margin: auto;"></p>
+<span><span class="co">#&gt;  Bayes power  : 0.809 </span></span>
+<span><span class="co">#&gt;  Bayes type-I : 0.004 </span></span>
+<span><span class="co">#&gt;  CE(H0)       : 0.859 </span></span>
+<span><span class="co">#&gt;  Freq power   : 0.612 </span></span>
+<span><span class="co">#&gt;  Freq type-I  : 0.027</span></span></code></pre></div>
+<p>We see that still
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">n=23</annotation></semantics></math>
+patients are required.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_hybrid_strong_ev_with_ce</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="figures/singlearm-onestage-fig6.png" class="r-plt" alt="Figure 6: Visualization of the hybrid calibrated single-arm one-stage phase II design with a binary endpoint, this time with an additional constraint on the probability of compelling evidence for the null hypothesis." width="100%"><p class="caption">
+Figure 6: Visualization of the hybrid calibrated single-arm one-stage
+phase II design with a binary endpoint, this time with an additional
+constraint on the probability of compelling evidence for the null
+hypothesis.
+</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="relationship-to-the-two-stage-design">Relationship to the two-stage design<a class="anchor" aria-label="anchor" href="#relationship-to-the-two-stage-design"></a>

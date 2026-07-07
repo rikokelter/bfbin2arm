@@ -34,6 +34,11 @@ design_singlearm_twostage_rope(
   gamma_diff = gamma_eq,
   alpha = 0.1,
   power = 0.8,
+  pce = NULL,
+  alpha_freq = NULL,
+  power_freq = NULL,
+  p_t1e = NULL,
+  p_power = NULL,
   nmax = 300L,
   direction = c("equivalence", "noninferiority", "superiority"),
   minimax = FALSE,
@@ -68,8 +73,11 @@ design_singlearm_twostage_rope(
 
 - gamma_1:
 
-  Interim futility threshold in \\(0, 1)\\: continuation requires the
-  interim posterior ROPE probability to exceed `gamma_1`.
+  Interim futility threshold in \\(0, 1)\\ applied to the posterior
+  support for \\H_0\\. In the equivalence design, the trial stops early
+  for futility if \\\Pr(p \notin \mathcal{R}\_p \mid Y_1) \ge
+  \gamma_1\\, equivalently if the interim posterior ROPE probability is
+  at most \\1-\gamma_1\\. Continuation to stage 2 occurs otherwise.
 
 - gamma_eq:
 
@@ -80,8 +88,9 @@ design_singlearm_twostage_rope(
 - gamma_diff:
 
   Threshold for compelling evidence for \\H_0\\: the complementary
-  posterior ROPE probability must exceed `gamma_diff`. Defaults to
-  `gamma_eq`.
+  posterior ROPE probability must exceed `gamma_diff`. In the two-stage
+  design, compelling evidence for \\H_0\\ may be obtained either at the
+  interim analysis or at the final analysis. Defaults to `gamma_eq`.
 
 - alpha:
 
@@ -90,6 +99,26 @@ design_singlearm_twostage_rope(
 - power:
 
   Target predictive power (lower bound).
+
+- pce:
+
+  Optional lower bound on predictive `PCE(H0)`.
+
+- alpha_freq:
+
+  Optional upper bound on the frequentist type-I error.
+
+- power_freq:
+
+  Optional lower bound on the frequentist power.
+
+- p_t1e:
+
+  Point at which the frequentist type-I error is evaluated.
+
+- p_power:
+
+  Point at which the frequentist power is evaluated.
 
 - nmax:
 
@@ -112,45 +141,7 @@ design_singlearm_twostage_rope(
 
 ## Value
 
-An object of class `"singlearm_rope_twostage_design"` with components:
-
-- `call`:
-
-  The matched call.
-
-- `p0`, `delta`, `direction`:
-
-  Design parameters.
-
-- `analysis_prior`, `design_prior_h0`, `design_prior_h1`:
-
-  Prior specifications.
-
-- `alpha`, `target_power`:
-
-  Constraint levels.
-
-- `gamma_1`, `gamma_eq`, `gamma_diff`:
-
-  Evidence thresholds.
-
-- `optimality`:
-
-  Either `"optimal"` or `"minimax"`.
-
-- `design`:
-
-  A one-row data frame with the optimal design and its operating
-  characteristics.
-
-- `continuation_region`:
-
-  Integer vector of stage-1 response counts in \\\mathcal{C}\_1\\.
-
-- `candidates`:
-
-  Data frame of all feasible two-stage designs, sorted by the primary
-  optimality criterion.
+An object of class `"singlearm_rope_twostage_design"`.
 
 ## Details
 
@@ -160,9 +151,3 @@ all two-stage splits \\n_1 + n_2 = n^\*\\ and retain those satisfying
 the two-stage constraints. The optimal design minimises
 \\\mathrm{EN}\_0\\ (or \\n^\*\\ under the minimax criterion) among all
 feasible splits.
-
-## See also
-
-[`print.singlearm_rope_twostage_design`](https://rikokelter.github.io/bfbin2arm/reference/print.singlearm_rope_twostage_design.md),
-[`summary.singlearm_rope_twostage_design`](https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_rope_twostage_design.md),
-[`plot.singlearm_rope_twostage_design`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_rope_twostage_design.md)

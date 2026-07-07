@@ -80,6 +80,8 @@
   : Print method for summary.singlearm_bf_design
 - [`print(`*`<summary.singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_onestage_bf_design.md)
   : Print method for summaries of one-stage single-arm BF designs
+- [`print(`*`<summary.singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/print.summary.singlearm_rope_twostage_design.md)
+  : Print a compact summary of a single-arm two-stage ROPE design
 - [`priorProbHminus()`](https://rikokelter.github.io/bfbin2arm/reference/priorProbHminus.md)
   : Prior probability P(p2 \<= p1) under independent Beta priors
 - [`priorProbHplus()`](https://rikokelter.github.io/bfbin2arm/reference/priorProbHplus.md)

@@ -47,7 +47,7 @@ Posterior probability
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +61,7 @@ Posterior probability
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/bfbin2arm-overview.html">Clinical trial designs in bfbin2arm</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-onestage-design.html">ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</a></li>
+    <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-twostage.html">Two-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_frequentist.html">Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_full.html">Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_hybrid.html">Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
@@ -118,6 +119,11 @@ decision types via the <code>direction</code> argument:</p><dl><dt><code>"equiva
 <span>  gamma_diff <span class="op">=</span> <span class="va">gamma_eq</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  power <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  pce <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha_freq <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  power_freq <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  p_t1e <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  p_power <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nmax <span class="op">=</span> <span class="fl">300L</span>,</span>
 <span>  direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equivalence"</span>, <span class="st">"noninferiority"</span>, <span class="st">"superiority"</span><span class="op">)</span>,</span>
 <span>  minimax <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -156,8 +162,12 @@ design prior.</p></dd>
 
 
 <dt id="arg-gamma-">gamma_1<a class="anchor" aria-label="anchor" href="#arg-gamma-"></a></dt>
-<dd><p>Interim futility threshold in \((0, 1)\): continuation
-requires the interim posterior ROPE probability to exceed <code>gamma_1</code>.</p></dd>
+<dd><p>Interim futility threshold in \((0, 1)\) applied to the
+posterior support for \(H_0\). In the equivalence design, the trial stops
+early for futility if
+\(\Pr(p \notin \mathcal{R}_p \mid Y_1) \ge \gamma_1\),
+equivalently if the interim posterior ROPE probability is at most
+\(1-\gamma_1\). Continuation to stage 2 occurs otherwise.</p></dd>
 
 
 <dt id="arg-gamma-eq">gamma_eq<a class="anchor" aria-label="anchor" href="#arg-gamma-eq"></a></dt>
@@ -169,7 +179,9 @@ equivalence, non-inferiority, or superiority.</p></dd>
 <dt id="arg-gamma-diff">gamma_diff<a class="anchor" aria-label="anchor" href="#arg-gamma-diff"></a></dt>
 <dd><p>Threshold for compelling evidence for \(H_0\): the
 complementary posterior ROPE probability must exceed <code>gamma_diff</code>.
-Defaults to <code>gamma_eq</code>.</p></dd>
+In the two-stage design, compelling evidence for \(H_0\) may be obtained
+either at the interim analysis or at the final analysis. Defaults to
+<code>gamma_eq</code>.</p></dd>
 
 
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
@@ -178,6 +190,26 @@ Defaults to <code>gamma_eq</code>.</p></dd>
 
 <dt id="arg-power">power<a class="anchor" aria-label="anchor" href="#arg-power"></a></dt>
 <dd><p>Target predictive power (lower bound).</p></dd>
+
+
+<dt id="arg-pce">pce<a class="anchor" aria-label="anchor" href="#arg-pce"></a></dt>
+<dd><p>Optional lower bound on predictive <code>PCE(H0)</code>.</p></dd>
+
+
+<dt id="arg-alpha-freq">alpha_freq<a class="anchor" aria-label="anchor" href="#arg-alpha-freq"></a></dt>
+<dd><p>Optional upper bound on the frequentist type-I error.</p></dd>
+
+
+<dt id="arg-power-freq">power_freq<a class="anchor" aria-label="anchor" href="#arg-power-freq"></a></dt>
+<dd><p>Optional lower bound on the frequentist power.</p></dd>
+
+
+<dt id="arg-p-t-e">p_t1e<a class="anchor" aria-label="anchor" href="#arg-p-t-e"></a></dt>
+<dd><p>Point at which the frequentist type-I error is evaluated.</p></dd>
+
+
+<dt id="arg-p-power">p_power<a class="anchor" aria-label="anchor" href="#arg-p-power"></a></dt>
+<dd><p>Point at which the frequentist power is evaluated.</p></dd>
 
 
 <dt id="arg-nmax">nmax<a class="anchor" aria-label="anchor" href="#arg-nmax"></a></dt>
@@ -203,41 +235,8 @@ criterion); if <code>FALSE</code> (default), minimise \(\mathrm{EN}_0\)
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>"singlearm_rope_twostage_design"</code> with
-components:</p><dl><dt><code>call</code></dt>
-<dd><p>The matched call.</p></dd>
-
-<dt><code>p0</code>, <code>delta</code>, <code>direction</code></dt>
-<dd><p>Design parameters.</p></dd>
-
-<dt><code>analysis_prior</code>, <code>design_prior_h0</code>,
-<code>design_prior_h1</code></dt>
-<dd><p>Prior specifications.</p></dd>
-
-<dt><code>alpha</code>, <code>target_power</code></dt>
-<dd><p>Constraint levels.</p></dd>
-
-<dt><code>gamma_1</code>, <code>gamma_eq</code>, <code>gamma_diff</code></dt>
-<dd><p>Evidence
-thresholds.</p></dd>
-
-<dt><code>optimality</code></dt>
-<dd><p>Either <code>"optimal"</code> or <code>"minimax"</code>.</p></dd>
-
-<dt><code>design</code></dt>
-<dd><p>A one-row data frame with the optimal design and
-its operating characteristics.</p></dd>
-
-<dt><code>continuation_region</code></dt>
-<dd><p>Integer vector of stage-1 response
-counts in \(\mathcal{C}_1\).</p></dd>
-
-<dt><code>candidates</code></dt>
-<dd><p>Data frame of all feasible two-stage designs,
-sorted by the primary optimality criterion.</p></dd>
-
-
-</dl></div>
+    <p>An object of class <code>"singlearm_rope_twostage_design"</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The search proceeds in two steps: (1) find the minimum fixed-sample size
@@ -245,12 +244,6 @@ sorted by the primary optimality criterion.</p></dd>
 all two-stage splits \(n_1 + n_2 = n^*\) and retain those satisfying the
 two-stage constraints. The optimal design minimises \(\mathrm{EN}_0\)
 (or \(n^*\) under the minimax criterion) among all feasible splits.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="print.singlearm_rope_twostage_design.html">print.singlearm_rope_twostage_design</a></code>,
-<code><a href="summary.singlearm_rope_twostage_design.html">summary.singlearm_rope_twostage_design</a></code>,
-<code><a href="plot.singlearm_rope_twostage_design.html">plot.singlearm_rope_twostage_design</a></code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

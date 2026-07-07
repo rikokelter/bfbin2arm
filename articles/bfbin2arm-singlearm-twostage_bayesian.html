@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,7 @@
 <li><a class="dropdown-item" href="../articles/bfbin2arm-overview.html">Clinical trial designs in bfbin2arm</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-onestage-calibration.html">Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-onestage-design.html">ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints</a></li>
+    <li><a class="dropdown-item" href="../articles/bfbin2arm-rope-singlearm-twostage.html">Two-stage ROPE-based designs for single-arm phase II trials</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_frequentist.html">Optimal frequentist calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_full.html">Optimal full calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm_twostage_hybrid.html">Optimal hybrid calibration for single-arm two-stage Bayes factor designs with binary endpoints</a></li>
@@ -76,7 +77,7 @@ Faculty of Medicine<br>
 University of Cologne<br>
 Cologne, Germany</div></h4>
             
-            <h4 data-toc-skip class="date">26 June 2026</h4>
+            <h4 data-toc-skip class="date">07 July 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rikokelter/bfbin2arm/blob/master/vignettes/bfbin2arm-singlearm-twostage_bayesian.Rmd" class="external-link"><code>vignettes/bfbin2arm-singlearm-twostage_bayesian.Rmd</code></a></small>
       <div class="d-none name"><code>bfbin2arm-singlearm-twostage_bayesian.Rmd</code></div>
@@ -837,20 +838,20 @@ when calibrating the design.</p>
 <span><span class="co">#&gt; Design prior under H0: Beta(1, 1) truncated to [0, p0]</span></span>
 <span><span class="co">#&gt; Design prior under H1: Beta(2.5, 2) truncated to (p0, 1]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Selected design: n1 = 5, n2 = 11</span></span>
+<span><span class="co">#&gt; Selected design: n1 = 5, n2 = 10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Bayesian operating characteristics</span></span>
-<span><span class="co">#&gt;   Power: 0.8374</span></span>
-<span><span class="co">#&gt;   Type-I: 0.0388</span></span>
-<span><span class="co">#&gt;   CE H0: 0.8860</span></span>
-<span><span class="co">#&gt;   EN H0: 7.31</span></span>
-<span><span class="co">#&gt;   EN H1: 10.72</span></span>
+<span><span class="co">#&gt;   Power: 0.8031</span></span>
+<span><span class="co">#&gt;   Type-I: 0.0287</span></span>
+<span><span class="co">#&gt;   CE H0: 0.7689</span></span>
+<span><span class="co">#&gt;   EN H0: 6.93</span></span>
+<span><span class="co">#&gt;   EN H1: 9.76</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Frequentist operating characteristics</span></span>
-<span><span class="co">#&gt;   Power: 0.6898</span></span>
-<span><span class="co">#&gt;   Type-I: 0.1556</span></span>
-<span><span class="co">#&gt;   EN H0: 9.03</span></span>
-<span><span class="co">#&gt;   EN H1: 10.53</span></span></code></pre></div>
+<span><span class="co">#&gt;   Power: 0.6110</span></span>
+<span><span class="co">#&gt;   Type-I: 0.1187</span></span>
+<span><span class="co">#&gt;   EN H0: 8.36</span></span>
+<span><span class="co">#&gt;   EN H1: 9.61</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res_dir</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -901,12 +902,25 @@ and its operating characteristics change:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res_dir_ce</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Summary: Single-arm two-stage Bayes factor design</span></span>
 <span><span class="co">#&gt; ---------------------------------------------------------</span></span>
-<span><span class="co">#&gt; Feasible: FALSE</span></span>
+<span><span class="co">#&gt; Feasible: TRUE</span></span>
 <span><span class="co">#&gt; Calibration: Bayesian</span></span>
 <span><span class="co">#&gt; Design prior under H0: Beta(1, 1) truncated to [0, p0]</span></span>
 <span><span class="co">#&gt; Design prior under H1: Beta(2.5, 2) truncated to (p0, 1]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; No feasible fixed-sample anchor found.</span></span></code></pre></div>
+<span><span class="co">#&gt; Selected design: n1 = 5, n2 = 11</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bayesian operating characteristics</span></span>
+<span><span class="co">#&gt;   Power: 0.8374</span></span>
+<span><span class="co">#&gt;   Type-I: 0.0388</span></span>
+<span><span class="co">#&gt;   CE H0: 0.8860</span></span>
+<span><span class="co">#&gt;   EN H0: 7.31</span></span>
+<span><span class="co">#&gt;   EN H1: 10.72</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Frequentist operating characteristics</span></span>
+<span><span class="co">#&gt;   Power: 0.6898</span></span>
+<span><span class="co">#&gt;   Type-I: 0.1556</span></span>
+<span><span class="co">#&gt;   EN H0: 9.03</span></span>
+<span><span class="co">#&gt;   EN H1: 10.53</span></span></code></pre></div>
 <p>The results indicate that the calibration failed. This is not a
 deficiency of the algorithm but our constraints are simply too demanding
 under our design prior assumptions. What is happening here is:</p>

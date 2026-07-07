@@ -102,6 +102,8 @@ type-I-error rate of 5% or less, specified via the argument
 
 ``` r
 
+library(bfbin2arm)
+
 des_bayes <- design_singlearm_onestage_bf(
   n_min = 10,
   n_max = 200,
@@ -127,19 +129,19 @@ summary(des_bayes)
 #> ------------------------------------------------
 #> Calibration: Bayesian 
 #> Sustain:  10  future n
-#> Feasible   : TRUE 
-#> Status     : Smallest feasible one-stage design found. 
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
 #> 
 #> Selected design
-#>   n          : 13 
-#>   k          : 0.333 
+#>  n    : 13 
+#>  k    : 0.333 
 #> 
 #> Operating characteristics
-#>   Bayes power      : 0.821 
-#>   Bayes type-I     : 0.021 
-#>   CE(H0)           :   NA 
-#>   Freq power       :   NA 
-#>   Freq type-I      : 0.099
+#>  Bayes power  : 0.821 
+#>  Bayes type-I : 0.021 
+#>  CE(H0)       :   NA 
+#>  Freq power   :   NA 
+#>  Freq type-I  : 0.099
 ```
 
 ### Operating-characteristic curves
@@ -151,13 +153,18 @@ The search results can be visualized directly.
 plot(des_bayes)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-4-1.png)
+![Figure 2: Visualization of the calibrated Bayesian single-arm
+one-stage phase II design with a binary
+endpoint](figures/singlearm-onestage-fig1.png)
 
-The left panel shows Bayesian power and type-I error, together with
+Figure 2: Visualization of the calibrated Bayesian single-arm one-stage
+phase II design with a binary endpoint
+
+The top left panel shows Bayesian power and type-I error, together with
 optional frequentist overlays if a point alternative is supplied.
 
-The right panel showsthe relevant operating characteristics of the trial
-design isolated by the calibration algorithm. In this case, no
+The top right panel shows the relevant operating characteristics of the
+trial design isolated by the calibration algorithm. In this case, no
 frequentist power calculations were required, so the frequentist power
 is shown as NA (not available), and the lower part states that
 frequentist power calculations under a point alternative were not
@@ -224,39 +231,56 @@ summary(des_bayes_ce)
 #> ------------------------------------------------
 #> Calibration: Bayesian 
 #> Sustain:  10  future n
-#> Feasible   : FALSE 
-#> Status     : No feasible one-stage design found.
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
+#> 
+#> Selected design
+#>  n    : 13 
+#>  k    : 0.333 
+#>  k_ce :    3 
+#> 
+#> Operating characteristics
+#>  Bayes power  : 0.821 
+#>  Bayes type-I : 0.021 
+#>  CE(H0)       : 0.825 
+#>  Freq power   : 0.647 
+#>  Freq type-I  : 0.099
 ```
 
-Now, no design could be found which fulfills our target constraints.
-Before we see why, note that since we added the parameter `dp = 0.4` to
-the above function call frequentist power is additionally calculated
-under the point alternative $`p=0.4`$ in the single-arm case. We can
-always add this to a design calibration, but the calibration mode
-(specified via the argument `calibration`) decides which metric is the
-benchmark for finding a feasible design (that is, a sufficiently large
-sample size to meet our specified target constraints). Thus, frequentist
-power is calculated here solely post-hoc for the calibrated design. The
-calibrated design itself is calibrated according to the Bayesian target
-power and type-I-error rate.
-
-We can plot the resulting design:
+Since we added the parameter `dp = 0.4` to the above function call,
+frequentist power is additionally calculated under the point alternative
+$`p=0.4`$ in the single-arm case. We can always add this to a design
+calibration, but the calibration mode (specified via the argument
+`calibration`) decides which metric is the benchmark for finding a
+feasible design (that is, a sufficiently large sample size to meet our
+specified target constraints). Thus, frequentist power is calculated
+here solely post-hoc for the calibrated design. The calibrated design
+itself is calibrated according to the Bayesian target power and
+type-I-error rate. We can see the resulting sample size in the above
+output, and we can plot the design as follows:
 
 ``` r
 
 plot(des_bayes_ce)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-7-1.png)
+![Figure 3: Visualization of the calibrated Bayesian single-arm
+one-stage phase II design with a binary endpoint. In contrast to the
+earlier Bayesian calibration for power and type-I-error rate, now an
+additional constraint fo the probability of compelling evidence is
+added.](figures/singlearm-onestage-fig2.png)
 
-The plot shows that the factor which causes problems is the probability
-of compelling evidence. In the sample size range up to $`n=200`$, it
-stays below the required 60%, so no calibrated design can be found. If
-we lower the requirement to, say, 50%, we get:
+Figure 3: Visualization of the calibrated Bayesian single-arm one-stage
+phase II design with a binary endpoint. In contrast to the earlier
+Bayesian calibration for power and type-I-error rate, now an additional
+constraint fo the probability of compelling evidence is added.
+
+If we increase the requirement on probability of compelling evidence for
+$`H_0`$ to, say, 90%, we get:
 
 ``` r
 
-des_bayes_ce50 <- design_singlearm_onestage_bf(
+des_bayes_ce90 <- design_singlearm_onestage_bf(
   n_min = 10,
   n_max = 200,
   k = 1/3,
@@ -269,7 +293,7 @@ des_bayes_ce50 <- design_singlearm_onestage_bf(
   calibration = "Bayesian",
   target_power = 0.8,
   target_type1 = 0.05,
-  target_ce_h0 = 0.5,
+  target_ce_h0 = 0.9,
   k_ce = 3,
   dp = 0.4
 )
@@ -279,36 +303,44 @@ We inspect the fit:
 
 ``` r
 
-summary(des_bayes_ce50)
+summary(des_bayes_ce90)
 #> Summary: One-stage single-arm Bayes factor design
 #> ------------------------------------------------
 #> Calibration: Bayesian 
 #> Sustain:  10  future n
-#> Feasible   : TRUE 
-#> Status     : Smallest feasible one-stage design found. 
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
 #> 
 #> Selected design
-#>   n          : 65 
-#>   k          : 0.333 
-#>   k_ce       :    3 
+#>  n    : 60 
+#>  k    : 0.333 
+#>  k_ce :    3 
 #> 
 #> Operating characteristics
-#>   Bayes power      : 0.934 
-#>   Bayes type-I     : 0.009 
-#>   CE(H0)           : 0.574 
-#>   Freq power       : 0.986 
-#>   Freq type-I      : 0.085
+#>  Bayes power  : 0.928 
+#>  Bayes type-I : 0.008 
+#>  CE(H0)       : 0.927 
+#>  Freq power   : 0.978 
+#>  Freq type-I  : 0.077
 ```
 
 We can plot the resulting design:
 
 ``` r
 
-plot(des_bayes_ce50)
+plot(des_bayes_ce90)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-10-1.png)
-Now a calibrated design can be found, as expected.
+![Figure 3: Visualization of the calibrated Bayesian single-arm
+one-stage phase II design with a binary endpoint. In contrast to the
+previous Bayesian calibration, the target probability of compelling
+evidence for the null hypothesis is increased to 90%
+now.](figures/singlearm-onestage-fig3.png)
+
+Figure 3: Visualization of the calibrated Bayesian single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+Bayesian calibration, the target probability of compelling evidence for
+the null hypothesis is increased to 90% now.
 
 ## Full Bayes-frequentist calibration
 
@@ -343,8 +375,8 @@ summary(des_full)
 #> ------------------------------------------------
 #> Calibration: full 
 #> Sustain:  10  future n
-#> Feasible   : FALSE 
-#> Status     : No feasible one-stage design found.
+#> Feasible : FALSE 
+#> Status : No feasible one-stage design found.
 ```
 
 Now, given our priors and evidence thresholds no feasible one-stage
@@ -429,19 +461,19 @@ summary(des_full_strong_ev)
 #> ------------------------------------------------
 #> Calibration: full 
 #> Sustain:  10  future n
-#> Feasible   : TRUE 
-#> Status     : Smallest feasible one-stage design found. 
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
 #> 
 #> Selected design
-#>   n          : 38 
-#>   k          :  0.1 
+#>  n    : 38 
+#>  k    :  0.1 
 #> 
 #> Operating characteristics
-#>   Bayes power      : 0.866 
-#>   Bayes type-I     : 0.003 
-#>   CE(H0)           :   NA 
-#>   Freq power       : 0.814 
-#>   Freq type-I      : 0.029
+#>  Bayes power  : 0.866 
+#>  Bayes type-I : 0.003 
+#>  CE(H0)       :   NA 
+#>  Freq power   : 0.814 
+#>  Freq type-I  : 0.029
 ```
 
 We plot the fit:
@@ -451,7 +483,16 @@ We plot the fit:
 plot(des_full_strong_ev)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-16-1.png)
+![Figure 4: Visualization of the fully calibrated single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+Bayesian calibration, both Bayesian and frequentist operating
+characteristics are calibrated
+now.](figures/singlearm-onestage-fig4.png)
+
+Figure 4: Visualization of the fully calibrated single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+Bayesian calibration, both Bayesian and frequentist operating
+characteristics are calibrated now.
 
 ### Frequentist calibration
 
@@ -484,19 +525,19 @@ summary(des_freq_strong_ev)
 #> ------------------------------------------------
 #> Calibration: frequentist 
 #> Sustain:  10  future n
-#> Feasible   : TRUE 
-#> Status     : Smallest feasible one-stage design found. 
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
 #> 
 #> Selected design
-#>   n          : 38 
-#>   k          :  0.1 
+#>  n    : 38 
+#>  k    :  0.1 
 #> 
 #> Operating characteristics
-#>   Bayes power      : 0.866 
-#>   Bayes type-I     : 0.003 
-#>   CE(H0)           :   NA 
-#>   Freq power       : 0.814 
-#>   Freq type-I      : 0.029
+#>  Bayes power  : 0.866 
+#>  Bayes type-I : 0.003 
+#>  CE(H0)       :   NA 
+#>  Freq power   : 0.814 
+#>  Freq type-I  : 0.029
 ```
 
 Note in the above call, that the arguments `target_power = 0.8` and
@@ -550,19 +591,19 @@ summary(des_hybrid_strong_ev)
 #> ------------------------------------------------
 #> Calibration: hybrid 
 #> Sustain:  10  future n
-#> Feasible   : TRUE 
-#> Status     : Smallest feasible one-stage design found. 
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
 #> 
 #> Selected design
-#>   n          : 23 
-#>   k          :  0.1 
+#>  n    : 23 
+#>  k    :  0.1 
 #> 
 #> Operating characteristics
-#>   Bayes power      : 0.809 
-#>   Bayes type-I     : 0.004 
-#>   CE(H0)           :   NA 
-#>   Freq power       : 0.612 
-#>   Freq type-I      : 0.027
+#>  Bayes power  : 0.809 
+#>  Bayes type-I : 0.004 
+#>  CE(H0)       :   NA 
+#>  Freq power   : 0.612 
+#>  Freq type-I  : 0.027
 ```
 
 We see that now the feasible sample size to calibrate our design has
@@ -574,7 +615,15 @@ fewer patients.
 plot(des_hybrid_strong_ev)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-19-1.png)
+![Figure 5: Visualization of the hybrid calibrated single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+calibration, Bayesian power is calibrated with frequentist type-I-error
+in this calibration mode.](figures/singlearm-onestage-fig5.png)
+
+Figure 5: Visualization of the hybrid calibrated single-arm one-stage
+phase II design with a binary endpoint. In contrast to the previous
+calibration, Bayesian power is calibrated with frequentist type-I-error
+in this calibration mode.
 
 The plot clearly shows that Bayesian power is the limiting factor here:
 From $`n=23`$ patients on, it passes the required 80% threshold.
@@ -618,74 +667,38 @@ summary(des_hybrid_strong_ev_with_ce)
 #> ------------------------------------------------
 #> Calibration: hybrid 
 #> Sustain:  10  future n
-#> Feasible   : FALSE 
-#> Status     : No feasible one-stage design found.
+#> Feasible : TRUE 
+#> Status : Smallest feasible one-stage design found. 
+#> 
+#> Selected design
+#>  n    : 23 
+#>  k    :  0.1 
+#>  k_ce :    3 
+#> 
+#> Operating characteristics
+#>  Bayes power  : 0.809 
+#>  Bayes type-I : 0.004 
+#>  CE(H0)       : 0.859 
+#>  Freq power   : 0.612 
+#>  Freq type-I  : 0.027
 ```
 
-We see that no calibrated design could be found in the sample size range
-specified. The following plot shows why:
+We see that still $`n=23`$ patients are required.
 
 ``` r
 
 plot(des_hybrid_strong_ev_with_ce)
 ```
 
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-21-1.png)
-The probability of compelling evidence simply does not reach the target
-60% in the specified sample size range. Thus, we could either increase
-that range by increasing `n_max` or adopting different design priors.
-Alternatively, we could lower our requirement on the probability of
-compelling evidence to, say, 50% as follows:
+![Figure 6: Visualization of the hybrid calibrated single-arm one-stage
+phase II design with a binary endpoint, this time with an additional
+constraint on the probability of compelling evidence for the null
+hypothesis.](figures/singlearm-onestage-fig6.png)
 
-``` r
-
-des_hybrid_strong_ev_with_ce50 <- design_singlearm_onestage_bf(
-  n_min = 10,
-  n_max = 100,
-  k = 1/10,
-  k_ce = 3,
-  p0 = 0.2,
-  a0 = 1, b0 = 1,
-  a1 = 1, b1 = 1,
-  dp = 0.4,
-  da0 = 1, db0 = 1,
-  da1 = 2.5, db1 = 2,
-  type = "direction",
-  calibration = "hybrid",
-  target_power = 0.8,
-  target_type1 = 0.05,
-  target_ce_h0 = 0.5,
-  target_freq_power = 0.8,
-  target_freq_type1 = 0.05
-)
-
-summary(des_hybrid_strong_ev_with_ce50)
-#> Summary: One-stage single-arm Bayes factor design
-#> ------------------------------------------------
-#> Calibration: hybrid 
-#> Sustain:  10  future n
-#> Feasible   : TRUE 
-#> Status     : Smallest feasible one-stage design found. 
-#> 
-#> Selected design
-#>   n          : 65 
-#>   k          :  0.1 
-#>   k_ce       :    3 
-#> 
-#> Operating characteristics
-#>   Bayes power      : 0.904 
-#>   Bayes type-I     : 0.002 
-#>   CE(H0)           : 0.574 
-#>   Freq power       : 0.952 
-#>   Freq type-I      : 0.026
-```
-
-``` r
-
-plot(des_hybrid_strong_ev_with_ce50)
-```
-
-![](bfbin2arm-singlearm-onestage_files/figure-html/unnamed-chunk-23-1.png)
+Figure 6: Visualization of the hybrid calibrated single-arm one-stage
+phase II design with a binary endpoint, this time with an additional
+constraint on the probability of compelling evidence for the null
+hypothesis.
 
 ### Relationship to the two-stage design
 

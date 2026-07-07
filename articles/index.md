@@ -10,6 +10,8 @@
 - [ROPE-based trial design for single-arm one-stage phase II trials with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-onestage-design.md):
+- [Two-stage ROPE-based designs for single-arm phase II
+  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-rope-singlearm-twostage.md):
 - [Optimal frequentist calibration for single-arm two-stage Bayes factor
   designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm_twostage_frequentist.md):
