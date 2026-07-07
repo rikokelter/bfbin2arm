@@ -7,14 +7,14 @@ author: |
   | University of Cologne
   | Cologne, Germany
 date: "`r format(Sys.Date(), '%d %B %Y')`"
-bibliography: references.bib
+bibliography: ../references.bib
 output:
   rmarkdown::html_vignette:
     toc: true
     number_sections: true
     mathjax: default
     includes:
-      in_header: mathjax-config.html
+      in_header: ../mathjax-config.html
 vignette: >
   %\VignetteIndexEntry{Frequentist and hybrid calibration of one-stage ROPE-based designs for single-arm phase II trials}
   %\VignetteEngine{knitr::rmarkdown}

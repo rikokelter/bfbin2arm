@@ -42,26 +42,24 @@ This vignette introduces the calibration of two-stage ROPE-based designs for
 single-arm phase II trials with binary endpoints, implemented in the function
 `design_singlearm_twostage_rope()`. In these trials, the goal is to establish
 practical equivalence between a standard of care with success probability
-\\(p_0\\) and a novel treatment, while allowing for a single interim analysis with
+$p_0$ and a novel treatment, while allowing for a single interim analysis with
 the option to stop early for futility.
 
 As in the one-stage ROPE design, equivalence is framed via a region of practical
-equivalence (ROPE) around \\(p_0\\)
+equivalence (ROPE) around $p_0$
 
-\\[
-\\mathcal{R}_p = [p_0 - \\delta,\\; p_0 + \\delta]\\cap(0,1),
-\\]
+$$\mathcal{R}_p = [p_0 - \delta,\; p_0 + \delta]\cap(0,1),$$
 
-and equivalence is accepted if the posterior probability that \\(p\\) lies inside
+and equivalence is accepted if the posterior probability that $p$ lies inside
 $\mathcal{R}_p$ exceeds a threshold $\gamma_{\mathrm{eq}}$,
 
 $$\Pr(p \in \mathcal{R}_p \mid Y=y) \ge \gamma_{\mathrm{eq}}.$$
 
 In addition, the two-stage design uses
 
-- an **interim futility threshold** \\(\\gamma_1\\), formulated in terms of the
+- an **interim futility threshold** $\gamma_1$, formulated in terms of the
   posterior probability of non-equivalence at stage 1, and
-- a **non-equivalence threshold** \\(\\gamma_{\\mathrm{diff}}\\), formulated in
+- a **non-equivalence threshold** $\gamma_{\mathrm{diff}}$, formulated in
   terms of the posterior probability of lying outside the ROPE at the final
   analysis.
 
@@ -80,42 +78,42 @@ distributions, without Monte Carlo simulation.
 
 # Two-stage ROPE design structure
 
-We consider a single-arm phase II trial with a binary endpoint. Let \\(Y\\) denote
-the number of responders among \\(n\\) enrolled patients. The trial is conducted
+We consider a single-arm phase II trial with a binary endpoint. Let $Y$ denote
+the number of responders among $n$ enrolled patients. The trial is conducted
 in two stages:
 
-- stage 1: enroll \\(n_1\\) patients and observe \\(Y_1\\) responses;
+- stage 1: enroll $n_1$ patients and observe $Y_1$ responses;
 - if the interim data are not strongly against equivalence, proceed to stage 2,
-  enroll an additional \\(n_2\\) patients (for a total \\(n = n_1 + n_2\\)) and
-  observe a total \\(Y = Y_1 + Y_2\\) responses.
+  enroll an additional $n_2$ patients (for a total $n = n_1 + n_2$) and
+  observe a total $Y = Y_1 + Y_2$ responses.
 
 At both stages, decision-making is based on the posterior ROPE probability
-\\(\\pi_{\\mathcal{R}_p}(y,n) = \\Pr(p \\in \\mathcal{R}_p \\mid Y=y, n)\\) under an
-analysis prior \\(\\mathrm{Beta}(a_A,b_A)\\).
+$\pi_{\mathcal{R}_p}(y,n) = \Pr(p \in \mathcal{R}_p \mid Y=y, n)$ under an
+analysis prior $\mathrm{Beta}(a_A,b_A)$.
 
 ## Stage 1: Interim futility analysis
 
 At the interim analysis, the design evaluates the posterior probability that
-\\(p\\) lies outside the ROPE. Let \\(\\gamma_1\\in(0,1)\\) be the futility threshold.
-The stage 1 rule can be written as
+$p$ lies outside the ROPE. Let $\gamma_1\in(0,1)$ be the futility threshold.
+The stage 1 rule can be written as
 
-- **continue to stage 2** if
+- **continue to stage 2** if
   $$Pr(p \notin \mathcal{R}_p \mid Y_1=y_1, n_1) < \gamma_1
   \quad \text{equivalently}\quad
   \pi_{\mathcal{R}_p}(y_1,n_1) > 1 - \gamma_1,$$
 - **stop for futility** (non-equivalence) otherwise.
 
 The set of interim response counts that lead to continuation is the
-**continuation region** \\(\\mathcal{C}_1 \\subseteq \\{0,\\dots,n_1\\}\\). For
-\\(y_1\\in\\mathcal{C}_1\\), the trial proceeds to stage 2; for
-\\(y_1 \\notin\\mathcal{C}_1\\), it stops early.
+**continuation region** $\mathcal{C}_1 \subseteq \{0,\dots,n_1\}$. For
+$y_1\in\mathcal{C}_1$, the trial proceeds to stage 2; for
+$y_1 \notin\mathcal{C}_1$, it stops early.
 
 ## Stage 2: Final decision
 
 At the final analysis, the design uses two thresholds:
 
-- an equivalence threshold \\(\\gamma_{\\mathrm{eq}}\\), and
-- a non-equivalence threshold \\(\\gamma_{\\mathrm{diff}}\\).
+- an equivalence threshold $\gamma_{\mathrm{eq}}$, and
+- a non-equivalence threshold $\gamma_{\mathrm{diff}}$.
 
 The final decision rule is:
 
@@ -125,73 +123,71 @@ The final decision rule is:
   $1-\pi_{\mathcal{R}_p}(y,n) \ge \gamma_{\mathrm{diff}}$,
 - **remain inconclusive** otherwise.
 
-Thus, every possible total response count \\(y\\in\\{0,\\dots,n\\}\\) belongs to one
+Thus, every possible total response count $y\in\{0,\dots,n\}$ belongs to one
 of three final decision regions (equivalence, compelling non-equivalence,
 inconclusive), determined by the analysis prior, the ROPE, and the thresholds
-\\((\\gamma_{\\mathrm{eq}},\\gamma_{\\mathrm{diff}})\\).
+$(\gamma_{\mathrm{eq}},\gamma_{\mathrm{diff}})$.
 
 ## Predictive operating characteristics and optimality
 
 Predictive (Bayesian) operating characteristics are defined with respect to two
 distinct design priors:
 
-- under non-equivalence \\(H_0: p\\notin\\mathcal{R}_p\\), a pessimistic prior
-  \\(\\pi_0(p)\\) that concentrates mass outside the ROPE;  
-- under equivalence \\(H_1: p\\in\\mathcal{R}_p\\), an optimistic prior
-  \\(\\pi_1(p)\\) that concentrates mass inside the ROPE.
+- under non-equivalence $H_0: p\notin\mathcal{R}_p$, a pessimistic prior
+  $\pi_0(p)$ that concentrates mass outside the ROPE;  
+- under equivalence $H_1: p\in\mathcal{R}_p$, an optimistic prior
+  $\pi_1(p)$ that concentrates mass inside the ROPE.
 
 From these priors we obtain:
 
 - **predictive type-I error**:
-  \\(\\Pr(\\text{equivalence declared} \\mid H_0)\\),
+  $Pr(\text{equivalence declared} \mid H_0)$,
 - **predictive power**:
-  \\(\\Pr(\\text{equivalence declared} \\mid H_1)\\),
-- **predictive probability of compelling evidence for \\(H_0\\)**:
-  the prior predictive probability (under \\(\\pi_0\\)) of either interim or final
+  $Pr(\text{equivalence declared} \mid H_1)$,
+- **predictive probability of compelling evidence for $H_0$**:
+  the prior predictive probability (under $\pi_0$) of either interim or final
   decisions that satisfy the compelling non-equivalence criterion.
 
 `design_singlearm_twostage_rope()` first finds a one-stage ROPE design
-(i.e. an \\(n^\\ast\\)) satisfying user-specified targets for predictive type-I
-error and predictive power under \\((\\pi_0,\\pi_1)\\). It then evaluates all splits
-\\((n_1,n_2)\\) with \\(n_1+n_2 = n^\\ast\\) that are consistent with a given
-\\(\\gamma_1\\), and returns the two-stage design that:
+(i.e. an $n^\ast$) satisfying user-specified targets for predictive type-I
+error and predictive power under $(\pi_0,\pi_1)$. It then evaluates all splits
+$(n_1,n_2)$ with $n_1+n_2 = n^\ast$ that are consistent with a given
+$\gamma_1$, and returns the two-stage design that:
 
 - meets the predictive power and type-I constraints, and
-- minimises the expected sample size under \\(H_0\\), \\(\\mathrm{EN}_0\\).
+- minimises the expected sample size under $H_0$, $\mathrm{EN}_0$.
 
 The resulting design retains the one-stage operating characteristics while
 reducing average sample size under non-equivalence via interim futility stopping.
 
-# Example 1: Neoadjuvant talazoparib (pCR)
+# Example 1: Neoadjuvant talazoparib (pCR)
 
-Our first example is the neoadjuvant talazoparib study in germline BRCA1/2-mutated, HER2-negative early-stage triple-negative breast cancer (TNBC)
+Our first example is the neoadjuvant talazoparib study in germline BRCA1/2-mutated, HER2-negative early-stage triple-negative breast cancer
 (TNBC) [@littonNeoadjuvantTalazoparibPatients2020; @littonNeoadjuvantTalazoparibPatients2023], using a two-stage ROPE formulation for the pathological complete response (pCR) probability.
 
 ## Design specification
 
-We take \\(p_0 = 0.40\\) as a benchmark pCR rate for standard neoadjuvant
+We take $p_0 = 0.40$ as a benchmark pCR rate for standard neoadjuvant
 chemotherapy in this population and set the ROPE as
 
-\\[
-\\mathcal{R}_p = [0.30,0.50]
-\\]
+$$\mathcal{R}_p = [0.30,0.50]$$
 
-with half-width \\(\\delta = 0.10\\). The analysis prior is a weakly informative
-\\(\\mathrm{Beta}(1,1)\\). For predictive operating characteristics we use:
+with half-width $\delta = 0.10$. The analysis prior is a weakly informative
+$\mathrm{Beta}(1,1)$. For predictive operating characteristics we use:
 
-- under non-equivalence \\(H_0\\): \\(\\pi_0(p) = \\mathrm{Beta}(12,48)\\), mean 0.20,
-- under equivalence \\(H_1\\): \\(\\pi_1(p) = \\mathrm{Beta}(60,90)\\), mean 0.40.
+- under non-equivalence $H_0$: $\pi_0(p) = \mathrm{Beta}(12,48)$, mean 0.20,
+- under equivalence $H_1$: $\pi_1(p) = \mathrm{Beta}(60,90)$, mean 0.40.
 
-Thus \\(\\pi_0\\) places most mass well below the ROPE, representing clinically
-relevant inferiority of talazoparib, while \\(\\pi_1\\) concentrates in the upper
+Thus $\pi_0$ places most mass well below the ROPE, representing clinically
+relevant inferiority of talazoparib, while $\pi_1$ concentrates in the upper
 half of the ROPE, reflecting the belief that equivalence, if present, is likely
 to be near or slightly above the benchmark.
 
-We choose a common threshold \\(\\gamma = 0.80\\) for interim and final evidence:
+We choose a common threshold $\gamma = 0.80$ for interim and final evidence:
 
-- interim futility threshold: \\(\\gamma_1 = 0.80\\),
-- final equivalence threshold: \\(\\gamma_{\\mathrm{eq}} = 0.80\\),
-- final non-equivalence threshold: \\(\\gamma_{\\mathrm{diff}} = 0.80\\).
+- interim futility threshold: $\gamma_1 = 0.80$,
+- final equivalence threshold: $\gamma_{\mathrm{eq}} = 0.80$,
+- final non-equivalence threshold: $\gamma_{\mathrm{diff}} = 0.80$.
 
 This means we:
 
@@ -345,17 +341,17 @@ Operating characteristics
   Success criterion : Pr(p in [0.3000, 0.5000] | Y) >= 0.80
 ```
 
-The underlying one-stage design has \\(n^\\ast = 161\\) with predictive type-I error
+The underlying one-stage design has $n^\ast = 161$ with predictive type-I error
 0.0265 and predictive power 0.8017. Among all splits satisfying the constraints,
-the optimal two-stage design has \\((n_1,n_2)=(90,71)\\) and reduces the expected
-sample size under the pessimistic prior to \\(\\mathrm{EN}_0 \\approx 102.5\\),
-while keeping \\(\\mathrm{EN}_1 \\approx 159.2\\) close to the maximal \\(n\\) under
+the optimal two-stage design has $(n_1,n_2)=(90,71)$ and reduces the expected
+sample size under the pessimistic prior to $\mathrm{EN}_0 \approx 102.5$,
+while keeping $\mathrm{EN}_1 \approx 159.2$ close to the maximal $n$ under
 equivalence.
 
 ## Operating characteristics and decision regions
 
 We can visualise ROPE-based operating characteristics across all possible splits
-of \\(n^\\ast\\) using the default plot method:
+of $n^\ast$ using the default plot method:
 
 ```{r tala-plot, fig.cap = "ROPE-based operating characteristics for the talazoparib two-stage design.", out.width="100%", fig.align="center", eval = FALSE}
 plot(tala_design)
@@ -366,7 +362,7 @@ knitr::include_graphics("figures/singlearm-twostage-rope-fig1.png")
 
 The 2×3 layout shows one-stage and two-stage predictive type-I error, predictive
 power, and probability of compelling evidence for non-equivalence, as functions
-of \\(n_1\\). The chosen split \\((90,71)\\) is highlighted.
+of $n_1$. The chosen split $(90,71)$ is highlighted.
 
 For the optimal split, we can inspect the interim and final decision regions:
 
@@ -379,14 +375,14 @@ knitr::include_graphics(c("figures/singlearm-twostage-rope-fig2.png","figures/si
 ```
 
 The interim plot displays the continuation region $\mathcal{C}_1$ in terms of
-\\(y_1\\) at \\(n_1=90\\), together with the interim posterior ROPE probabilities and
-the threshold \\(1-\\gamma_1 = 0.20\\). The final plot shows how each possible
-total response count \\(y\\) at \\(n=161\\) is classified into equivalence,
+$y_1$ at $n_1=90$, together with the interim posterior ROPE probabilities and
+the threshold $1-\gamma_1 = 0.20$. The final plot shows how each possible
+total response count $y$ at $n=161$ is classified into equivalence,
 compelling non-equivalence, or inconclusive based on the final posterior ROPE
-probabilities and \\((\\gamma_{\\mathrm{eq}},\\gamma_{\\mathrm{diff}})\\).
+probabilities and $(\gamma_{\mathrm{eq}},\gamma_{\mathrm{diff}})$.
 
 In this example, interim futility stopping eliminates many clearly non-equivalent
-paths under \\(H_0\\), slightly reducing predictive type-I error relative to the
+paths under $H_0$, slightly reducing predictive type-I error relative to the
 one-stage design, at the cost of a small reduction in predictive power. Under
 equivalence, most trials proceed to the final stage and achieve the desired
 80% predictive power to declare equivalence.
@@ -639,27 +635,25 @@ the upper boundary.
 
 For PURGE-C, the endpoint is SVR12. Standard 8–12 week G/P regimens achieve
 SVR12 rates around 95–99% in similar non-cirrhotic populations, so we set
-\\(p_0 = 0.95\\) and a ROPE
+$p_0 = 0.95$ and a ROPE
 
-\\[
-\\mathcal{R}_p = [0.85,1.00]
-\\]
+$$\mathcal{R}_p = [0.85,1.00]$$
 
-with half-width \\(\\delta = 0.10\\). The analysis prior is again Beta(1,1).
+with half-width $\delta = 0.10$. The analysis prior is again Beta(1,1).
 
 For predictive operating characteristics we choose:
 
-- under non-equivalence \\(H_0\\): \\(\\pi_0(p) = \\mathrm{Beta}(4,16)\\), mean 0.80,
+- under non-equivalence $H_0$: $\pi_0(p) = \mathrm{Beta}(4,16)$, mean 0.80,
   concentrating below the ROPE and representing clinically important loss of
   efficacy;  
-- under equivalence \\(H_1\\): \\(\\pi_1(p) = \\mathrm{Beta}(38,2)\\), mean 0.95,
+- under equivalence $H_1$: $\pi_1(p) = \mathrm{Beta}(38,2)$, mean 0.95,
   strongly centered inside the ROPE and compatible with standard G/P outcomes.
 
 We set:
 
-- \\(\\gamma_1 = 0.50\\),
-- \\(\\gamma_{\\mathrm{eq}} = 0.80\\),
-- \\(\\gamma_{\\mathrm{diff}} = 0.80\\),
+- $\gamma_1 = 0.50$,
+- $\gamma_{\mathrm{eq}} = 0.80$,
+- $\gamma_{\mathrm{diff}} = 0.80$,
 
 and target 80% predictive power and 10% predictive type-I error.
 
@@ -802,17 +796,17 @@ Operating characteristics
   Success criterion : Pr(p in [0.8500, 1.0000] | Y) >= 0.80
 ```
 
-The one-stage design has \\(n^\\ast=27\\) with predictive power 0.8174 and
+The one-stage design has $n^\ast=27$ with predictive power 0.8174 and
 essentially zero predictive type-I error. The optimal two-stage ROPE design has
-\\((n_1,n_2) = (17,10)\\), with \\(\\mathrm{EN}_0 \\approx 17\\) and
-\\(\\mathrm{EN}_1 \\approx 26.2\\), so that under non-equivalence most trials stop
+$(n_1,n_2) = (17,10)$, with $\mathrm{EN}_0 \approx 17$ and
+$\mathrm{EN}_1 \approx 26.2$, so that under non-equivalence most trials stop
 after the interim, while under equivalence almost all trials proceed to full
 sample size.
 
 ## Operating characteristics and decision regions
 
 We again visualise ROPE-based operating characteristics across all splits of
-\\(n^\\ast\\):
+$n^\ast$:
 
 ```{r purge-plot, fig.cap = "ROPE-based operating characteristics for the PURGE-C two-stage design.", out.width="100%", fig.align="center", eval = FALSE}
 plot(purge_design)
@@ -828,8 +822,8 @@ decision regions:
 knitr::include_graphics(c("figures/singlearm-twostage-rope-fig5.png","figures/singlearm-twostage-rope-fig6.png"))
 ```
 
-The continuation region \\(\\mathcal{C}_1 = \\{15,16,17\\}\\) corresponds to SVR12
-rates of at least 15/17 \\(\\approx 0.88\\) at stage 1. Lower interim response counts trigger
+The continuation region $\mathcal{C}_1 = \{15,16,17\}$ corresponds to SVR12
+rates of at least 15/17 $\approx 0.88$ at stage 1. Lower interim response counts trigger
 early stopping for non-equivalence.
 At the final analysis, the design declares equivalence for high total SVR12
 counts consistent with short-course therapy being practically equivalent to

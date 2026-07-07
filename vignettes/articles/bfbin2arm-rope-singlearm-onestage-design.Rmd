@@ -7,12 +7,12 @@ author: |
   | University of Cologne
   | Cologne, Germany
 date: "`r format(Sys.Date(), '%d %B %Y')`"
-bibliography: references.bib
+bibliography: ../references.bib
 output:
   rmarkdown::html_vignette:
     mathjax: default
     includes:
-      in_header: mathjax-config.html
+      in_header: ../mathjax-config.html
 vignette: >
   %\VignetteIndexEntry{ROPE-based trial design for single-arm one-stage phase II trials with binary endpoints}
   %\VignetteEngine{knitr::rmarkdown}
