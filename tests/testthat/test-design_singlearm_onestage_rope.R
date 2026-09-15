@@ -41,6 +41,7 @@ test_that("design function returns expected class and components", {
     delta = 0.10,
     gamma_eq = 0.80,
     target_power = 0.50,
+    target_type1 = 0.10,
     a = 1,
     b = 1,
     da1 = 30,

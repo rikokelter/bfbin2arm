@@ -1,3 +1,25 @@
+# Generated pkgdown/vignette website artefacts
+vignettes/articles/
+
+# R package build artefacts
+*.tar.gz
+*.Rcheck/
+.Rcheck/
+check/
+build/
+
+# RStudio and R sessions
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# macOS files
+.DS_Store
+
+# Local development materials
+history_database/
+
 /doc/
 /Meta/
 .Rproj.user

@@ -2,6 +2,54 @@
 # S3 methods for "singlearm_rope_twostage_design" objects
 # =============================================================================
 
+
+# -----------------------------------------------------------------------------
+# Direction-specific labels for user-facing output
+# -----------------------------------------------------------------------------
+.rope_twostage_direction_labels <- function(
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
+  
+  switch(
+    direction,
+    
+    equivalence = list(
+      title = "equivalence",
+      h1 = "equivalence",
+      h0 = "non-equivalence",
+      interim_h0 = "non-equivalence",
+      success = "Declare equivalence",
+      h0_evidence = "Compelling evidence for non-equivalence",
+      reject = "No equivalence",
+      delta = "ROPE half-width delta"
+    ),
+    
+    noninferiority = list(
+      title = "non-inferiority",
+      h1 = "non-inferiority",
+      h0 = "clinically relevant inferiority",
+      interim_h0 = "clinically relevant inferiority",
+      success = "Declare non-inferiority",
+      h0_evidence = "Compelling evidence for inferiority",
+      reject = "No non-inferiority",
+      delta = "NI margin delta"
+    ),
+    
+    superiority = list(
+      title = "superiority",
+      h1 = "superiority",
+      h0 = "non-superiority",
+      interim_h0 = "non-superiority",
+      success = "Declare superiority",
+      h0_evidence = "Compelling evidence for non-superiority",
+      reject = "No superiority",
+      delta = "Superiority margin delta"
+    )
+  )
+}
+
+
 # -----------------------------------------------------------------------------
 #' Print a single-arm two-stage ROPE design
 #'
@@ -12,13 +60,9 @@
 print.singlearm_rope_twostage_design <- function(x, ...) {
   d <- x$design
   direction <- x$direction
+  labels <- .rope_twostage_direction_labels(direction)
   
-  title_label <- switch(
-    direction,
-    equivalence = "equivalence",
-    noninferiority = "non-inferiority",
-    superiority = "superiority"
-  )
+  title_label <- labels$title
   
   rope_label <- switch(
     direction,
@@ -36,12 +80,7 @@ print.singlearm_rope_twostage_design <- function(x, ...) {
     )
   )
   
-  delta_label <- switch(
-    direction,
-    equivalence = "ROPE half-width delta",
-    noninferiority = "NI margin delta",
-    superiority = "Superiority margin delta"
-  )
+  delta_label <- labels$delta
   
   cont_str <- if (length(x$continuation_region) <= 20L) {
     paste(x$continuation_region, collapse = ", ")
@@ -113,12 +152,26 @@ print.singlearm_rope_twostage_design <- function(x, ...) {
   cat("Operating characteristics\n")
   cat(strrep("-", 47L), "\n")
   cat(sprintf("%-40s %7s %10s\n", "", "1-stage", "2-stage"))
-  cat(sprintf(" %-38s %7.4f %10.4f\n",
-              "Predictive type-I error", d$type1_1st, d$type1_2st))
-  cat(sprintf(" %-38s %7.4f %10.4f\n",
-              "Predictive power", d$power_1st, d$power_2st))
-  cat(sprintf(" %-38s %7.4f %10.4f\n",
-              "PCE(H0) (any stage)", d$pce_1st, d$pce_2st))
+  cat(sprintf(
+    " %-38s %7.4f %10.4f\n",
+    sprintf("Predictive type-I error (%s)", labels$h0),
+    d$type1_1st,
+    d$type1_2st
+  ))
+  
+  cat(sprintf(
+    " %-38s %7.4f %10.4f\n",
+    sprintf("Predictive power (%s)", labels$h1),
+    d$power_1st,
+    d$power_2st
+  ))
+  
+  cat(sprintf(
+    " %-38s %7.4f %10.4f\n",
+    sprintf("PCE(%s), any stage", labels$h0),
+    d$pce_1st,
+    d$pce_2st
+  ))
   cat("\n")
   cat(sprintf(" EN under H0 prior : %.4f\n", d$EN0))
   cat(sprintf(" EN under H1 prior : %.4f\n", d$EN1))
@@ -141,7 +194,7 @@ print.singlearm_rope_twostage_design <- function(x, ...) {
   }
   
   cat("\n")
-  cat(sprintf(" Success criterion : %s\n\n", crit))
+  cat(sprintf(" %s : %s\n\n", labels$success, crit))
   
   invisible(x)
 }
@@ -155,27 +208,11 @@ print.singlearm_rope_twostage_design <- function(x, ...) {
 #' @export
 summary.singlearm_rope_twostage_design <- function(object, ...) {
   direction <- object$direction
+  labels <- .rope_twostage_direction_labels(direction)
   
-  title_label <- switch(
-    direction,
-    equivalence = "equivalence",
-    noninferiority = "non-inferiority",
-    superiority = "superiority"
-  )
-  
-  h0_label <- switch(
-    direction,
-    equivalence = "non-equivalence",
-    noninferiority = "inferiority",
-    superiority = "non-superiority"
-  )
-  
-  h1_label <- switch(
-    direction,
-    equivalence = "equivalence",
-    noninferiority = "non-inferiority",
-    superiority = "superiority"
-  )
+  title_label <- labels$title
+  h0_label <- labels$h0
+  h1_label <- labels$h1
   
   cat(sprintf("\nSummary: Single-arm two-stage ROPE %s design\n", title_label))
   cat(strrep("=", 55L), "\n\n")
@@ -207,17 +244,22 @@ summary.singlearm_rope_twostage_design <- function(object, ...) {
   
   crit_interim <- switch(
     direction,
+    
     equivalence = sprintf(
       "Continue if Pr(p in ROPE | y1, n1) > %.2f",
       1 - object$gamma_1
     ),
+    
     noninferiority = sprintf(
       "Continue if Pr(p >= %.4f | y1, n1) > %.2f",
-      max(0, object$p0 - object$delta), object$gamma_1
+      object$p0 - object$delta,
+      1 - object$gamma_1
     ),
+    
     superiority = sprintf(
       "Continue if Pr(p > %.4f | y1, n1) > %.2f",
-      min(1, object$p0 + object$delta), object$gamma_1
+      object$p0 + object$delta,
+      1 - object$gamma_1
     )
   )
   
@@ -255,7 +297,7 @@ summary.singlearm_rope_twostage_design <- function(object, ...) {
   
   cat(sprintf(" Interim : %s\n", crit_interim))
   cat(sprintf(" Final   : %s\n", crit_final))
-  cat(sprintf(" PCE(H0) : %s\n\n", crit_h0))
+  cat(sprintf(" %s : %s\n\n", labels$h0_evidence, crit_h0))
   
   cat("Calibration targets\n")
   cat(strrep("-", 30L), "\n")
@@ -408,27 +450,21 @@ plot.singlearm_rope_twostage_design <- function(
 ) {
   type <- match.arg(type)
   
+  labels <- .rope_twostage_direction_labels(x$direction)
+  
   .bbpmf_loc <- function(y, n, a, b)
     exp(lchoose(n, y) + lbeta(a + y, b + n - y) - lbeta(a, b))
   
-  .post_prob <- switch(
-    x$direction,
-    equivalence = function(y, n) {
-      lo <- max(0, x$p0 - x$delta); hi <- min(1, x$p0 + x$delta)
-      aA <- x$analysis_prior[1]; bA <- x$analysis_prior[2]
-      pbeta(hi, aA + y, bA + n - y) - pbeta(lo, aA + y, bA + n - y)
-    },
-    noninferiority = function(y, n) {
-      lo <- max(0, x$p0 - x$delta)
-      aA <- x$analysis_prior[1]; bA <- x$analysis_prior[2]
-      1 - pbeta(lo, aA + y, bA + n - y)
-    },
-    superiority = function(y, n) {
-      hi <- min(1, x$p0 + x$delta)
-      aA <- x$analysis_prior[1]; bA <- x$analysis_prior[2]
-      1 - pbeta(hi, aA + y, bA + n - y)
-    }
-  )
+  .post_prob <- function(y, n) {
+    posterior_rope_prob(
+      y = y,
+      n = n,
+      p0 = x$p0,
+      delta = x$delta,
+      analysis_prior = x$analysis_prior,
+      direction = x$direction
+    )
+  }
   
   .cont_region <- function(n1) {
     y1 <- 0:n1
@@ -447,26 +483,9 @@ plot.singlearm_rope_twostage_design <- function(
   hi_rope <- min(1, x$p0 + x$delta)
   p_seq <- seq(0, 1, length.out = 500)
   
-  direction_label <- switch(
-    x$direction,
-    equivalence = "Equivalence",
-    noninferiority = "Non-inferiority",
-    superiority = "Superiority"
-  )
-  
-  h1_label <- switch(
-    x$direction,
-    equivalence = "equivalence",
-    noninferiority = "non-inferiority",
-    superiority = "superiority"
-  )
-  
-  h0_label <- switch(
-    x$direction,
-    equivalence = "non-equivalence",
-    noninferiority = "inferiority",
-    superiority = "non-superiority"
-  )
+  direction_label <- tools::toTitleCase(labels$title)
+  h1_label <- labels$h1
+  h0_label <- labels$h0
   
   crit_str <- switch(
     x$direction,
@@ -492,19 +511,8 @@ plot.singlearm_rope_twostage_design <- function(
     superiority = expression(Pr(p > p[0] + delta ~ "|" ~ y[1], n[1]))
   )
   
-  accept_label <- switch(
-    x$direction,
-    equivalence = "Declare equivalence",
-    noninferiority = "Declare non-inferiority",
-    superiority = "Declare superiority"
-  )
-  
-  reject_label <- switch(
-    x$direction,
-    equivalence = "No equivalence",
-    noninferiority = "No non-inferiority",
-    superiority = "No superiority"
-  )
+  accept_label <- labels$success
+  reject_label <- labels$reject
   
   ## palette
   col_cont <- "#2E86AB"
@@ -585,7 +593,8 @@ plot.singlearm_rope_twostage_design <- function(
         design_prior_h0 = x$design_prior_h0,
         design_prior_h1 = x$design_prior_h1,
         p_t1e = if (has_freq_t1e) x$p_t1e else NULL,
-        p_power = if (has_freq_pwr) x$p_power else NULL
+        p_power = if (has_freq_pwr) x$p_power else NULL,
+        direction = x$direction
       )
       
       t1e_vec[i] <- oc$type1_2st

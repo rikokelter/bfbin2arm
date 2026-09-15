@@ -149,12 +149,38 @@ design_singlearm_onestage_rope <- function(
     }
     
     if (compute_freq_type1) {
-      freq_type1_vals <- vapply(boundary_points, function(pp) {
-        .rope_freq_prob_accept_region(n, y_acc_min, y_acc_max, pp)
-      }, numeric(1))
+      freq_type1_vals <- vapply(
+        boundary_points,
+        function(pp) {
+          .rope_freq_prob_accept_region(
+            n,
+            y_acc_min,
+            y_acc_max,
+            pp
+          )
+        },
+        numeric(1L)
+      )
+      
       freq_type1 <- max(freq_type1_vals)
-      freq_type1_lower <- freq_type1_vals[1]
-      freq_type1_upper <- if (length(freq_type1_vals) > 1) freq_type1_vals[length(freq_type1_vals)] else NA_real_
+      
+      freq_type1_lower <- NA_real_
+      freq_type1_upper <- NA_real_
+      
+      if (direction == "equivalence") {
+        ## The two null boundaries are p0 - delta and p0 + delta.
+        freq_type1_lower <- freq_type1_vals[1L]
+        freq_type1_upper <- freq_type1_vals[length(freq_type1_vals)]
+        
+      } else if (direction == "noninferiority") {
+        ## The sharp null boundary is p0 - delta.
+        freq_type1_lower <- freq_type1_vals[1L]
+        
+      } else if (direction == "superiority") {
+        ## The sharp null boundary is p0 + delta.
+        freq_type1_upper <- freq_type1_vals[1L]
+      }
+      
     } else {
       freq_type1 <- NA_real_
       freq_type1_lower <- NA_real_

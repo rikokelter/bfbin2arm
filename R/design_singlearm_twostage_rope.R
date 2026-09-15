@@ -93,28 +93,16 @@ design_singlearm_twostage_rope <- function(
     exp(lchoose(n, y) + lbeta(a + y, b + n - y) - lbeta(a, b))
   }
   
-  .post_prob <- switch(
-    direction,
-    equivalence = function(y, n) {
-      lo <- max(0, p0 - delta)
-      hi <- min(1, p0 + delta)
-      aA <- analysis_prior[1]
-      bA <- analysis_prior[2]
-      pbeta(hi, aA + y, bA + n - y) - pbeta(lo, aA + y, bA + n - y)
-    },
-    noninferiority = function(y, n) {
-      lo <- max(0, p0 - delta)
-      aA <- analysis_prior[1]
-      bA <- analysis_prior[2]
-      1 - pbeta(lo, aA + y, bA + n - y)
-    },
-    superiority = function(y, n) {
-      hi <- min(1, p0 + delta)
-      aA <- analysis_prior[1]
-      bA <- analysis_prior[2]
-      1 - pbeta(hi, aA + y, bA + n - y)
-    }
-  )
+  .post_prob <- function(y, n) {
+    posterior_rope_prob(
+      y = y,
+      n = n,
+      p0 = p0,
+      delta = delta,
+      analysis_prior = analysis_prior,
+      direction = direction
+    )
+  }
   
   .freq_success_prob_onestage <- function(n, p_true) {
     y <- 0:n
@@ -133,7 +121,8 @@ design_singlearm_twostage_rope <- function(
       gamma_diff = gamma_diff,
       analysis_prior = analysis_prior,
       design_prior_h0 = design_prior_h0,
-      design_prior_h1 = design_prior_h1
+      design_prior_h1 = design_prior_h1,
+      direction = direction
     )
     
     cont <- oc$cont_region
@@ -156,6 +145,54 @@ design_singlearm_twostage_rope <- function(
   
   ## --- input validation ----------------------------------------------------
   .validate_probability(p0, "p0")
+  
+  ## --- direction-specific boundary validation -----------------------------
+  ## These checks prevent degenerate ROPEs.  For example, if p0 - delta <= 0
+  ## in a non-inferiority design, then Pr(p >= p0 - delta | Y) is identically
+  ## one and non-inferiority is automatic.
+  
+  if (direction == "equivalence") {
+    lower <- p0 - delta
+    upper <- p0 + delta
+    
+    if (lower <= 0 || upper >= 1) {
+      stop(
+        paste0(
+          "For 'equivalence', both 'p0 - delta' and 'p0 + delta' ",
+          "must lie strictly inside (0, 1)."
+        ),
+        call. = FALSE
+      )
+    }
+  }
+  
+  if (direction == "noninferiority") {
+    boundary <- p0 - delta
+    
+    if (boundary <= 0 || boundary >= 1) {
+      stop(
+        paste0(
+          "For 'noninferiority', the decision boundary 'p0 - delta' ",
+          "must lie strictly inside (0, 1)."
+        ),
+        call. = FALSE
+      )
+    }
+  }
+  
+  if (direction == "superiority") {
+    boundary <- p0 + delta
+    
+    if (boundary <= 0 || boundary >= 1) {
+      stop(
+        paste0(
+          "For 'superiority', the decision boundary 'p0 + delta' ",
+          "must lie strictly inside (0, 1)."
+        ),
+        call. = FALSE
+      )
+    }
+  }
   
   if (!is.numeric(delta) || length(delta) != 1L ||
       !is.finite(delta) || delta <= 0) {
@@ -256,7 +293,8 @@ design_singlearm_twostage_rope <- function(
         delta = delta,
         gamma_diff = gamma_diff,
         analysis_prior = analysis_prior,
-        design_prior = design_prior_h0
+        design_prior = design_prior_h0,
+        direction = direction
       )
     }
     
@@ -348,7 +386,8 @@ design_singlearm_twostage_rope <- function(
       gamma_diff = gamma_diff,
       analysis_prior = analysis_prior,
       design_prior_h0 = design_prior_h0,
-      design_prior_h1 = design_prior_h1
+      design_prior_h1 = design_prior_h1,
+      direction = direction
     )
     
     ft1_2st <- if (is.null(alpha_freq)) {
@@ -429,7 +468,8 @@ design_singlearm_twostage_rope <- function(
     p0 = p0,
     delta = delta,
     gamma_1 = gamma_1,
-    analysis_prior = analysis_prior
+    analysis_prior = analysis_prior,
+    direction = direction
   )
   
   structure(

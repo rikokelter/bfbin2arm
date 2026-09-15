@@ -61,17 +61,42 @@ beta_binom_pmf_rope <- function(y, n, a, b) {
 
 #' @keywords internal
 #' @noRd
-posterior_rope_prob <- function(y, n, p0, delta, analysis_prior) {
-  .validate_count(n, "n")
-  if (any(y < 0) || any(y > n) || any(y != as.integer(y))) {
-    stop("y must contain integers between 0 and n.", call. = FALSE)
-  }
-  .validate_beta_prior(analysis_prior, "analysis_prior")
-  bounds <- rope_bounds(p0, delta)
-  aA <- analysis_prior[1]
-  bA <- analysis_prior[2]
-  pbeta(bounds["upper"], aA + y, bA + n - y) -
-    pbeta(bounds["lower"], aA + y, bA + n - y)
+posterior_rope_prob <- function(
+    y,
+    n,
+    p0,
+    delta,
+    analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
+  
+  a <- analysis_prior[1]
+  b <- analysis_prior[2]
+  
+  switch(
+    direction,
+    
+    equivalence = {
+      lower <- p0 - delta
+      upper <- p0 + delta
+      
+      pbeta(upper, a + y, b + n - y) -
+        pbeta(lower, a + y, b + n - y)
+    },
+    
+    noninferiority = {
+      boundary <- p0 - delta
+      
+      1 - pbeta(boundary, a + y, b + n - y)
+    },
+    
+    superiority = {
+      boundary <- p0 + delta
+      
+      1 - pbeta(boundary, a + y, b + n - y)
+    }
+  )
 }
 
 #' @keywords internal
@@ -373,4 +398,107 @@ evaluate_singlearm_rope_n <- function(
 
 .format4 <- function(x) {
   ifelse(is.na(x), "NA", sprintf("%.4f", x))
+}
+
+#' Check asymptotic feasibility of a ROPE-based design
+#'
+#' Computes the asymptotic (n -> Inf) ceiling on Bayesian predictive power
+#' under H1 and the asymptotic floor on Bayesian predictive type-I error
+#' under H0, implied by the specified beta design priors and decision
+#' boundary. These quantities provide a necessary (but not sufficient)
+#' condition for the feasibility of a calibrated design, and can be used to
+#' diagnose "No feasible design found" results from
+#' \code{\link{design_singlearm_onestage_rope}} before running the full
+#' numerical root-finding search. See Lemma 1 (non-inferiority /
+#' superiority) and Lemma 2 (equivalence) in the accompanying manuscript.
+#'
+#' @param p0 Benchmark response probability.
+#' @param delta ROPE half-width (equivalence), NI margin, or superiority margin.
+#' @param da0,db0 Design prior parameters under H0, Beta(da0, db0).
+#' @param da1,db1 Design prior parameters under H1, Beta(da1, db1).
+#' @param direction Decision type: "equivalence", "noninferiority", or
+#'   "superiority".
+#' @param target_power Target Bayesian predictive power under H1 (optional).
+#' @param target_type1 Target Bayesian predictive type-I error under H0
+#'   (optional).
+#' @param verbose Logical; if TRUE (default), prints a human-readable
+#'   feasibility report.
+#'
+#' @return A list with components \code{power_ceiling}, \code{type1_floor},
+#'   \code{power_feasible} (logical or NA if no target given), and
+#'   \code{type1_feasible} (logical or NA if no target given).
+#'
+#' @examples
+#' check_feasibility_rope(
+#'   p0 = 0.30, delta = 0.10,
+#'   da0 = 45, db0 = 105, da1 = 44, db1 = 36,
+#'   direction = "superiority",
+#'   target_power = 0.80, target_type1 = 0.10
+#' )
+#'
+#' @export
+check_feasibility_rope <- function(p0, delta, da0, db0, da1, db1,
+                                   direction = c("equivalence", "noninferiority", "superiority"),
+                                   target_power = NULL, target_type1 = NULL,
+                                   verbose = TRUE) {
+  direction <- match.arg(direction)
+  
+  stopifnot(is.numeric(p0), p0 > 0, p0 < 1)
+  stopifnot(is.numeric(delta), delta >= 0)
+  stopifnot(is.numeric(da0), is.numeric(db0), da0 > 0, db0 > 0)
+  stopifnot(is.numeric(da1), is.numeric(db1), da1 > 0, db1 > 0)
+  
+  if (direction == "noninferiority") {
+    p_cut <- p0 - delta
+    power_ceiling <- 1 - pbeta(p_cut, da1, db1)
+    type1_floor   <- 1 - pbeta(p_cut, da0, db0)
+  } else if (direction == "superiority") {
+    p_cut <- p0 + delta
+    power_ceiling <- 1 - pbeta(p_cut, da1, db1)
+    type1_floor   <- 1 - pbeta(p_cut, da0, db0)
+  } else { # equivalence
+    lo <- max(0, p0 - delta)
+    hi <- min(1, p0 + delta)
+    power_ceiling <- pbeta(hi, da1, db1) - pbeta(lo, da1, db1)
+    type1_floor   <- pbeta(hi, da0, db0) - pbeta(lo, da0, db0)
+  }
+  
+  power_feasible <- if (!is.null(target_power)) power_ceiling >= target_power else NA
+  type1_feasible <- if (!is.null(target_type1)) type1_floor <= target_type1 else NA
+  
+  if (verbose) {
+    cat("ROPE design feasibility check (asymptotic n -> Inf)\n")
+    cat("Direction:", direction, "\n")
+    if (!is.null(target_power)) {
+      cat(sprintf(
+        "Power ceiling: %.4f (target %.2f) -> %s\n",
+        power_ceiling, target_power,
+        ifelse(isTRUE(power_feasible), "OK", "INFEASIBLE")
+      ))
+    } else {
+      cat(sprintf("Power ceiling: %.4f (no target specified)\n", power_ceiling))
+    }
+    if (!is.null(target_type1)) {
+      cat(sprintf(
+        "Type-I floor: %.4f (target %.2f) -> %s\n",
+        type1_floor, target_type1,
+        ifelse(isTRUE(type1_feasible), "OK", "INFEASIBLE")
+      ))
+    } else {
+      cat(sprintf("Type-I floor: %.4f (no target specified)\n", type1_floor))
+    }
+    if (isFALSE(power_feasible) || isFALSE(type1_feasible)) {
+      cat("Note: at least one asymptotic condition is violated. No sample size\n")
+      cat("in any search range can satisfy the corresponding target; revise the\n")
+      cat("design prior(s) (e.g. increase separation from the decision boundary,\n")
+      cat("or adjust concentration) before recalibrating.\n")
+    }
+  }
+  
+  invisible(list(
+    power_ceiling = power_ceiling,
+    type1_floor = type1_floor,
+    power_feasible = power_feasible,
+    type1_feasible = type1_feasible
+  ))
 }

@@ -136,12 +136,73 @@ print.bfbin2arm_rope_design <- function(x, ...) {
   }
   
   if (isTRUE(x$inputs$compute_freq_type1)) {
-    cat("Frequentist type-I(n*):", formatC(x$selected$freq_type1, digits = 4, format = "f"), "\n")
-    if (!is.null(x$selected$freq_type1_lower) && !is.na(x$selected$freq_type1_lower)) {
-      cat(" at p0 - delta:", formatC(x$selected$freq_type1_lower, digits = 4, format = "f"), "\n")
+    cat(
+      "Frequentist type-I(n*):",
+      formatC(x$selected$freq_type1, digits = 4, format = "f"),
+      "\n"
+    )
+    
+    direction <- if (!is.null(x$inputs$direction)) {
+      x$inputs$direction
+    } else {
+      "equivalence"
     }
-    if (!is.null(x$selected$freq_type1_upper) && !is.na(x$selected$freq_type1_upper)) {
-      cat(" at p0 + delta:", formatC(x$selected$freq_type1_upper, digits = 4, format = "f"), "\n")
+    
+    if (direction == "noninferiority") {
+      if (!is.null(x$selected$freq_type1_lower) &&
+          !is.na(x$selected$freq_type1_lower)) {
+        cat(
+          " at p0 - delta:",
+          formatC(
+            x$selected$freq_type1_lower,
+            digits = 4,
+            format = "f"
+          ),
+          "\n"
+        )
+      }
+      
+    } else if (direction == "superiority") {
+      if (!is.null(x$selected$freq_type1_upper) &&
+          !is.na(x$selected$freq_type1_upper)) {
+        cat(
+          " at p0 + delta:",
+          formatC(
+            x$selected$freq_type1_upper,
+            digits = 4,
+            format = "f"
+          ),
+          "\n"
+        )
+      }
+      
+    } else {
+      ## Equivalence has two null boundaries. Report both whenever available.
+      if (!is.null(x$selected$freq_type1_lower) &&
+          !is.na(x$selected$freq_type1_lower)) {
+        cat(
+          " at p0 - delta:",
+          formatC(
+            x$selected$freq_type1_lower,
+            digits = 4,
+            format = "f"
+          ),
+          "\n"
+        )
+      }
+      
+      if (!is.null(x$selected$freq_type1_upper) &&
+          !is.na(x$selected$freq_type1_upper)) {
+        cat(
+          " at p0 + delta:",
+          formatC(
+            x$selected$freq_type1_upper,
+            digits = 4,
+            format = "f"
+          ),
+          "\n"
+        )
+      }
     }
   }
   
@@ -219,23 +280,26 @@ print.summary.bfbin2arm_rope_design <- function(x, ...) {
                              legend_pos = "topright") {
   xx <- seq(0, 1, length.out = 1000)
   yy <- dbeta(xx, shape1 = shape1, shape2 = shape2)
-  rg <- .rope_shaded_region(p0, delta, direction)
-  shade_col <- grDevices::adjustcolor("gray80", alpha.f = 0.5)
-  yref_col <- grDevices::adjustcolor("gray60", alpha.f = 0.8)
-  ymax <- max(yy)
+  ymax <- max(yy) * 1.05
   
   plot(xx, yy, type = "l", lwd = 2, col = col,
        xlab = "p", ylab = "Density", main = main,
-       ylim = c(0, ymax * 1.05))
-  rect(rg[1], 0, rg[2], ymax * 1.05, border = NA, col = shade_col)
+       ylim = c(0, ymax))
+  .rope_draw_h0_h1_background(p0, delta, direction, ymax)
   lines(xx, yy, lwd = 2, col = col)
   abline(v = p0, lty = 3, lwd = 1.5)
   
   legend(legend_pos,
-         legend = c("Prior density", .rope_region_label(direction), expression(p[0])),
-         col = c(col, yref_col, 1),
-         lwd = c(2, 6, 1.5),
-         lty = c(1, 1, 3),
+         legend = c("Prior density",
+                    paste0("H0: ", .rope_h0_label(direction)),
+                    paste0("H1: ", .rope_h1_label(direction)),
+                    expression(p[0])),
+         col = c(col,
+                 grDevices::adjustcolor("#e8b7b7", alpha.f = 0.6),
+                 grDevices::adjustcolor("#bcd7f0", alpha.f = 0.6),
+                 1),
+         lwd = c(2, 8, 8, 1.5),
+         lty = c(1, 1, 1, 3),
          bty = "n")
 }
 
@@ -247,15 +311,12 @@ print.summary.bfbin2arm_rope_design <- function(x, ...) {
   xx <- seq(0, 1, length.out = 1000)
   yy1 <- dbeta(xx, shape1 = a1, shape2 = b1)
   yy2 <- dbeta(xx, shape1 = a2, shape2 = b2)
-  rg <- .rope_shaded_region(p0, delta, direction)
-  shade_col <- grDevices::adjustcolor("gray80", alpha.f = 0.5)
-  yref_col <- grDevices::adjustcolor("gray60", alpha.f = 0.8)
-  ymax <- max(c(yy1, yy2))
+  ymax <- max(c(yy1, yy2)) * 1.05
   
   plot(xx, yy1, type = "l", lwd = 2, col = col1,
-       xlab = "p", ylab = "Density", ylim = c(0, ymax * 1.05),
+       xlab = "p", ylab = "Density", ylim = c(0, ymax),
        main = main)
-  rect(rg[1], 0, rg[2], ymax * 1.05, border = NA, col = shade_col)
+  .rope_draw_h0_h1_background(p0, delta, direction, ymax)
   lines(xx, yy1, lwd = 2, col = col1)
   lines(xx, yy2, lwd = 2, col = col2)
   abline(v = p0, lty = 3, lwd = 1.5)
@@ -264,12 +325,16 @@ print.summary.bfbin2arm_rope_design <- function(x, ...) {
          legend = c(
            paste0("Design prior (H0): Beta(", a1, ", ", b1, ")"),
            paste0("Design prior (H1): Beta(", a2, ", ", b2, ")"),
-           .rope_region_label(direction),
+           paste0("H0: ", .rope_h0_label(direction)),
+           paste0("H1: ", .rope_h1_label(direction)),
            expression(p[0])
          ),
-         col = c(col1, col2, yref_col, 1),
-         lwd = c(2, 2, 6, 1.5),
-         lty = c(1, 1, 1, 3),
+         col = c(col1, col2,
+                 grDevices::adjustcolor("#e8b7b7", alpha.f = 0.6),
+                 grDevices::adjustcolor("#bcd7f0", alpha.f = 0.6),
+                 1),
+         lwd = c(2, 2, 8, 8, 1.5),
+         lty = c(1, 1, 1, 1, 3),
          bty = "n")
 }
 
@@ -529,4 +594,70 @@ plot.bfbin2arm_rope_design <- function(
   }
   
   invisible(x)
+}
+
+#' @keywords internal
+#' Return the two background regions (H0, H1) as a list of interval bounds,
+#' consistent across equivalence, non-inferiority, and superiority designs.
+.rope_h0_h1_regions <- function(p0, delta, direction) {
+  if (direction == "equivalence") {
+    lo <- max(0, p0 - delta)
+    hi <- min(1, p0 + delta)
+    list(
+      h1 = list(xmin = lo, xmax = hi),          # ROPE = H1 (equivalence)
+      h0 = list(xmin = c(0, hi), xmax = c(lo, 1))  # two-sided H0 (outside ROPE)
+    )
+  } else if (direction == "noninferiority") {
+    p_cut <- p0 - delta
+    list(
+      h0 = list(xmin = 0, xmax = p_cut),        # inferiority
+      h1 = list(xmin = p_cut, xmax = 1)         # non-inferiority
+    )
+  } else { # superiority
+    p_cut <- p0 + delta
+    list(
+      h0 = list(xmin = 0, xmax = p_cut),        # non-superiority
+      h1 = list(xmin = p_cut, xmax = 1)         # superiority
+    )
+  }
+}
+
+#' @keywords internal
+#' Draw the two-colour H0/H1 background shading on the current plot.
+.rope_draw_h0_h1_background <- function(p0, delta, direction, ymax,
+                                        col_h0 = "#e8b7b7", col_h1 = "#bcd7f0",
+                                        alpha = 0.35) {
+  regs <- .rope_h0_h1_regions(p0, delta, direction)
+  col_h0 <- grDevices::adjustcolor(col_h0, alpha.f = alpha)
+  col_h1 <- grDevices::adjustcolor(col_h1, alpha.f = alpha)
+  
+  h0 <- regs$h0
+  h1 <- regs$h1
+  
+  for (i in seq_along(h0$xmin)) {
+    rect(h0$xmin[i], 0, h0$xmax[i], ymax, border = NA, col = col_h0)
+  }
+  for (i in seq_along(h1$xmin)) {
+    rect(h1$xmin[i], 0, h1$xmax[i], ymax, border = NA, col = col_h1)
+  }
+}
+
+#' @keywords internal
+#' @noRd
+.rope_h0_label <- function(direction) {
+  switch(direction,
+         equivalence     = "Non-equivalence",
+         noninferiority  = "Inferiority",
+         superiority     = "Non-superiority",
+         "H0")
+}
+
+#' @keywords internal
+#' @noRd
+.rope_h1_label <- function(direction) {
+  switch(direction,
+         equivalence     = "Equivalence",
+         noninferiority  = "Non-inferiority",
+         superiority     = "Superiority",
+         "H1")
 }

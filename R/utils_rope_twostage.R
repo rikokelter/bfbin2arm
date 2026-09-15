@@ -1,47 +1,112 @@
 # =============================================================================
 # Utility helpers for single-arm two-stage ROPE designs
 #
-# All computations reuse the shared helpers already defined in utils_rope.R:
-# beta_binom_pmf_rope(y, n, a, b)
-# posterior_rope_prob(y, n, p0, delta, analysis_prior)
-# .validate_beta_prior(), .validate_probability(), .validate_count()
+# Prerequisite in utils_rope.R:
+# posterior_rope_prob(y, n, p0, delta, analysis_prior,
+#                     direction = c("equivalence", "noninferiority", "superiority"))
+# must return posterior support for H1 in the selected direction.
 # =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Direction-specific labels for print and summary methods
+# -----------------------------------------------------------------------------
+.rope_twostage_direction_labels <- function(
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
+  
+  switch(
+    direction,
+    
+    equivalence = list(
+      title = "equivalence",
+      h1 = "equivalence",
+      h0 = "non-equivalence",
+      h0_short = "non-equivalence",
+      interim = "non-equivalence",
+      success = "Declare equivalence",
+      null_evidence = "Compelling evidence for non-equivalence"
+    ),
+    
+    noninferiority = list(
+      title = "non-inferiority",
+      h1 = "non-inferiority",
+      h0 = "clinically relevant inferiority",
+      h0_short = "inferiority",
+      interim = "clinically relevant inferiority",
+      success = "Declare non-inferiority",
+      null_evidence = "Compelling evidence for inferiority"
+    ),
+    
+    superiority = list(
+      title = "superiority",
+      h1 = "superiority",
+      h0 = "non-superiority",
+      h0_short = "non-superiority",
+      interim = "non-superiority",
+      success = "Declare superiority",
+      null_evidence = "Compelling evidence for non-superiority"
+    )
+  )
+}
+
+.posterior_rope_vec <- function(y, n, p0, delta, analysis_prior, direction) {
+  direction <- match.arg(
+    direction,
+    c("equivalence", "noninferiority", "superiority")
+  )
+  
+  vapply(
+    y,
+    posterior_rope_prob,
+    numeric(1L),
+    n = n,
+    p0 = p0,
+    delta = delta,
+    analysis_prior = analysis_prior,
+    direction = direction
+  )
+}
 
 # -----------------------------------------------------------------------------
 # Continuation region for stage 1
 # -----------------------------------------------------------------------------
-.continuation_region_twostage <- function(n1, p0, delta, gamma_1,
-                                          analysis_prior) {
+.continuation_region_twostage <- function(
+    n1, p0, delta, gamma_1, analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
   y1_vals <- 0:n1
-  post <- vapply(
-    y1_vals,
-    posterior_rope_prob,
-    numeric(1L),
-    n = n1,
-    p0 = p0,
-    delta = delta,
-    analysis_prior = analysis_prior
+  
+  post_h1 <- .posterior_rope_vec(
+    y1_vals, n1, p0, delta, analysis_prior, direction
   )
   
-  ## Stop for futility when Pr(H0 supported | y1, n1) >= gamma_1,
-  ## i.e. post <= 1 - gamma_1. Continue otherwise.
-  y1_vals[post > (1 - gamma_1)]
+  ## Stop for futility when posterior support for H0 is at least gamma_1.
+  ## Continue when posterior support for H1 is strictly greater than 1-gamma_1.
+  y1_vals[post_h1 > (1 - gamma_1)]
 }
 
 # -----------------------------------------------------------------------------
-# Predictive probability of declaring equivalence — two-stage design
+# Predictive probability of declaring H1 -- two-stage design
 # -----------------------------------------------------------------------------
 .predictive_equiv_twostage <- function(
-    n1, n2, p0, delta, gamma_1, gamma_eq, analysis_prior, design_prior
+    n1, n2, p0, delta, gamma_1, gamma_eq, analysis_prior, design_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
 ) {
-  cont <- .continuation_region_twostage(n1, p0, delta, gamma_1, analysis_prior)
+  direction <- match.arg(direction)
+  
+  cont <- .continuation_region_twostage(
+    n1, p0, delta, gamma_1, analysis_prior, direction
+  )
   if (length(cont) == 0L) return(0)
   
   n <- n1 + n2
   aD <- design_prior[1]
   bD <- design_prior[2]
-  
   out <- 0
+  
   for (y1 in cont) {
     p_y1 <- beta_binom_pmf_rope(y1, n1, aD, bD)
     dp_post <- c(aD + y1, bD + n1 - y1)
@@ -49,7 +114,9 @@
     for (y2 in 0:n2) {
       y <- y1 + y2
       p_y2_y1 <- beta_binom_pmf_rope(y2, n2, dp_post[1], dp_post[2])
-      post_h1 <- posterior_rope_prob(y, n, p0, delta, analysis_prior)
+      post_h1 <- posterior_rope_prob(
+        y, n, p0, delta, analysis_prior, direction = direction
+      )
       
       if (post_h1 >= gamma_eq) {
         out <- out + p_y1 * p_y2_y1
@@ -61,24 +128,20 @@
 }
 
 # -----------------------------------------------------------------------------
-# Predictive probability of compelling evidence against equivalence — two-stage
+# Predictive probability of compelling evidence for H0 -- two-stage design
 # -----------------------------------------------------------------------------
 .predictive_pce_twostage <- function(
-    n1, n2, p0, delta, gamma_1, gamma_diff, analysis_prior, design_prior
+    n1, n2, p0, delta, gamma_1, gamma_diff, analysis_prior, design_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
 ) {
+  direction <- match.arg(direction)
   n <- n1 + n2
   aD <- design_prior[1]
   bD <- design_prior[2]
-  
   y1_vals <- 0:n1
-  post1 <- vapply(
-    y1_vals,
-    posterior_rope_prob,
-    numeric(1L),
-    n = n1,
-    p0 = p0,
-    delta = delta,
-    analysis_prior = analysis_prior
+  
+  post1 <- .posterior_rope_vec(
+    y1_vals, n1, p0, delta, analysis_prior, direction
   )
   
   out <- 0
@@ -86,27 +149,31 @@
   for (i in seq_along(y1_vals)) {
     y1 <- y1_vals[i]
     p_y1 <- beta_binom_pmf_rope(y1, n1, aD, bD)
-    post1_y1 <- post1[i]
+    post_h1_interim <- post1[i]
+    post_h0_interim <- 1 - post_h1_interim
     
-    ## Stage 1: compelling evidence for H0
-    if ((1 - post1_y1) >= gamma_diff) {
+    ## Interim futility stop with compelling evidence for H0.
+    if (post_h0_interim >= max(gamma_1, gamma_diff)) {
       out <- out + p_y1
       next
     }
     
-    ## Stage 1: stop for futility without compelling H0 evidence
-    if (post1_y1 <= (1 - gamma_1)) {
+    ## Interim futility stop without compelling evidence for H0.
+    if (post_h0_interim >= gamma_1) {
       next
     }
     
-    ## Stage 2: continue, then check final compelling evidence for H0
+    ## Continuation to the final analysis.
     dp_post <- c(aD + y1, bD + n1 - y1)
+    
     for (y2 in 0:n2) {
       y <- y1 + y2
       p_y2_y1 <- beta_binom_pmf_rope(y2, n2, dp_post[1], dp_post[2])
-      post_h1 <- posterior_rope_prob(y, n, p0, delta, analysis_prior)
+      post_h1_final <- posterior_rope_prob(
+        y, n, p0, delta, analysis_prior, direction = direction
+      )
       
-      if ((1 - post_h1) >= gamma_diff) {
+      if ((1 - post_h1_final) >= gamma_diff) {
         out <- out + p_y1 * p_y2_y1
       }
     }
@@ -116,62 +183,81 @@
 }
 
 # -----------------------------------------------------------------------------
-# Expected sample size under a design prior — two-stage design
+# Expected sample size under a design prior -- two-stage design
 # -----------------------------------------------------------------------------
-.expected_n_twostage <- function(n1, n2, p0, delta, gamma_1,
-                                 analysis_prior, design_prior) {
-  cont <- .continuation_region_twostage(n1, p0, delta, gamma_1, analysis_prior)
+.expected_n_twostage <- function(
+    n1, n2, p0, delta, gamma_1, analysis_prior, design_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
+  
+  cont <- .continuation_region_twostage(
+    n1, p0, delta, gamma_1, analysis_prior, direction
+  )
   aD <- design_prior[1]
   bD <- design_prior[2]
   
   p_cont <- if (length(cont) == 0L) {
     0
   } else {
-    sum(vapply(cont, beta_binom_pmf_rope, numeric(1L), n = n1, a = aD, b = bD))
+    sum(vapply(
+      cont, beta_binom_pmf_rope, numeric(1L),
+      n = n1, a = aD, b = bD
+    ))
   }
   
   n1 + n2 * p_cont
 }
 
 # -----------------------------------------------------------------------------
-# One-stage predictive probability of declaring equivalence
+# One-stage predictive probability of declaring H1
 # -----------------------------------------------------------------------------
-.predictive_equiv_onestage <- function(n, p0, delta, gamma_eq,
-                                       analysis_prior, design_prior) {
+.predictive_equiv_onestage <- function(
+    n, p0, delta, gamma_eq, analysis_prior, design_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
   y_vals <- 0:n
-  post_h1 <- vapply(
-    y_vals, posterior_rope_prob, numeric(1L),
-    n = n, p0 = p0, delta = delta, analysis_prior = analysis_prior
-  )
   
+  post_h1 <- .posterior_rope_vec(
+    y_vals, n, p0, delta, analysis_prior, direction
+  )
   aD <- design_prior[1]
   bD <- design_prior[2]
   
   sum(vapply(
     y_vals[post_h1 >= gamma_eq],
-    beta_binom_pmf_rope, numeric(1L),
-    n = n, a = aD, b = bD
+    beta_binom_pmf_rope,
+    numeric(1L),
+    n = n,
+    a = aD,
+    b = bD
   ))
 }
 
 # -----------------------------------------------------------------------------
-# One-stage predictive probability of compelling evidence against equivalence
+# One-stage predictive probability of compelling evidence for H0
 # -----------------------------------------------------------------------------
-.predictive_pce_onestage <- function(n, p0, delta, gamma_diff,
-                                     analysis_prior, design_prior) {
+.predictive_pce_onestage <- function(
+    n, p0, delta, gamma_diff, analysis_prior, design_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
   y_vals <- 0:n
-  post_h1 <- vapply(
-    y_vals, posterior_rope_prob, numeric(1L),
-    n = n, p0 = p0, delta = delta, analysis_prior = analysis_prior
-  )
   
+  post_h1 <- .posterior_rope_vec(
+    y_vals, n, p0, delta, analysis_prior, direction
+  )
   aD <- design_prior[1]
   bD <- design_prior[2]
   
   sum(vapply(
     y_vals[(1 - post_h1) >= gamma_diff],
-    beta_binom_pmf_rope, numeric(1L),
-    n = n, a = aD, b = bD
+    beta_binom_pmf_rope,
+    numeric(1L),
+    n = n,
+    a = aD,
+    b = bD
   ))
 }
 
@@ -179,32 +265,47 @@
 # Frequentist operating characteristics under fixed true p
 # -----------------------------------------------------------------------------
 
-# One-stage frequentist probability of declaring H1
-.frequentist_equiv_onestage <- function(n, p_true, p0, delta, gamma_eq,
-                                        analysis_prior) {
+.frequentist_equiv_onestage <- function(
+    n, p_true, p0, delta, gamma_eq, analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
   y_vals <- 0:n
-  post_h1 <- vapply(
-    y_vals, posterior_rope_prob, numeric(1L),
-    n = n, p0 = p0, delta = delta, analysis_prior = analysis_prior
+  
+  post_h1 <- .posterior_rope_vec(
+    y_vals, n, p0, delta, analysis_prior, direction
   )
+  
   sum(dbinom(y_vals[post_h1 >= gamma_eq], size = n, prob = p_true))
 }
 
-# One-stage frequentist probability of compelling evidence for H0
-.frequentist_pce_onestage <- function(n, p_true, p0, delta, gamma_diff,
-                                      analysis_prior) {
+.frequentist_pce_onestage <- function(
+    n, p_true, p0, delta, gamma_diff, analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
   y_vals <- 0:n
-  post_h1 <- vapply(
-    y_vals, posterior_rope_prob, numeric(1L),
-    n = n, p0 = p0, delta = delta, analysis_prior = analysis_prior
+  
+  post_h1 <- .posterior_rope_vec(
+    y_vals, n, p0, delta, analysis_prior, direction
   )
-  sum(dbinom(y_vals[(1 - post_h1) >= gamma_diff], size = n, prob = p_true))
+  
+  sum(dbinom(
+    y_vals[(1 - post_h1) >= gamma_diff],
+    size = n,
+    prob = p_true
+  ))
 }
 
-# Two-stage frequentist probability of declaring H1
-.frequentist_equiv_twostage <- function(n1, n2, p_true, p0, delta, gamma_1,
-                                        gamma_eq, analysis_prior) {
-  cont <- .continuation_region_twostage(n1, p0, delta, gamma_1, analysis_prior)
+.frequentist_equiv_twostage <- function(
+    n1, n2, p_true, p0, delta, gamma_1, gamma_eq, analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
+  
+  cont <- .continuation_region_twostage(
+    n1, p0, delta, gamma_1, analysis_prior, direction
+  )
   if (length(cont) == 0L) return(0)
   
   n <- n1 + n2
@@ -212,10 +313,13 @@
   
   for (y1 in cont) {
     p_y1 <- dbinom(y1, size = n1, prob = p_true)
+    
     for (y2 in 0:n2) {
       y <- y1 + y2
       p_y2_y1 <- dbinom(y2, size = n2, prob = p_true)
-      post_h1 <- posterior_rope_prob(y, n, p0, delta, analysis_prior)
+      post_h1 <- posterior_rope_prob(
+        y, n, p0, delta, analysis_prior, direction = direction
+      )
       
       if (post_h1 >= gamma_eq) {
         out <- out + p_y1 * p_y2_y1
@@ -226,43 +330,45 @@
   out
 }
 
-# Two-stage frequentist probability of compelling evidence for H0
-.frequentist_pce_twostage <- function(n1, n2, p_true, p0, delta, gamma_1,
-                                      gamma_diff, analysis_prior) {
+.frequentist_pce_twostage <- function(
+    n1, n2, p_true, p0, delta, gamma_1, gamma_diff, analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
   n <- n1 + n2
   y1_vals <- 0:n1
-  post1 <- vapply(
-    y1_vals,
-    posterior_rope_prob,
-    numeric(1L),
-    n = n1,
-    p0 = p0,
-    delta = delta,
-    analysis_prior = analysis_prior
-  )
   
+  post1 <- .posterior_rope_vec(
+    y1_vals, n1, p0, delta, analysis_prior, direction
+  )
   out <- 0
   
   for (i in seq_along(y1_vals)) {
     y1 <- y1_vals[i]
     p_y1 <- dbinom(y1, size = n1, prob = p_true)
-    post1_y1 <- post1[i]
+    post_h1_interim <- post1[i]
+    post_h0_interim <- 1 - post_h1_interim
     
-    if ((1 - post1_y1) >= gamma_diff) {
+    ## Interim futility stop with compelling evidence for H0.
+    if (post_h0_interim >= max(gamma_1, gamma_diff)) {
       out <- out + p_y1
       next
     }
     
-    if (post1_y1 <= (1 - gamma_1)) {
+    ## Interim futility stop without compelling evidence for H0.
+    if (post_h0_interim >= gamma_1) {
       next
     }
     
+    ## Continuation to final analysis.
     for (y2 in 0:n2) {
       y <- y1 + y2
       p_y2_y1 <- dbinom(y2, size = n2, prob = p_true)
-      post_h1 <- posterior_rope_prob(y, n, p0, delta, analysis_prior)
+      post_h1_final <- posterior_rope_prob(
+        y, n, p0, delta, analysis_prior, direction = direction
+      )
       
-      if ((1 - post_h1) >= gamma_diff) {
+      if ((1 - post_h1_final) >= gamma_diff) {
         out <- out + p_y1 * p_y2_y1
       }
     }
@@ -271,11 +377,22 @@
   out
 }
 
-# Two-stage frequentist expected sample size under fixed true p
-.frequentist_en_twostage <- function(n1, n2, p_true, p0, delta, gamma_1,
-                                     analysis_prior) {
-  cont <- .continuation_region_twostage(n1, p0, delta, gamma_1, analysis_prior)
-  p_cont <- if (length(cont) == 0L) 0 else sum(dbinom(cont, size = n1, prob = p_true))
+.frequentist_en_twostage <- function(
+    n1, n2, p_true, p0, delta, gamma_1, analysis_prior,
+    direction = c("equivalence", "noninferiority", "superiority")
+) {
+  direction <- match.arg(direction)
+  
+  cont <- .continuation_region_twostage(
+    n1, p0, delta, gamma_1, analysis_prior, direction
+  )
+  
+  p_cont <- if (length(cont) == 0L) {
+    0
+  } else {
+    sum(dbinom(cont, size = n1, prob = p_true))
+  }
+  
   n1 + n2 * p_cont
 }
 
@@ -284,8 +401,10 @@
 # -----------------------------------------------------------------------------
 .evaluate_rope_twostage_oc <- function(
     n1, n2, p0, delta, gamma_1, gamma_eq, gamma_diff, analysis_prior,
-    design_prior_h0, design_prior_h1, p_t1e = NULL, p_power = NULL
+    design_prior_h0, design_prior_h1, p_t1e = NULL, p_power = NULL,
+    direction = c("equivalence", "noninferiority", "superiority")
 ) {
+  direction <- match.arg(direction)
   n <- n1 + n2
   
   out <- list(
@@ -293,71 +412,80 @@
     n2 = n2,
     n = n,
     type1_1st = .predictive_equiv_onestage(
-      n, p0, delta, gamma_eq, analysis_prior, design_prior_h0
+      n, p0, delta, gamma_eq, analysis_prior, design_prior_h0, direction
     ),
     power_1st = .predictive_equiv_onestage(
-      n, p0, delta, gamma_eq, analysis_prior, design_prior_h1
+      n, p0, delta, gamma_eq, analysis_prior, design_prior_h1, direction
     ),
     pce_1st = .predictive_pce_onestage(
-      n, p0, delta, gamma_diff, analysis_prior, design_prior_h0
+      n, p0, delta, gamma_diff, analysis_prior, design_prior_h0, direction
     ),
     type1_2st = .predictive_equiv_twostage(
-      n1, n2, p0, delta, gamma_1, gamma_eq, analysis_prior, design_prior_h0
+      n1, n2, p0, delta, gamma_1, gamma_eq, analysis_prior,
+      design_prior_h0, direction
     ),
     power_2st = .predictive_equiv_twostage(
-      n1, n2, p0, delta, gamma_1, gamma_eq, analysis_prior, design_prior_h1
+      n1, n2, p0, delta, gamma_1, gamma_eq, analysis_prior,
+      design_prior_h1, direction
     ),
     pce_2st = .predictive_pce_twostage(
-      n1, n2, p0, delta, gamma_1, gamma_diff, analysis_prior, design_prior_h0
+      n1, n2, p0, delta, gamma_1, gamma_diff, analysis_prior,
+      design_prior_h0, direction
     ),
     EN0 = .expected_n_twostage(
-      n1, n2, p0, delta, gamma_1, analysis_prior, design_prior_h0
+      n1, n2, p0, delta, gamma_1, analysis_prior, design_prior_h0, direction
     ),
     EN1 = .expected_n_twostage(
-      n1, n2, p0, delta, gamma_1, analysis_prior, design_prior_h1
+      n1, n2, p0, delta, gamma_1, analysis_prior, design_prior_h1, direction
     ),
     cont_region = .continuation_region_twostage(
-      n1, p0, delta, gamma_1, analysis_prior
+      n1, p0, delta, gamma_1, analysis_prior, direction
     )
   )
   
-  ## Frequentist OC at p_t1e (type-I error, PCE, EN)
   if (!is.null(p_t1e)) {
     out$freq_type1_1st <- .frequentist_equiv_onestage(
       n, p_true = p_t1e, p0 = p0, delta = delta,
-      gamma_eq = gamma_eq, analysis_prior = analysis_prior
+      gamma_eq = gamma_eq, analysis_prior = analysis_prior,
+      direction = direction
     )
     out$freq_type1_2st <- .frequentist_equiv_twostage(
       n1, n2, p_true = p_t1e, p0 = p0, delta = delta,
-      gamma_1 = gamma_1, gamma_eq = gamma_eq, analysis_prior = analysis_prior
+      gamma_1 = gamma_1, gamma_eq = gamma_eq,
+      analysis_prior = analysis_prior, direction = direction
     )
     out$freq_pce_1st <- .frequentist_pce_onestage(
       n, p_true = p_t1e, p0 = p0, delta = delta,
-      gamma_diff = gamma_diff, analysis_prior = analysis_prior
+      gamma_diff = gamma_diff, analysis_prior = analysis_prior,
+      direction = direction
     )
     out$freq_pce_2st <- .frequentist_pce_twostage(
       n1, n2, p_true = p_t1e, p0 = p0, delta = delta,
-      gamma_1 = gamma_1, gamma_diff = gamma_diff, analysis_prior = analysis_prior
+      gamma_1 = gamma_1, gamma_diff = gamma_diff,
+      analysis_prior = analysis_prior, direction = direction
     )
     out$freq_EN_t1e <- .frequentist_en_twostage(
       n1, n2, p_true = p_t1e, p0 = p0, delta = delta,
-      gamma_1 = gamma_1, analysis_prior = analysis_prior
+      gamma_1 = gamma_1, analysis_prior = analysis_prior,
+      direction = direction
     )
   }
   
-  ## Frequentist OC at p_power (power, EN)
   if (!is.null(p_power)) {
     out$freq_power_1st <- .frequentist_equiv_onestage(
       n, p_true = p_power, p0 = p0, delta = delta,
-      gamma_eq = gamma_eq, analysis_prior = analysis_prior
+      gamma_eq = gamma_eq, analysis_prior = analysis_prior,
+      direction = direction
     )
     out$freq_power_2st <- .frequentist_equiv_twostage(
       n1, n2, p_true = p_power, p0 = p0, delta = delta,
-      gamma_1 = gamma_1, gamma_eq = gamma_eq, analysis_prior = analysis_prior
+      gamma_1 = gamma_1, gamma_eq = gamma_eq,
+      analysis_prior = analysis_prior, direction = direction
     )
     out$freq_EN_power <- .frequentist_en_twostage(
       n1, n2, p_true = p_power, p0 = p0, delta = delta,
-      gamma_1 = gamma_1, analysis_prior = analysis_prior
+      gamma_1 = gamma_1, analysis_prior = analysis_prior,
+      direction = direction
     )
   }
   

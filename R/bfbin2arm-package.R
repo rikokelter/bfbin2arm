@@ -22,6 +22,10 @@
 #' @importFrom dplyr `%>%`
 #' @importFrom patchwork plot_layout
 #' @importFrom graphics axis layout mtext plot.new points text title
+#' @importFrom grDevices hcl.colors
+#' @importFrom graphics contour image
+#' @importFrom stats dnorm pnorm qbeta qnorm
+#' @keywords internal
 "_PACKAGE"
 
 utils::globalVariables(
