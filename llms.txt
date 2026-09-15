@@ -256,6 +256,8 @@ Two-stage (optimal) two-arm designs:
 - [Bayesian calibration of two-arm one-stage Bayes factor designs with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm_onestage_Bayesian.md):
+- [Bayesian calibration of two-arm one-stage ROPE designs with binary
+  endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm-onestage-rope.md):
 - [Optimal Bayesian calibration of two-arm two-stage Bayes factor
   designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm-twostage_Bayesian.md):
