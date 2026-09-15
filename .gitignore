@@ -1,5 +1,8 @@
 # Generated pkgdown/vignette website artefacts
-vignettes/articles/
+# Generated article HTML and knitr intermediates
+vignettes/articles/*.html
+vignettes/articles/*.utf8.md
+vignettes/articles/*.knit.md
 
 # R package build artefacts
 *.tar.gz
