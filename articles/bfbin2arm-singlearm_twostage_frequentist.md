@@ -13,8 +13,8 @@ hypotheses
 H_0 : p \leq p_0, \text{ versus } H_1 : p > p_0,
 ```
 
-where $`p_0`$ is a benchmark response probability, compare (Kelter and
-Pawel 2025a).
+where $`p_0`$ is a benchmark response probability, compare
+(**kelter_third_2025?**).
 
 The decision rule is based on the Bayes factor $`BF_{01}`$ for $`H_0`$
 versus $`H_1`$:
@@ -287,7 +287,8 @@ properties:
   $`p = dp`$) is at or above `target_freq_power`.
 - Among all designs within the specified bounds that satisfy these
   constraints, the selected design minimizes the expected sample size
-  under $`H_0`$. Details are also provided in (Kelter and Pawel 2025b).
+  under $`H_0`$. Details are also provided in
+  (**kelter_two_stage_2025?**).
 
 The Bayesian operating characteristics are still reported, but they do
 not drive the calibration; they serve as additional information about
@@ -307,11 +308,3 @@ When using the frequentist mode in practice:
   type-I error can be incompatible with tight sample size bounds.
 
 ## References
-
-Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
-Calculations for Bayes Factors in the Binomial Setting*.
-<https://arxiv.org/abs/2502.02914>.
-
-Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
-Design for Clinical Phase II Trials Based on Bayes Factors*.
-<https://arxiv.org/abs/2511.23144>.

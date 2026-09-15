@@ -19,10 +19,11 @@ probabilities with respect to these priors. This approach has been
 developed for Bayes factors in binomial one- and two‑arm settings, where
 closed‑form expressions and numerical integration can be used to obtain
 sample sizes that satisfy Bayesian power and type‑I error targets
-without Monte Carlo simulation, see (Kelter and Pawel 2025a), (Kelter
-and Pawel 2025b) and (Kelter 2026). These methods provide a Bayesian
-analogue of classical power analysis for Bayes factors and form the
-basis of the one‑stage calibration routines in this package.
+without Monte Carlo simulation, see (**kelter_third_2025?**),
+(**kelter_two_stage_2025?**) and (**kelter_power_2026?**). These methods
+provide a Bayesian analogue of classical power analysis for Bayes
+factors and form the basis of the one‑stage calibration routines in this
+package.
 
 ### Hybrid Bayes-frequentist calibration
 
@@ -51,16 +52,17 @@ multiplicity‑calibrated Bayesian hypothesis tests (Guo and Heitjan
 Against this backdrop, the **hybrid** and **full** calibration modes in
 {bfbin2arm} implement Bayes–frequentist compromise designs for Bayes
 factors in single‑ and two‑arm phase II trials with binary endpoints
-(Kelter and Pawel 2025a, 2025b; Kelter 2026). In hybrid calibration,
-power is defined in a Bayesian prior‑predictive sense under a design
-prior for $`H_1`$, while type‑I error is controlled in a frequentist
-sense at the null boundary $`p_0`$. In full calibration, both Bayesian
-and frequentist error metrics are constrained simultaneously: Bayesian
-power and Bayesian type‑I error under the design priors, and frequentist
-power and type‑I error at fixed parameter values. This yields
-Bayes-factor based designs that satisfy both sets of constraints and
-make explicit the trade‑offs between Bayesian and frequentist notions of
-error control in phase II trial design.
+(**kelter_third_2025?**; **kelter_two_stage_2025?**;
+**kelter_power_2026?**). In hybrid calibration, power is defined in a
+Bayesian prior‑predictive sense under a design prior for $`H_1`$, while
+type‑I error is controlled in a frequentist sense at the null boundary
+$`p_0`$. In full calibration, both Bayesian and frequentist error
+metrics are constrained simultaneously: Bayesian power and Bayesian
+type‑I error under the design priors, and frequentist power and type‑I
+error at fixed parameter values. This yields Bayes-factor based designs
+that satisfy both sets of constraints and make explicit the trade‑offs
+between Bayesian and frequentist notions of error control in phase II
+trial design.
 
 ## Full Bayesian and frequentist calibration
 
@@ -162,9 +164,9 @@ res_full <- design_singlearm_bf(
 Note that we specified a power cushion via the parameter
 `power_cushion = 0.025`. Otherwise, it might be impossible to find an
 optimal design, for details on the underlying methodology see also the
-vignette on hybrid calibration and the discussion section in (Kelter and
-Pawel 2025b). We inspect the results produced by the calibration
-algorithm:
+vignette on hybrid calibration and the discussion section in
+(**kelter_two_stage_2025?**). We inspect the results produced by the
+calibration algorithm:
 
 ``` r
 
@@ -507,55 +509,43 @@ Needed in Bayesian Clinical Trial Designs?* arXiv:2312.15222. arXiv.
 <https://doi.org/10.48550/arXiv.2312.15222>.
 
 Grieve, Andrew P. 2016. “Idle Thoughts of a ’Well-Calibrated’ Bayesian
-in Clinical Drug Development.” *Pharmaceutical Statistics* 15 (2):
-96–108. <https://doi.org/10.1002/PST.1736>.
+in Clinical Drug Development.” *Pharm. Stat.* 15 (2): 96–108.
+<https://doi.org/10.1002/PST.1736>.
 
 Grieve, Andrew P. 2022. *Hybrid Frequentist/Bayesian Power and Bayesian
 Power in Planning and Clinical Trials*. Chapman & Hall, CRC Press.
 
 Guo, Mengye, and Daniel F. Heitjan. 2010. “Multiplicity-Calibrated
-Bayesian Hypothesis Tests.” *Biostatistics (Oxford, England)* 11 (3):
-473–83. <https://doi.org/10.1093/biostatistics/kxq012>.
-
-Kelter, Riko. 2026. *Power and Sample Size Calculations for Bayes
-Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
-<https://arxiv.org/abs/2603.01715>.
-
-Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
-Calculations for Bayes Factors in the Binomial Setting*.
-<https://arxiv.org/abs/2502.02914>.
-
-Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
-Design for Clinical Phase II Trials Based on Bayes Factors*.
-<https://arxiv.org/abs/2511.23144>.
+Bayesian Hypothesis Tests.” *Biostat. Oxf. Engl.* 11 (3): 473–83.
+<https://doi.org/10.1093/biostatistics/kxq012>.
 
 Lopez-Rey, Borja G., Gerard Carot-Sans, Dan Ouchi, Ferran Torres, and
 Caridad Pontes. 2025. “Use of Bayesian Approaches in Oncology Clinical
-Trials: A Cross-Sectional Analysis.” *Frontiers in Pharmacology* 16
-(March). <https://doi.org/10.3389/fphar.2025.1548997>.
+Trials: A Cross-Sectional Analysis.” *Front. Pharmacol.* 16.
+<https://doi.org/10.3389/fphar.2025.1548997>.
 
 Macrì Demartino, Roberto, Leonardo Egidi, Nicola Torelli, and Ioannis
 Ntzoufras. 2025. “Eliciting Prior Information from Clinical Trials via
-Calibrated Bayes Factor.” *Computational Statistics & Data Analysis* 209
-(September): 108180. <https://doi.org/10.1016/j.csda.2025.108180>.
+Calibrated Bayes Factor.” *Comput. Stat. Data Anal.* 209: 108180.
+<https://doi.org/10.1016/j.csda.2025.108180>.
 
 Marks, Yanara, Jessie Cunningham, Arlene Jiang, et al. 2026. “A
 Systematic Review of Sample Size Determination in Bayesian Randomized
-Clinical Trials: Full Bayesian Methods Are Rarely Used.” *BMC Medical
-Research Methodology*, ahead of print, April.
+Clinical Trials: Full Bayesian Methods Are Rarely Used.” *BMC Med. Res.
+Methodol.*, ahead of print.
 <https://doi.org/10.1186/s12874-026-02854-9>.
 
 Muehlemann, Natalia, Tianjian Zhou, Rajat Mukherjee, Munshi Imran
 Hossain, Satrajit Roychoudhury, and Estelle Russek-Cohen. 2023. “A
-Tutorial on Modern Bayesian Methods in Clinical Trials.” *Therapeutic
-Innovation & Regulatory Science* 57 (3): 402–16.
+Tutorial on Modern Bayesian Methods in Clinical Trials.” *Ther. Innov.
+Regul. Sci.* 57 (3): 402–16.
 <https://doi.org/10.1007/s43441-023-00515-3>.
 
 Ryan, Elizabeth G., Kristian Brock, Simon Gates, and Daniel Slade. 2020.
 “Do We Need to Adjust for Interim Analyses in a Bayesian Adaptive Trial
-Design?” *BMC Medical Research Methodology* 20 (1).
+Design?” *BMC Med. Res. Methodol.* 20 (1).
 <https://doi.org/10.1186/S12874-020-01042-7>.
 
 Shi, Haolun, and Guosheng Yin. 2019. “Control of Type I Error Rates in
-Bayesian Sequential Designs.” *Bayesian Analysis* 14 (2): 399–425.
+Bayesian Sequential Designs.” *Bayesian Anal.* 14 (2): 399–425.
 <https://doi.org/10.1214/18-BA1109>.

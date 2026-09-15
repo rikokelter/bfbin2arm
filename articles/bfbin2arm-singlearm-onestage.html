@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,19 +93,18 @@ Cologne, Germany</p>
 Bayes factor design for a binary endpoint. The goal is to determine the
 smallest total sample size that satisfies pre-specified Bayesian and/or
 frequentist operating characteristics. The underlying statistical theory
-is developed in <span class="citation">(Kelter and Pawel 2025a)</span>,
-extended to the single-arm two-stage optimal setting in <span class="citation">(Kelter and Pawel 2025b)</span>, and further developed
-to the two-arm single-stage setting in <span class="citation">(Kelter
-2026)</span>.</p>
+is developed in <span class="citation">(<strong>kelter_third_2025?</strong>)</span>, extended
+to the single-arm two-stage optimal setting in <span class="citation">(<strong>kelter_two_stage_2025?</strong>)</span>, and
+further developed to the two-arm single-stage setting in <span class="citation">(<strong>kelter_power_2026?</strong>)</span>.</p>
 <div class="section level3">
 <h3 id="how-to-design-a-bayesian-trial-overview-of-the-calibration-algorithm">How to design a Bayesian trial: Overview of the calibration
 algorithm<a class="anchor" aria-label="anchor" href="#how-to-design-a-bayesian-trial-overview-of-the-calibration-algorithm"></a>
 </h3>
 <p>The workflow implemented in the package follows the fixed-sample
-Bayes factor calibration framework proposed in <span class="citation">Kelter and Pawel (2025a)</span>: Choose design and
-analysis priors, specify an evidence threshold on the scale, compute
-operating characteristics as a function of the sample size, and select
-the smallest feasible design.</p>
+Bayes factor calibration framework proposed in <span class="citation">(<strong>kelter_third_2025?</strong>)</span>: Choose
+design and analysis priors, specify an evidence threshold on the scale,
+compute operating characteristics as a function of the sample size, and
+select the smallest feasible design.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/optimal_single_arm_two_stage_bayes_flowchart_rootfinding.png" class="r-plt" alt="Figure 1: Illustration of the calibration algorithm for an optimal Bayesian single-arm phase II design with a binary endpoint" width="90%"><p class="caption">
 Figure 1: Illustration of the calibration algorithm for an optimal
@@ -784,24 +783,8 @@ guards against local beta–binomial oscillations in the operating
 characteristics.</p>
 </div>
 <div class="section level3">
-<h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-kelter_power_2026" class="csl-entry">
-Kelter, Riko. 2026. <em>Power and Sample Size Calculations for Bayes
-Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints</em>.
-<a href="https://arxiv.org/abs/2603.01715" class="external-link">https://arxiv.org/abs/2603.01715</a>.
-</div>
-<div id="ref-kelter_third_2025" class="csl-entry">
-Kelter, Riko, and Samuel Pawel. 2025a. <em>Bayesian Power and Sample
-Size Calculations for Bayes Factors in the Binomial Setting</em>. <a href="https://arxiv.org/abs/2502.02914" class="external-link">https://arxiv.org/abs/2502.02914</a>.
-</div>
-<div id="ref-kelter_two_stage_2025" class="csl-entry">
-Kelter, Riko, and Samuel Pawel. 2025b. <em>The Bayesian Optimal
-Two-Stage Design for Clinical Phase II Trials Based on Bayes
-Factors</em>. <a href="https://arxiv.org/abs/2511.23144" class="external-link">https://arxiv.org/abs/2511.23144</a>.
-</div>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

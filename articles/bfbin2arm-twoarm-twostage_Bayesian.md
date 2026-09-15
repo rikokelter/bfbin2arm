@@ -5,15 +5,16 @@
 This vignette illustrates the use of the
 [`design_twoarm_twostage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.md)
 function for designing two-stage two-arm binomial phase II trials based
-on Bayes factors. We re-analyze a clinical trial discussed in (Kelter
-2026b) and show how to construct optimal Bayesian two-stage designs in
-these settings. In contrast to a one-stage design, where power and
-sample size calculations have been developed by Kelter and Pawel (2025a,
-2025b), and the designs we aim for in this vignette always include an
-interim analysis which allows stopping the trial early for futility. The
-corresponding single-stage design without such an interim analysis is
-provided in (Kelter 2026b). The methodology for the two-stage two-arm
-design is developed in (Kelter 2026a).
+on Bayes factors. We re-analyze a clinical trial discussed in
+(**kelter_power_2026?**) and show how to construct optimal Bayesian
+two-stage designs in these settings. In contrast to a one-stage design,
+where power and sample size calculations have been developed by Kelter
+and Pawel (**kelter_third_2025?**; **kelter_two_stage_2025?**), and the
+designs we aim for in this vignette always include an interim analysis
+which allows stopping the trial early for futility. The corresponding
+single-stage design without such an interim analysis is provided in
+(**kelter_power_2026?**). The methodology for the two-stage two-arm
+design is developed in (Kelter 2026).
 
 Thus, the principal goal of the
 [`design_twoarm_twostage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.md)
@@ -45,8 +46,8 @@ other typical hypothesis setups for a phase II trial are:
 - $`H_0:\eta = 0 \hspace{1cm} \text{ versus } \hspace{1cm} H_1:\eta < 0`$
 
 For details and further explanations on each of these directional tests,
-see (Kelter 2026b). The associated Bayes factors with each of these
-three directional tests are denoted as $`\mathrm{BF}_{+-}`$,
+see (**kelter_power_2026?**). The associated Bayes factors with each of
+these three directional tests are denoted as $`\mathrm{BF}_{+-}`$,
 $`\mathrm{BF}_{+0}`$ and $`\mathrm{BF}_{-0}`$. Also, we denote
 $`H_-:\eta \leq 0`$ and $`H_+:\eta > 0`$.
 
@@ -86,7 +87,7 @@ are additional design priors under a directional-null $`H_-`$
 (e.g. $`p_2 \le p_1`$), specified by
 `a_1_d_Hminus, b_1_d_Hminus, a_2_d_Hminus, b_2_d_Hminus`. These are used
 for one-sided Bayes factors only. For details on the precise
-specification of these tests, see Kelter and Pawel (2025b).
+specification of these tests, see (**kelter_two_stage_2025?**).
 
 ### Analysis priors
 
@@ -196,8 +197,8 @@ design in practice with the function
 ## Riociguat phase II trial: fixed-sample design and optimal two-stage design
 
 In this section we consider the **Riociguat phase II trial** in systemic
-sclerosis (Khanna et al. 2020), re-analysed in Kelter (2026b). For
-day-to-day use, the recommended entry points are the design wrappers
+sclerosis (Khanna et al. 2020), re-analysed in (**kelter_power_2026?**).
+For day-to-day use, the recommended entry points are the design wrappers
 
 - [`design_twoarm_onestage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_bf.md)
   for fixed-sample designs without interim analysis, and  
@@ -246,11 +247,11 @@ are:
   size, either `"Bayesian"` (default) or `"frequentist"`.
 - `power_cushion`: Optional extra power margin used in step 1 when
   identifying a sufficient fixed-sample design. This is relevant as
-  Kelter (2026b) showed that the power of a two-arm design can decrease
-  when introducing an interim analysis which allows stopping for
-  futility only. As a consequence, the power cushion safeguards against
-  obtaining a design which cannot meet the required power target after
-  introducing an interim analysis.
+  (**kelter_power_2026?**) showed that the power of a two-arm design can
+  decrease when introducing an interim analysis which allows stopping
+  for futility only. As a consequence, the power cushion safeguards
+  against obtaining a design which cannot meet the required power target
+  after introducing an interim analysis.
 - `interim_fraction`: Lower and upper bounds for the interim sample
   sizes, expressed as fractions of the fixed-sample sizes found in
   step 1. Defaults to `c(0, 1)`, which means all interim designs between
@@ -324,12 +325,12 @@ p2_riociguat
 #> [1] 0.8135593
 ```
 
-as given in Section 2.5 of Kelter (2026b)\]. The response in the
-treatment group is higher compared to the control group, and the test we
-perform is $`H_0:p_1=p_2`$ versus $`H_+:p_1<p_2`$. We thus exclude the
-possibility that the response probability in the control group can
-outperform the response probability in the treatment group. If this
-assumption is too optimistic, we could also perform the test of
+as given in Section 2.5 of (**kelter_power_2026?**)\]. The response in
+the treatment group is higher compared to the control group, and the
+test we perform is $`H_0:p_1=p_2`$ versus $`H_+:p_1<p_2`$. We thus
+exclude the possibility that the response probability in the control
+group can outperform the response probability in the treatment group. If
+this assumption is too optimistic, we could also perform the test of
 $`H_-:p_2 \le p_1`$ versus $`H_+:p_1<p_2`$ or the two-sided test.
 
 Now, we use the following design and analysis priors for this example:
@@ -361,14 +362,14 @@ b_2_a_rio <- 1
 
 We focus on the one-sided Bayes factor test `test = "BF+0"` with
 evidence thresholds `k = 1/10` (strong evidence for efficacy) and
-`k_f = 3` (moderate evidence to stop early for futility), compare Kelter
-(2026b). We provide a brief discussion of choosing these thresholds
-below.
+`k_f = 3` (moderate evidence to stop early for futility), compare
+(**kelter_power_2026?**). We provide a brief discussion of choosing
+these thresholds below.
 
 ### Riociguat phase II trial: Fixed-sample comparator via `design_twoarm_onestage_bf()`
 
-In the one-stage reference design used in Kelter (2026b) for the
-riociguat example, the trial uses
+In the one-stage reference design used in (**kelter_power_2026?**) for
+the riociguat example, the trial uses
 
 - $`n_1 = 60`$ patients in the control arm,
 - $`n_2 = 59`$ patients in the treatment arm,
@@ -391,9 +392,9 @@ The design priors are slightly informative, reflecting the expectation
 that the treatment is more effective than placebo in the control group
 and encoded by parameters such as `a_1_d = a_1_d_rio`. The analysis
 priors are chosen flat via parameters such as `a_1_a = a_1_a_rio`, as in
-Kelter (2026b). To keep the console output compact in this vignette, we
-set `progress = FALSE`; in practice you can set `progress = TRUE` to
-monitor the calibration.
+(**kelter_power_2026?**). To keep the console output compact in this
+vignette, we set `progress = FALSE`; in practice you can set
+`progress = TRUE` to monitor the calibration.
 
 ``` r
 
@@ -500,15 +501,15 @@ No interim analysis is carried out, and the design is calibrated to 80%
 Bayesian power, 2.5% Bayesian type-I error and 60% probability of
 compelling evidence for the null hypothesis.
 
-Figure 2 shows the calibrated one-stage design developed in Kelter
-(2026b). In particular, it illustrates that the one-stage design without
-an interim analysis requires 53 patients in total (as can be seen in
-`res_rio_onestage$design`) to reach the desired threshold for Bayesian
-power, while 45 patients are necessary to reach the desired probability
-of compelling evidence for the null hypothesis. The Bayesian
-type-I-error constraint is already satisfied at smaller sample sizes.
-The frequentist type-I-error rate is controlled with a supremum of
-approximately 0.0099 under the null, as can be seen from
+Figure 2 shows the calibrated one-stage design developed in
+(**kelter_power_2026?**). In particular, it illustrates that the
+one-stage design without an interim analysis requires 53 patients in
+total (as can be seen in `res_rio_onestage$design`) to reach the desired
+threshold for Bayesian power, while 45 patients are necessary to reach
+the desired probability of compelling evidence for the null hypothesis.
+The Bayesian type-I-error constraint is already satisfied at smaller
+sample sizes. The frequentist type-I-error rate is controlled with a
+supremum of approximately 0.0099 under the null, as can be seen from
 
 ``` r
 
@@ -1742,26 +1743,14 @@ European Medicines Agency. 2025. *ICH E20 Adaptive Designs for Clinical
 Trials - Scientific Guideline European Medicines Agency (EMA)*. European
 Medicines Agency.
 
-Kelter, Riko. 2026a. “Optimal Sequential Two-Stage Bayes Factor Design
-for Two-Arm Clinical Phase II Trials with Binary Endpoints.” In
-*arXiv.org*. Https://arxiv.org/abs/2606.02410v1.
-
-Kelter, Riko. 2026b. *Power and Sample Size Calculations for Bayes
-Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
-<https://arxiv.org/abs/2603.01715>.
-
-Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
-Calculations for Bayes Factors in the Binomial Setting*.
-<https://arxiv.org/abs/2502.02914>.
-
-Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
-Design for Clinical Phase II Trials Based on Bayes Factors*.
-<https://arxiv.org/abs/2511.23144>.
+Kelter, Riko. 2026. *Optimal Sequential Two-Stage Bayes Factor Design
+for Two-Arm Clinical Phase II Trials with Binary Endpoints*. arXiv
+preprint.
 
 Khanna, Dinesh, Yannick Allanore, Christopher P. Denton, et al. 2020.
 “Riociguat in Patients with Early Diffuse Cutaneous Systemic Sclerosis
 (RISE-SSc): Randomised, Double-Blind, Placebo-Controlled Multicentre
-Trial.” *Annals of the Rheumatic Diseases* 79 (5): 618–25.
+Trial.” *Ann. Rheum. Dis.* 79 (5): 618–25.
 <https://doi.org/10.1136/annrheumdis-2019-216823>.
 
 U.S. Department of Health and Human Services Food and Drug

@@ -6,14 +6,15 @@ This vignette illustrates how to calibrate a one-stage single-arm Bayes
 factor design for a binary endpoint. The goal is to determine the
 smallest total sample size that satisfies pre-specified Bayesian and/or
 frequentist operating characteristics. The underlying statistical theory
-is developed in (Kelter and Pawel 2025a), extended to the single-arm
-two-stage optimal setting in (Kelter and Pawel 2025b), and further
-developed to the two-arm single-stage setting in (Kelter 2026).
+is developed in (**kelter_third_2025?**), extended to the single-arm
+two-stage optimal setting in (**kelter_two_stage_2025?**), and further
+developed to the two-arm single-stage setting in
+(**kelter_power_2026?**).
 
 ### How to design a Bayesian trial: Overview of the calibration algorithm
 
 The workflow implemented in the package follows the fixed-sample Bayes
-factor calibration framework proposed in Kelter and Pawel (2025a):
+factor calibration framework proposed in (**kelter_third_2025?**):
 Choose design and analysis priors, specify an evidence threshold on the
 scale, compute operating characteristics as a function of the sample
 size, and select the smallest feasible design.
@@ -733,15 +734,3 @@ larger sample sizes and thus guards against local beta–binomial
 oscillations in the operating characteristics.
 
 ### References
-
-Kelter, Riko. 2026. *Power and Sample Size Calculations for Bayes
-Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
-<https://arxiv.org/abs/2603.01715>.
-
-Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
-Calculations for Bayes Factors in the Binomial Setting*.
-<https://arxiv.org/abs/2502.02914>.
-
-Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
-Design for Clinical Phase II Trials Based on Bayes Factors*.
-<https://arxiv.org/abs/2511.23144>.

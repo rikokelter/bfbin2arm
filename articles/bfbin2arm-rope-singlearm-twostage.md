@@ -1047,7 +1047,7 @@ evidence level for equivalence.
 
 Kim, Arthur Y, Minhee Kang, Triin Umbleja, et al. 2025. “Short Course
 Therapy With Glecaprevir/Pibrentasvir for Early Hepatitis C Virus
-Infection: PURGE-C.” *Clinical Infectious Diseases* 81 (6): 1083–90.
+Infection: PURGE-C.” *Clin. Infect. Dis.* 81 (6): 1083–90.
 <https://doi.org/10.1093/cid/ciaf305>.
 
 Litton, Jennifer K., J. Thaddeus Beck, Jason M. Jones, et al. 2023.
@@ -1058,6 +1058,5 @@ a Phase II Study.” *The Oncologist* 28 (10): 845–55.
 
 Litton, Jennifer K., Marion E. Scoggins, Kenneth R. Hess, et al. 2020.
 “Neoadjuvant Talazoparib for Patients With Operable Breast Cancer With a
-Germline BRCA Pathogenic Variant.” *Journal of Clinical Oncology:
-Official Journal of the American Society of Clinical Oncology* 38 (5):
-388–94. <https://doi.org/10.1200/JCO.19.01304>.
+Germline BRCA Pathogenic Variant.” *J. Clin. Oncol. Off. J. Am. Soc.
+Clin. Oncol.* 38 (5): 388–94. <https://doi.org/10.1200/JCO.19.01304>.

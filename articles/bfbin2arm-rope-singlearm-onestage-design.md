@@ -1016,28 +1016,26 @@ and the resulting sample size is operationally feasible.
 
 Chen, Lichang, Jianhong Pan, Yanpeng Wu, et al. 2022. “Bayesian
 Two-Stage Design for Phase II Oncology Trials with Binary Endpoint.”
-*Statistics in Medicine* 41 (12): 2291–301.
-<https://doi.org/10.1002/sim.9355>.
+*Stat. Med.* 41 (12): 2291–301. <https://doi.org/10.1002/sim.9355>.
 
 Hashim, Mahmoud, Talitha Vincken, Florint Kroi, et al. 2021. “A
 Systematic Review of Noninferiority Margins in Oncology Clinical
-Trials.” *Journal of Comparative Effectiveness Research* 10 (6): 443–55.
+Trials.” *J. Comp. Eff. Res.* 10 (6): 443–55.
 <https://doi.org/10.2217/cer-2020-0200>.
 
 Hodges, J. L., and E. L. Lehmann. 1954. “Testing the Approximate
-Validity of Statistical Hypotheses.” *Journal of the Royal Statistical
-Society: Series B (Methodological)* 16 (2): 261–68.
-<https://doi.org/10.1111/j.2517-6161.1954.tb00169.x>.
+Validity of Statistical Hypotheses.” *J. R. Stat. Soc. Ser. B Methodol.*
+16 (2): 261–68. <https://doi.org/10.1111/j.2517-6161.1954.tb00169.x>.
 
 Kelter, Riko. 2021. “Bayesian Hodges-Lehmann Tests for Statistical
 Equivalence in the Two-Sample Setting: Power Analysis, Type I Error
 Rates and Equivalence Boundary Selection in Biomedical Research.” *BMC
-Medical Research Methodology* 21 (171).
+Med. Res. Methodol.* 21 (171).
 <https://doi.org/10.1186/s12874-021-01341-7>.
 
 Kelter, Riko, and Alexander Schnurr. 2024. “The Bayesian
 Group-Sequential Predictive Evidence Value Design for Phase II Clinical
-Trials with Binary Endpoints.” *Statistics in Biosciences* 17: 442–78.
+Trials with Binary Endpoints.” *Stat. Biosci.* 17: 442–78.
 <https://doi.org/10.1007/s12561-024-09430-z>.
 
 Kruschke, John K. 2014. *Doing Bayesian Data Analysis: A Tutorial with
@@ -1046,38 +1044,37 @@ JAGS, and Stan*, 2nd ed. Academic Press.
 <https://doi.org/10.1016/B978-0-12-405888-0.09999-2>.
 
 Kruschke, John K. 2018. “Rejecting or Accepting Parameter Values in
-Bayesian Estimation.” *Advances in Methods and Practices in
-Psychological Science* 1(2): 270–80.
+Bayesian Estimation.” *Adv. Methods Pract. Psychol. Sci.* 1(2): 270–80.
 <https://doi.org/10.1177/2515245918771304>.
 
 Kruschke, John K., and T. M. Liddell. 2018. “The Bayesian New Statistics
 : Hypothesis Testing, Estimation, Meta-Analysis, and Power Analysis from
-a Bayesian Perspective.” *Psychonomic Bulletin and Review* 25: 178–206.
+a Bayesian Perspective.” *Psychon. Bull. Rev.* 25: 178–206.
 <https://doi.org/10.3758/s13423-016-1221-4>.
 
 Lakens, Daniël, Anne M. Scheel, and Peder M. Isager. 2018. “Equivalence
-Testing for Psychological Research: A Tutorial.” *Advances in Methods
-and Practices in Psychological Science* 1 (2): 259–69.
+Testing for Psychological Research: A Tutorial.” *Adv. Methods Pract.
+Psychol. Sci.* 1 (2): 259–69.
 <https://doi.org/10.1177/2515245918770963>.
 
 Lee, Jack, and Diane D. Liu. 2008. “A Predictive Probability Design for
-Phase II Cancer Clinical Trials.” *Clinical Trials* 5 (2): 93–106.
+Phase II Cancer Clinical Trials.” *Clin. Trials* 5 (2): 93–106.
 <https://doi.org/10.1177/1740774508089279>.
 
 Liao, J. G., Vishal Midya, and Arthur Berg. 2020. “Connecting and
 Contrasting the Bayes Factor and a Modified ROPE Procedure for Testing
-Interval Null Hypotheses.” *American Statistician*, ahead of print.
+Interval Null Hypotheses.” *Am. Stat.*, ahead of print.
 <https://doi.org/10.1080/00031305.2019.1701550>.
 
 Linde, Maximilian, Jorge N. Tendeiro, Ravi Selker, Eric Jan Wagenmakers,
 and Don van Ravenzwaaij. 2023. “Decisions about Equivalence: A
-Comparison of TOST, HDI-ROPE, and the Bayes Factor.” *Psychological
-Methods* 28 (3): 740–55. <https://doi.org/10.1037/MET0000402>.
+Comparison of TOST, HDI-ROPE, and the Bayes Factor.” *Psychol. Methods*
+28 (3): 740–55. <https://doi.org/10.1037/MET0000402>.
 
 Pan, Jian, Rania Christoforou, Lucy Nives Wiedermann, and Marcel
 Schweiker. 2025. “The Untapped Potential of Bayesian Region of Practical
 Equivalence for Assessing Null Effects in Multi-Domain Research.”
-*Building and Environment* 283: 113390.
+*Build. Environ.* 283: 113390.
 <https://doi.org/10.1016/j.buildenv.2025.113390>.
 
 Wellek, Stefan. 2010. *Testing Statistical Hypotheses of Equivalence and

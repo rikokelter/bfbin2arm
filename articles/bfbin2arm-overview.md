@@ -7,10 +7,10 @@ size calculations for binomial endpoints, with a focus on early-phase
 clinical trials, in particular, phase II trials. The central idea is to
 replace Monte Carlo simulation by fast numerical calculations of design
 operating characteristics, both in fixed-sample and two-stage settings.
-The underlying statistical theory is developed in (Kelter and Pawel
-2025a), extended to the single-arm two-stage optimal setting by (Kelter
-and Pawel 2025b), and further developed to the two-arm single-stage
-setting by (Kelter 2026).
+The underlying statistical theory is developed in
+(**kelter_third_2025?**), extended to the single-arm two-stage optimal
+setting by (**kelter_two_stage_2025?**), and further developed to the
+two-arm single-stage setting by (**kelter_power_2026?**).
 
 The package covers:
 
@@ -172,15 +172,3 @@ detail the process of calculating an optimal design in this setting:
     futility. Again, a treatment and control group are assumed.
 
 ## References
-
-Kelter, Riko. 2026. *Power and Sample Size Calculations for Bayes
-Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
-<https://arxiv.org/abs/2603.01715>.
-
-Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
-Calculations for Bayes Factors in the Binomial Setting*.
-<https://arxiv.org/abs/2502.02914>.
-
-Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
-Design for Clinical Phase II Trials Based on Bayes Factors*.
-<https://arxiv.org/abs/2511.23144>.

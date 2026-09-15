@@ -131,6 +131,8 @@ Two-stage (optimal) two-arm designs:
   : Convert a one-stage single-arm BF design to a data frame
 - [`as.data.frame(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_rope_twostage_design.md)
   : Convert candidates to a data frame
+- [`check_feasibility_rope()`](https://rikokelter.github.io/bfbin2arm/reference/check_feasibility_rope.md)
+  : Check asymptotic feasibility of a ROPE-based design
 - [`coef(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/coef.singlearm_rope_twostage_design.md)
   : Extract design coefficients
 - [`design_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.md)
@@ -141,8 +143,17 @@ Two-stage (optimal) two-arm designs:
   : Calibrate a one-stage single-arm ROPE design for a binomial endpoint
 - [`design_singlearm_twostage_rope()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope.md)
   : Calibrate an optimal single-arm two-stage ROPE design
+- [`design_singlearm_twostage_rope_equiv()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope_equiv.md)
+  : Calibrate a two-stage ROPE equivalence design
+- [`design_singlearm_twostage_rope_ni()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope_ni.md)
+  : Calibrate a two-stage ROPE non-inferiority design
+- [`design_singlearm_twostage_rope_sup()`](https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope_sup.md)
+  : Calibrate a two-stage ROPE superiority design
 - [`design_twoarm_onestage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_bf.md)
   : Design or evaluate a one-stage two-arm Bayes factor trial
+- [`design_twoarm_onestage_rope()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_rope.md)
+  : Calibrate a one-stage two-arm ROPE equivalence design for binary
+  endpoints
 - [`design_twoarm_twostage_bf()`](https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.md)
   : Design an optimal two-stage two-arm Bayes factor trial
 - [`.sustained_singlearm_feasibility()`](https://rikokelter.github.io/bfbin2arm/reference/dot-sustained_singlearm_feasibility.md)
@@ -157,6 +168,8 @@ Two-stage (optimal) two-arm designs:
   : Optimal two-stage two-arm Bayes-factor design for binary endpoints
 - [`optimal_twostage_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_singlearm_bf.md)
   : Optimal two-stage single-arm Bayes factor design
+- [`plot(`*`<bfbin2armrope2armdesign>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.bfbin2armrope2armdesign.md)
+  : Plot a two-arm one-stage ROPE equivalence design
 - [`plot(`*`<singlearm_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_bf_design.md)
   : Plot a single-arm Bayes factor design
 - [`plot(`*`<singlearm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_onestage_bf_design.md)

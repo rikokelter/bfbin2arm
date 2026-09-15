@@ -54,7 +54,7 @@ These play different roles and should not be confused.
 ### Analysis prior
 
 The Bayes factor itself is computed using an analysis prior under
-$`H_1`$. In the notation of (Kelter and Pawel 2025a), this prior is
+$`H_1`$. In the notation of (**kelter_third_2025?**), this prior is
 
 ``` math
 p \mid H_1 \sim \mathrm{Beta}(a_a, b_a),
@@ -223,7 +223,7 @@ same threshold for futility and compelling evidence.
 
 We consider a single-arm phase II trial with null response probability
 $`p_0 = 0.2`$ in the context of nonsmall cell lung cancer, for details
-see (Kelter and Pawel 2025a). Evidence is quantified through the Bayes
+see (**kelter_third_2025?**). Evidence is quantified through the Bayes
 factor $`BF_{01}`$, with a small threshold $`k < 1`$ for efficacy and a
 large threshold $`k_f > 1`$ for futility. Thus, we first use the
 two-sided test of $`H_0:p_1=p_2`$ versus $`H_1:p_1 \neq p_2`$.
@@ -644,8 +644,8 @@ H_0: p \le p_0
 H_1: p > p_0,
 ```
 
-with $`p_0 = 0.2`$, as considered in (Kelter and Pawel 2025a) and
-(Kelter and Pawel 2025b). In the implementation, this is obtained by
+with $`p_0 = 0.2`$, as considered in (**kelter_third_2025?**) and
+(**kelter_two_stage_2025?**). In the implementation, this is obtained by
 setting `type = "direction"`.
 
 As before, `da = 2.5` and `db = 2` specify the slightly informative
@@ -958,11 +958,3 @@ operating characteristics first and to choose targets and priors that
 are both scientifically plausible and jointly achievable.
 
 ## References
-
-Kelter, Riko, and Samuel Pawel. 2025a. *Bayesian Power and Sample Size
-Calculations for Bayes Factors in the Binomial Setting*.
-<https://arxiv.org/abs/2502.02914>.
-
-Kelter, Riko, and Samuel Pawel. 2025b. *The Bayesian Optimal Two-Stage
-Design for Clinical Phase II Trials Based on Bayes Factors*.
-<https://arxiv.org/abs/2511.23144>.

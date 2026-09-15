@@ -22,13 +22,18 @@
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_onestage_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/as.data.frame.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/bfbin2arm.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/check_feasibility_rope.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/coef.singlearm_rope_twostage_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/compute_freq_twostage_oc_2arm.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_onestage_rope.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope_equiv.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope_ni.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_singlearm_twostage_rope_sup.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_bf.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_onestage_rope.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/design_twoarm_twostage_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/dot-sustained_singlearm_feasibility.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/freq_oc_twostage_twoarm_fixed.html</loc></url>
@@ -40,6 +45,7 @@
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/optimal_onestage_twoarm_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_2arm_bf.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_singlearm_bf.html</loc></url>
+<url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.bfbin2armrope2armdesign.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_onestage_bf_design.html</loc></url>
 <url><loc>https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_rope_twostage_design.html</loc></url>
