@@ -509,14 +509,14 @@ Needed in Bayesian Clinical Trial Designs?* arXiv:2312.15222. arXiv.
 <https://doi.org/10.48550/arXiv.2312.15222>.
 
 Grieve, Andrew P. 2016. “Idle Thoughts of a ’Well-Calibrated’ Bayesian
-in Clinical Drug Development.” *Pharm. Stat.* 15 (2): 96–108.
-<https://doi.org/10.1002/PST.1736>.
+in Clinical Drug Development.” *Pharmaceutical Statistics* 15 (2):
+96–108. <https://doi.org/10.1002/PST.1736>.
 
 Grieve, Andrew P. 2022. *Hybrid Frequentist/Bayesian Power and Bayesian
 Power in Planning and Clinical Trials*. Chapman & Hall, CRC Press.
 
 Guo, Mengye, and Daniel F. Heitjan. 2010. “Multiplicity-Calibrated
-Bayesian Hypothesis Tests.” *Biostat. Oxf. Engl.* 11 (3): 473–83.
+Bayesian Hypothesis Tests.” *Biostatistics* 11 (3): 473–83.
 <https://doi.org/10.1093/biostatistics/kxq012>.
 
 Lopez-Rey, Borja G., Gerard Carot-Sans, Dan Ouchi, Ferran Torres, and
@@ -526,26 +526,24 @@ Trials: A Cross-Sectional Analysis.” *Front. Pharmacol.* 16.
 
 Macrì Demartino, Roberto, Leonardo Egidi, Nicola Torelli, and Ioannis
 Ntzoufras. 2025. “Eliciting Prior Information from Clinical Trials via
-Calibrated Bayes Factor.” *Comput. Stat. Data Anal.* 209: 108180.
-<https://doi.org/10.1016/j.csda.2025.108180>.
+Calibrated Bayes Factor.” *Computational Statistics & Data Analysis*
+209: 108180. <https://doi.org/10.1016/j.csda.2025.108180>.
 
 Marks, Yanara, Jessie Cunningham, Arlene Jiang, et al. 2026. “A
 Systematic Review of Sample Size Determination in Bayesian Randomized
-Clinical Trials: Full Bayesian Methods Are Rarely Used.” *BMC Med. Res.
-Methodol.*, ahead of print.
-<https://doi.org/10.1186/s12874-026-02854-9>.
+Clinical Trials: Full Bayesian Methods Are Rarely Used.” *BMC Med Res
+Methodol*, ahead of print. <https://doi.org/10.1186/s12874-026-02854-9>.
 
 Muehlemann, Natalia, Tianjian Zhou, Rajat Mukherjee, Munshi Imran
 Hossain, Satrajit Roychoudhury, and Estelle Russek-Cohen. 2023. “A
-Tutorial on Modern Bayesian Methods in Clinical Trials.” *Ther. Innov.
-Regul. Sci.* 57 (3): 402–16.
-<https://doi.org/10.1007/s43441-023-00515-3>.
+Tutorial on Modern Bayesian Methods in Clinical Trials.” *Ther Innov
+Regul Sci* 57 (3): 402–16. <https://doi.org/10.1007/s43441-023-00515-3>.
 
 Ryan, Elizabeth G., Kristian Brock, Simon Gates, and Daniel Slade. 2020.
 “Do We Need to Adjust for Interim Analyses in a Bayesian Adaptive Trial
-Design?” *BMC Med. Res. Methodol.* 20 (1).
+Design?” *BMC Medical Research Methodology* 20 (1).
 <https://doi.org/10.1186/S12874-020-01042-7>.
 
 Shi, Haolun, and Guosheng Yin. 2019. “Control of Type I Error Rates in
-Bayesian Sequential Designs.” *Bayesian Anal.* 14 (2): 399–425.
+Bayesian Sequential Designs.” *Bayesian Analysis* 14 (2): 399–425.
 <https://doi.org/10.1214/18-BA1109>.

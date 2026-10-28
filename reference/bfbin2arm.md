@@ -17,8 +17,6 @@ Useful links:
 
 - <https://rikokelter.github.io/bfbin2arm/>
 
-- <https://github.com/rikokelter/bfbin2arm>
-
 - <https://arxiv.org/abs/2511.23144>
 
 - <https://arxiv.org/abs/2603.01715>
@@ -26,8 +24,6 @@ Useful links:
 - <https://arxiv.org/abs/2502.02914>
 
 - <https://arxiv.org/abs/2606.02410>
-
-- <https://rikokelter.github.io/bfbin2arm/>
 
 ## Author
 

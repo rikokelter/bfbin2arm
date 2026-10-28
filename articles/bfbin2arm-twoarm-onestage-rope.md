@@ -2331,11 +2331,11 @@ Hercogová, J., K. A. Papp, V. Chyrok, M. Ullmann, P. Vlachos, and C. J.
 Edwards. 2020. “AURIEL-PsO: A Randomized, Double-Blind Phase III
 Equivalence Trial to Demonstrate the Clinical Similarity of the Proposed
 Biosimilar MSB11022 to Reference Adalimumab in Patients with
-Moderate-to-Severe Chronic Plaque-Type Psoriasis.” *Br. J. Dermatol.*
-182 (2): 316–26. <https://doi.org/10.1111/bjd.18220>.
+Moderate-to-Severe Chronic Plaque-Type Psoriasis.” *Br J Dermatol* 182
+(2): 316–26. <https://doi.org/10.1111/bjd.18220>.
 
 Luterman, Maynard, Guy Tellier, Benjamin Lasko, and Bruno Leroy. 2003.
 “[Efficacy and Tolerability of Telithromycin for 5 or 10 Days Vs
 Amoxicillin/Clavulanic Acid for 10 Days in Acute Maxillary
-Sinusitis](https://www.ncbi.nlm.nih.gov/pubmed/14503094).” *Ear. Nose.
-Throat J.* 82 (8): 576–80, 82–84, 586 passim.
+Sinusitis](https://www.ncbi.nlm.nih.gov/pubmed/14503094).” *Ear Nose
+Throat J* 82 (8): 576–80, 82–84, 586 passim.

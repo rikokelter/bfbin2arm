@@ -2,6 +2,9 @@
 
 ### All vignettes
 
+- [Calibrated Bayesian One-Sample and Paired t-Tests for Continuous
+  Endpoints in Clinical
+  Trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-calibrated-bayesian-t-tests.md):
 - [Clinical trial designs in
   bfbin2arm](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-overview.md):
 - [Frequentist and hybrid calibration of one-stage ROPE-based designs
@@ -26,9 +29,14 @@
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-onestage.md):
 - [Optimal Bayesian calibration for single-arm two-stage Bayes factor
   designs](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-twostage_bayesian.md):
+- [Two-stage ROPE designs for single-arm non-inferiority and superiority
+  trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-twostage-rope-ni-superiority.md):
 - [Bayesian calibration of two-arm one-stage Bayes factor designs with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm_onestage_Bayesian.md):
+- [Power and Sample Size Calculations for ROPE-based Non-Inferiority and
+  Superiority Tests in Two-arm Clinical Trials with binary
+  Endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm-onestage-rope-ni-superiority.md):
 - [Bayesian calibration of two-arm one-stage ROPE designs with binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm-onestage-rope.md):
 - [Optimal Bayesian calibration of two-arm two-stage Bayes factor

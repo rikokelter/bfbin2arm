@@ -4,11 +4,10 @@
 
 In this vignette, we illustrate how to calibrate a two-arm one stage
 phase II design with binary endpoints from a Bayesian perspective.
-Details on the methodology can be found in (**kelter_power_2026?**). Our
-main assumption here is that the observed data in both groups are from
-two random variables $`Y_1,Y_2`$ which both follow a binomial
-distribution with parameters $`n_1`$ and $`n_2`$ and $`p_1`$
-respectively $`p_2`$,
+Details on the methodology can be found in (Kelter 2026). Our main
+assumption here is that the observed data in both groups are from two
+random variables $`Y_1,Y_2`$ which both follow a binomial distribution
+with parameters $`n_1`$ and $`n_2`$ and $`p_1`$ respectively $`p_2`$,
 ``` math
 Y_1\sim \mathrm{Bin}(n_1,p_1), \hspace{1cm} Y_2\sim \mathrm{Bin}(n_2,p_2)
 ```
@@ -993,8 +992,12 @@ Further details on the methodology can be found in
 
 ### References
 
+Kelter, Riko. 2026. *Power and Sample Size Calculations for Bayes
+Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
+arXiv preprint. <https://doi.org/10.48550/arXiv.2603.01715>.
+
 Wen, Patrick Y., David A. Reardon, Terri S. Armstrong, et al. 2019. “A
 Randomized Double-Blind Placebo-Controlled Phase II Trial of Dendritic
 Cell Vaccine ICT-107 in Newly Diagnosed Patients with Glioblastoma.”
-*Clin. Cancer Res. Off. J. Am. Assoc. Cancer Res.* 25 (19): 5799–807.
+*Clin Cancer Res* 25 (19): 5799–807.
 <https://doi.org/10.1158/1078-0432.CCR-19-0261>.

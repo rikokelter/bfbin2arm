@@ -1750,7 +1750,7 @@ preprint.
 Khanna, Dinesh, Yannick Allanore, Christopher P. Denton, et al. 2020.
 “Riociguat in Patients with Early Diffuse Cutaneous Systemic Sclerosis
 (RISE-SSc): Randomised, Double-Blind, Placebo-Controlled Multicentre
-Trial.” *Ann. Rheum. Dis.* 79 (5): 618–25.
+Trial.” *Annals of the Rheumatic Diseases* 79 (5): 618–25.
 <https://doi.org/10.1136/annrheumdis-2019-216823>.
 
 U.S. Department of Health and Human Services Food and Drug

@@ -2,6 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  bfbin2arm-calibrated-bayesian-t-tests: bfbin2arm-calibrated-bayesian-t-tests.html
   bfbin2arm-overview: bfbin2arm-overview.html
   articles/bfbin2arm-rope-singlearm-onestage-calibration: bfbin2arm-rope-singlearm-onestage-calibration.html
   articles/bfbin2arm-rope-singlearm-onestage-design: bfbin2arm-rope-singlearm-onestage-design.html
@@ -11,10 +12,12 @@ articles:
   bfbin2arm-singlearm_twostage_hybrid: bfbin2arm-singlearm_twostage_hybrid.html
   bfbin2arm-singlearm-onestage: bfbin2arm-singlearm-onestage.html
   bfbin2arm-singlearm-twostage_bayesian: bfbin2arm-singlearm-twostage_bayesian.html
+  articles/bfbin2arm-singlearm-twostage-rope-ni-superiority: bfbin2arm-singlearm-twostage-rope-ni-superiority.html
   bfbin2arm-twoarm_onestage_Bayesian: bfbin2arm-twoarm_onestage_Bayesian.html
+  articles/bfbin2arm-twoarm-onestage-rope-ni-superiority: bfbin2arm-twoarm-onestage-rope-ni-superiority.html
   articles/bfbin2arm-twoarm-onestage-rope: bfbin2arm-twoarm-onestage-rope.html
   bfbin2arm-twoarm-twostage_Bayesian: bfbin2arm-twoarm-twostage_Bayesian.html
-last_built: 2026-09-15T10:43Z
+last_built: 2026-10-28T12:11Z
 urls:
   reference: https://rikokelter.github.io/bfbin2arm/reference
   article: https://rikokelter.github.io/bfbin2arm/articles
