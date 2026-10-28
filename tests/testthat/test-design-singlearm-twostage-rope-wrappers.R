@@ -1,4 +1,5 @@
 test_that("two-stage ROPE wrappers set the intended direction", {
+  skip_unless_slow_tests()
   common_args <- list(
     p0 = 0.30,
     delta = 0.10,
@@ -23,6 +24,7 @@ test_that("two-stage ROPE wrappers set the intended direction", {
 })
 
 test_that("superiority wrapper matches generic constructor", {
+  skip_unless_slow_tests()
   args <- list(
     p0 = 0.30,
     delta = 0.10,

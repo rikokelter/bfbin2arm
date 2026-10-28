@@ -32,3 +32,9 @@ history_database/
 .DS_Store
 .quarto
 docs
+
+cat >> .gitignore <<'EOF'
+
+# Automatically generated knitr caches
+/vignettes/*_cache/
+EOF

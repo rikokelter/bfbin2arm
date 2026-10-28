@@ -38,7 +38,7 @@ The `bfbin2arm` package implements Bayes-factor-based power and sample size
 calculations for binomial endpoints, with a focus on early-phase clinical trials, in particular, phase II trials.
 The central idea is to replace Monte Carlo simulation by fast numerical
 calculations of design operating characteristics, both in fixed-sample and
-two-stage settings. The underlying statistical theory is developed in [@kelter_third_2025], extended to the single-arm two-stage optimal setting by [@kelter_two_stage_2025], and further developed to the two-arm single-stage setting by [@kelter_power_2026].
+two-stage settings. The underlying statistical theory is developed in [@KelterPawel2025], extended to the single-arm two-stage optimal setting by [@KelterPawelTwoStage2025], and further developed to the two-arm single-stage setting by [@kelterTwoArmSingleStage2026].
 
 The package covers:
 

@@ -1,4 +1,5 @@
 test_that("two-stage equivalence calibration remains unchanged", {
+  skip_unless_slow_tests()
   fit <- design_singlearm_twostage_rope(
     p0 = 0.30,
     delta = 0.10,
@@ -29,6 +30,7 @@ test_that("two-stage equivalence calibration remains unchanged", {
 
 
 test_that("two-stage noninferiority calibration is feasible", {
+  skip_unless_slow_tests()
   fit <- design_singlearm_twostage_rope(
     p0 = 0.30,
     delta = 0.10,
@@ -59,6 +61,7 @@ test_that("two-stage noninferiority calibration is feasible", {
 
 
 test_that("two-stage superiority calibration is feasible", {
+  skip_unless_slow_tests()
   fit <- design_singlearm_twostage_rope(
     p0 = 0.30,
     delta = 0.10,
@@ -88,6 +91,7 @@ test_that("two-stage superiority calibration is feasible", {
 })
 
 test_that("S3 methods retain the selected ROPE direction", {
+  skip_unless_slow_tests()
   fit <- design_singlearm_twostage_rope(
     p0 = 0.30,
     delta = 0.10,

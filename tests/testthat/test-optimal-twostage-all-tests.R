@@ -1,4 +1,5 @@
 test_that("optimal_twostage_2arm_bf behaves sensibly for all supported Bayes factor tests", {
+  skip_unless_slow_tests()
   skip_on_cran()
   
   test_opts <- c("BF01", "BF+0", "BF-0", "BF+-")
