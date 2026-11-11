@@ -1948,7 +1948,7 @@ available.</p>
 caching avoids repeating them when the inputs have not changed. When
 working with a locally modified package, invalidate the cache after
 changing its numerical implementation.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>nadim_sensitivity_designs <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;/Users/riko/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadim_sensitivity_designs.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>nadim_sensitivity_designs <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;nadim_sensitivity_designs.rds&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>nadim_sensitivity_designs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
 <span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(nadim_sensitivity_scenarios))) {</span>

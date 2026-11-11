@@ -910,7 +910,7 @@ sdc_calibrate <- function(
 ```
 
 ```{r}
-sdc_designs <- readRDS("~/iCloud/Documents/bfbin2arm/vignettes/sdc_designs.rds")
+sdc_designs <- readRDS("sdc_designs.rds")
 ```
 ```{r sdc-calibration-modes, eval = FALSE}
 sdc_modes <- c("frequentist", "Bayesian", "hybrid", "full")
