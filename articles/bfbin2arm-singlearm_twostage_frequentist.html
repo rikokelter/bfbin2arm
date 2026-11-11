@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-onestage.html">Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-twostage_bayesian.html">Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-twostage-rope-ni-superiority.html">Two-stage ROPE designs for single-arm non-inferiority and superiority trials</a></li>
+    <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm_onestage_Bayesian_twosided.html">Power and Sample Size Calculations for two-sided Bayes Factors in two-arm clinical Phase II Trials with binary Endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm_onestage_Bayesian.html">Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm-onestage-rope-ni-superiority.html">Power and Sample Size Calculations for ROPE-based Non-Inferiority and Superiority Tests in Two-arm Clinical Trials with binary Endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm-onestage-rope.html">Bayesian calibration of two-arm one-stage ROPE designs with binary endpoints</a></li>
@@ -80,7 +81,7 @@ Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine, University of Cologne<br>
 Cologne, Germany</p>
             
-            <h4 data-toc-skip class="date">28 October 2026</h4>
+            <h4 data-toc-skip class="date">11 November 2026</h4>
       
 
       <div class="d-none name"><code>bfbin2arm-singlearm_twostage_frequentist.Rmd</code></div>
@@ -102,7 +103,7 @@ H_0 : p \leq p_0, \text{ versus } H_1 : p &gt; p_0,
 </annotation></semantics></math></p>
 <p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>0</mn></msub><annotation encoding="application/x-tex">p_0</annotation></semantics></math>
-is a benchmark response probability, compare <span class="citation">(<strong>kelter_third_2025?</strong>)</span>.</p>
+is a benchmark response probability, compare <span class="citation">(Kelter and Pawel 2025)</span>.</p>
 <p>The decision rule is based on the Bayes factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">BF_{01}</annotation></semantics></math>
 for
@@ -383,7 +384,8 @@ is at or above <code>target_freq_power</code>.</li>
 constraints, the selected design minimizes the expected sample size
 under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.
-Details are also provided in <span class="citation">(<strong>kelter_two_stage_2025?</strong>)</span>.</li>
+Details are also provided in <span class="citation">(Kelter and Pawel
+2025)</span>.</li>
 </ul>
 <p>The Bayesian operating characteristics are still reported, but they
 do not drive the calibration; they serve as additional information about
@@ -410,9 +412,16 @@ small type-I error can be incompatible with tight sample size
 bounds.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-KelterPawelTwoStage2025" class="csl-entry">
+Kelter, Riko, and Samuel Pawel. 2025. <em>The <span>Bayesian</span>
+Optimal Two-Stage Design for Clinical Phase <span>II</span> Trials Based
+on <span>Bayes</span> Factors</em>. arXiv preprint. <a href="https://doi.org/10.48550/arXiv.2511.23144" class="external-link">https://doi.org/10.48550/arXiv.2511.23144</a>.
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

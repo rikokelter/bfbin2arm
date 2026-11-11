@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-onestage.html">Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-twostage_bayesian.html">Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-twostage-rope-ni-superiority.html">Two-stage ROPE designs for single-arm non-inferiority and superiority trials</a></li>
+    <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm_onestage_Bayesian_twosided.html">Power and Sample Size Calculations for two-sided Bayes Factors in two-arm clinical Phase II Trials with binary Endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm_onestage_Bayesian.html">Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm-onestage-rope-ni-superiority.html">Power and Sample Size Calculations for ROPE-based Non-Inferiority and Superiority Tests in Two-arm Clinical Trials with binary Endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm-onestage-rope.html">Bayesian calibration of two-arm one-stage ROPE designs with binary endpoints</a></li>
@@ -79,7 +80,7 @@ Faculty of Medicine<br>
 University of Cologne<br>
 Cologne, Germany</div></h4>
             
-            <h4 data-toc-skip class="date">28 October 2026</h4>
+            <h4 data-toc-skip class="date">11 November 2026</h4>
       
 
       <div class="d-none name"><code>bfbin2arm-twoarm_onestage_Bayesian.Rmd</code></div>
@@ -211,7 +212,7 @@ assume further that one of the four tests detailed above is carried out
 using Bayes factors as the test criterion.</p>
 </div>
 <div class="section level2">
-<h2 id="ict-107-phase-ii-trial-overview">ICT-107 Phase II Trial Overview<a class="anchor" aria-label="anchor" href="#ict-107-phase-ii-trial-overview"></a>
+<h2 id="clinical-example-1-the-ict-107-glioblastoma-phase-ii-trial">Clinical Example 1: The ICT-107 glioblastoma phase II Trial<a class="anchor" aria-label="anchor" href="#clinical-example-1-the-ict-107-glioblastoma-phase-ii-trial"></a>
 </h2>
 <p>The ICT-107 trial <span class="citation">(Wen et al. 2019)</span> was
 a randomized phase II study in newly diagnosed glioblastoma patients
@@ -1090,6 +1091,1249 @@ under consideration.</p>
 patients in the control arm and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>55</mn></mrow><annotation encoding="application/x-tex">n_2=55</annotation></semantics></math>
 in the treatment arm are enrolled in the trial.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="clinical-example-2-adjuvant-therapy-for-salivary-duct-carcinoma">Clinical Example 2: Adjuvant therapy for salivary duct
+carcinoma<a class="anchor" aria-label="anchor" href="#clinical-example-2-adjuvant-therapy-for-salivary-duct-carcinoma"></a>
+</h2>
+<p>Consider a prospective, multicentre, randomized two-arm phase II
+study in patients with salivary duct carcinoma.</p>
+<ul>
+<li>Control: surgery followed by adjuvant radiotherapy.</li>
+<li>Experimental: surgery followed by adjuvant radiotherapy and targeted
+systemic hormonal therapy.</li>
+</ul>
+<p>The primary endpoint is disease-free survival (DFS) at three years,
+coded as a binary success when the participant is alive and disease-free
+at that time. The motivating retrospective estimates are 27.7% under
+radiotherapy alone and 48.2% under radiotherapy plus an older hormonal
+agent. For the proposed intervention, the illustrative planning
+assumption is 55% under experimental treatment.</p>
+<p>The retrospective estimates motivate the planning scenario; they are
+not treated as additional observations in the analysis prior. The
+anticipated 55% rate is an assumption about the newer intervention and
+should be examined in sensitivity analyses.</p>
+<p>This example concerns salivary duct carcinoma. If the intended
+population is instead a different tongue or oral-cavity cancer
+population, the historical estimates and planning assumptions need to be
+reconsidered.</p>
+<div class="section level3">
+<h3 id="endpoint-interpretation-and-hypotheses">Endpoint interpretation and hypotheses<a class="anchor" aria-label="anchor" href="#endpoint-interpretation-and-hypotheses"></a>
+</h3>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>C</mi></msub><annotation encoding="application/x-tex">p_C</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>E</mi></msub><annotation encoding="application/x-tex">p_E</annotation></semantics></math>
+denote the probabilities of known disease-free status at three years
+under control and experimental treatment. We compare</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mo>−</mo></msub><mo>:</mo><msub><mi>p</mi><mi>E</mi></msub><mo>≤</mo><msub><mi>p</mi><mi>C</mi></msub><mspace width="2.0em"></mspace><mtext mathvariant="normal">versus</mtext><mspace width="2.0em"></mspace><msub><mi>H</mi><mo>+</mo></msub><mo>:</mo><msub><mi>p</mi><mi>E</mi></msub><mo>&gt;</mo><msub><mi>p</mi><mi>C</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+  H_-:p_E\leq p_C
+  \qquad\text{versus}\qquad
+  H_+:p_E&gt;p_C.
+</annotation></semantics></math></p>
+<p>The planning alternative is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>C</mi></msub><mo>,</mo><msub><mi>p</mi><mi>E</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0.277</mn><mo>,</mo><mn>0.550</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+  (p_C,p_E)=(0.277,0.550).
+</annotation></semantics></math></p>
+<p>The frequentist targets are at least 80% power at this alternative
+and type-I error no larger than 5% over the composite null. These are
+operating characteristics of the directional Bayes-factor rule, not a
+conventional test substituted for that rule.</p>
+<p>A binomial analysis requires ascertainment of three-year status.
+Participants censored before three years without an event have unknown
+binary status. Recruitment inflation alone does not resolve potential
+missing-status bias. If the intended primary analysis uses censoring and
+event times, a survival-analysis design calculation is needed
+instead.</p>
+</div>
+<div class="section level3">
+<h3 id="fixed-thresholds-and-prior-specifications">Fixed thresholds and prior specifications<a class="anchor" aria-label="anchor" href="#fixed-thresholds-and-prior-specifications"></a>
+</h3>
+<p>Write</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>−</mi><mo>+</mo></mrow></msub><mo>=</mo><mfrac><mrow><msub><mi>m</mi><mo>−</mo></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mi>C</mi></msub><mo>,</mo><msub><mi>Y</mi><mi>E</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msub><mi>m</mi><mo>+</mo></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mi>C</mi></msub><mo>,</mo><msub><mi>Y</mi><mi>E</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+  B_{-+}=\frac{m_-(Y_C,Y_E)}{m_+(Y_C,Y_E)}.
+</annotation></semantics></math></p>
+<p>Evidence for benefit is declared when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>−</mi><mo>+</mo></mrow></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mn>20</mn></mrow><annotation encoding="application/x-tex">B_{-+}&lt;1/20</annotation></semantics></math>,
+corresponding to greater than 20:1 evidence for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>+</mo></msub><annotation encoding="application/x-tex">H_+</annotation></semantics></math>.
+This threshold remains fixed during sample-size calibration.</p>
+<p>For null-side evidence, we use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">k_f=10</annotation></semantics></math>,
+so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mrow><mi>−</mi><mo>+</mo></mrow></msub><mo>&gt;</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">B_{-+}&gt;10</annotation></semantics></math>
+represents greater than tenfold evidence for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>.
+Its probability is initially reported but not constrained.</p>
+<p>Uniform beta basis densities are used for the analysis priors,
+truncated and normalized on the respective directional regions.
+Design-prior concentration 20 is illustrative, not estimated from the
+two retrospective percentages. The beta parameters below describe basis
+distributions before truncation; their means are not generally the
+marginal means after directional truncation.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_pC</span> <span class="op">&lt;-</span> <span class="fl">0.277</span></span>
+<span><span class="va">sdc_pE</span> <span class="op">&lt;-</span> <span class="fl">0.550</span></span>
+<span></span>
+<span><span class="va">sdc_alpha</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
+<span><span class="va">sdc_power_target</span> <span class="op">&lt;-</span> <span class="fl">0.80</span></span>
+<span></span>
+<span><span class="va">sdc_k</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">20</span></span>
+<span><span class="va">sdc_k_f</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="va">sdc_n_max</span> <span class="op">&lt;-</span> <span class="fl">240L</span></span>
+<span><span class="va">sdc_dropout</span> <span class="op">&lt;-</span> <span class="fl">0.10</span></span>
+<span></span>
+<span><span class="va">sdc_ess_plus</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span><span class="va">sdc_ess_minus</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span></span>
+<span><span class="va">sdc_grid_coarse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.02</span><span class="op">)</span>,</span>
+<span>  <span class="va">sdc_pC</span>,</span>
+<span>  <span class="fl">0.50</span></span>
+<span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_grid_fine</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.005</span><span class="op">)</span>,</span>
+<span>  <span class="va">sdc_pC</span>,</span>
+<span>  <span class="fl">0.50</span></span>
+<span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_bf_args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
+<span>  k <span class="op">=</span> <span class="va">sdc_k</span>,</span>
+<span>  k_f <span class="op">=</span> <span class="va">sdc_k_f</span>,</span>
+<span></span>
+<span>  a_0_d <span class="op">=</span> <span class="fl">1</span>, b_0_d <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_0_a <span class="op">=</span> <span class="fl">1</span>, b_0_a <span class="op">=</span> <span class="fl">1</span>,</span>
+<span></span>
+<span>  <span class="co"># Basis distributions for planning under H+.</span></span>
+<span>  a_1_d <span class="op">=</span> <span class="va">sdc_ess_plus</span> <span class="op">*</span> <span class="va">sdc_pC</span>,</span>
+<span>  b_1_d <span class="op">=</span> <span class="va">sdc_ess_plus</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sdc_pC</span><span class="op">)</span>,</span>
+<span>  a_2_d <span class="op">=</span> <span class="va">sdc_ess_plus</span> <span class="op">*</span> <span class="va">sdc_pE</span>,</span>
+<span>  b_2_d <span class="op">=</span> <span class="va">sdc_ess_plus</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sdc_pE</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Uniform analysis basis distributions under H+.</span></span>
+<span>  a_1_a <span class="op">=</span> <span class="fl">1</span>, b_1_a <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_2_a <span class="op">=</span> <span class="fl">1</span>, b_2_a <span class="op">=</span> <span class="fl">1</span>,</span>
+<span></span>
+<span>  <span class="co"># Basis distributions for planning under H-.</span></span>
+<span>  a_1_d_Hminus <span class="op">=</span> <span class="va">sdc_ess_minus</span> <span class="op">*</span> <span class="va">sdc_pC</span>,</span>
+<span>  b_1_d_Hminus <span class="op">=</span> <span class="va">sdc_ess_minus</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sdc_pC</span><span class="op">)</span>,</span>
+<span>  a_2_d_Hminus <span class="op">=</span> <span class="va">sdc_ess_minus</span> <span class="op">*</span> <span class="va">sdc_pC</span>,</span>
+<span>  b_2_d_Hminus <span class="op">=</span> <span class="va">sdc_ess_minus</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sdc_pC</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Uniform analysis basis distributions under H-.</span></span>
+<span>  a_1_a_Hminus <span class="op">=</span> <span class="fl">1</span>, b_1_a_Hminus <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_2_a_Hminus <span class="op">=</span> <span class="fl">1</span>, b_2_a_Hminus <span class="op">=</span> <span class="fl">1</span>,</span>
+<span></span>
+<span>  p1_power <span class="op">=</span> <span class="va">sdc_pC</span>,</span>
+<span>  p2_power <span class="op">=</span> <span class="va">sdc_pE</span>,</span>
+<span></span>
+<span>  p1_grid <span class="op">=</span> <span class="va">sdc_grid_coarse</span>,</span>
+<span>  p2_grid <span class="op">=</span> <span class="va">sdc_grid_coarse</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"bfbin2arm"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] '0.1.8'</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="four-calibration-modes">Four calibration modes<a class="anchor" aria-label="anchor" href="#four-calibration-modes"></a>
+</h3>
+<p>We hold the priors, thresholds, requested equal allocation, and
+search range fixed and change only the active operating-characteristic
+requirements.</p>
+<ul>
+<li>Frequentist: frequentist power and type-I error.</li>
+<li>Bayesian: predictive power and predictive type-I error.</li>
+<li>Hybrid: predictive power and frequentist type-I error.</li>
+<li>Full: both power definitions and both type-I-error definitions.</li>
+</ul>
+<p>No sustained-feasibility requirement is imposed in this example:
+<code>sustain_n = 0</code>. Selected sizes are therefore pointwise
+minima within the package’s search, rather than minima satisfying a
+forward window.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_calibrate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
+<span>    <span class="va">mode</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frequentist"</span>, <span class="st">"Bayesian"</span>, <span class="st">"hybrid"</span>, <span class="st">"full"</span><span class="op">)</span>,</span>
+<span>    <span class="va">pce_target</span> <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    <span class="va">n_max</span> <span class="op">=</span> <span class="va">sdc_n_max</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">mode</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg</a></span><span class="op">(</span><span class="va">mode</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">targets</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html" class="external-link">switch</a></span><span class="op">(</span></span>
+<span>    <span class="va">mode</span>,</span>
+<span>    frequentist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      target_freq_power <span class="op">=</span> <span class="va">sdc_power_target</span>,</span>
+<span>      target_freq_type1 <span class="op">=</span> <span class="va">sdc_alpha</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    Bayesian <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      target_power <span class="op">=</span> <span class="va">sdc_power_target</span>,</span>
+<span>      target_type1 <span class="op">=</span> <span class="va">sdc_alpha</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    hybrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      target_power <span class="op">=</span> <span class="va">sdc_power_target</span>,</span>
+<span>      target_freq_type1 <span class="op">=</span> <span class="va">sdc_alpha</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    full <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      target_power <span class="op">=</span> <span class="va">sdc_power_target</span>,</span>
+<span>      target_type1 <span class="op">=</span> <span class="va">sdc_alpha</span>,</span>
+<span>      target_freq_power <span class="op">=</span> <span class="va">sdc_power_target</span>,</span>
+<span>      target_freq_type1 <span class="op">=</span> <span class="va">sdc_alpha</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span></span>
+<span>    <span class="fu">bfbin2arm</span><span class="fu">::</span><span class="va"><a href="../reference/design_twoarm_onestage_bf.html">design_twoarm_onestage_bf</a></span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="va">sdc_bf_args</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        n_min <span class="op">=</span> <span class="fl">20L</span>,</span>
+<span>        n_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">n_max</span><span class="op">)</span>,</span>
+<span>        alloc1 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>        alloc2 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>        calibration <span class="op">=</span> <span class="va">mode</span>,</span>
+<span>        target_ce_h0 <span class="op">=</span> <span class="va">pce_target</span>,</span>
+<span>        sustain_n <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>        report_freq_type1 <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        algorithm <span class="op">=</span> <span class="st">"optimal"</span>,</span>
+<span>        progress <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="va">targets</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_designs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"sdc_designs.rds"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_modes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frequentist"</span>, <span class="st">"Bayesian"</span>, <span class="st">"hybrid"</span>, <span class="st">"full"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_designs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">sdc_modes</span>, <span class="va">sdc_calibrate</span><span class="op">)</span>,</span>
+<span>  <span class="va">sdc_modes</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">mode</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\n\n---"</span>, <span class="va">mode</span>, <span class="st">"calibration ---\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">[[</span><span class="va">mode</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">[[</span><span class="va">mode</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>--- frequentist calibration ---
+
+One-stage two-arm Bayes factor design
+------------------------------------
+Mode: optimal
+Status: Smallest feasible one-stage two-arm design found.
+Calibration: frequentist
+Optional freq. Type-I reporting: on
+Design: n_total = 82, n1 = 41, n2 = 41
+
+Operating characteristics
+ Power = 0.7290
+ Type-I error = 0.0098
+ CE(H0) = 0.4162
+ Freq. Type-I = 0.0485
+ Freq. Power = 0.8071
+
+Summary: One-stage two-arm Bayes factor design
+---------------------------------------------
+Mode:        optimal
+Status:      Smallest feasible one-stage two-arm design found.
+Calibration: frequentist
+Feasible:    yes
+
+Search overview
+  n evaluated          = 221
+  pointwise feasible   = 93
+  sustained feasible   = 93
+  first pointwise n    = 82
+  first sustained n    = 82
+
+Selected design
+  n_total = 82, n1 = 41, n2 = 41
+
+
+--- Bayesian calibration ---
+
+One-stage two-arm Bayes factor design
+------------------------------------
+Mode: optimal
+Status: Smallest feasible one-stage two-arm design found.
+Calibration: Bayesian
+Optional freq. Type-I reporting: on
+Design: n_total = 121, n1 = 60, n2 = 61
+
+Operating characteristics
+ Power = 0.8022
+ Type-I error = 0.0085
+ CE(H0) = 0.4854
+ Freq. Type-I = 0.0509
+ Freq. Power = 0.9231
+
+Summary: One-stage two-arm Bayes factor design
+---------------------------------------------
+Mode:        optimal
+Status:      Smallest feasible one-stage two-arm design found.
+Calibration: Bayesian
+Feasible:    yes
+
+Search overview
+  n evaluated          = 221
+  pointwise feasible   = 119
+  sustained feasible   = 119
+  first pointwise n    = 121
+  first sustained n    = 121
+
+Selected design
+  n_total = 121, n1 = 60, n2 = 61
+
+
+--- hybrid calibration ---
+
+One-stage two-arm Bayes factor design
+------------------------------------
+Mode: optimal
+Status: Smallest feasible one-stage two-arm design found.
+Calibration: hybrid
+Optional freq. Type-I reporting: on
+Design: n_total = 124, n1 = 62, n2 = 62
+
+Operating characteristics
+ Power = 0.8004
+ Type-I error = 0.0082
+ CE(H0) = 0.4901
+ Freq. Type-I = 0.0472
+ Freq. Power = 0.9224
+
+Summary: One-stage two-arm Bayes factor design
+---------------------------------------------
+Mode:        optimal
+Status:      Smallest feasible one-stage two-arm design found.
+Calibration: hybrid
+Feasible:    yes
+
+Search overview
+  n evaluated          = 221
+  pointwise feasible   = 70
+  sustained feasible   = 70
+  first pointwise n    = 124
+  first sustained n    = 124
+
+Selected design
+  n_total = 124, n1 = 62, n2 = 62
+
+
+--- full calibration ---
+
+One-stage two-arm Bayes factor design
+------------------------------------
+Mode: optimal
+Status: Smallest feasible one-stage two-arm design found.
+Calibration: full
+Optional freq. Type-I reporting: on
+Design: n_total = 124, n1 = 62, n2 = 62
+
+Operating characteristics
+ Power = 0.8004
+ Type-I error = 0.0082
+ CE(H0) = 0.4901
+ Freq. Type-I = 0.0472
+ Freq. Power = 0.9224
+
+Summary: One-stage two-arm Bayes factor design
+---------------------------------------------
+Mode:        optimal
+Status:      Smallest feasible one-stage two-arm design found.
+Calibration: full
+Feasible:    yes
+
+Search overview
+  n evaluated          = 221
+  pointwise feasible   = 70
+  sustained feasible   = 70
+  first pointwise n    = 124
+  first sustained n    = 124
+
+Selected design
+  n_total = 124, n1 = 62, n2 = 62</code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_design_row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">mode</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">feasible</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">feasible</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Exact named extraction from either a list or a named atomic vector.</span></span>
+<span>  <span class="va">extract_numeric</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">candidates</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="cn">NA_real_</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">available</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">available</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="cn">NA_real_</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">nm</span> <span class="kw">in</span> <span class="va">candidates</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">nm</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">available</span><span class="op">)</span> <span class="kw">next</span></span>
+<span></span>
+<span>      <span class="va">value</span> <span class="op">&lt;-</span> <span class="va">object</span><span class="op">[[</span><span class="va">nm</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span>      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="cn">NA_real_</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Calibration <span class="op">=</span> <span class="va">mode</span>,</span>
+<span>    Feasible <span class="op">=</span> <span class="va">feasible</span>,</span>
+<span>    N <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    Control <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    Experimental <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    Bayesian_power <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    Bayesian_T1E <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    Frequentist_power <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    Frequentist_T1E <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    PCE_Hminus <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>    stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">feasible</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">d</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[[</span><span class="st">"design"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">oc</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[[</span><span class="st">"operating_characteristics"</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">d</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n_total"</span>, <span class="st">"N"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">Control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">d</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n1"</span>, <span class="st">"n_control"</span>, <span class="st">"nC"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">Experimental</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">d</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n2"</span>, <span class="st">"n_experimental"</span>, <span class="st">"nE"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.finite</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">Control</span>, <span class="va">out</span><span class="op">$</span><span class="va">Experimental</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Cannot extract arm sizes for calibration '"</span>, <span class="va">mode</span>, <span class="st">"'. "</span>,</span>
+<span>      <span class="st">"Available design fields: "</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>,</span>
+<span>      call. <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="co"># If no separately stored total exists, obtain it from the arm sizes.</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.finite</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">N</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">out</span><span class="op">$</span><span class="va">N</span> <span class="op">&lt;-</span> <span class="va">out</span><span class="op">$</span><span class="va">Control</span> <span class="op">+</span> <span class="va">out</span><span class="op">$</span><span class="va">Experimental</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">N</span> <span class="op">!=</span> <span class="va">out</span><span class="op">$</span><span class="va">Control</span> <span class="op">+</span> <span class="va">out</span><span class="op">$</span><span class="va">Experimental</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span></span>
+<span>      <span class="st">"The reported total does not equal n1 + n2 for calibration '"</span>,</span>
+<span>      <span class="va">mode</span>, <span class="st">"'."</span>,</span>
+<span>      call. <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">Bayesian_power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">oc</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"power"</span>, <span class="st">"Power"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">Bayesian_T1E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">oc</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"type1"</span>, <span class="st">"Type1_Error"</span>, <span class="st">"Type1Error"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">Frequentist_power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">oc</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"freq_power"</span>, <span class="st">"Frequentist_Power"</span>, <span class="st">"FrequentistPower"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">Frequentist_T1E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">oc</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"freq_type1"</span>,</span>
+<span>      <span class="st">"Frequentist_Type1_Error"</span>,</span>
+<span>      <span class="st">"FrequentistType1Error"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span><span class="op">$</span><span class="va">PCE_Hminus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract_numeric.html" class="external-link">extract_numeric</a></span><span class="op">(</span></span>
+<span>    <span class="va">oc</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ce_h0"</span>, <span class="st">"CE_H0"</span>, <span class="st">"CEH0"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">out</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">sdc_calibration_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span></span>
+<span>  <span class="va">rbind</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">mode</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">sdc_design_row</span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">[[</span><span class="va">mode</span><span class="op">]</span><span class="op">]</span>, <span class="va">mode</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">sdc_calibration_table</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">sdc_calibration_table</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Calibration of the salivary duct carcinoma planning example."</span>,</span>
+<span>    <span class="st">"Sample sizes are totals or explicitly labelled arm sizes."</span>,</span>
+<span>    <span class="st">"PCE is reported but not constrained."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Calibration of the salivary duct carcinoma planning example.
+Sample sizes are totals or explicitly labelled arm sizes. PCE is
+reported but not constrained.</caption>
+<colgroup>
+<col width="10%">
+<col width="7%">
+<col width="3%">
+<col width="6%">
+<col width="10%">
+<col width="12%">
+<col width="10%">
+<col width="15%">
+<col width="13%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Calibration</th>
+<th align="left">Feasible</th>
+<th align="right">N</th>
+<th align="right">Control</th>
+<th align="right">Experimental</th>
+<th align="right">Bayesian_power</th>
+<th align="right">Bayesian_T1E</th>
+<th align="right">Frequentist_power</th>
+<th align="right">Frequentist_T1E</th>
+<th align="right">PCE_Hminus</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">frequentist</td>
+<td align="left">TRUE</td>
+<td align="right">82</td>
+<td align="right">41</td>
+<td align="right">41</td>
+<td align="right">0.72898</td>
+<td align="right">0.00978</td>
+<td align="right">0.80713</td>
+<td align="right">0.04852</td>
+<td align="right">0.41623</td>
+</tr>
+<tr class="even">
+<td align="left">Bayesian</td>
+<td align="left">TRUE</td>
+<td align="right">121</td>
+<td align="right">60</td>
+<td align="right">61</td>
+<td align="right">0.80222</td>
+<td align="right">0.00851</td>
+<td align="right">0.92310</td>
+<td align="right">0.05093</td>
+<td align="right">0.48544</td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">TRUE</td>
+<td align="right">124</td>
+<td align="right">62</td>
+<td align="right">62</td>
+<td align="right">0.80045</td>
+<td align="right">0.00817</td>
+<td align="right">0.92239</td>
+<td align="right">0.04724</td>
+<td align="right">0.49014</td>
+</tr>
+<tr class="even">
+<td align="left">full</td>
+<td align="left">TRUE</td>
+<td align="right">124</td>
+<td align="right">62</td>
+<td align="right">62</td>
+<td align="right">0.80045</td>
+<td align="right">0.00817</td>
+<td align="right">0.92239</td>
+<td align="right">0.04724</td>
+<td align="right">0.49014</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
+</h3>
+<p>The same plotting interface is available irrespective of the
+calibration mode. The active criteria determine sample-size selection;
+other displayed operating characteristics remain diagnostic.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">$</span><span class="va">frequentist</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="figures/twoarm_onestage_fig6.png" class="r-plt" alt="Figure 6: Visualization of the frequentist calibrated two-arm one-stage Bayes factor design with a binary endpoint" width="80%"><p class="caption">
+Figure 6: Visualization of the frequentist calibrated two-arm one-stage
+Bayes factor design with a binary endpoint
+</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="package-operating-characteristics-at-fixed-arm-sizes">Package operating characteristics at fixed arm sizes<a class="anchor" aria-label="anchor" href="#package-operating-characteristics-at-fixed-arm-sizes"></a>
+</h3>
+<p>A finer null grid changes the assessment of error, not the decision
+rule. The following helper evaluates fixed arm sizes without
+recalibrating them.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_oc_at_n</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
+<span>    <span class="va">n_control</span>,</span>
+<span>    <span class="va">n_experimental</span> <span class="op">=</span> <span class="va">n_control</span>,</span>
+<span>    <span class="va">grid</span> <span class="op">=</span> <span class="va">sdc_grid_coarse</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">args</span> <span class="op">&lt;-</span> <span class="va">sdc_bf_args</span></span>
+<span></span>
+<span>  <span class="va">args</span><span class="op">$</span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">n_control</span><span class="op">)</span></span>
+<span>  <span class="va">args</span><span class="op">$</span><span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">n_experimental</span><span class="op">)</span></span>
+<span>  <span class="va">args</span><span class="op">$</span><span class="va">output</span> <span class="op">&lt;-</span> <span class="st">"numeric"</span></span>
+<span>  <span class="va">args</span><span class="op">$</span><span class="va">compute_freq_t1e</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span>  <span class="va">args</span><span class="op">$</span><span class="va">p1_grid</span> <span class="op">&lt;-</span> <span class="va">grid</span></span>
+<span>  <span class="va">args</span><span class="op">$</span><span class="va">p2_grid</span> <span class="op">&lt;-</span> <span class="va">grid</span></span>
+<span></span>
+<span>  <span class="va">unsupported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">args</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/formals.html" class="external-link">formals</a></span><span class="op">(</span><span class="fu">bfbin2arm</span><span class="fu">::</span><span class="va"><a href="../reference/powertwoarmbinbf01.html">powertwoarmbinbf01</a></span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">unsupported</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Unsupported OC arguments: "</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">unsupported</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>,</span>
+<span>      call. <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="fu">bfbin2arm</span><span class="fu">::</span><span class="va"><a href="../reference/powertwoarmbinbf01.html">powertwoarmbinbf01</a></span>, <span class="va">args</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_oc_coarse</span> <span class="op">&lt;-</span> <span class="fu">sdc_oc_at_n</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span><span class="op">)</span></span>
+<span><span class="va">sdc_oc_fine</span> <span class="op">&lt;-</span> <span class="fu">sdc_oc_at_n</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span>, grid <span class="op">=</span> <span class="va">sdc_grid_fine</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sdc_oc_coarse</span>, digits <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                   Power             Type1_Error                   CE_H0 </span></span>
+<span><span class="co">#&gt;         0.7289776227822         0.0097836945176         0.4162322918428 </span></span>
+<span><span class="co">#&gt; Frequentist_Type1_Error       Frequentist_Power </span></span>
+<span><span class="co">#&gt;         0.0485183254298         0.8071293207186 </span></span>
+<span><span class="co">#&gt; attr(,"hypothesis")</span></span>
+<span><span class="co">#&gt; [1] "H[+]:~p[2] &gt; p[1] ~~ vs ~~ H[-]:~p[2] &lt;= p[1]"</span></span>
+<span><span class="co">#&gt; attr(,"compute_freq_t1e")</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co">#&gt; attr(,"p1_power")</span></span>
+<span><span class="co">#&gt; [1] 0.277</span></span>
+<span><span class="co">#&gt; attr(,"p2_power")</span></span>
+<span><span class="co">#&gt; [1] 0.55</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sdc_oc_fine</span>, digits <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                   Power             Type1_Error                   CE_H0 </span></span>
+<span><span class="co">#&gt;         0.7289776227822         0.0097836945176         0.4162322918428 </span></span>
+<span><span class="co">#&gt; Frequentist_Type1_Error       Frequentist_Power </span></span>
+<span><span class="co">#&gt;         0.0485183254298         0.8071293207186 </span></span>
+<span><span class="co">#&gt; attr(,"hypothesis")</span></span>
+<span><span class="co">#&gt; [1] "H[+]:~p[2] &gt; p[1] ~~ vs ~~ H[-]:~p[2] &lt;= p[1]"</span></span>
+<span><span class="co">#&gt; attr(,"compute_freq_t1e")</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co">#&gt; attr(,"p1_power")</span></span>
+<span><span class="co">#&gt; [1] 0.277</span></span>
+<span><span class="co">#&gt; attr(,"p2_power")</span></span>
+<span><span class="co">#&gt; [1] 0.55</span></span></code></pre></div>
+<p>Agreement between these grids is reassuring but does not establish
+the supremum over the continuous composite null. We therefore
+reconstruct the decision rule independently and examine its
+monotonicity.</p>
+</div>
+<div class="section level3">
+<h3 id="independent-bayes-factor-and-fisher-rejection-regions">Independent Bayes-factor and Fisher rejection regions<a class="anchor" aria-label="anchor" href="#independent-bayes-factor-and-fisher-rejection-regions"></a>
+</h3>
+<p>Rows of each matrix correspond to control successes and columns to
+experimental successes.</p>
+<p>Under the identical uniform analysis basis priors used here, both
+directional regions have prior probability one-half. Consequently,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mrow><mi>−</mi><mo>+</mo></mrow></msub><annotation encoding="application/x-tex">B_{-+}</annotation></semantics></math>
+equals the posterior odds of the non-positive versus positive direction
+under the unrestricted uniform model. This identity is specific to the
+stated analysis priors.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_beta_prob_greater</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">aX</span>, <span class="va">bX</span>, <span class="va">aY</span>, <span class="va">bY</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span></span>
+<span>    <span class="va">aX</span> <span class="op">&gt;=</span> <span class="fl">1</span>,</span>
+<span>    <span class="va">aX</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">aX</span><span class="op">)</span>,</span>
+<span>    <span class="va">bX</span> <span class="op">&gt;</span> <span class="fl">0</span>,</span>
+<span>    <span class="va">aY</span> <span class="op">&gt;</span> <span class="fl">0</span>,</span>
+<span>    <span class="va">bY</span> <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq.int</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">aX</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">terms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">lbeta</a></span><span class="op">(</span><span class="va">aY</span> <span class="op">+</span> <span class="va">ii</span>, <span class="va">bX</span> <span class="op">+</span> <span class="va">bY</span><span class="op">)</span> <span class="op">-</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">bX</span> <span class="op">+</span> <span class="va">ii</span><span class="op">)</span> <span class="op">-</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">lbeta</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">ii</span>, <span class="va">bX</span><span class="op">)</span> <span class="op">-</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">lbeta</a></span><span class="op">(</span><span class="va">aY</span>, <span class="va">bY</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">terms</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">terms</span> <span class="op">-</span> <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">sdc_bf_region</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nC</span>, <span class="va">nE</span>, <span class="va">k</span> <span class="op">=</span> <span class="va">sdc_k</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">log_bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>    <span class="cn">NA_real_</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="va">nC</span> <span class="op">+</span> <span class="fl">1L</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="va">nE</span> <span class="op">+</span> <span class="fl">1L</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">yC</span> <span class="kw">in</span> <span class="fl">0</span><span class="op">:</span><span class="va">nC</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">yE</span> <span class="kw">in</span> <span class="fl">0</span><span class="op">:</span><span class="va">nE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">aC</span> <span class="op">&lt;-</span> <span class="va">yC</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>      <span class="va">bC</span> <span class="op">&lt;-</span> <span class="va">nC</span> <span class="op">-</span> <span class="va">yC</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>      <span class="va">aE</span> <span class="op">&lt;-</span> <span class="va">yE</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>      <span class="va">bE</span> <span class="op">&lt;-</span> <span class="va">nE</span> <span class="op">-</span> <span class="va">yE</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span></span>
+<span>      <span class="va">prob_plus</span> <span class="op">&lt;-</span> <span class="fu">sdc_beta_prob_greater</span><span class="op">(</span><span class="va">aE</span>, <span class="va">bE</span>, <span class="va">aC</span>, <span class="va">bC</span><span class="op">)</span></span>
+<span>      <span class="va">prob_minus</span> <span class="op">&lt;-</span> <span class="fu">sdc_beta_prob_greater</span><span class="op">(</span><span class="va">aC</span>, <span class="va">bC</span>, <span class="va">aE</span>, <span class="va">bE</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">prob_plus</span> <span class="op">+</span> <span class="va">prob_minus</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1e-8</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="va">log_bf</span><span class="op">[</span><span class="va">yC</span> <span class="op">+</span> <span class="fl">1L</span>, <span class="va">yE</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">]</span> <span class="op">&lt;-</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">prob_minus</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">prob_plus</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log_bf</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1e-10</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"An outcome is numerically at the BF threshold; resolve ties."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">log_bf</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">sdc_fisher_region</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nC</span>, <span class="va">nE</span>, <span class="va">alpha</span> <span class="op">=</span> <span class="va">sdc_alpha</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">yC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>    <span class="fl">0</span><span class="op">:</span><span class="va">nC</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="va">nC</span> <span class="op">+</span> <span class="fl">1L</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="va">nE</span> <span class="op">+</span> <span class="fl">1L</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">yE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>    <span class="fl">0</span><span class="op">:</span><span class="va">nE</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="va">nC</span> <span class="op">+</span> <span class="fl">1L</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="va">nE</span> <span class="op">+</span> <span class="fl">1L</span>,</span>
+<span>    byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">successes</span> <span class="op">&lt;-</span> <span class="va">yC</span> <span class="op">+</span> <span class="va">yE</span></span>
+<span></span>
+<span>  <span class="va">pvalue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>    <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper</a></span><span class="op">(</span></span>
+<span>      q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">yE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
+<span>      m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">successes</span><span class="op">)</span>,</span>
+<span>      n <span class="op">=</span> <span class="va">nC</span> <span class="op">+</span> <span class="va">nE</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">successes</span><span class="op">)</span>,</span>
+<span>      k <span class="op">=</span> <span class="va">nE</span>,</span>
+<span>      lower.tail <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="va">nC</span> <span class="op">+</span> <span class="fl">1L</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="va">nE</span> <span class="op">+</span> <span class="fl">1L</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">pvalue</span> <span class="op">&lt;=</span> <span class="va">alpha</span> <span class="op">+</span> <span class="fl">1e-12</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">sdc_rejection_probability</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">reject</span>, <span class="va">pC</span>, <span class="va">pE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">nC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span></span>
+<span>  <span class="va">nE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span></span>
+<span></span>
+<span>  <span class="va">wC</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">dbinom</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="va">nC</span>, <span class="va">nC</span>, <span class="va">pC</span><span class="op">)</span></span>
+<span>  <span class="va">wE</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">dbinom</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="va">nE</span>, <span class="va">nE</span>, <span class="va">pE</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html" class="external-link">crossprod</a></span><span class="op">(</span><span class="va">wC</span>, <span class="va">reject</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">wE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>For each rejection region, the next function checks that rejection is
+nondecreasing in experimental successes and nonincreasing in control
+successes. If these properties hold, binomial stochastic ordering
+implies that a null pair
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>E</mi></msub><mo>≤</mo><msub><mi>p</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex">p_E\leq p_C</annotation></semantics></math>
+is dominated by the boundary pair
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>C</mi></msub><mo>,</mo><msub><mi>p</mi><mi>C</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p_C,p_C)</annotation></semantics></math>.
+Composite-null size can then be assessed by maximizing the boundary
+rejection probability.</p>
+<p>The maximization scans 10,001 boundary points, refines identified
+local maxima, and includes the endpoints. It is a numerical search, not
+a formally certified upper bound.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_boundary_size</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">reject</span>, <span class="va">grid_length</span> <span class="op">=</span> <span class="fl">10001L</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">nC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span></span>
+<span>  <span class="va">nE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span></span>
+<span></span>
+<span>  <span class="va">monotone_E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span></span>
+<span>    <span class="va">reject</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1L</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span> <span class="op">&gt;=</span></span>
+<span>      <span class="va">reject</span><span class="op">[</span>, <span class="op">-</span><span class="op">(</span><span class="va">nE</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">)</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">monotone_C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span></span>
+<span>    <span class="va">reject</span><span class="op">[</span><span class="op">-</span><span class="fl">1L</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span> <span class="op">&lt;=</span></span>
+<span>      <span class="va">reject</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">nC</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">monotone_E</span> <span class="op">||</span> <span class="op">!</span><span class="va">monotone_C</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span></span>
+<span>      <span class="st">"The rejection region is nonmonotone; "</span>,</span>
+<span>      <span class="st">"boundary-only maximization is not justified."</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">sdc_rejection_probability</span><span class="op">(</span><span class="va">reject</span>, <span class="va">p</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="va">grid_length</span><span class="op">)</span></span>
+<span>  <span class="va">vv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">pp</span>, <span class="va">f</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">local_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span></span>
+<span>    <span class="va">vv</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span><span class="op">]</span> <span class="op">&gt;=</span> <span class="va">vv</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">2L</span><span class="op">)</span><span class="op">]</span> <span class="op">&amp;</span></span>
+<span>      <span class="va">vv</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span><span class="op">]</span> <span class="op">&gt;=</span> <span class="va">vv</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="va">m</span><span class="op">]</span> <span class="op">&amp;</span></span>
+<span>      <span class="op">(</span></span>
+<span>        <span class="va">vv</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">vv</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">2L</span><span class="op">)</span><span class="op">]</span> <span class="op">|</span></span>
+<span>          <span class="va">vv</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">vv</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="va">m</span><span class="op">]</span></span>
+<span>      <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> <span class="fl">1L</span></span>
+<span></span>
+<span>  <span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    p <span class="op">=</span> <span class="va">pp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">vv</span><span class="op">)</span>, <span class="va">m</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    t1e <span class="op">=</span> <span class="va">vv</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">vv</span><span class="op">)</span>, <span class="va">m</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">local_idx</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/optimize.html" class="external-link">optimize</a></span><span class="op">(</span></span>
+<span>      <span class="va">f</span>,</span>
+<span>      interval <span class="op">=</span> <span class="va">pp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">i</span> <span class="op">-</span> <span class="fl">1L</span>, <span class="va">i</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>      maximum <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      tol <span class="op">=</span> <span class="fl">1e-12</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>      <span class="va">candidates</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">ans</span><span class="op">$</span><span class="va">maximum</span>, t1e <span class="op">=</span> <span class="va">ans</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">best</span> <span class="op">&lt;-</span> <span class="va">candidates</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">candidates</span><span class="op">$</span><span class="va">t1e</span><span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    worst_p <span class="op">=</span> <span class="va">best</span><span class="op">$</span><span class="va">p</span>,</span>
+<span>    max_t1e <span class="op">=</span> <span class="va">best</span><span class="op">$</span><span class="va">t1e</span>,</span>
+<span>    monotone_C <span class="op">=</span> <span class="va">monotone_C</span>,</span>
+<span>    monotone_E <span class="op">=</span> <span class="va">monotone_E</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">sdc_assess_region</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">reject</span>, <span class="va">method</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Method <span class="op">=</span> <span class="va">method</span>,</span>
+<span>    Control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span>,</span>
+<span>    Experimental <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span>,</span>
+<span>    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2L</span>,</span>
+<span>    Frequentist_power <span class="op">=</span> <span class="fu">sdc_rejection_probability</span><span class="op">(</span></span>
+<span>      <span class="va">reject</span>, <span class="va">sdc_pC</span>, <span class="va">sdc_pE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu">sdc_boundary_size</span><span class="op">(</span><span class="va">reject</span><span class="op">)</span>,</span>
+<span>    row.names <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="comparison-at-the-same-sample-sizes">Comparison at the same sample sizes<a class="anchor" aria-label="anchor" href="#comparison-at-the-same-sample-sizes"></a>
+</h3>
+<p>The following compares both rules at 41 and 45 evaluable participants
+per arm. These are diagnostic evaluations; the minimum-size search below
+determines whether smaller equal-arm designs meet both targets.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_bf41</span> <span class="op">&lt;-</span> <span class="fu">sdc_bf_region</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span><span class="op">)</span></span>
+<span><span class="va">sdc_fisher41</span> <span class="op">&lt;-</span> <span class="fu">sdc_fisher_region</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_bf45</span> <span class="op">&lt;-</span> <span class="fu">sdc_bf_region</span><span class="op">(</span><span class="fl">45L</span>, <span class="fl">45L</span><span class="op">)</span></span>
+<span><span class="va">sdc_fisher45</span> <span class="op">&lt;-</span> <span class="fu">sdc_fisher_region</span><span class="op">(</span><span class="fl">45L</span>, <span class="fl">45L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_rule_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>  <span class="fu">sdc_assess_region</span><span class="op">(</span><span class="va">sdc_bf41</span>, <span class="st">"BF: k = 0.05"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sdc_assess_region</span><span class="op">(</span><span class="va">sdc_fisher41</span>, <span class="st">"Fisher: alpha = 0.05"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sdc_assess_region</span><span class="op">(</span><span class="va">sdc_bf45</span>, <span class="st">"BF: k = 0.05"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sdc_assess_region</span><span class="op">(</span><span class="va">sdc_fisher45</span>, <span class="st">"Fisher: alpha = 0.05"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_rule_comparison</span><span class="op">$</span><span class="va">Meets_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
+<span>  <span class="va">sdc_rule_comparison</span>,</span>
+<span>  <span class="va">Frequentist_power</span> <span class="op">&gt;=</span> <span class="va">sdc_power_target</span> <span class="op">&amp;</span></span>
+<span>    <span class="va">max_t1e</span> <span class="op">&lt;=</span> <span class="va">sdc_alpha</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">sdc_rule_comparison</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Independent fixed-sample comparison."</span>,</span>
+<span>    <span class="st">"The rules share target bounds, not necessarily achieved error rates."</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Independent fixed-sample comparison. The rules share target
+bounds, not necessarily achieved error rates.</caption>
+<colgroup>
+<col width="17%">
+<col width="6%">
+<col width="10%">
+<col width="2%">
+<col width="15%">
+<col width="8%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Method</th>
+<th align="right">Control</th>
+<th align="right">Experimental</th>
+<th align="right">N</th>
+<th align="right">Frequentist_power</th>
+<th align="right">worst_p</th>
+<th align="right">max_t1e</th>
+<th align="left">monotone_C</th>
+<th align="left">monotone_E</th>
+<th align="left">Meets_targets</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">BF: k = 0.05</td>
+<td align="right">41</td>
+<td align="right">41</td>
+<td align="right">82</td>
+<td align="right">0.8071293</td>
+<td align="right">0.5000000</td>
+<td align="right">0.04851833</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Fisher: alpha = 0.05</td>
+<td align="right">41</td>
+<td align="right">41</td>
+<td align="right">82</td>
+<td align="right">0.7415767</td>
+<td align="right">0.3035048</td>
+<td align="right">0.03046753</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">BF: k = 0.05</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">90</td>
+<td align="right">0.8566234</td>
+<td align="right">0.5000000</td>
+<td align="right">0.05667219</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">Fisher: alpha = 0.05</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">90</td>
+<td align="right">0.8014489</td>
+<td align="right">0.5000000</td>
+<td align="right">0.03627502</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="agreement-with-the-package-calculation">Agreement with the package calculation<a class="anchor" aria-label="anchor" href="#agreement-with-the-package-calculation"></a>
+</h3>
+<p>This check compares independent reconstruction and the package at the
+same arm sizes and on the same coarse null grid.</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_pkg_power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span></span>
+<span>  <span class="va">sdc_oc_coarse</span><span class="op">[</span><span class="st">"Frequentist_Power"</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_ind_power</span> <span class="op">&lt;-</span> <span class="fu">sdc_rejection_probability</span><span class="op">(</span></span>
+<span>  <span class="va">sdc_bf41</span>, <span class="va">sdc_pC</span>, <span class="va">sdc_pE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_boundary_coarse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span></span>
+<span>  <span class="va">sdc_grid_coarse</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu">sdc_rejection_probability</span><span class="op">(</span><span class="va">sdc_bf41</span>, <span class="va">p</span>, <span class="va">p</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sdc_pkg_t1e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span></span>
+<span>  <span class="va">sdc_oc_coarse</span><span class="op">[</span><span class="st">"Frequentist_Type1_Error"</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sdc_pkg_power</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1L</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.finite</a></span><span class="op">(</span><span class="va">sdc_pkg_power</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">sdc_pkg_power</span> <span class="op">-</span> <span class="va">sdc_ind_power</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1e-8</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sdc_pkg_t1e</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1L</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.finite</a></span><span class="op">(</span><span class="va">sdc_pkg_t1e</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">sdc_pkg_t1e</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">sdc_boundary_coarse</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1e-8</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Package_power <span class="op">=</span> <span class="va">sdc_pkg_power</span>,</span>
+<span>    Independent_power <span class="op">=</span> <span class="va">sdc_ind_power</span>,</span>
+<span>    Package_grid_T1E <span class="op">=</span> <span class="va">sdc_pkg_t1e</span>,</span>
+<span>    Independent_grid_T1E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">sdc_boundary_coarse</span><span class="op">)</span>,</span>
+<span>    Independent_refined_T1E <span class="op">=</span> <span class="fu">sdc_boundary_size</span><span class="op">(</span><span class="va">sdc_bf41</span><span class="op">)</span><span class="op">$</span><span class="va">max_t1e</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="14%">
+<col width="19%">
+<col width="18%">
+<col width="22%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">Package_power</th>
+<th align="right">Independent_power</th>
+<th align="right">Package_grid_T1E</th>
+<th align="right">Independent_grid_T1E</th>
+<th align="right">Independent_refined_T1E</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">0.8071293</td>
+<td align="right">0.8071293</td>
+<td align="right">0.04851833</td>
+<td align="right">0.04851833</td>
+<td align="right">0.04851833</td>
+</tr></tbody>
+</table>
+<p>A failed agreement check should be investigated before interpreting a
+sample-size advantage. Possible causes include different evidence
+orientation, threshold inequalities, analysis priors, null regions, or
+output conventions.</p>
+</div>
+<div class="section level3">
+<h3 id="minimum-equal-arm-designs">Minimum equal-arm designs<a class="anchor" aria-label="anchor" href="#minimum-equal-arm-designs"></a>
+</h3>
+<p>We enumerate equal-arm sizes in increasing order. For each rule,
+power is evaluated first. Designs reaching the power target are then
+assessed for composite-null size. No monotonicity in sample size is
+assumed.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sdc_find_minimum</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
+<span>    <span class="va">method</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BF"</span>, <span class="st">"Fisher"</span><span class="op">)</span>,</span>
+<span>    <span class="va">n_arm_max</span> <span class="op">=</span> <span class="fl">60L</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg</a></span><span class="op">(</span><span class="va">method</span><span class="op">)</span></span>
+<span>  <span class="va">checked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">n</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n_arm_max</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">reject</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">method</span> <span class="op">==</span> <span class="st">"BF"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">sdc_bf_region</span><span class="op">(</span><span class="va">n</span>, <span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu">sdc_fisher_region</span><span class="op">(</span><span class="va">n</span>, <span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="va">power</span> <span class="op">&lt;-</span> <span class="fu">sdc_rejection_probability</span><span class="op">(</span></span>
+<span>      <span class="va">reject</span>, <span class="va">sdc_pC</span>, <span class="va">sdc_pE</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">power</span> <span class="op">&lt;</span> <span class="va">sdc_power_target</span><span class="op">)</span> <span class="kw">next</span></span>
+<span></span>
+<span>    <span class="va">assessed</span> <span class="op">&lt;-</span> <span class="fu">sdc_assess_region</span><span class="op">(</span><span class="va">reject</span>, <span class="va">method</span><span class="op">)</span></span>
+<span>    <span class="va">checked</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">checked</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">assessed</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">assessed</span><span class="op">$</span><span class="va">max_t1e</span> <span class="op">&lt;=</span> <span class="va">sdc_alpha</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        selected <span class="op">=</span> <span class="va">assessed</span>,</span>
+<span>        power_eligible_checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">checked</span><span class="op">)</span></span>
+<span>      <span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    selected <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    power_eligible_checked <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">checked</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">checked</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="cn">NULL</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">sdc_minimum_bf</span> <span class="op">&lt;-</span> <span class="fu">sdc_find_minimum</span><span class="op">(</span><span class="st">"BF"</span><span class="op">)</span></span>
+<span><span class="va">sdc_minimum_fisher</span> <span class="op">&lt;-</span> <span class="fu">sdc_find_minimum</span><span class="op">(</span><span class="st">"Fisher"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sdc_minimum_bf</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $selected</span></span>
+<span><span class="co">#&gt;   Method Control Experimental  N Frequentist_power worst_p    max_t1e</span></span>
+<span><span class="co">#&gt; 1     BF      41           41 82         0.8071293     0.5 0.04851833</span></span>
+<span><span class="co">#&gt;   monotone_C monotone_E</span></span>
+<span><span class="co">#&gt; 1       TRUE       TRUE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $power_eligible_checked</span></span>
+<span><span class="co">#&gt;   Method Control Experimental  N Frequentist_power worst_p    max_t1e</span></span>
+<span><span class="co">#&gt; 1     BF      41           41 82         0.8071293     0.5 0.04851833</span></span>
+<span><span class="co">#&gt;   monotone_C monotone_E</span></span>
+<span><span class="co">#&gt; 1       TRUE       TRUE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sdc_minimum_fisher</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $selected</span></span>
+<span><span class="co">#&gt;   Method Control Experimental  N Frequentist_power worst_p    max_t1e</span></span>
+<span><span class="co">#&gt; 1 Fisher      45           45 90         0.8014489     0.5 0.03627502</span></span>
+<span><span class="co">#&gt;   monotone_C monotone_E</span></span>
+<span><span class="co">#&gt; 1       TRUE       TRUE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $power_eligible_checked</span></span>
+<span><span class="co">#&gt;   Method Control Experimental  N Frequentist_power worst_p    max_t1e</span></span>
+<span><span class="co">#&gt; 1 Fisher      45           45 90         0.8014489     0.5 0.03627502</span></span>
+<span><span class="co">#&gt;   monotone_C monotone_E</span></span>
+<span><span class="co">#&gt; 1       TRUE       TRUE</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span></span>
+<span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span>
+<span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">sdc_minima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>    <span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span>,</span>
+<span>    <span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>    <span class="va">sdc_minima</span>,</span>
+<span>    digits <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Minimum equal-arm designs within the searched rule families,"</span>,</span>
+<span>      <span class="st">"using finite outcome enumeration and numerical null maximization."</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">sdc_saving</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    BF_total <span class="op">=</span> <span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span>,</span>
+<span>    Fisher_total <span class="op">=</span> <span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span>,</span>
+<span>    Difference <span class="op">=</span> <span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span> <span class="op">-</span></span>
+<span>      <span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span>,</span>
+<span>    Relative_difference_percent <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span></span>
+<span>      <span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span> <span class="op">-</span></span>
+<span>        <span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span></span>
+<span>    <span class="op">)</span> <span class="op">/</span> <span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">N</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">sdc_saving</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">BF_total</th>
+<th align="right">Fisher_total</th>
+<th align="right">Difference</th>
+<th align="right">Relative_difference_percent</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">82</td>
+<td align="right">90</td>
+<td align="right">8</td>
+<td align="right">8.89</td>
+</tr></tbody>
+</table>
+<p>These minima concern the specified fixed-threshold rules, equal
+allocation, and searched sample sizes. They are not optimality
+statements across all possible tests or allocations.</p>
+<p>A smaller Bayes-factor design would represent a scenario-specific
+result, not general superiority over Fisher’s exact test. Both
+procedures may satisfy the same 5% upper bound while attaining different
+actual sizes.</p>
+</div>
+<div class="section level3">
+<h3 id="recruitment-allowance-and-interpretation">Recruitment allowance and interpretation<a class="anchor" aria-label="anchor" href="#recruitment-allowance-and-interpretation"></a>
+</h3>
+<p>The following arithmetic illustrates a 10% allowance for unavailable
+binary outcomes, using the independently selected equal-arm designs.</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span></span>
+<span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span>
+<span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">sdc_recruitment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BF"</span>, <span class="st">"Fisher"</span><span class="op">)</span>,</span>
+<span>    Evaluable_per_arm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">Control</span>,</span>
+<span>      <span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">$</span><span class="va">Control</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">sdc_recruitment</span><span class="op">$</span><span class="va">Recruitment_per_arm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span></span>
+<span>    <span class="va">sdc_recruitment</span><span class="op">$</span><span class="va">Evaluable_per_arm</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sdc_dropout</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">sdc_recruitment</span><span class="op">$</span><span class="va">Recruitment_total</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fl">2L</span> <span class="op">*</span> <span class="va">sdc_recruitment</span><span class="op">$</span><span class="va">Recruitment_per_arm</span></span>
+<span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>    <span class="va">sdc_recruitment</span>,</span>
+<span>    caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Arithmetic recruitment allowance for 10% unavailable outcomes;"</span>,</span>
+<span>      <span class="st">"not a validation of the missing-data analysis."</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<table class="table">
+<caption>Arithmetic recruitment allowance for 10% unavailable outcomes;
+not a validation of the missing-data analysis.</caption>
+<thead><tr class="header">
+<th align="left">Method</th>
+<th align="right">Evaluable_per_arm</th>
+<th align="right">Recruitment_per_arm</th>
+<th align="right">Recruitment_total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">BF</td>
+<td align="right">41</td>
+<td align="right">46</td>
+<td align="right">92</td>
+</tr>
+<tr class="even">
+<td align="left">Fisher</td>
+<td align="right">45</td>
+<td align="right">50</td>
+<td align="right">100</td>
+</tr>
+</tbody>
+</table>
+<p>The operating-characteristic calculations refer to fixed evaluable
+arm sizes. They do not automatically apply after random missingness or
+to every larger sample size. A fixed Bayes-factor threshold can have
+nonmonotone type-I error as sample size changes, so enlarging a
+validated design requires rechecking its operating characteristics.</p>
+<p>The planning rate of 55%, prior concentration, endpoint
+ascertainment, missing-data strategy, and analysis time remain
+substantive protocol choices. The binomial illustration should not
+replace a time-to-event calculation if the intended primary analysis
+uses censored DFS times.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"bfbin2arm"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] '0.1.8'</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

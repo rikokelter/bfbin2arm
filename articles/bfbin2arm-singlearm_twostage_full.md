@@ -19,11 +19,10 @@ probabilities with respect to these priors. This approach has been
 developed for Bayes factors in binomial one- and two‑arm settings, where
 closed‑form expressions and numerical integration can be used to obtain
 sample sizes that satisfy Bayesian power and type‑I error targets
-without Monte Carlo simulation, see (**kelter_third_2025?**),
-(**kelter_two_stage_2025?**) and (**kelter_power_2026?**). These methods
-provide a Bayesian analogue of classical power analysis for Bayes
-factors and form the basis of the one‑stage calibration routines in this
-package.
+without Monte Carlo simulation, see (Kelter and Pawel 2025), (Kelter
+2026b) and (Kelter 2026a). These methods provide a Bayesian analogue of
+classical power analysis for Bayes factors and form the basis of the
+one‑stage calibration routines in this package.
 
 ### Hybrid Bayes-frequentist calibration
 
@@ -52,17 +51,16 @@ multiplicity‑calibrated Bayesian hypothesis tests (Guo and Heitjan
 Against this backdrop, the **hybrid** and **full** calibration modes in
 {bfbin2arm} implement Bayes–frequentist compromise designs for Bayes
 factors in single‑ and two‑arm phase II trials with binary endpoints
-(**kelter_third_2025?**; **kelter_two_stage_2025?**;
-**kelter_power_2026?**). In hybrid calibration, power is defined in a
-Bayesian prior‑predictive sense under a design prior for $`H_1`$, while
-type‑I error is controlled in a frequentist sense at the null boundary
-$`p_0`$. In full calibration, both Bayesian and frequentist error
-metrics are constrained simultaneously: Bayesian power and Bayesian
-type‑I error under the design priors, and frequentist power and type‑I
-error at fixed parameter values. This yields Bayes-factor based designs
-that satisfy both sets of constraints and make explicit the trade‑offs
-between Bayesian and frequentist notions of error control in phase II
-trial design.
+(Kelter and Pawel 2025; Kelter 2026a, 2026b). In hybrid calibration,
+power is defined in a Bayesian prior‑predictive sense under a design
+prior for $`H_1`$, while type‑I error is controlled in a frequentist
+sense at the null boundary $`p_0`$. In full calibration, both Bayesian
+and frequentist error metrics are constrained simultaneously: Bayesian
+power and Bayesian type‑I error under the design priors, and frequentist
+power and type‑I error at fixed parameter values. This yields
+Bayes-factor based designs that satisfy both sets of constraints and
+make explicit the trade‑offs between Bayesian and frequentist notions of
+error control in phase II trial design.
 
 ## Full Bayesian and frequentist calibration
 
@@ -164,9 +162,9 @@ res_full <- design_singlearm_bf(
 Note that we specified a power cushion via the parameter
 `power_cushion = 0.025`. Otherwise, it might be impossible to find an
 optimal design, for details on the underlying methodology see also the
-vignette on hybrid calibration and the discussion section in
-(**kelter_two_stage_2025?**). We inspect the results produced by the
-calibration algorithm:
+vignette on hybrid calibration and the discussion section in (Kelter and
+Pawel 2025). We inspect the results produced by the calibration
+algorithm:
 
 ``` r
 
@@ -518,6 +516,18 @@ Power in Planning and Clinical Trials*. Chapman & Hall, CRC Press.
 Guo, Mengye, and Daniel F. Heitjan. 2010. “Multiplicity-Calibrated
 Bayesian Hypothesis Tests.” *Biostatistics* 11 (3): 473–83.
 <https://doi.org/10.1093/biostatistics/kxq012>.
+
+Kelter, Riko. 2026a. *Optimal Sequential Two-Stage Bayes Factor Design
+for Two-Arm Clinical Phase II Trials with Binary Endpoints*. arXiv
+preprint.
+
+Kelter, Riko. 2026b. *Power and Sample Size Calculations for Bayes
+Factors in Two-Arm Clinical Phase II Trials with Binary Endpoints*.
+arXiv preprint. <https://doi.org/10.48550/arXiv.2603.01715>.
+
+Kelter, Riko, and Samuel Pawel. 2025. *The Bayesian Optimal Two-Stage
+Design for Clinical Phase II Trials Based on Bayes Factors*. arXiv
+preprint. <https://doi.org/10.48550/arXiv.2511.23144>.
 
 Lopez-Rey, Borja G., Gerard Carot-Sans, Dan Ouchi, Ferran Torres, and
 Caridad Pontes. 2025. “Use of Bayesian Approaches in Oncology Clinical

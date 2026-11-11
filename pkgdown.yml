@@ -11,13 +11,14 @@ articles:
   bfbin2arm-singlearm_twostage_full: bfbin2arm-singlearm_twostage_full.html
   bfbin2arm-singlearm_twostage_hybrid: bfbin2arm-singlearm_twostage_hybrid.html
   bfbin2arm-singlearm-onestage: bfbin2arm-singlearm-onestage.html
-  bfbin2arm-singlearm-twostage_bayesian: bfbin2arm-singlearm-twostage_bayesian.html
+  articles/bfbin2arm-singlearm-twostage_bayesian: bfbin2arm-singlearm-twostage_bayesian.html
   articles/bfbin2arm-singlearm-twostage-rope-ni-superiority: bfbin2arm-singlearm-twostage-rope-ni-superiority.html
+  bfbin2arm-twoarm_onestage_Bayesian_twosided: bfbin2arm-twoarm_onestage_Bayesian_twosided.html
   bfbin2arm-twoarm_onestage_Bayesian: bfbin2arm-twoarm_onestage_Bayesian.html
   articles/bfbin2arm-twoarm-onestage-rope-ni-superiority: bfbin2arm-twoarm-onestage-rope-ni-superiority.html
   articles/bfbin2arm-twoarm-onestage-rope: bfbin2arm-twoarm-onestage-rope.html
-  bfbin2arm-twoarm-twostage_Bayesian: bfbin2arm-twoarm-twostage_Bayesian.html
-last_built: 2026-10-28T12:11Z
+  articles/bfbin2arm-twoarm-twostage_Bayesian: bfbin2arm-twoarm-twostage_Bayesian.html
+last_built: 2026-11-11T12:22Z
 urls:
   reference: https://rikokelter.github.io/bfbin2arm/reference
   article: https://rikokelter.github.io/bfbin2arm/articles

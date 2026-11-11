@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bfbin2arm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-onestage.html">Calibration of Bayesian one-stage designs for single-arm phase II trials with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-twostage_bayesian.html">Optimal Bayesian calibration for single-arm two-stage Bayes factor designs</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-singlearm-twostage-rope-ni-superiority.html">Two-stage ROPE designs for single-arm non-inferiority and superiority trials</a></li>
+    <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm_onestage_Bayesian_twosided.html">Power and Sample Size Calculations for two-sided Bayes Factors in two-arm clinical Phase II Trials with binary Endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm_onestage_Bayesian.html">Bayesian calibration of two-arm one-stage Bayes factor designs with binary endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm-onestage-rope-ni-superiority.html">Power and Sample Size Calculations for ROPE-based Non-Inferiority and Superiority Tests in Two-arm Clinical Trials with binary Endpoints</a></li>
     <li><a class="dropdown-item" href="../articles/bfbin2arm-twoarm-onestage-rope.html">Bayesian calibration of two-arm one-stage ROPE designs with binary endpoints</a></li>
@@ -80,7 +81,7 @@ Institute of Medical Statistics and Computational Biology<br>
 Faculty of Medicine, University of Cologne<br>
 Cologne, Germany</p>
             
-            <h4 data-toc-skip class="date">28 October 2026</h4>
+            <h4 data-toc-skip class="date">11 November 2026</h4>
       
 
       <div class="d-none name"><code>bfbin2arm-singlearm_twostage_full.Rmd</code></div>
@@ -115,11 +116,9 @@ are defined as prior‑predictive probabilities with respect to these
 priors. This approach has been developed for Bayes factors in binomial
 one- and two‑arm settings, where closed‑form expressions and numerical
 integration can be used to obtain sample sizes that satisfy Bayesian
-power and type‑I error targets without Monte Carlo simulation, see <span class="citation">(<strong>kelter_third_2025?</strong>)</span>, <span class="citation">(<strong>kelter_two_stage_2025?</strong>)</span> and
-<span class="citation">(<strong>kelter_power_2026?</strong>)</span>.
-These methods provide a Bayesian analogue of classical power analysis
-for Bayes factors and form the basis of the one‑stage calibration
-routines in this package.</p>
+power and type‑I error targets without Monte Carlo simulation, see <span class="citation">(Kelter and Pawel 2025)</span>, <span class="citation">(Kelter 2026b)</span> and <span class="citation">(Kelter 2026a)</span>. These methods provide a Bayesian
+analogue of classical power analysis for Bayes factors and form the
+basis of the one‑stage calibration routines in this package.</p>
 </div>
 <div class="section level3">
 <h3 id="hybrid-bayes-frequentist-calibration">Hybrid Bayes-frequentist calibration<a class="anchor" aria-label="anchor" href="#hybrid-bayes-frequentist-calibration"></a>
@@ -150,11 +149,9 @@ This includes multiplicity‑calibrated Bayesian hypothesis tests <span class="c
 <p>Against this backdrop, the <strong>hybrid</strong> and
 <strong>full</strong> calibration modes in {bfbin2arm} implement
 Bayes–frequentist compromise designs for Bayes factors in single‑ and
-two‑arm phase II trials with binary endpoints <span class="citation">(<strong>kelter_third_2025?</strong>;
-<strong>kelter_two_stage_2025?</strong>;
-<strong>kelter_power_2026?</strong>)</span>. In hybrid calibration,
-power is defined in a Bayesian prior‑predictive sense under a design
-prior for
+two‑arm phase II trials with binary endpoints <span class="citation">(Kelter and Pawel 2025; Kelter 2026a, 2026b)</span>. In
+hybrid calibration, power is defined in a Bayesian prior‑predictive
+sense under a design prior for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_1</annotation></semantics></math>,
 while type‑I error is controlled in a frequentist sense at the null
 boundary
@@ -377,8 +374,8 @@ targets:</p>
 <code>power_cushion = 0.025</code>. Otherwise, it might be impossible to
 find an optimal design, for details on the underlying methodology see
 also the vignette on hybrid calibration and the discussion section in
-<span class="citation">(<strong>kelter_two_stage_2025?</strong>)</span>.
-We inspect the results produced by the calibration algorithm:</p>
+<span class="citation">(Kelter and Pawel 2025)</span>. We inspect the
+results produced by the calibration algorithm:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res_full</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Summary: Single-arm two-stage Bayes factor design</span></span>
@@ -919,6 +916,22 @@ Trials</em>. Chapman &amp; Hall, CRC Press.
 Guo, Mengye, and Daniel F. Heitjan. 2010. <span>“Multiplicity-Calibrated
 <span>Bayesian</span> Hypothesis Tests.”</span> <em>Biostatistics</em>
 11 (3): 473–83. <a href="https://doi.org/10.1093/biostatistics/kxq012" class="external-link">https://doi.org/10.1093/biostatistics/kxq012</a>.
+</div>
+<div id="ref-kelterOptimalSequentialTwostage2026" class="csl-entry">
+Kelter, Riko. 2026a. <em>Optimal Sequential Two-Stage <span>Bayes Factor
+Design</span> for Two-Arm Clinical <span>Phase II Trials</span> with
+Binary <span>Endpoints</span></em>. arXiv preprint.
+</div>
+<div id="ref-kelterTwoArmSingleStage2026" class="csl-entry">
+Kelter, Riko. 2026b. <em>Power and <span>Sample Size Calculations</span>
+for <span>Bayes Factors</span> in Two-Arm Clinical <span>Phase II
+Trials</span> with Binary <span>Endpoints</span></em>. arXiv preprint.
+<a href="https://doi.org/10.48550/arXiv.2603.01715" class="external-link">https://doi.org/10.48550/arXiv.2603.01715</a>.
+</div>
+<div id="ref-KelterPawelTwoStage2025" class="csl-entry">
+Kelter, Riko, and Samuel Pawel. 2025. <em>The <span>Bayesian</span>
+Optimal Two-Stage Design for Clinical Phase <span>II</span> Trials Based
+on <span>Bayes</span> Factors</em>. arXiv preprint. <a href="https://doi.org/10.48550/arXiv.2511.23144" class="external-link">https://doi.org/10.48550/arXiv.2511.23144</a>.
 </div>
 <div id="ref-lopez-reyUseBayesianApproaches2025" class="csl-entry">
 Lopez-Rey, Borja G., Gerard Carot-Sans, Dan Ouchi, Ferran Torres, and

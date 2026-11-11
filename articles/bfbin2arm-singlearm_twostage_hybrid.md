@@ -778,8 +778,8 @@ res_hybrid_ce_with_power_cushion
 
 The example exemplifies that is is recommended to always use a small
 power cushion to isolate optimal designs reliably with the two-step
-algorithm underlying the function. For further details, see also
-(**kelter_third_2025?**) and (**kelter_two_stage_2025?**).
+algorithm underlying the function. For further details, see also Kelter
+and Pawel (2026) and Kelter and Pawel (2025)
 
 ### Practical recommendations for hybrid calibration
 
@@ -798,3 +798,12 @@ When using the hybrid mode in practice:
 
 Jeffreys, Harold. 1961. *Theory of Probability*. In *Oxford Classic
 Texts in the Physical Sciences*, 3rd ed. Oxford University Press.
+
+Kelter, Riko, and Samuel Pawel. 2025. *The Bayesian Optimal Two-Stage
+Design for Clinical Phase II Trials Based on Bayes Factors*. arXiv
+preprint. <https://doi.org/10.48550/arXiv.2511.23144>.
+
+Kelter, Riko, and Samuel Pawel. 2026. “Bayesian Power and Sample Size
+Calculations for Bayes Factors in the Binomial Setting.” *Statistical
+Methods in Medical Research* (in press).
+<https://doi.org/10.48550/arXiv.2502.02914>.

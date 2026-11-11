@@ -31,6 +31,9 @@
   designs](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-twostage_bayesian.md):
 - [Two-stage ROPE designs for single-arm non-inferiority and superiority
   trials](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-singlearm-twostage-rope-ni-superiority.md):
+- [Power and Sample Size Calculations for two-sided Bayes Factors in
+  two-arm clinical Phase II Trials with binary
+  Endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm_onestage_Bayesian_twosided.md):
 - [Bayesian calibration of two-arm one-stage Bayes factor designs with
   binary
   endpoints](https://rikokelter.github.io/bfbin2arm/articles/bfbin2arm-twoarm_onestage_Bayesian.md):

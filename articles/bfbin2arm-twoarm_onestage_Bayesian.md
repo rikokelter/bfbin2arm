@@ -118,7 +118,7 @@ and control) and binary endpoints. We assume further that one of the
 four tests detailed above is carried out using Bayes factors as the test
 criterion.
 
-## ICT-107 Phase II Trial Overview
+## Clinical Example 1: The ICT-107 glioblastoma phase II Trial
 
 The ICT-107 trial (Wen et al. 2019) was a randomized phase II study in
 newly diagnosed glioblastoma patients (n=124, 2:1 randomization). The
@@ -935,6 +935,1105 @@ $`H_-`$ under consideration.
 For a Bayesian calibration only, it suffices if $`n_1=28`$ patients in
 the control arm and $`n_2=55`$ in the treatment arm are enrolled in the
 trial.
+
+## Clinical Example 2: Adjuvant therapy for salivary duct carcinoma
+
+Consider a prospective, multicentre, randomized two-arm phase II study
+in patients with salivary duct carcinoma.
+
+- Control: surgery followed by adjuvant radiotherapy.
+- Experimental: surgery followed by adjuvant radiotherapy and targeted
+  systemic hormonal therapy.
+
+The primary endpoint is disease-free survival (DFS) at three years,
+coded as a binary success when the participant is alive and disease-free
+at that time. The motivating retrospective estimates are 27.7% under
+radiotherapy alone and 48.2% under radiotherapy plus an older hormonal
+agent. For the proposed intervention, the illustrative planning
+assumption is 55% under experimental treatment.
+
+The retrospective estimates motivate the planning scenario; they are not
+treated as additional observations in the analysis prior. The
+anticipated 55% rate is an assumption about the newer intervention and
+should be examined in sensitivity analyses.
+
+This example concerns salivary duct carcinoma. If the intended
+population is instead a different tongue or oral-cavity cancer
+population, the historical estimates and planning assumptions need to be
+reconsidered.
+
+### Endpoint interpretation and hypotheses
+
+Let $`p_C`$ and $`p_E`$ denote the probabilities of known disease-free
+status at three years under control and experimental treatment. We
+compare
+
+``` math
+  H_-:p_E\leq p_C
+  \qquad\text{versus}\qquad
+  H_+:p_E>p_C.
+```
+
+The planning alternative is
+
+``` math
+  (p_C,p_E)=(0.277,0.550).
+```
+
+The frequentist targets are at least 80% power at this alternative and
+type-I error no larger than 5% over the composite null. These are
+operating characteristics of the directional Bayes-factor rule, not a
+conventional test substituted for that rule.
+
+A binomial analysis requires ascertainment of three-year status.
+Participants censored before three years without an event have unknown
+binary status. Recruitment inflation alone does not resolve potential
+missing-status bias. If the intended primary analysis uses censoring and
+event times, a survival-analysis design calculation is needed instead.
+
+### Fixed thresholds and prior specifications
+
+Write
+
+``` math
+  B_{-+}=\frac{m_-(Y_C,Y_E)}{m_+(Y_C,Y_E)}.
+```
+
+Evidence for benefit is declared when $`B_{-+}<1/20`$, corresponding to
+greater than 20:1 evidence for $`H_+`$. This threshold remains fixed
+during sample-size calibration.
+
+For null-side evidence, we use $`k_f=10`$, so that $`B_{-+}>10`$
+represents greater than tenfold evidence for $`H_-`$. Its probability is
+initially reported but not constrained.
+
+Uniform beta basis densities are used for the analysis priors, truncated
+and normalized on the respective directional regions. Design-prior
+concentration 20 is illustrative, not estimated from the two
+retrospective percentages. The beta parameters below describe basis
+distributions before truncation; their means are not generally the
+marginal means after directional truncation.
+
+``` r
+
+sdc_pC <- 0.277
+sdc_pE <- 0.550
+
+sdc_alpha <- 0.05
+sdc_power_target <- 0.80
+
+sdc_k <- 1 / 20
+sdc_k_f <- 10
+
+sdc_n_max <- 240L
+sdc_dropout <- 0.10
+
+sdc_ess_plus <- 20
+sdc_ess_minus <- 20
+
+sdc_grid_coarse <- sort(unique(c(
+  seq(0, 1, by = 0.02),
+  sdc_pC,
+  0.50
+)))
+
+sdc_grid_fine <- sort(unique(c(
+  seq(0, 1, by = 0.005),
+  sdc_pC,
+  0.50
+)))
+
+sdc_bf_args <- list(
+  test = "BF+-",
+  k = sdc_k,
+  k_f = sdc_k_f,
+
+  a_0_d = 1, b_0_d = 1,
+  a_0_a = 1, b_0_a = 1,
+
+  # Basis distributions for planning under H+.
+  a_1_d = sdc_ess_plus * sdc_pC,
+  b_1_d = sdc_ess_plus * (1 - sdc_pC),
+  a_2_d = sdc_ess_plus * sdc_pE,
+  b_2_d = sdc_ess_plus * (1 - sdc_pE),
+
+  # Uniform analysis basis distributions under H+.
+  a_1_a = 1, b_1_a = 1,
+  a_2_a = 1, b_2_a = 1,
+
+  # Basis distributions for planning under H-.
+  a_1_d_Hminus = sdc_ess_minus * sdc_pC,
+  b_1_d_Hminus = sdc_ess_minus * (1 - sdc_pC),
+  a_2_d_Hminus = sdc_ess_minus * sdc_pC,
+  b_2_d_Hminus = sdc_ess_minus * (1 - sdc_pC),
+
+  # Uniform analysis basis distributions under H-.
+  a_1_a_Hminus = 1, b_1_a_Hminus = 1,
+  a_2_a_Hminus = 1, b_2_a_Hminus = 1,
+
+  p1_power = sdc_pC,
+  p2_power = sdc_pE,
+
+  p1_grid = sdc_grid_coarse,
+  p2_grid = sdc_grid_coarse
+)
+
+packageVersion("bfbin2arm")
+#> [1] '0.1.8'
+```
+
+### Four calibration modes
+
+We hold the priors, thresholds, requested equal allocation, and search
+range fixed and change only the active operating-characteristic
+requirements.
+
+- Frequentist: frequentist power and type-I error.
+- Bayesian: predictive power and predictive type-I error.
+- Hybrid: predictive power and frequentist type-I error.
+- Full: both power definitions and both type-I-error definitions.
+
+No sustained-feasibility requirement is imposed in this example:
+`sustain_n = 0`. Selected sizes are therefore pointwise minima within
+the package’s search, rather than minima satisfying a forward window.
+
+``` r
+
+sdc_calibrate <- function(
+    mode = c("frequentist", "Bayesian", "hybrid", "full"),
+    pce_target = 0,
+    n_max = sdc_n_max) {
+
+  mode <- match.arg(mode)
+
+  targets <- switch(
+    mode,
+    frequentist = list(
+      target_freq_power = sdc_power_target,
+      target_freq_type1 = sdc_alpha
+    ),
+    Bayesian = list(
+      target_power = sdc_power_target,
+      target_type1 = sdc_alpha
+    ),
+    hybrid = list(
+      target_power = sdc_power_target,
+      target_freq_type1 = sdc_alpha
+    ),
+    full = list(
+      target_power = sdc_power_target,
+      target_type1 = sdc_alpha,
+      target_freq_power = sdc_power_target,
+      target_freq_type1 = sdc_alpha
+    )
+  )
+
+  do.call(
+    bfbin2arm::design_twoarm_onestage_bf,
+    c(
+      sdc_bf_args,
+      list(
+        n_min = 20L,
+        n_max = as.integer(n_max),
+        alloc1 = 0.5,
+        alloc2 = 0.5,
+        calibration = mode,
+        target_ce_h0 = pce_target,
+        sustain_n = 0L,
+        report_freq_type1 = TRUE,
+        algorithm = "optimal",
+        progress = TRUE
+      ),
+      targets
+    )
+  )
+}
+```
+
+``` r
+
+sdc_designs <- readRDS("sdc_designs.rds")
+```
+
+``` r
+
+sdc_modes <- c("frequentist", "Bayesian", "hybrid", "full")
+
+sdc_designs <- setNames(
+  lapply(sdc_modes, sdc_calibrate),
+  sdc_modes
+)
+
+for (mode in names(sdc_designs)) {
+  cat("\n\n---", mode, "calibration ---\n")
+  print(sdc_designs[[mode]])
+  print(summary(sdc_designs[[mode]]))
+}
+```
+
+    --- frequentist calibration ---
+
+    One-stage two-arm Bayes factor design
+    ------------------------------------
+    Mode: optimal
+    Status: Smallest feasible one-stage two-arm design found.
+    Calibration: frequentist
+    Optional freq. Type-I reporting: on
+    Design: n_total = 82, n1 = 41, n2 = 41
+
+    Operating characteristics
+     Power = 0.7290
+     Type-I error = 0.0098
+     CE(H0) = 0.4162
+     Freq. Type-I = 0.0485
+     Freq. Power = 0.8071
+
+    Summary: One-stage two-arm Bayes factor design
+    ---------------------------------------------
+    Mode:        optimal
+    Status:      Smallest feasible one-stage two-arm design found.
+    Calibration: frequentist
+    Feasible:    yes
+
+    Search overview
+      n evaluated          = 221
+      pointwise feasible   = 93
+      sustained feasible   = 93
+      first pointwise n    = 82
+      first sustained n    = 82
+
+    Selected design
+      n_total = 82, n1 = 41, n2 = 41
+
+
+    --- Bayesian calibration ---
+
+    One-stage two-arm Bayes factor design
+    ------------------------------------
+    Mode: optimal
+    Status: Smallest feasible one-stage two-arm design found.
+    Calibration: Bayesian
+    Optional freq. Type-I reporting: on
+    Design: n_total = 121, n1 = 60, n2 = 61
+
+    Operating characteristics
+     Power = 0.8022
+     Type-I error = 0.0085
+     CE(H0) = 0.4854
+     Freq. Type-I = 0.0509
+     Freq. Power = 0.9231
+
+    Summary: One-stage two-arm Bayes factor design
+    ---------------------------------------------
+    Mode:        optimal
+    Status:      Smallest feasible one-stage two-arm design found.
+    Calibration: Bayesian
+    Feasible:    yes
+
+    Search overview
+      n evaluated          = 221
+      pointwise feasible   = 119
+      sustained feasible   = 119
+      first pointwise n    = 121
+      first sustained n    = 121
+
+    Selected design
+      n_total = 121, n1 = 60, n2 = 61
+
+
+    --- hybrid calibration ---
+
+    One-stage two-arm Bayes factor design
+    ------------------------------------
+    Mode: optimal
+    Status: Smallest feasible one-stage two-arm design found.
+    Calibration: hybrid
+    Optional freq. Type-I reporting: on
+    Design: n_total = 124, n1 = 62, n2 = 62
+
+    Operating characteristics
+     Power = 0.8004
+     Type-I error = 0.0082
+     CE(H0) = 0.4901
+     Freq. Type-I = 0.0472
+     Freq. Power = 0.9224
+
+    Summary: One-stage two-arm Bayes factor design
+    ---------------------------------------------
+    Mode:        optimal
+    Status:      Smallest feasible one-stage two-arm design found.
+    Calibration: hybrid
+    Feasible:    yes
+
+    Search overview
+      n evaluated          = 221
+      pointwise feasible   = 70
+      sustained feasible   = 70
+      first pointwise n    = 124
+      first sustained n    = 124
+
+    Selected design
+      n_total = 124, n1 = 62, n2 = 62
+
+
+    --- full calibration ---
+
+    One-stage two-arm Bayes factor design
+    ------------------------------------
+    Mode: optimal
+    Status: Smallest feasible one-stage two-arm design found.
+    Calibration: full
+    Optional freq. Type-I reporting: on
+    Design: n_total = 124, n1 = 62, n2 = 62
+
+    Operating characteristics
+     Power = 0.8004
+     Type-I error = 0.0082
+     CE(H0) = 0.4901
+     Freq. Type-I = 0.0472
+     Freq. Power = 0.9224
+
+    Summary: One-stage two-arm Bayes factor design
+    ---------------------------------------------
+    Mode:        optimal
+    Status:      Smallest feasible one-stage two-arm design found.
+    Calibration: full
+    Feasible:    yes
+
+    Search overview
+      n evaluated          = 221
+      pointwise feasible   = 70
+      sustained feasible   = 70
+      first pointwise n    = 124
+      first sustained n    = 124
+
+    Selected design
+      n_total = 124, n1 = 62, n2 = 62
+
+``` r
+
+sdc_design_row <- function(x, mode) {
+  feasible <- isTRUE(x$feasible)
+
+  # Exact named extraction from either a list or a named atomic vector.
+  extract_numeric <- function(object, candidates) {
+    if (is.null(object)) return(NA_real_)
+
+    available <- names(object)
+    if (is.null(available)) return(NA_real_)
+
+    for (nm in candidates) {
+      if (!nm %in% available) next
+
+      value <- object[[nm]]
+
+      if (is.numeric(value) && length(value) == 1L) {
+        return(unname(as.numeric(value)))
+      }
+    }
+
+    NA_real_
+  }
+
+  out <- data.frame(
+    Calibration = mode,
+    Feasible = feasible,
+    N = NA_real_,
+    Control = NA_real_,
+    Experimental = NA_real_,
+    Bayesian_power = NA_real_,
+    Bayesian_T1E = NA_real_,
+    Frequentist_power = NA_real_,
+    Frequentist_T1E = NA_real_,
+    PCE_Hminus = NA_real_,
+    stringsAsFactors = FALSE
+  )
+
+  if (!feasible) return(out)
+
+  d <- x[["design"]]
+  oc <- x[["operating_characteristics"]]
+
+  out$N <- extract_numeric(
+    d,
+    c("n_total", "N")
+  )
+
+  out$Control <- extract_numeric(
+    d,
+    c("n1", "n_control", "nC")
+  )
+
+  out$Experimental <- extract_numeric(
+    d,
+    c("n2", "n_experimental", "nE")
+  )
+
+  if (!all(is.finite(c(out$Control, out$Experimental)))) {
+    stop(
+      "Cannot extract arm sizes for calibration '", mode, "'. ",
+      "Available design fields: ",
+      paste(names(d), collapse = ", "),
+      call. = FALSE
+    )
+  }
+
+  # If no separately stored total exists, obtain it from the arm sizes.
+  if (!is.finite(out$N)) {
+    out$N <- out$Control + out$Experimental
+  }
+
+  if (out$N != out$Control + out$Experimental) {
+    stop(
+      "The reported total does not equal n1 + n2 for calibration '",
+      mode, "'.",
+      call. = FALSE
+    )
+  }
+
+  out$Bayesian_power <- extract_numeric(
+    oc,
+    c("power", "Power")
+  )
+
+  out$Bayesian_T1E <- extract_numeric(
+    oc,
+    c("type1", "Type1_Error", "Type1Error")
+  )
+
+  out$Frequentist_power <- extract_numeric(
+    oc,
+    c("freq_power", "Frequentist_Power", "FrequentistPower")
+  )
+
+  out$Frequentist_T1E <- extract_numeric(
+    oc,
+    c(
+      "freq_type1",
+      "Frequentist_Type1_Error",
+      "FrequentistType1Error"
+    )
+  )
+
+  out$PCE_Hminus <- extract_numeric(
+    oc,
+    c("ce_h0", "CE_H0", "CEH0")
+  )
+
+  out
+}
+
+sdc_calibration_table <- do.call(
+  rbind,
+  lapply(names(sdc_designs), function(mode) {
+    sdc_design_row(sdc_designs[[mode]], mode)
+  })
+)
+
+rownames(sdc_calibration_table) <- NULL
+
+knitr::kable(
+  sdc_calibration_table,
+  digits = 5,
+  caption = paste(
+    "Calibration of the salivary duct carcinoma planning example.",
+    "Sample sizes are totals or explicitly labelled arm sizes.",
+    "PCE is reported but not constrained."
+  )
+)
+```
+
+| Calibration | Feasible | N | Control | Experimental | Bayesian_power | Bayesian_T1E | Frequentist_power | Frequentist_T1E | PCE_Hminus |
+|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| frequentist | TRUE | 82 | 41 | 41 | 0.72898 | 0.00978 | 0.80713 | 0.04852 | 0.41623 |
+| Bayesian | TRUE | 121 | 60 | 61 | 0.80222 | 0.00851 | 0.92310 | 0.05093 | 0.48544 |
+| hybrid | TRUE | 124 | 62 | 62 | 0.80045 | 0.00817 | 0.92239 | 0.04724 | 0.49014 |
+| full | TRUE | 124 | 62 | 62 | 0.80045 | 0.00817 | 0.92239 | 0.04724 | 0.49014 |
+
+Calibration of the salivary duct carcinoma planning example. Sample
+sizes are totals or explicitly labelled arm sizes. PCE is reported but
+not constrained. {.table}
+
+### Visualization
+
+The same plotting interface is available irrespective of the calibration
+mode. The active criteria determine sample-size selection; other
+displayed operating characteristics remain diagnostic.
+
+``` r
+
+plot(sdc_designs$frequentist)
+```
+
+![Figure 6: Visualization of the frequentist calibrated two-arm
+one-stage Bayes factor design with a binary
+endpoint](figures/twoarm_onestage_fig6.png)
+
+Figure 6: Visualization of the frequentist calibrated two-arm one-stage
+Bayes factor design with a binary endpoint
+
+### Package operating characteristics at fixed arm sizes
+
+A finer null grid changes the assessment of error, not the decision
+rule. The following helper evaluates fixed arm sizes without
+recalibrating them.
+
+``` r
+
+sdc_oc_at_n <- function(
+    n_control,
+    n_experimental = n_control,
+    grid = sdc_grid_coarse) {
+
+  args <- sdc_bf_args
+
+  args$n1 <- as.integer(n_control)
+  args$n2 <- as.integer(n_experimental)
+  args$output <- "numeric"
+  args$compute_freq_t1e <- TRUE
+  args$p1_grid <- grid
+  args$p2_grid <- grid
+
+  unsupported <- setdiff(
+    names(args),
+    names(formals(bfbin2arm::powertwoarmbinbf01))
+  )
+
+  if (length(unsupported)) {
+    stop(
+      "Unsupported OC arguments: ",
+      paste(unsupported, collapse = ", "),
+      call. = FALSE
+    )
+  }
+
+  do.call(bfbin2arm::powertwoarmbinbf01, args)
+}
+```
+
+``` r
+
+sdc_oc_coarse <- sdc_oc_at_n(41L, 41L)
+sdc_oc_fine <- sdc_oc_at_n(41L, 41L, grid = sdc_grid_fine)
+
+print(sdc_oc_coarse, digits = 12)
+#>                   Power             Type1_Error                   CE_H0 
+#>         0.7289776227822         0.0097836945176         0.4162322918428 
+#> Frequentist_Type1_Error       Frequentist_Power 
+#>         0.0485183254298         0.8071293207186 
+#> attr(,"hypothesis")
+#> [1] "H[+]:~p[2] > p[1] ~~ vs ~~ H[-]:~p[2] <= p[1]"
+#> attr(,"compute_freq_t1e")
+#> [1] TRUE
+#> attr(,"p1_power")
+#> [1] 0.277
+#> attr(,"p2_power")
+#> [1] 0.55
+print(sdc_oc_fine, digits = 12)
+#>                   Power             Type1_Error                   CE_H0 
+#>         0.7289776227822         0.0097836945176         0.4162322918428 
+#> Frequentist_Type1_Error       Frequentist_Power 
+#>         0.0485183254298         0.8071293207186 
+#> attr(,"hypothesis")
+#> [1] "H[+]:~p[2] > p[1] ~~ vs ~~ H[-]:~p[2] <= p[1]"
+#> attr(,"compute_freq_t1e")
+#> [1] TRUE
+#> attr(,"p1_power")
+#> [1] 0.277
+#> attr(,"p2_power")
+#> [1] 0.55
+```
+
+Agreement between these grids is reassuring but does not establish the
+supremum over the continuous composite null. We therefore reconstruct
+the decision rule independently and examine its monotonicity.
+
+### Independent Bayes-factor and Fisher rejection regions
+
+Rows of each matrix correspond to control successes and columns to
+experimental successes.
+
+Under the identical uniform analysis basis priors used here, both
+directional regions have prior probability one-half. Consequently,
+$`B_{-+}`$ equals the posterior odds of the non-positive versus positive
+direction under the unrestricted uniform model. This identity is
+specific to the stated analysis priors.
+
+``` r
+
+sdc_beta_prob_greater <- function(aX, bX, aY, bY) {
+  stopifnot(
+    aX >= 1,
+    aX == as.integer(aX),
+    bX > 0,
+    aY > 0,
+    bY > 0
+  )
+
+  ii <- seq.int(0L, as.integer(aX) - 1L)
+
+  terms <- lbeta(aY + ii, bX + bY) -
+    log(bX + ii) -
+    lbeta(1 + ii, bX) -
+    lbeta(aY, bY)
+
+  z <- max(terms)
+  exp(z) * sum(exp(terms - z))
+}
+
+sdc_bf_region <- function(nC, nE, k = sdc_k) {
+  log_bf <- matrix(
+    NA_real_,
+    nrow = nC + 1L,
+    ncol = nE + 1L
+  )
+
+  for (yC in 0:nC) {
+    for (yE in 0:nE) {
+      aC <- yC + 1
+      bC <- nC - yC + 1
+      aE <- yE + 1
+      bE <- nE - yE + 1
+
+      prob_plus <- sdc_beta_prob_greater(aE, bE, aC, bC)
+      prob_minus <- sdc_beta_prob_greater(aC, bC, aE, bE)
+
+      stopifnot(abs(prob_plus + prob_minus - 1) < 1e-8)
+
+      log_bf[yC + 1L, yE + 1L] <-
+        log(prob_minus) - log(prob_plus)
+    }
+  }
+
+  if (any(abs(log_bf - log(k)) < 1e-10)) {
+    stop("An outcome is numerically at the BF threshold; resolve ties.")
+  }
+
+  log_bf < log(k)
+}
+
+sdc_fisher_region <- function(nC, nE, alpha = sdc_alpha) {
+  yC <- matrix(
+    0:nC,
+    nrow = nC + 1L,
+    ncol = nE + 1L
+  )
+
+  yE <- matrix(
+    0:nE,
+    nrow = nC + 1L,
+    ncol = nE + 1L,
+    byrow = TRUE
+  )
+
+  successes <- yC + yE
+
+  pvalue <- matrix(
+    stats::phyper(
+      q = as.vector(yE) - 1,
+      m = as.vector(successes),
+      n = nC + nE - as.vector(successes),
+      k = nE,
+      lower.tail = FALSE
+    ),
+    nrow = nC + 1L,
+    ncol = nE + 1L
+  )
+
+  pvalue <= alpha + 1e-12
+}
+
+sdc_rejection_probability <- function(reject, pC, pE) {
+  nC <- nrow(reject) - 1L
+  nE <- ncol(reject) - 1L
+
+  wC <- stats::dbinom(0:nC, nC, pC)
+  wE <- stats::dbinom(0:nE, nE, pE)
+
+  as.numeric(crossprod(wC, reject %*% wE))
+}
+```
+
+For each rejection region, the next function checks that rejection is
+nondecreasing in experimental successes and nonincreasing in control
+successes. If these properties hold, binomial stochastic ordering
+implies that a null pair $`p_E\leq p_C`$ is dominated by the boundary
+pair $`(p_C,p_C)`$. Composite-null size can then be assessed by
+maximizing the boundary rejection probability.
+
+The maximization scans 10,001 boundary points, refines identified local
+maxima, and includes the endpoints. It is a numerical search, not a
+formally certified upper bound.
+
+``` r
+
+sdc_boundary_size <- function(reject, grid_length = 10001L) {
+  nC <- nrow(reject) - 1L
+  nE <- ncol(reject) - 1L
+
+  monotone_E <- all(
+    reject[, -1L, drop = FALSE] >=
+      reject[, -(nE + 1L), drop = FALSE]
+  )
+
+  monotone_C <- all(
+    reject[-1L, , drop = FALSE] <=
+      reject[-(nC + 1L), , drop = FALSE]
+  )
+
+  if (!monotone_E || !monotone_C) {
+    stop(
+      "The rejection region is nonmonotone; ",
+      "boundary-only maximization is not justified."
+    )
+  }
+
+  f <- function(p) {
+    sdc_rejection_probability(reject, p, p)
+  }
+
+  pp <- seq(0, 1, length.out = grid_length)
+  vv <- vapply(pp, f, numeric(1))
+  m <- length(pp)
+
+  local_idx <- which(
+    vv[2:(m - 1L)] >= vv[1:(m - 2L)] &
+      vv[2:(m - 1L)] >= vv[3:m] &
+      (
+        vv[2:(m - 1L)] > vv[1:(m - 2L)] |
+          vv[2:(m - 1L)] > vv[3:m]
+      )
+  ) + 1L
+
+  candidates <- data.frame(
+    p = pp[c(1L, which.max(vv), m)],
+    t1e = vv[c(1L, which.max(vv), m)]
+  )
+
+  for (i in local_idx) {
+    ans <- stats::optimize(
+      f,
+      interval = pp[c(i - 1L, i + 1L)],
+      maximum = TRUE,
+      tol = 1e-12
+    )
+
+    candidates <- rbind(
+      candidates,
+      data.frame(p = ans$maximum, t1e = ans$objective)
+    )
+  }
+
+  best <- candidates[which.max(candidates$t1e), , drop = FALSE]
+
+  data.frame(
+    worst_p = best$p,
+    max_t1e = best$t1e,
+    monotone_C = monotone_C,
+    monotone_E = monotone_E
+  )
+}
+
+sdc_assess_region <- function(reject, method) {
+  data.frame(
+    Method = method,
+    Control = nrow(reject) - 1L,
+    Experimental = ncol(reject) - 1L,
+    N = nrow(reject) + ncol(reject) - 2L,
+    Frequentist_power = sdc_rejection_probability(
+      reject, sdc_pC, sdc_pE
+    ),
+    sdc_boundary_size(reject),
+    row.names = NULL
+  )
+}
+```
+
+### Comparison at the same sample sizes
+
+The following compares both rules at 41 and 45 evaluable participants
+per arm. These are diagnostic evaluations; the minimum-size search below
+determines whether smaller equal-arm designs meet both targets.
+
+``` r
+
+sdc_bf41 <- sdc_bf_region(41L, 41L)
+sdc_fisher41 <- sdc_fisher_region(41L, 41L)
+
+sdc_bf45 <- sdc_bf_region(45L, 45L)
+sdc_fisher45 <- sdc_fisher_region(45L, 45L)
+
+sdc_rule_comparison <- rbind(
+  sdc_assess_region(sdc_bf41, "BF: k = 0.05"),
+  sdc_assess_region(sdc_fisher41, "Fisher: alpha = 0.05"),
+  sdc_assess_region(sdc_bf45, "BF: k = 0.05"),
+  sdc_assess_region(sdc_fisher45, "Fisher: alpha = 0.05")
+)
+
+sdc_rule_comparison$Meets_targets <- with(
+  sdc_rule_comparison,
+  Frequentist_power >= sdc_power_target &
+    max_t1e <= sdc_alpha
+)
+
+knitr::kable(
+  sdc_rule_comparison,
+  digits = 10,
+  caption = paste(
+    "Independent fixed-sample comparison.",
+    "The rules share target bounds, not necessarily achieved error rates."
+  )
+)
+```
+
+| Method | Control | Experimental | N | Frequentist_power | worst_p | max_t1e | monotone_C | monotone_E | Meets_targets |
+|:---|---:|---:|---:|---:|---:|---:|:---|:---|:---|
+| BF: k = 0.05 | 41 | 41 | 82 | 0.8071293 | 0.5000000 | 0.04851833 | TRUE | TRUE | TRUE |
+| Fisher: alpha = 0.05 | 41 | 41 | 82 | 0.7415767 | 0.3035048 | 0.03046753 | TRUE | TRUE | FALSE |
+| BF: k = 0.05 | 45 | 45 | 90 | 0.8566234 | 0.5000000 | 0.05667219 | TRUE | TRUE | FALSE |
+| Fisher: alpha = 0.05 | 45 | 45 | 90 | 0.8014489 | 0.5000000 | 0.03627502 | TRUE | TRUE | TRUE |
+
+Independent fixed-sample comparison. The rules share target bounds, not
+necessarily achieved error rates. {.table}
+
+### Agreement with the package calculation
+
+This check compares independent reconstruction and the package at the
+same arm sizes and on the same coarse null grid.
+
+``` r
+
+sdc_pkg_power <- unname(
+  sdc_oc_coarse["Frequentist_Power"]
+)
+
+sdc_ind_power <- sdc_rejection_probability(
+  sdc_bf41, sdc_pC, sdc_pE
+)
+
+sdc_boundary_coarse <- vapply(
+  sdc_grid_coarse,
+  function(p) sdc_rejection_probability(sdc_bf41, p, p),
+  numeric(1)
+)
+
+sdc_pkg_t1e <- unname(
+  sdc_oc_coarse["Frequentist_Type1_Error"]
+)
+
+stopifnot(
+  length(sdc_pkg_power) == 1L,
+  is.finite(sdc_pkg_power),
+  abs(sdc_pkg_power - sdc_ind_power) < 1e-8,
+  length(sdc_pkg_t1e) == 1L,
+  is.finite(sdc_pkg_t1e),
+  abs(sdc_pkg_t1e - max(sdc_boundary_coarse)) < 1e-8
+)
+
+knitr::kable(
+  data.frame(
+    Package_power = sdc_pkg_power,
+    Independent_power = sdc_ind_power,
+    Package_grid_T1E = sdc_pkg_t1e,
+    Independent_grid_T1E = max(sdc_boundary_coarse),
+    Independent_refined_T1E = sdc_boundary_size(sdc_bf41)$max_t1e
+  ),
+  digits = 10
+)
+```
+
+| Package_power | Independent_power | Package_grid_T1E | Independent_grid_T1E | Independent_refined_T1E |
+|---:|---:|---:|---:|---:|
+| 0.8071293 | 0.8071293 | 0.04851833 | 0.04851833 | 0.04851833 |
+
+A failed agreement check should be investigated before interpreting a
+sample-size advantage. Possible causes include different evidence
+orientation, threshold inequalities, analysis priors, null regions, or
+output conventions.
+
+### Minimum equal-arm designs
+
+We enumerate equal-arm sizes in increasing order. For each rule, power
+is evaluated first. Designs reaching the power target are then assessed
+for composite-null size. No monotonicity in sample size is assumed.
+
+``` r
+
+sdc_find_minimum <- function(
+    method = c("BF", "Fisher"),
+    n_arm_max = 60L) {
+
+  method <- match.arg(method)
+  checked <- list()
+
+  for (n in seq_len(n_arm_max)) {
+    reject <- if (method == "BF") {
+      sdc_bf_region(n, n)
+    } else {
+      sdc_fisher_region(n, n)
+    }
+
+    power <- sdc_rejection_probability(
+      reject, sdc_pC, sdc_pE
+    )
+
+    if (power < sdc_power_target) next
+
+    assessed <- sdc_assess_region(reject, method)
+    checked[[length(checked) + 1L]] <- assessed
+
+    if (assessed$max_t1e <= sdc_alpha) {
+      return(list(
+        selected = assessed,
+        power_eligible_checked = do.call(rbind, checked)
+      ))
+    }
+  }
+
+  list(
+    selected = NULL,
+    power_eligible_checked = if (length(checked)) {
+      do.call(rbind, checked)
+    } else {
+      NULL
+    }
+  )
+}
+
+sdc_minimum_bf <- sdc_find_minimum("BF")
+sdc_minimum_fisher <- sdc_find_minimum("Fisher")
+
+print(sdc_minimum_bf)
+#> $selected
+#>   Method Control Experimental  N Frequentist_power worst_p    max_t1e
+#> 1     BF      41           41 82         0.8071293     0.5 0.04851833
+#>   monotone_C monotone_E
+#> 1       TRUE       TRUE
+#> 
+#> $power_eligible_checked
+#>   Method Control Experimental  N Frequentist_power worst_p    max_t1e
+#> 1     BF      41           41 82         0.8071293     0.5 0.04851833
+#>   monotone_C monotone_E
+#> 1       TRUE       TRUE
+print(sdc_minimum_fisher)
+#> $selected
+#>   Method Control Experimental  N Frequentist_power worst_p    max_t1e
+#> 1 Fisher      45           45 90         0.8014489     0.5 0.03627502
+#>   monotone_C monotone_E
+#> 1       TRUE       TRUE
+#> 
+#> $power_eligible_checked
+#>   Method Control Experimental  N Frequentist_power worst_p    max_t1e
+#> 1 Fisher      45           45 90         0.8014489     0.5 0.03627502
+#>   monotone_C monotone_E
+#> 1       TRUE       TRUE
+
+if (
+  !is.null(sdc_minimum_bf$selected) &&
+    !is.null(sdc_minimum_fisher$selected)
+) {
+  sdc_minima <- rbind(
+    sdc_minimum_bf$selected,
+    sdc_minimum_fisher$selected
+  )
+
+  knitr::kable(
+    sdc_minima,
+    digits = 10,
+    caption = paste(
+      "Minimum equal-arm designs within the searched rule families,",
+      "using finite outcome enumeration and numerical null maximization."
+    )
+  )
+
+  sdc_saving <- data.frame(
+    BF_total = sdc_minimum_bf$selected$N,
+    Fisher_total = sdc_minimum_fisher$selected$N,
+    Difference = sdc_minimum_fisher$selected$N -
+      sdc_minimum_bf$selected$N,
+    Relative_difference_percent = 100 * (
+      sdc_minimum_fisher$selected$N -
+        sdc_minimum_bf$selected$N
+    ) / sdc_minimum_fisher$selected$N
+  )
+
+  knitr::kable(sdc_saving, digits = 2)
+}
+```
+
+| BF_total | Fisher_total | Difference | Relative_difference_percent |
+|---------:|-------------:|-----------:|----------------------------:|
+|       82 |           90 |          8 |                        8.89 |
+
+These minima concern the specified fixed-threshold rules, equal
+allocation, and searched sample sizes. They are not optimality
+statements across all possible tests or allocations.
+
+A smaller Bayes-factor design would represent a scenario-specific
+result, not general superiority over Fisher’s exact test. Both
+procedures may satisfy the same 5% upper bound while attaining different
+actual sizes.
+
+### Recruitment allowance and interpretation
+
+The following arithmetic illustrates a 10% allowance for unavailable
+binary outcomes, using the independently selected equal-arm designs.
+
+``` r
+
+if (
+  !is.null(sdc_minimum_bf$selected) &&
+    !is.null(sdc_minimum_fisher$selected)
+) {
+  sdc_recruitment <- data.frame(
+    Method = c("BF", "Fisher"),
+    Evaluable_per_arm = c(
+      sdc_minimum_bf$selected$Control,
+      sdc_minimum_fisher$selected$Control
+    )
+  )
+
+  sdc_recruitment$Recruitment_per_arm <- ceiling(
+    sdc_recruitment$Evaluable_per_arm / (1 - sdc_dropout)
+  )
+
+  sdc_recruitment$Recruitment_total <-
+    2L * sdc_recruitment$Recruitment_per_arm
+
+  knitr::kable(
+    sdc_recruitment,
+    caption = paste(
+      "Arithmetic recruitment allowance for 10% unavailable outcomes;",
+      "not a validation of the missing-data analysis."
+    )
+  )
+}
+```
+
+| Method | Evaluable_per_arm | Recruitment_per_arm | Recruitment_total |
+|:-------|------------------:|--------------------:|------------------:|
+| BF     |                41 |                  46 |                92 |
+| Fisher |                45 |                  50 |               100 |
+
+Arithmetic recruitment allowance for 10% unavailable outcomes; not a
+validation of the missing-data analysis. {.table}
+
+The operating-characteristic calculations refer to fixed evaluable arm
+sizes. They do not automatically apply after random missingness or to
+every larger sample size. A fixed Bayes-factor threshold can have
+nonmonotone type-I error as sample size changes, so enlarging a
+validated design requires rechecking its operating characteristics.
+
+The planning rate of 55%, prior concentration, endpoint ascertainment,
+missing-data strategy, and analysis time remain substantive protocol
+choices. The binomial illustration should not replace a time-to-event
+calculation if the intended primary analysis uses censored DFS times.
+
+``` r
+
+packageVersion("bfbin2arm")
+#> [1] '0.1.8'
+```
 
 ## Summary
 
