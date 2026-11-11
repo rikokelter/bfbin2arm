@@ -754,7 +754,7 @@ grid under \(H_0\). Bayesian operating characteristics are reported but are
 not feasibility constraints.
 
 ```{r, echo = FALSE}
-nadim_frequentist <- readRDS("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadimII-freq.rds")
+nadim_frequentist <- readRDS("nadimII-freq.rds")
 ```
 ```{r nadim-frequentist-calibration, cache=TRUE, eval = FALSE}
 nadim_frequentist <- design_twoarm_onestage_bf(
@@ -819,7 +819,7 @@ alternative and null grid are used for additional reporting, not as
 Bayesian feasibility constraints.
 
 ```{r, echo = FALSE}
-nadim_bayesian <- readRDS("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadimII-bayesian.rds")
+nadim_bayesian <- readRDS("nadimII-bayesian.rds")
 ```
 ```{r nadim-bayesian-calibration, cache=TRUE, eval = FALSE}
 nadim_bayesian <- design_twoarm_onestage_bf(
@@ -878,7 +878,7 @@ control. Frequentist power and Bayesian type-I error are diagnostics,
 not active constraints.
 
 ```{r, echo = FALSE}
-nadim_hybrid <- readRDS("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadimII-hybrid.rds")
+nadim_hybrid <- readRDS("nadimII-hybrid.rds")
 ```
 ```{r nadim-hybrid-calibration, cache=TRUE, eval = FALSE}
 nadim_hybrid <- design_twoarm_onestage_bf(
@@ -937,7 +937,7 @@ both type-I-error definitions simultaneously. Every enforced target is
 specified explicitly.
 
 ```{r, echo = FALSE}
-nadim_full <- readRDS("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadimII-full.rds")
+nadim_full <- readRDS("nadimII-full.rds")
 ```
 ```{r nadim-full-calibration, cache=TRUE, eval = FALSE}
 nadim_full <- design_twoarm_onestage_bf(
