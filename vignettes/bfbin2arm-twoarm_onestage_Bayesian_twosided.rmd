@@ -1336,7 +1336,7 @@ When working with a locally modified package, invalidate the cache
 after changing its numerical implementation.
 
 ```{r}
-nadim_sensitivity_designs <- readRDS("/Users/riko/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadim_sensitivity_designs.rds")
+nadim_sensitivity_designs <- readRDS("nadim_sensitivity_designs.rds")
 ```
 ```{r nadim-sensitivity-calibrations, cache=TRUE, cache.extra=list(nadim_sensitivity_scenarios, nadim_pce_requirements, nadim_sensitivity_n_min, nadim_sensitivity_n_max, nadim_sensitivity_sustain, nadim_sensitivity_kf, as.character(utils::packageVersion("bfbin2arm"))), eval = FALSE}
 nadim_sensitivity_designs <- list()
