@@ -56,9 +56,14 @@ singlearm_bf01 <- function(
   m0 / m1
 }
 
-# Exact probability for BF event by summing over counts
-# lower.tail = TRUE  -> P(BF01 <= k)
-# lower.tail = FALSE -> P(BF01 >  k)
+#' Exact probability of a single-arm Bayes factor threshold event
+#'
+#' @details
+#' With lower.tail = TRUE, calculates P(BF01 < k).
+#' With lower.tail = FALSE, calculates P(BF01 >= k).
+#'
+#' The argument k is a threshold on BF01.
+#' To require BF10 > K, supply k = 1 / K.
 pbinbf01_singlearm_exact <- function(
     k, n, p0,
     a0 = 1, b0 = 1,
@@ -71,47 +76,99 @@ pbinbf01_singlearm_exact <- function(
 ) {
   type <- match.arg(type)
   
-  if (length(k) != 1 || !is.finite(k) || k <= 0) {
-    stop("k must be a positive number.")
+  if (length(k) != 1L || !is.finite(k) || k <= 0) {
+    stop("k must be a positive finite number.")
+  }
+  
+  if (
+    length(lower.tail) != 1L ||
+    !is.logical(lower.tail) ||
+    is.na(lower.tail)
+  ) {
+    stop("lower.tail must be TRUE or FALSE.")
   }
   
   xvals <- 0:n
+  
   bfvals <- singlearm_bf01(
-    x = xvals, n = n, p0 = p0,
-    a0 = a0, b0 = b0,
-    a1 = a1, b1 = b1,
+    x = xvals,
+    n = n,
+    p0 = p0,
+    a0 = a0,
+    b0 = b0,
+    a1 = a1,
+    b1 = b1,
     type = type
   )
   
-  if (type == "point") {
-    if (is.na(dp)) {
-      pmf <- singlearm_priorpred_pmf(
-        x = xvals, n = n,
-        dp = NA_real_,
-        da = da1, db = db1,
-        dl = 0, du = 1
-      )
-    } else {
-      pmf <- dbinom(xvals, size = n, prob = dp)
-    }
+  if (is.na(dp)) {
+    pmf <- singlearm_priorpred_pmf(
+      x = xvals,
+      n = n,
+      dp = NA_real_,
+      da = da1,
+      db = db1,
+      dl = if (type == "point") 0 else p0,
+      du = 1
+    )
   } else {
-    if (is.na(dp)) {
-      pmf <- singlearm_priorpred_pmf(
-        x = xvals, n = n,
-        dp = NA_real_,
-        da = da1, db = db1,
-        dl = p0, du = 1
-      )
-    } else {
-      pmf <- dbinom(xvals, size = n, prob = dp)
-    }
+    pmf <- dbinom(xvals, size = n, prob = dp)
   }
   
   if (lower.tail) {
-    sum(pmf[bfvals <= k])
+    sum(pmf[bfvals < k])
   } else {
-    sum(pmf[bfvals > k])
+    sum(pmf[bfvals >= k])
   }
+}
+
+#' Construct strict single-arm Bayes factor evidence regions
+#'
+#' @details
+#' Efficacy: BF01 < k.
+#' Compelling evidence for H0: BF01 > k_ce.
+#' Equality at either threshold is inconclusive.
+singlearm_bf_regions <- function(
+    bfvals,
+    k,
+    k_ce = NULL
+) {
+  if (
+    !is.numeric(bfvals) ||
+    anyNA(bfvals) ||
+    any(bfvals < 0)
+  ) {
+    stop("bfvals must be nonnegative numeric values without NA.")
+  }
+  
+  if (length(k) != 1L || !is.finite(k) || k <= 0) {
+    stop("k must be a positive finite number.")
+  }
+  
+  efficacy <- bfvals < k
+  
+  if (is.null(k_ce)) {
+    return(list(
+      efficacy = efficacy,
+      not_efficacy = !efficacy
+    ))
+  }
+  
+  if (
+    length(k_ce) != 1L ||
+    !is.finite(k_ce) ||
+    k_ce <= k
+  ) {
+    stop("k_ce must be a finite number greater than k.")
+  }
+  
+  compelling_h0 <- bfvals > k_ce
+  
+  list(
+    efficacy = efficacy,
+    compelling_h0 = compelling_h0,
+    inconclusive = !(efficacy | compelling_h0)
+  )
 }
 
 # Fixed-sample operating characteristics for a single-arm BF design

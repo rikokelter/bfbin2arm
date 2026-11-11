@@ -11,7 +11,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
     number_sections: true
-bibliography: references.bib
+bibliography: ../references.bib
 vignette: |
   %\VignetteIndexEntry{Optimal Bayesian calibration for single-arm two-stage Bayes factor designs}
   %\VignetteEngine{knitr::rmarkdown}
@@ -84,7 +84,7 @@ These play different roles and should not be confused.
 ### Analysis prior
 
 The Bayes factor itself is computed using an analysis prior under \(H_1\). In
-the notation of [@kelter_third_2025], this prior is
+the notation of [@KelterPawel2026], this prior is
 
 \[
 p \mid H_1 \sim \mathrm{Beta}(a_a, b_a),
@@ -240,7 +240,7 @@ compelling evidence.
 
 We consider a single-arm phase II trial with null response probability
 \(p_0 = 0.2\) in the context of nonsmall cell lung cancer, for details see
-[@kelter_third_2025]. Evidence is quantified through the Bayes factor
+[@KelterPawel2026]. Evidence is quantified through the Bayes factor
 \(BF_{01}\), with a small threshold \(k < 1\) for efficacy and a large
 threshold \(k_f > 1\) for futility. Thus, we first use the two-sided test of $H_0:p_1=p_2$ versus $H_1:p_1 \neq p_2$.
 
@@ -442,7 +442,7 @@ H_0: p \le p_0
 H_1: p > p_0,
 \]
 
-with \(p_0 = 0.2\), as considered in [@kelter_third_2025] and [@kelter_two_stage_2025]. In the implementation, this
+with \(p_0 = 0.2\), as considered in [@KelterPawel2026] and [@KelterPawelTwoStage2025]. In the implementation, this
 is obtained by setting `type = "direction"`.
 
 As before, `da = 2.5` and `db = 2` specify the slightly informative Bayesian design prior, whereas
