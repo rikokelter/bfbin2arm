@@ -1088,7 +1088,7 @@ mode, repeat the **full** calibration under equal allocation, changing
 only `alloc1` and `alloc2`.
 
 ```{r, echo = FALSE}
-nadim_full_balanced <- readRDS("~/Library/Mobile Documents/com~apple~CloudDocs/Documents/bfbin2arm/vignettes/nadimII-full_balanced.rds")
+nadim_full_balanced <- readRDS("nadimII-full_balanced.rds")
 ```
 ```{r nadim-balanced-full-calibration, eval=FALSE, cache=TRUE}
 nadim_full_balanced <- design_twoarm_onestage_bf(
