@@ -37,11 +37,11 @@ library(bfbin2arm)
 This vignette illustrates how to calibrate a one-stage single-arm Bayes factor
 design for a binary endpoint. The goal is to determine the smallest total sample
 size that satisfies pre-specified Bayesian and/or frequentist operating
-characteristics. The underlying statistical theory is developed in [@kelter_third_2025], extended to the single-arm two-stage optimal setting in [@kelter_two_stage_2025], and further developed to the two-arm single-stage setting in [@kelter_power_2026].
+characteristics. The underlying statistical theory is developed in [@KelterPawelTwoStage2025], extended to the single-arm two-stage optimal setting in [@KelterPawel2026], and further developed to the two-arm single-stage setting in [@kelterTwoArmSingleStage2026].
 
 ## How to design a Bayesian trial: Overview of the calibration algorithm
 
-The workflow implemented in the package follows the fixed-sample Bayes factor calibration framework proposed in @kelter_third_2025:
+The workflow implemented in the package follows the fixed-sample Bayes factor calibration framework proposed in @KelterPawel2026:
   Choose design and analysis priors, specify an evidence threshold on the
 \eqn{BF_{01}} scale, compute operating characteristics as a function of the
 sample size, and select the smallest feasible design.

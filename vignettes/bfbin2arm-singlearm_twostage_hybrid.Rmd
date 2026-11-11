@@ -558,7 +558,7 @@ We see that now an optimal design is found, and we can inspect the details of al
 ```{r, eval = FALSE}
 res_hybrid_ce_with_power_cushion
 ```
-The example exemplifies that is is recommended to always use a small power cushion to isolate optimal designs reliably with the two-step algorithm underlying the function. For further details, see also @kelter_third_2025 and @kelter_two_stage_2025.
+The example exemplifies that is is recommended to always use a small power cushion to isolate optimal designs reliably with the two-step algorithm underlying the function. For further details, see also @KelterPawel2026 and @KelterPawelTwoStage2025
 
 ## Practical recommendations for hybrid calibration
 

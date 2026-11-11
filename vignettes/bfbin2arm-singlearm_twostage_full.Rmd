@@ -51,7 +51,7 @@ $H_1$ are defined as prior‑predictive probabilities with respect to these
 priors. This approach has been developed for Bayes factors in binomial one- and
 two‑arm settings, where closed‑form expressions and numerical integration can be
 used to obtain sample sizes that satisfy Bayesian power and type‑I error targets
-without Monte Carlo simulation, see [@kelter_third_2025], [@kelter_two_stage_2025] and [@kelter_power_2026]. These
+without Monte Carlo simulation, see [@KelterPawelTwoStage2025], [@kelterTwoArmSingleStage2026] and [@kelterOptimalSequentialTwostage2026]. These
 methods provide a Bayesian analogue of classical power analysis for Bayes
 factors and form the basis of the one‑stage calibration routines in this
 package.
@@ -72,7 +72,7 @@ Bayesian hypothesis tests [@guoMultiplicitycalibratedBayesianHypothesis2010], se
 
 Against this backdrop, the **hybrid** and **full** calibration modes in
 \{bfbin2arm\} implement Bayes–frequentist compromise designs for Bayes factors
-in single‑ and two‑arm phase II trials with binary endpoints [@kelter_third_2025; @kelter_two_stage_2025; @kelter_power_2026]. In hybrid calibration, power is defined in a
+in single‑ and two‑arm phase II trials with binary endpoints [@KelterPawelTwoStage2025; @kelterOptimalSequentialTwostage2026; @kelterTwoArmSingleStage2026]. In hybrid calibration, power is defined in a
 Bayesian prior‑predictive sense under a design prior for $H_1$, while type‑I
 error is controlled in a frequentist sense at the null boundary $p_0$. In
 full calibration, both Bayesian and frequentist error metrics are constrained
@@ -205,7 +205,7 @@ res_full <- design_singlearm_bf(
   power_cushion = 0.025
 )
 ```
-Note that we specified a power cushion via the parameter `power_cushion = 0.025`. Otherwise, it might be impossible to find an optimal design, for details on the underlying methodology see also the vignette on hybrid calibration and the discussion section in [@kelter_two_stage_2025]. We inspect the results produced by the calibration algorithm:
+Note that we specified a power cushion via the parameter `power_cushion = 0.025`. Otherwise, it might be impossible to find an optimal design, for details on the underlying methodology see also the vignette on hybrid calibration and the discussion section in [@KelterPawelTwoStage2025]. We inspect the results produced by the calibration algorithm:
 ```{r}
 summary(res_full)
 ```

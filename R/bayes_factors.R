@@ -24,14 +24,20 @@ twoarmbinbf01 <- function(y1, y2, n1, n2,
                           a_0_a = 1, b_0_a = 1,
                           a_1_a = 1, b_1_a = 1,
                           a_2_a = 1, b_2_a = 1) {
-  numerator <- beta(a_0_a + y1 + y2,
-                    b_0_a + n1 + n2 - y1 - y2) / beta(a_0_a, b_0_a)
+  log_m0 <- lbeta(
+    a_0_a + y1 + y2,
+    b_0_a + n1 + n2 - y1 - y2
+  ) - lbeta(a_0_a, b_0_a)
   
-  denominator <- (beta(a_1_a + y1, b_1_a + n1 - y1) *
-                    beta(a_2_a + y2, b_2_a + n2 - y2)) /
-    (beta(a_1_a, b_1_a) * beta(a_2_a, b_2_a))
+  log_m1 <- (
+    lbeta(a_1_a + y1, b_1_a + n1 - y1) -
+      lbeta(a_1_a, b_1_a)
+  ) + (
+    lbeta(a_2_a + y2, b_2_a + n2 - y2) -
+      lbeta(a_2_a, b_2_a)
+  )
   
-  numerator / denominator
+  exp(log_m0 - log_m1)
 }
 
 #' Prior probability P(p2 > p1) under independent Beta priors

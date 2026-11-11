@@ -43,7 +43,7 @@ $$
 H_0 : p \leq p_0, \text{ versus } H_1 : p > p_0,
 $$
 
-where $p_0$ is a benchmark response probability, compare [@kelter_third_2025].
+where $p_0$ is a benchmark response probability, compare [@KelterPawelTwoStage2025]. 
 
 The decision rule is based on the Bayes factor $BF_{01}$ for $H_0$ versus
 $H_1$:
@@ -206,7 +206,7 @@ Under `calibration = "frequentist"`, the design has the following key properties
 - The frequentist power (probability of rejecting $H_0$ when $p = dp$) is
   at or above `target_freq_power`.
 - Among all designs within the specified bounds that satisfy these constraints,
-  the selected design minimizes the expected sample size under $H_0$. Details are also provided in [@kelter_two_stage_2025].
+  the selected design minimizes the expected sample size under $H_0$. Details are also provided in [@KelterPawelTwoStage2025].
 
 The Bayesian operating characteristics are still reported, but they do not
 drive the calibration; they serve as additional information about how the design

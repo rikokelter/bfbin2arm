@@ -78,16 +78,26 @@ powertwoarmbinbf01 <- function(
   # -------------------------------------------------------------------------
   # internal Bayes factor helper functions (analysis priors only)
   # -------------------------------------------------------------------------
-  twoarmbinbf01_internal <- function(y1, y2, n1, n2,
-                                     a_0_a, b_0_a,
-                                     a_1_a, b_1_a,
-                                     a_2_a, b_2_a) {
-    numerator <- beta(a_0_a + y1 + y2,
-                      b_0_a + n1 + n2 - y1 - y2) / beta(a_0_a, b_0_a)
-    denominator <- (beta(a_1_a + y1, b_1_a + n1 - y1) *
-                      beta(a_2_a + y2, b_2_a + n2 - y2)) /
-      (beta(a_1_a, b_1_a) * beta(a_2_a, b_2_a))
-    numerator / denominator
+  twoarmbinbf01_internal <- function(
+    y1, y2, n1, n2,
+    a_0_a, b_0_a,
+    a_1_a, b_1_a,
+    a_2_a, b_2_a
+  ) {
+    log_m0 <- lbeta(
+      a_0_a + y1 + y2,
+      b_0_a + n1 + n2 - y1 - y2
+    ) - lbeta(a_0_a, b_0_a)
+    
+    log_m1 <- (
+      lbeta(a_1_a + y1, b_1_a + n1 - y1) -
+        lbeta(a_1_a, b_1_a)
+    ) + (
+      lbeta(a_2_a + y2, b_2_a + n2 - y2) -
+        lbeta(a_2_a, b_2_a)
+    )
+    
+    exp(log_m0 - log_m1)
   }
   
   priorProbHplus_internal <- function(a_1_a, b_1_a, a_2_a, b_2_a)
