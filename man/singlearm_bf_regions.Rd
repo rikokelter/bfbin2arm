@@ -2,15 +2,67 @@
 % Please edit documentation in R/helpers_singlearm_bf.R
 \name{singlearm_bf_regions}
 \alias{singlearm_bf_regions}
-\title{Construct strict single-arm Bayes factor evidence regions}
+\title{Construct strict Bayes factor evidence regions}
 \usage{
 singlearm_bf_regions(bfvals, k, k_ce = NULL)
 }
+\arguments{
+\item{bfvals}{Numeric vector of nonnegative Bayes factors
+BF01 comparing H0 with H1, without missing values.
+Zero and positive infinity are permitted.}
+
+\item{k}{Positive finite efficacy threshold on BF01.
+Efficacy is defined by the strict inequality
+\eqn{BF_{01}<k}.}
+
+\item{k_ce}{Optional positive finite threshold greater
+than \code{k}. Compelling evidence for H0 is defined
+by the strict inequality \eqn{BF_{01}>k_{\mathrm{ce}}}.
+If \code{NULL}, only efficacy and its complement
+are returned.}
+}
+\value{
+A named list of logical vectors, each with
+the same length as \code{bfvals}.
+If \code{k_ce = NULL}, the components are:
+\describe{
+\item{efficacy}{Whether \eqn{BF_{01}<k}.}
+\item{not_efficacy}{Whether \eqn{BF_{01}\ge k}.}
+}
+Otherwise, the components are:
+\describe{
+\item{efficacy}{Whether \eqn{BF_{01}<k}.}
+\item{compelling_h0}{
+Whether \eqn{BF_{01}>k_{\mathrm{ce}}}.
+}
+\item{inconclusive}{
+Whether \eqn{k \le BF_{01} \le k_{\mathrm{ce}}}.
+}
+}
+}
 \description{
-Construct strict single-arm Bayes factor evidence regions
+Classifies Bayes factors into an efficacy region and,
+optionally, a region of compelling evidence for H0
+and an inconclusive region.
 }
 \details{
-Efficacy: BF01 < k.
-Compelling evidence for H0: BF01 > k_ce.
-Equality at either threshold is inconclusive.
+When \code{k_ce} is supplied, the regions are mutually
+exclusive and exhaustive. Values equal to either
+threshold are classified as inconclusive:
+\eqn{k \le BF_{01} \le k_{\mathrm{ce}}}.
+
+When \code{k_ce = NULL}, \code{not_efficacy} denotes
+the complement of efficacy, \eqn{BF_{01}\ge k}.
+It should not be interpreted as compelling evidence
+for H0.
+
+The usual evidential interpretation uses
+\eqn{0<k<1<k_{\mathrm{ce}}}, although the function
+only requires \code{k > 0} and, when supplied,
+\code{k_ce > k}.
+
+Comparisons are applied directly to the supplied
+floating-point values without an explicit numerical
+tolerance.
 }
+\keyword{internal}

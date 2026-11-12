@@ -129,763 +129,705 @@ print.summary.twoarm_onestage_bf_design <- function(x, ...) {
   invisible(x)
 }
 
-#' @importFrom rlang .data
-#' @export
+#' Plot a one-stage two-arm Bayes factor design
+#'
+#' Displays operating characteristics, feasibility, or an overview
+#' of design and analysis priors and operating characteristics.
+#'
+#' @param x An object of class \code{twoarm_onestage_bf_design}.
+#' @param type Plot type: \code{"old"} for the combined layout,
+#'   \code{"oc"} for operating characteristics, or
+#'   \code{"feasibility"} for feasibility.
+#' @param h0_design,h0_analysis Optional named numeric vectors
+#'   \code{c(a = ..., b = ...)} specifying beta priors for the
+#'   common response probability under the equality null.
+#'   Defaults are obtained from \code{x$inputs$a_0_d},
+#'   \code{x$inputs$b_0_d}, \code{x$inputs$a_0_a}, and
+#'   \code{x$inputs$b_0_a}. Explicit values affect the displayed
+#'   priors only, not the calibrated design.
+#'   Not used for \code{test = "BF+-"}.
+#' @param ... Additional arguments; currently unused.
+#'
+#' @details
+#' The combined layout displays a shared mathematical title above
+#' both prior rows. For \code{"BF+-"}, the title labels the
+#' comparison as H+: p2 > p1 versus H-: p1 >= p2.
+#' This label does not change the underlying calculations.
+#'
+#' A single prior legend appears below the second prior row.
+#' Alternative-prior panels display beta basis densities rather
+#' than conditional marginal densities induced by directional
+#' restrictions on the joint parameter space.
+#'
+#' Operating-characteristic curves are solid, horizontal target
+#' lines are dashed, and a dotted vertical line marks the first
+#' jointly feasible design in the stored search results.
+#' Individual target-attainment sample sizes appear at the right
+#' edge and need not equal the jointly calibrated sample size.
+#'
+#' @return A \code{ggplot} object for \code{"oc"} or
+#'   \code{"feasibility"}, or a \code{patchwork} object
+#'   for \code{"old"}.
+#'
 #' @importFrom rlang .data
 #' @export
 plot.twoarm_onestage_bf_design <- function(
     x,
     type = c("old", "oc", "feasibility"),
+    h0_design = NULL,
+    h0_analysis = NULL,
     ...
 ) {
   type <- match.arg(type)
   
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    stop(
-      "Package 'ggplot2' is required for plotting.",
-      call. = FALSE
-    )
+    stop("Package 'ggplot2' is required.", call. = FALSE)
   }
   
   sr <- x$search_results
+  inp <- x$inputs
   
   if (is.null(sr) || nrow(sr) == 0L) {
+    stop("No search results available for plotting.", call. = FALSE)
+  }
+  
+  # Standardize column aliases.
+  aliases <- list(
+    c("n_total", "n"),
+    c("type1", "t1e"),
+    c("ce_h0", "pceH0")
+  )
+  
+  for (pair in aliases) {
+    if (!pair[1L] %in% names(sr) && pair[2L] %in% names(sr)) {
+      sr[[pair[1L]]] <- sr[[pair[2L]]]
+    }
+    if (!pair[2L] %in% names(sr) && pair[1L] %in% names(sr)) {
+      sr[[pair[2L]]] <- sr[[pair[1L]]]
+    }
+  }
+  
+  required <- c("n_total", "power", "type1", "ce_h0")
+  missing_columns <- setdiff(required, names(sr))
+  
+  if (length(missing_columns)) {
     stop(
-      "No search results available for plotting.",
+      "Missing search-result columns: ",
+      paste(missing_columns, collapse = ", "),
       call. = FALSE
     )
   }
   
-  # Standardize column aliases.
-  if (!"n_total" %in% names(sr) && "n" %in% names(sr)) {
-    sr$n_total <- sr$n
+  if (!is.numeric(sr$n_total) || any(!is.finite(sr$n_total))) {
+    stop("Sample sizes must be finite numeric values.", call. = FALSE)
   }
   
-  if (!"n" %in% names(sr) && "n_total" %in% names(sr)) {
-    sr$n <- sr$n_total
+  sr <- sr[order(sr$n_total), , drop = FALSE]
+  ns <- sr$n_total
+  
+  available <- function(column) {
+    column %in% names(sr) && any(is.finite(sr[[column]]))
   }
   
-  if (!"type1" %in% names(sr) && "t1e" %in% names(sr)) {
-    sr$type1 <- sr$t1e
+  valid_target <- function(z) {
+    is.numeric(z) && length(z) == 1L && is.finite(z)
   }
   
-  if (!"t1e" %in% names(sr) && "type1" %in% names(sr)) {
-    sr$t1e <- sr$type1
-  }
-  
-  if (!"ce_h0" %in% names(sr) && "pceH0" %in% names(sr)) {
-    sr$ce_h0 <- sr$pceH0
-  }
-  
-  if (!"pceH0" %in% names(sr) && "ce_h0" %in% names(sr)) {
-    sr$pceH0 <- sr$ce_h0
-  }
-  
-  freq_power_available <-
-    "freq_power" %in% names(sr) &&
-    any(is.finite(sr$freq_power))
-  
-  freq_type1_available <-
-    "freq_type1" %in% names(sr) &&
-    any(is.finite(sr$freq_type1))
-  
-  freq_type1_colour <- "#D55E00"
-  
-  # ------------------------------------------------------------------
-  # Compact operating-characteristic plot.
-  # ------------------------------------------------------------------
-  
-  if (type == "oc") {
-    df_long <- rbind(
-      data.frame(
-        n_total = sr$n_total,
-        metric = "Power",
-        value = sr$power
-      ),
-      data.frame(
-        n_total = sr$n_total,
-        metric = "Bayesian type-I error",
-        value = sr$type1
-      ),
-      data.frame(
-        n_total = sr$n_total,
-        metric = "CE(H0)",
-        value = sr$ce_h0
+  theme_common <- function() {
+    ggplot2::theme_minimal(base_size = 12) +
+      ggplot2::theme(
+        plot.title = ggplot2::element_text(
+          hjust = 0.5,
+          face = "plain",
+          size = 14,
+          margin = ggplot2::margin(b = 8)
+        ),
+        legend.title = ggplot2::element_blank(),
+        legend.text = ggplot2::element_text(size = 10),
+        legend.key.width = grid::unit(1.3, "cm"),
+        panel.grid.minor = ggplot2::element_blank(),
+        plot.margin = ggplot2::margin(6, 12, 6, 8)
       )
-    )
-    
-    if (freq_type1_available) {
-      df_long <- rbind(
-        df_long,
-        data.frame(
-          n_total = sr$n_total,
-          metric = "Frequentist type-I error",
-          value = sr$freq_type1
-        )
-      )
-    }
-    
-    p <- ggplot2::ggplot(
-      df_long,
-      ggplot2::aes(
-        x = .data$n_total,
-        y = .data$value,
-        colour = .data$metric
-      )
-    ) +
-      ggplot2::geom_line(linewidth = 0.9) +
-      ggplot2::scale_colour_manual(
-        values = c(
-          "Power" = "black",
-          "Bayesian type-I error" = "blue",
-          "CE(H0)" = "red",
-          "Frequentist type-I error" = freq_type1_colour
-        )
-      ) +
-      ggplot2::coord_cartesian(ylim = c(0, 1)) +
-      ggplot2::theme_minimal(base_size = 12)
-    
-    return(p)
   }
   
   # ------------------------------------------------------------------
-  # Feasibility plot.
+  # Feasibility.
   # ------------------------------------------------------------------
   
   if (type == "feasibility") {
-    df_long <- rbind(
+    if (!all(c("feasible_pointwise", "feasible") %in% names(sr))) {
+      stop("Feasibility columns are unavailable.", call. = FALSE)
+    }
+    
+    feasibility_data <- rbind(
       data.frame(
-        n_total = sr$n_total,
+        n_total = ns,
         status = "Pointwise feasible",
         value = as.numeric(sr$feasible_pointwise)
       ),
       data.frame(
-        n_total = sr$n_total,
+        n_total = ns,
         status = "Sustained feasible",
         value = as.numeric(sr$feasible)
       )
     )
     
-    p <- ggplot2::ggplot(
-      df_long,
-      ggplot2::aes(
-        x = .data$n_total,
-        y = .data$value,
-        colour = .data$status
-      )
-    ) +
-      ggplot2::geom_line(linewidth = 0.9) +
-      ggplot2::scale_y_continuous(
-        breaks = c(0, 1),
-        limits = c(-0.05, 1.05)
+    return(
+      ggplot2::ggplot(
+        feasibility_data,
+        ggplot2::aes(
+          x = .data$n_total,
+          y = .data$value,
+          colour = .data$status
+        )
       ) +
-      ggplot2::theme_minimal(base_size = 12)
-    
-    return(p)
-  }
-  
-  # ------------------------------------------------------------------
-  # Original multi-panel layout.
-  # ------------------------------------------------------------------
-  
-  if (!requireNamespace("patchwork", quietly = TRUE)) {
-    stop(
-      "Package 'patchwork' is required for type = 'old'.",
-      call. = FALSE
+        ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
+        ggplot2::scale_colour_manual(
+          values = c(
+            "Pointwise feasible" = "#0072B2",
+            "Sustained feasible" = "#E69F00"
+          )
+        ) +
+        ggplot2::scale_y_continuous(
+          breaks = c(0, 1),
+          limits = c(-0.05, 1.05)
+        ) +
+        ggplot2::labs(
+          x = "Total sample size",
+          y = "Feasibility",
+          colour = NULL
+        ) +
+        theme_common() +
+        ggplot2::theme(legend.position = "top")
     )
   }
   
-  df <- sr
-  ns <- df$n_total
-  inp <- x$inputs
+  # ------------------------------------------------------------------
+  # Operating characteristics.
+  # ------------------------------------------------------------------
   
-  powervec_k <- df$power
-  t1evec_k <- df$t1e
-  pceH0_vec_k_f <- df$pceH0
+  pce_name <- if (identical(inp$test, "BF+-")) {
+    "PCE(H-)"
+  } else {
+    "PCE(H0)"
+  }
   
-  power_target <- inp$target_power
-  alpha_target <- inp$target_type1
-  pce_target <- inp$target_ce_h0
-  freq_power_target <- inp$target_freq_power
-  freq_type1_target <- inp$target_freq_type1
-  sustain_n <- inp$sustain_n
+  metric_columns <- c(
+    "Bayesian power" = "power",
+    "Bayesian type-I error" = "type1",
+    "Frequentist power" = "freq_power",
+    "Frequentist type-I error" = "freq_type1"
+  )
+  metric_columns[pce_name] <- "ce_h0"
+  metric_columns <- metric_columns[
+    vapply(metric_columns, available, logical(1))
+  ]
+  metric_order <- names(metric_columns)
   
-  valid_target <- function(z) {
-    is.numeric(z) &&
-      length(z) == 1L &&
-      is.finite(z)
+  metric_colours <- c(
+    "Bayesian power" = "#000000",
+    "Bayesian type-I error" = "#0072B2",
+    "Frequentist power" = "#E69F00",
+    "Frequentist type-I error" = "#CC79A7"
+  )
+  metric_colours[pce_name] <- "#009E73"
+  
+  legend_labels <- function(breaks) {
+    as.expression(lapply(breaks, function(z) {
+      if (identical(z, "PCE(H0)")) {
+        quote(PCE(H[0]))
+      } else if (identical(z, "PCE(H-)")) {
+        quote(PCE(H["-"]))
+      } else {
+        z
+      }
+    }))
+  }
+  
+  oc_data <- do.call(
+    rbind,
+    lapply(metric_order, function(metric) {
+      data.frame(
+        n_total = ns,
+        metric = metric,
+        value = sr[[metric_columns[[metric]]]],
+        stringsAsFactors = FALSE
+      )
+    })
+  )
+  oc_data$metric <- factor(oc_data$metric, levels = metric_order)
+  
+  p_oc <- ggplot2::ggplot(
+    oc_data,
+    ggplot2::aes(
+      x = .data$n_total,
+      y = .data$value,
+      colour = .data$metric
+    )
+  ) +
+    ggplot2::geom_line(
+      linewidth = 0.95,
+      linetype = "solid",
+      na.rm = TRUE
+    ) +
+    ggplot2::scale_colour_manual(
+      values = metric_colours,
+      breaks = metric_order,
+      labels = legend_labels
+    ) +
+    ggplot2::coord_cartesian(ylim = c(0, 1)) +
+    ggplot2::guides(
+      colour = ggplot2::guide_legend(ncol = 3, byrow = TRUE)
+    ) +
+    ggplot2::labs(
+      title = "Operating characteristic",
+      x = "Total sample size",
+      y = "Probability",
+      colour = NULL
+    ) +
+    theme_common() +
+    ggplot2::theme(legend.position = "top")
+  
+  if (type == "oc") {
+    return(p_oc)
+  }
+  
+  if (!requireNamespace("patchwork", quietly = TRUE)) {
+    stop("Package 'patchwork' is required.", call. = FALSE)
   }
   
   if (
-    is.null(sustain_n) ||
+    length(inp$test) != 1L ||
+    !inp$test %in% c("BF01", "BF+0", "BF-0", "BF+-")
+  ) {
+    stop("Unsupported or missing Bayes factor test.", call. = FALSE)
+  }
+  
+  # ------------------------------------------------------------------
+  # Target-attainment annotations.
+  # ------------------------------------------------------------------
+  
+  sustain_n <- inp$sustain_n
+  if (
+    !is.numeric(sustain_n) ||
     length(sustain_n) != 1L ||
     !is.finite(sustain_n)
   ) {
     sustain_n <- 0L
   }
+  sustain_n <- as.integer(max(0, sustain_n))
   
-  sustain_n <- max(0L, as.integer(sustain_n))
-  
-  power_target_available <- valid_target(power_target)
-  alpha_target_available <- valid_target(alpha_target)
-  pce_target_available <- valid_target(pce_target)
-  freq_type1_target_available <- valid_target(freq_type1_target)
-  
-  # Preserve the original forward-window convention.
-  first_sustained_index <- function(ok_vec, sustain_n) {
-    n <- length(ok_vec)
-    
-    if (n == 0L) {
-      return(NA_integer_)
-    }
-    
-    for (i in seq_len(n)) {
-      j <- min(n, i + sustain_n)
-      window_ok <- ok_vec[i:j]
-      
-      if (
-        length(window_ok) > 0L &&
-        all(!is.na(window_ok)) &&
-        all(window_ok)
-      ) {
+  first_sustained <- function(ok) {
+    for (i in seq_along(ok)) {
+      j <- min(length(ok), i + sustain_n)
+      window <- ok[i:j]
+      if (all(!is.na(window)) && all(window)) {
         return(i)
       }
     }
-    
     NA_integer_
   }
   
-  attainment_n <- function(values, target, direction) {
-    if (!valid_target(target) || is.null(values)) {
-      return(NA_real_)
+  target_values <- list(
+    "Bayesian power" = inp$target_power,
+    "Bayesian type-I error" = inp$target_type1,
+    "Frequentist power" = inp$target_freq_power,
+    "Frequentist type-I error" = inp$target_freq_type1
+  )
+  target_values[pce_name] <- list(inp$target_ce_h0)
+  
+  target_rows <- lapply(metric_order, function(metric) {
+    target <- target_values[[metric]]
+    
+    if (!valid_target(target)) {
+      return(NULL)
+    }
+    if (metric == pce_name && target <= 0) {
+      return(NULL)
     }
     
-    ok <- if (direction == ">=") {
-      is.finite(values) & values >= target
-    } else {
+    values <- sr[[metric_columns[[metric]]]]
+    upper_bound <- grepl("type-I error", metric, fixed = TRUE)
+    
+    ok <- if (upper_bound) {
       is.finite(values) & values <= target
-    }
-    
-    idx <- first_sustained_index(ok, sustain_n)
-    
-    if (is.na(idx)) {
-      return(NA_real_)
-    }
-    
-    ns[idx]
-  }
-  
-  n_power <- attainment_n(
-    powervec_k,
-    power_target,
-    ">="
-  )
-  
-  n_t1e <- attainment_n(
-    t1evec_k,
-    alpha_target,
-    "<="
-  )
-  
-  n_pceH0 <- if (
-    pce_target_available &&
-    pce_target > 0
-  ) {
-    attainment_n(
-      pceH0_vec_k_f,
-      pce_target,
-      ">="
-    )
-  } else {
-    NA_real_
-  }
-  
-  n_freq_power <- if (freq_power_available) {
-    attainment_n(
-      df$freq_power,
-      freq_power_target,
-      ">="
-    )
-  } else {
-    NA_real_
-  }
-  
-  n_freq_type1 <- if (freq_type1_available) {
-    attainment_n(
-      df$freq_type1,
-      freq_type1_target,
-      "<="
-    )
-  } else {
-    NA_real_
-  }
-  
-  # Middle-panel labels contain only n = ...
-  format_n <- function(n) {
-    if (length(n) == 1L && is.finite(n)) {
-      sprintf("n = %d", as.integer(n))
     } else {
-      "n = NA"
+      is.finite(values) & values >= target
+    }
+    
+    idx <- first_sustained(ok)
+    
+    data.frame(
+      metric = metric,
+      target = target,
+      n = if (is.na(idx)) NA_real_ else ns[idx],
+      stringsAsFactors = FALSE
+    )
+  })
+  
+  target_rows <- Filter(Negate(is.null), target_rows)
+  
+  if (length(target_rows)) {
+    targets <- do.call(rbind, target_rows)
+    
+    p_oc <- p_oc +
+      ggplot2::geom_hline(
+        data = targets,
+        ggplot2::aes(
+          yintercept = .data$target,
+          colour = .data$metric
+        ),
+        linetype = "dashed",
+        linewidth = 0.55,
+        alpha = 0.65,
+        show.legend = FALSE
+      )
+    
+    targets$label <- vapply(
+      targets$n,
+      function(z) {
+        if (is.finite(z)) {
+          sprintf("n = %d", as.integer(z))
+        } else {
+          "n = NA"
+        }
+      },
+      character(1)
+    )
+    targets$x <- max(ns) - 0.02 * diff(range(ns))
+    targets$y <- if (nrow(targets) == 1L) {
+      0.91
+    } else {
+      seq(0.91, 0.39, length.out = nrow(targets))
+    }
+    
+    p_oc <- p_oc +
+      ggplot2::geom_text(
+        data = targets,
+        ggplot2::aes(
+          x = .data$x,
+          y = .data$y,
+          label = .data$label,
+          colour = .data$metric
+        ),
+        inherit.aes = FALSE,
+        hjust = 1,
+        size = 3.8,
+        show.legend = FALSE
+      )
+  }
+  
+  selected_n <- NA_real_
+  
+  if ("feasible" %in% names(sr)) {
+    feasible_idx <- which(
+      !is.na(sr$feasible) & as.logical(sr$feasible)
+    )
+    if (length(feasible_idx)) {
+      selected_n <- ns[feasible_idx[1L]]
     }
   }
   
-  n_power_text <- format_n(n_power)
-  n_t1e_text <- format_n(n_t1e)
-  n_freq_power_text <- format_n(n_freq_power)
-  n_freq_type1_text <- format_n(n_freq_type1)
-  
-  # Preserve the previous bottom-panel annotation.
-  n_pce_text <- if (is.finite(n_pceH0)) {
-    sprintf(
-      "Null-evidence probability only: n=%d",
-      as.integer(n_pceH0)
-    )
-  } else {
-    "Null-evidence probability only: not reached"
-  }
-  
-  x_annot <- min(ns) + (max(ns) - min(ns)) * 0.02
-  
-  # Increased spacing for middle-panel annotations.
-  y_base <- 0.90
-  y_step <- -0.14
-  
-  # ------------------------------------------------------------------
-  # Middle panel: power and type-I error.
-  # ------------------------------------------------------------------
-  
-  p1_plot <- ggplot2::ggplot(
-    df,
-    ggplot2::aes(x = .data$n_total)
-  ) +
-    ggplot2::geom_line(
-      ggplot2::aes(
-        y = .data$power,
-        color = "Bayes Power"
-      ),
-      linewidth = 0.9
-    ) +
-    ggplot2::geom_line(
-      ggplot2::aes(
-        y = .data$t1e,
-        color = "Bayesian type-I error"
-      ),
-      linewidth = 0.9
-    )
-  
-  if (freq_power_available) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_line(
-        ggplot2::aes(
-          y = .data$freq_power,
-          color = "Frequentist power"
-        ),
-        linewidth = 0.9
-      )
-  }
-  
-  if (freq_type1_available) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_line(
-        ggplot2::aes(
-          y = .data$freq_type1,
-          color = "Frequentist type-I error"
-        ),
-        linewidth = 0.9
-      )
-  }
-  
-  p1_plot <- p1_plot +
-    ggplot2::scale_color_manual(
-      values = c(
-        "Bayes Power" = "black",
-        "Bayesian type-I error" = "blue",
-        "Frequentist power" = "green",
-        "Frequentist type-I error" = freq_type1_colour
-      )
-    )
-  
-  if (power_target_available) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_hline(
-        yintercept = power_target,
-        linetype = "dashed",
-        color = "black",
-        alpha = 0.7
-      )
-  }
-  
-  if (alpha_target_available) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_hline(
-        yintercept = alpha_target,
-        linetype = "dashed",
-        color = "blue",
-        alpha = 0.7
-      )
-  }
-  
-  if (freq_type1_available && freq_type1_target_available) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_hline(
-        yintercept = freq_type1_target,
-        linetype = "dotdash",
-        color = freq_type1_colour,
-        alpha = 0.8
-      )
-  }
-  
-  if (is.finite(n_power)) {
-    p1_plot <- p1_plot +
+  if (is.finite(selected_n)) {
+    p_oc <- p_oc +
       ggplot2::geom_vline(
-        xintercept = n_power,
-        color = "black",
-        linewidth = 1.1
-      )
-  }
-  
-  if (is.finite(n_t1e)) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_vline(
-        xintercept = n_t1e,
-        color = "blue",
-        linewidth = 1.1
-      )
-  }
-  
-  if (is.finite(n_freq_power)) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_vline(
-        xintercept = n_freq_power,
-        color = "green",
-        linewidth = 1.1
-      )
-  }
-  
-  if (is.finite(n_freq_type1)) {
-    p1_plot <- p1_plot +
-      ggplot2::geom_vline(
-        xintercept = n_freq_type1,
-        color = freq_type1_colour,
-        linewidth = 1.1
-      )
-  }
-  
-  labels_to_draw <- list(
-    list(
-      text = n_power_text,
-      color = "black"
-    ),
-    list(
-      text = n_t1e_text,
-      color = "blue"
-    )
-  )
-  
-  if (freq_power_available) {
-    labels_to_draw <- append(
-      labels_to_draw,
-      list(
-        list(
-          text = n_freq_power_text,
-          color = "green"
-        )
-      )
-    )
-  }
-  
-  if (freq_type1_available) {
-    labels_to_draw <- append(
-      labels_to_draw,
-      list(
-        list(
-          text = n_freq_type1_text,
-          color = freq_type1_colour
-        )
-      )
-    )
-  }
-  
-  for (i in seq_along(labels_to_draw)) {
-    p1_plot <- p1_plot +
+        xintercept = selected_n,
+        linetype = "dotted",
+        colour = "#595959",
+        linewidth = 1
+      ) +
       ggplot2::annotate(
         "text",
-        x = x_annot,
-        y = y_base + (i - 1L) * y_step,
-        label = labels_to_draw[[i]]$text,
-        color = labels_to_draw[[i]]$color,
-        size = 4,
-        fontface = "bold",
-        hjust = 0
+        x = selected_n,
+        y = 0.98,
+        label = sprintf(
+          "Calibrated n = %d",
+          as.integer(selected_n)
+        ),
+        angle = 90,
+        hjust = 1,
+        vjust = -0.5,
+        size = 3.3,
+        colour = "#595959"
       )
   }
   
-  p1_plot <- p1_plot +
-    ggplot2::labs(
-      title = "Power and Type-I Error Rate",
-      x = "Total sample size",
-      y = "Probability"
-    ) +
-    ggplot2::coord_cartesian(ylim = c(0, 1)) +
-    ggplot2::theme_minimal(base_size = 12) +
-    ggplot2::theme(
-      plot.title = ggplot2::element_text(
-        hjust = 0.5,
-        face = "bold",
-        size = 14
-      ),
-      legend.position = "top",
-      legend.title = ggplot2::element_blank()
-    )
-  
   # ------------------------------------------------------------------
-  # Bottom panel: probability of compelling evidence.
+  # Prior data.
   # ------------------------------------------------------------------
   
-  bottom_title_expr <- if (inp$test == "BF+-") {
-    expression(
-      "Probability of compelling evidence for " * H["-"]
-    )
-  } else {
-    expression("Probability of compelling evidence for H0")
-  }
+  xseq <- seq(0.0001, 0.9999, length.out = 1000L)
   
-  p2_plot <- ggplot2::ggplot(
-    df,
-    ggplot2::aes(
-      x = .data$n_total,
-      y = .data$pceH0
-    )
-  ) +
-    ggplot2::coord_cartesian(ylim = c(0, 1)) +
-    ggplot2::geom_line(
-      color = "red",
-      linewidth = 0.9
-    )
-  
-  if (pce_target_available && pce_target > 0) {
-    p2_plot <- p2_plot +
-      ggplot2::geom_hline(
-        yintercept = pce_target,
-        linetype = "dashed",
-        color = "red",
-        alpha = 0.7
+  get_shape <- function(name) {
+    value <- inp[[name]]
+    if (
+      !is.numeric(value) ||
+      length(value) != 1L ||
+      !is.finite(value) ||
+      value <= 0
+    ) {
+      stop(
+        "Missing or invalid prior parameter in x$inputs: ",
+        name,
+        call. = FALSE
       )
-    
-    if (is.finite(n_pceH0)) {
-      p2_plot <- p2_plot +
-        ggplot2::geom_vline(
-          xintercept = n_pceH0,
-          color = "red",
-          linewidth = 1.1
-        ) +
-        ggplot2::annotate(
-          "text",
-          x = x_annot,
-          y = 0.9,
-          label = n_pce_text,
-          color = "red",
-          size = 4,
-          fontface = "bold",
-          hjust = 0
-        )
     }
+    value
   }
   
-  p2_plot <- p2_plot +
-    ggplot2::labs(
-      title = bottom_title_expr,
-      x = "Total sample size",
-      y = "Probability"
-    ) +
-    ggplot2::theme_minimal(base_size = 12) +
-    ggplot2::theme(
-      plot.title = ggplot2::element_text(
-        hjust = 0.5,
-        size = 14
+  make_basis_data <- function(minus = FALSE) {
+    suffix <- if (minus) "_Hminus" else ""
+    rows <- list()
+    counter <- 0L
+    
+    for (arm in 1:2) {
+      for (role in c("Design", "Analysis")) {
+        tag <- if (role == "Design") "d" else "a"
+        a <- get_shape(paste0("a_", arm, "_", tag, suffix))
+        b <- get_shape(paste0("b_", arm, "_", tag, suffix))
+        
+        counter <- counter + 1L
+        rows[[counter]] <- data.frame(
+          p = xseq,
+          density = stats::dbeta(xseq, a, b),
+          prior_type = role,
+          parameter = paste0("p[", arm, "]"),
+          stringsAsFactors = FALSE
+        )
+      }
+    }
+    
+    result <- do.call(rbind, rows)
+    result$prior_type <- factor(
+      result$prior_type,
+      levels = c("Design", "Analysis")
+    )
+    result
+  }
+  
+  prior_theme <- function() {
+    theme_common() +
+      ggplot2::theme(
+        aspect.ratio = NULL,
+        legend.position = "bottom",
+        legend.margin = ggplot2::margin(0, 0, 0, 0),
+        legend.box.spacing = grid::unit(0.1, "cm"),
+        strip.background = ggplot2::element_blank(),
+        strip.text = ggplot2::element_text(
+          size = 12,
+          face = "plain"
+        ),
+        panel.spacing.x = grid::unit(0.7, "cm"),
+        axis.title.y = ggplot2::element_text(
+          margin = ggplot2::margin(r = 8)
+        ),
+        plot.margin = ggplot2::margin(3, 12, 3, 8)
       )
-    )
-  
-  # ------------------------------------------------------------------
-  # Prior panels: original beta basis-density calculations.
-  # ------------------------------------------------------------------
-  
-  xseq <- seq(0, 1, 0.01)
-  
-  make_prior_df <- function(
-    a1d, b1d, a1a, b1a,
-    a2d, b2d, a2a, b2a,
-    hypothesis) {
-    data.frame(
-      x = rep(xseq, 4),
-      density = c(
-        stats::dbeta(xseq, a1d, b1d),
-        stats::dbeta(xseq, a1a, b1a),
-        stats::dbeta(xseq, a2d, b2d),
-        stats::dbeta(xseq, a2a, b2a)
-      ),
-      prior_type = rep(
-        c("Design", "Analysis", "Design", "Analysis"),
-        each = length(xseq)
-      ),
-      param = rep(
-        c("p[1]", "p[1]", "p[2]", "p[2]"),
-        each = length(xseq)
-      ),
-      hypothesis = hypothesis
-    )
   }
   
-  if (inp$test == "BF01") {
-    prior_df <- make_prior_df(
-      a1d = inp$a_1_d,
-      b1d = inp$b_1_d,
-      a1a = inp$a_1_a,
-      b1a = inp$b_1_a,
-      a2d = inp$a_2_d,
-      b2d = inp$b_2_d,
-      a2a = inp$a_2_a,
-      b2a = inp$b_2_a,
-      hypothesis = "H[1]"
-    )
-  } else if (inp$test == "BF+0") {
-    prior_df <- make_prior_df(
-      a1d = inp$a_1_d,
-      b1d = inp$b_1_d,
-      a1a = inp$a_1_a,
-      b1a = inp$b_1_a,
-      a2d = inp$a_2_d,
-      b2d = inp$b_2_d,
-      a2a = inp$a_2_a,
-      b2a = inp$b_2_a,
-      hypothesis = "H[+]"
-    )
-  } else if (inp$test == "BF-0") {
-    prior_df <- make_prior_df(
-      a1d = inp$a_1_d_Hminus,
-      b1d = inp$b_1_d_Hminus,
-      a1a = inp$a_1_a_Hminus,
-      b1a = inp$b_1_a_Hminus,
-      a2d = inp$a_2_d_Hminus,
-      b2d = inp$b_2_d_Hminus,
-      a2a = inp$a_2_a_Hminus,
-      b2a = inp$b_2_a_Hminus,
-      hypothesis = "H[-]"
-    )
-  } else {
-    prior_df_Hplus <- make_prior_df(
-      a1d = inp$a_1_d,
-      b1d = inp$b_1_d,
-      a1a = inp$a_1_a,
-      b1a = inp$b_1_a,
-      a2d = inp$a_2_d,
-      b2d = inp$b_2_d,
-      a2a = inp$a_2_a,
-      b2a = inp$b_2_a,
-      hypothesis = "H[+]"
-    )
-    
-    prior_df_Hminus <- make_prior_df(
-      a1d = inp$a_1_d_Hminus,
-      b1d = inp$b_1_d_Hminus,
-      a1a = inp$a_1_a_Hminus,
-      b1a = inp$b_1_a_Hminus,
-      a2d = inp$a_2_d_Hminus,
-      b2d = inp$b_2_d_Hminus,
-      a2a = inp$a_2_a_Hminus,
-      b2a = inp$b_2_a_Hminus,
-      hypothesis = "H[-]"
-    )
-    
-    prior_df <- rbind(
-      prior_df_Hplus,
-      prior_df_Hminus
-    )
+  make_basis_plot <- function(data, y_label) {
+    ggplot2::ggplot(
+      data,
+      ggplot2::aes(
+        x = .data$p,
+        y = .data$density,
+        linetype = .data$prior_type
+      )
+    ) +
+      ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
+      ggplot2::facet_grid(
+        . ~ parameter,
+        labeller = ggplot2::label_parsed
+      ) +
+      ggplot2::scale_linetype_manual(
+        values = c("Design" = "solid", "Analysis" = "dotted"),
+        breaks = c("Design", "Analysis"),
+        labels = c("Design prior", "Analysis prior")
+      ) +
+      ggplot2::guides(
+        linetype = ggplot2::guide_legend(nrow = 1)
+      ) +
+      ggplot2::scale_x_continuous(
+        limits = c(0, 1),
+        breaks = seq(0, 1, 0.25)
+      ) +
+      ggplot2::labs(
+        x = "Probability",
+        y = y_label,
+        linetype = NULL
+      ) +
+      prior_theme()
   }
   
-  prior_title_expr <- switch(
+  # ------------------------------------------------------------------
+  # Shared prior title.
+  # ------------------------------------------------------------------
+  
+  prior_title <- switch(
     inp$test,
     "BF01" = expression(
       "Design and analysis priors under " *
-        H[1] * ": " * p[1] != p[2]
+        H[0] * ": " *
+        bgroup("", p[1] == p[2], "") *
+        " and " *
+        H[1] * ": " *
+        bgroup("", p[1] != p[2], "")
     ),
     "BF+0" = expression(
       "Design and analysis priors under " *
-        H["+"] * ": " * p[2] > p[1]
+        H[0] * ": " *
+        bgroup("", p[1] == p[2], "") *
+        " and " *
+        H["+"] * ": " *
+        bgroup("", p[2] > p[1], "")
     ),
     "BF-0" = expression(
       "Design and analysis priors under " *
-        H["-"] * ": " * p[1] > p[2]
+        H[0] * ": " *
+        bgroup("", p[1] == p[2], "") *
+        " and " *
+        H["-"] * ": " *
+        bgroup("", p[1] > p[2], "")
     ),
     "BF+-" = expression(
       "Design and analysis priors under " *
-        H["+"] * " and " * H["-"]
+        H["+"] * ": " *
+        bgroup("", p[2] > p[1], "") *
+        " and " *
+        H["-"] * ": " *
+        bgroup("", p[1] >= p[2], "")
     )
   )
   
-  p_priors <- ggplot2::ggplot(
-    prior_df,
-    ggplot2::aes(
-      x = .data$x,
-      y = .data$density,
-      linetype = .data$prior_type
-    )
+  top_y <- switch(
+    inp$test,
+    "BF01" = expression("Density under " * H[1]),
+    "BF+0" = expression("Density under " * H["+"]),
+    "BF-0" = expression("Density under " * H["-"]),
+    "BF+-" = expression("Density under " * H["+"])
+  )
+  
+  p_top <- make_basis_plot(
+    make_basis_data(minus = identical(inp$test, "BF-0")),
+    y_label = top_y
   ) +
-    ggplot2::geom_line(linewidth = 1.1) +
-    ggplot2::facet_grid(
-      hypothesis ~ param,
-      scales = "free_y",
-      labeller = ggplot2::labeller(
-        param = ggplot2::label_parsed
-      )
-    ) +
-    ggplot2::scale_linetype_manual(
-      breaks = c("Design", "Analysis"),
-      values = c(
-        "Design" = "solid",
-        "Analysis" = "dotted"
-      ),
-      labels = c(
-        "Design prior (solid)",
-        "Analysis prior (dotted)"
-      )
-    ) +
-    ggplot2::guides(
-      linetype = ggplot2::guide_legend(
-        override.aes = list(
-          linetype = c("solid", "dotted"),
-          color = c("black", "black")
-        )
-      )
-    ) +
-    ggplot2::labs(
-      title = prior_title_expr,
-      linetype = "Prior type",
-      y = "Density",
-      x = "Probability"
-    ) +
-    ggplot2::theme_minimal(base_size = 11) +
+    ggplot2::labs(title = prior_title) +
     ggplot2::theme(
+      plot.title.position = "plot",
       plot.title = ggplot2::element_text(
         hjust = 0.5,
-        size = 14
-      ),
-      legend.position = "bottom",
-      strip.text = ggplot2::element_text(
-        size = 12,
-        face = "bold"
-      ),
-      legend.key.width = grid::unit(1.5, "cm")
+        face = "plain",
+        size = 14,
+        margin = ggplot2::margin(b = 8)
+      )
     )
   
-  prior_height <- ifelse(
-    inp$test == "BF+-",
-    2.0,
-    1.4
+  # ------------------------------------------------------------------
+  # Second prior row.
+  # ------------------------------------------------------------------
+  
+  if (identical(inp$test, "BF+-")) {
+    p_middle <- make_basis_plot(
+      make_basis_data(minus = TRUE),
+      y_label = expression("Density under " * H["-"])
+    )
+  } else {
+    if (is.null(h0_design)) {
+      h0_design <- c(
+        a = get_shape("a_0_d"),
+        b = get_shape("b_0_d")
+      )
+    }
+    
+    if (is.null(h0_analysis)) {
+      h0_analysis <- c(
+        a = get_shape("a_0_a"),
+        b = get_shape("b_0_a")
+      )
+    }
+    
+    validate_h0 <- function(z, argument) {
+      if (
+        !is.numeric(z) ||
+        length(z) != 2L ||
+        is.null(names(z)) ||
+        !all(c("a", "b") %in% names(z)) ||
+        any(!is.finite(z)) ||
+        any(z <= 0)
+      ) {
+        stop(
+          argument,
+          " must be a positive named vector c(a = ..., b = ...).",
+          call. = FALSE
+        )
+      }
+      z[c("a", "b")]
+    }
+    
+    h0_design <- validate_h0(h0_design, "h0_design")
+    h0_analysis <- validate_h0(h0_analysis, "h0_analysis")
+    
+    null_data <- rbind(
+      data.frame(
+        p = xseq,
+        density = stats::dbeta(
+          xseq,
+          h0_design[["a"]],
+          h0_design[["b"]]
+        ),
+        prior_type = "Design prior"
+      ),
+      data.frame(
+        p = xseq,
+        density = stats::dbeta(
+          xseq,
+          h0_analysis[["a"]],
+          h0_analysis[["b"]]
+        ),
+        prior_type = "Analysis prior"
+      )
+    )
+    
+    null_data$prior_type <- factor(
+      null_data$prior_type,
+      levels = c("Design prior", "Analysis prior")
+    )
+    
+    p_middle <- ggplot2::ggplot(
+      null_data,
+      ggplot2::aes(x = .data$p, y = .data$density)
+    ) +
+      ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
+      ggplot2::facet_grid(. ~ prior_type) +
+      ggplot2::scale_x_continuous(
+        limits = c(0, 1),
+        breaks = seq(0, 1, 0.25)
+      ) +
+      ggplot2::labs(
+        x = expression("Common response probability " * p),
+        y = expression("Density under " * H[0])
+      ) +
+      prior_theme()
+  }
+  
+  # Collect the prior legends below both prior rows.
+  prior_block <- patchwork::wrap_plots(
+    p_top,
+    p_middle,
+    ncol = 1,
+    heights = c(1, 1),
+    guides = "collect"
   )
   
-  p_priors / p1_plot / p2_plot +
-    patchwork::plot_layout(
-      heights = c(prior_height, 2.5, 1.3)
-    )
+  prior_block <- prior_block &
+    ggplot2::theme(legend.position = "bottom")
+  
+  # Keep the OC legend separate and preserve its additional height.
+  patchwork::wrap_plots(
+    prior_block,
+    p_oc,
+    ncol = 1,
+    heights = c(3.2, 3.0),
+    guides = "keep"
+  )
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers_singlearm_bf.R
 \name{pbinbf01_singlearm_exact}
 \alias{pbinbf01_singlearm_exact}
-\title{Exact probability of a single-arm Bayes factor threshold event}
+\title{Exact threshold probabilities for a single-arm Bayes factor}
 \usage{
 pbinbf01_singlearm_exact(
   k,
@@ -21,13 +21,82 @@ pbinbf01_singlearm_exact(
   lower.tail = TRUE
 )
 }
+\arguments{
+\item{k}{Positive finite threshold on BF01, the Bayes factor
+comparing H0 with H1. To calculate the probability of
+BF10 > K, supply \code{k = 1 / K} and
+\code{lower.tail = TRUE}.}
+
+\item{n}{Number of patients or binomial trials; a nonnegative
+integer.}
+
+\item{p0}{Null response probability for \code{type = "point"},
+or the boundary between the null and alternative parameter
+regions for \code{type = "direction"}. For directional
+hypotheses, must lie strictly between zero and one.}
+
+\item{a0, b0}{Positive beta shape parameters for the analysis
+prior under H0 when \code{type = "direction"}. The prior
+is truncated and normalized on \eqn{[0,p_0]}.
+These parameters are not used for the point-null hypothesis.}
+
+\item{a1, b1}{Positive beta shape parameters for the analysis
+prior under H1. The prior is supported on \eqn{[0,1]} for
+\code{type = "point"} and truncated and normalized on
+\eqn{(p_0,1]} for \code{type = "direction"}.}
+
+\item{dp}{Fixed response probability at which to evaluate
+the threshold probability. If \code{NA_real_}, probabilities
+are averaged over the H1 design prior specified by
+\code{da1} and \code{db1}. Otherwise, binomial probabilities
+at \code{dp} are used.}
+
+\item{da0, db0}{Retained for interface compatibility.
+These arguments are not used by this function, which
+evaluates either a fixed-probability distribution or
+the H1 design-prior predictive distribution.}
+
+\item{da1, db1}{Positive beta shape parameters for the H1
+design prior used when \code{dp = NA_real_}. This prior
+is supported on \eqn{[0,1]} for \code{type = "point"}
+and truncated and normalized on \eqn{(p_0,1]} for
+\code{type = "direction"}. Ignored when \code{dp} is supplied.}
+
+\item{type}{Character string specifying the hypotheses.
+\code{"point"} compares the point null \eqn{p=p_0}
+with an alternative having a beta prior on \eqn{[0,1]}.
+\code{"direction"} compares \eqn{p \le p_0} with
+\eqn{p > p_0}.}
+
+\item{lower.tail}{Logical. If \code{TRUE}, return
+\eqn{P(BF_{01}<k)}. If \code{FALSE}, return the
+complementary probability \eqn{P(BF_{01}\ge k)}.}
+}
+\value{
+A numeric scalar giving the requested threshold
+probability.
+}
 \description{
-Exact probability of a single-arm Bayes factor threshold event
+Calculates the probability that the Bayes factor BF01 falls
+strictly below a specified threshold, or the complementary
+probability that it is greater than or equal to that threshold.
+Probabilities are evaluated by summing over all possible
+binomial response counts.
 }
 \details{
-With lower.tail = TRUE, calculates P(BF01 < k).
-With lower.tail = FALSE, calculates P(BF01 >= k).
+Analysis priors determine the Bayes factor at each response
+count. The fixed response probability \code{dp}, or the
+H1 design prior when \code{dp} is missing, determines the
+probabilities assigned to those counts.
 
-The argument k is a threshold on BF01.
-To require BF10 > K, supply k = 1 / K.
+The lower-tail inequality is strict, unlike the usual
+inclusive cumulative distribution convention.
+Equality is included in the complementary upper tail.
+Thus, \code{lower.tail = FALSE} does not calculate
+\eqn{P(BF_{01}>k)}.
+
+Comparisons are applied directly to the computed
+floating-point Bayes factors without an explicit
+numerical tolerance.
 }
+\keyword{internal}

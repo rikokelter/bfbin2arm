@@ -8,12 +8,14 @@ Authors@R:
              email = "rkelter@uni-koeln.de"))
 Description: Design and analysis of one- and two-stage clinical
     trials using Bayes factors. Implements methods for binomial endpoints
-    (see Kelter and Pawel (2025) <doi:10.48550/arXiv.2502.02914> and 
-    <doi:10.48550/arXiv.2511.23144>) and continuous endpoints, including point-null and directional hypotheses,
-    power calculations, and sample size calibration. Supports one-arm
-    trials with a single treatment arm and two-arm trials with treatment
-    and control arms. Includes methods for equivalence, non-inferiority,
-    and superiority designs.
+    described by Kelter and Pawel (2025)
+    <doi:10.48550/arXiv.2502.02914> and Kelter and Pawel (2025)
+    <doi:10.48550/arXiv.2511.23144>.
+    Also supports continuous endpoints, point-null and directional
+    hypotheses, power calculations, and sample size calibration.
+    Supports single-arm trials and two-arm trials with treatment
+    and control groups. Includes methods for equivalence,
+    non-inferiority, and superiority designs.
 Depends: 
     R (>= 4.0.0)
 Imports:

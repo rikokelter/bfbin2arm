@@ -56,14 +56,75 @@ singlearm_bf01 <- function(
   m0 / m1
 }
 
-#' Exact probability of a single-arm Bayes factor threshold event
+#' Exact threshold probabilities for a single-arm Bayes factor
+#'
+#' Calculates the probability that the Bayes factor BF01 falls
+#' strictly below a specified threshold, or the complementary
+#' probability that it is greater than or equal to that threshold.
+#' Probabilities are evaluated by summing over all possible
+#' binomial response counts.
+#'
+#' @param k Positive finite threshold on BF01, the Bayes factor
+#'   comparing H0 with H1. To calculate the probability of
+#'   BF10 > K, supply \code{k = 1 / K} and
+#'   \code{lower.tail = TRUE}.
+#' @param n Number of patients or binomial trials; a nonnegative
+#'   integer.
+#' @param p0 Null response probability for \code{type = "point"},
+#'   or the boundary between the null and alternative parameter
+#'   regions for \code{type = "direction"}. For directional
+#'   hypotheses, must lie strictly between zero and one.
+#' @param a0,b0 Positive beta shape parameters for the analysis
+#'   prior under H0 when \code{type = "direction"}. The prior
+#'   is truncated and normalized on \eqn{[0,p_0]}.
+#'   These parameters are not used for the point-null hypothesis.
+#' @param a1,b1 Positive beta shape parameters for the analysis
+#'   prior under H1. The prior is supported on \eqn{[0,1]} for
+#'   \code{type = "point"} and truncated and normalized on
+#'   \eqn{(p_0,1]} for \code{type = "direction"}.
+#' @param dp Fixed response probability at which to evaluate
+#'   the threshold probability. If \code{NA_real_}, probabilities
+#'   are averaged over the H1 design prior specified by
+#'   \code{da1} and \code{db1}. Otherwise, binomial probabilities
+#'   at \code{dp} are used.
+#' @param da0,db0 Retained for interface compatibility.
+#'   These arguments are not used by this function, which
+#'   evaluates either a fixed-probability distribution or
+#'   the H1 design-prior predictive distribution.
+#' @param da1,db1 Positive beta shape parameters for the H1
+#'   design prior used when \code{dp = NA_real_}. This prior
+#'   is supported on \eqn{[0,1]} for \code{type = "point"}
+#'   and truncated and normalized on \eqn{(p_0,1]} for
+#'   \code{type = "direction"}. Ignored when \code{dp} is supplied.
+#' @param type Character string specifying the hypotheses.
+#'   \code{"point"} compares the point null \eqn{p=p_0}
+#'   with an alternative having a beta prior on \eqn{[0,1]}.
+#'   \code{"direction"} compares \eqn{p \le p_0} with
+#'   \eqn{p > p_0}.
+#' @param lower.tail Logical. If \code{TRUE}, return
+#'   \eqn{P(BF_{01}<k)}. If \code{FALSE}, return the
+#'   complementary probability \eqn{P(BF_{01}\ge k)}.
 #'
 #' @details
-#' With lower.tail = TRUE, calculates P(BF01 < k).
-#' With lower.tail = FALSE, calculates P(BF01 >= k).
+#' Analysis priors determine the Bayes factor at each response
+#' count. The fixed response probability \code{dp}, or the
+#' H1 design prior when \code{dp} is missing, determines the
+#' probabilities assigned to those counts.
 #'
-#' The argument k is a threshold on BF01.
-#' To require BF10 > K, supply k = 1 / K.
+#' The lower-tail inequality is strict, unlike the usual
+#' inclusive cumulative distribution convention.
+#' Equality is included in the complementary upper tail.
+#' Thus, \code{lower.tail = FALSE} does not calculate
+#' \eqn{P(BF_{01}>k)}.
+#'
+#' Comparisons are applied directly to the computed
+#' floating-point Bayes factors without an explicit
+#' numerical tolerance.
+#'
+#' @return A numeric scalar giving the requested threshold
+#'   probability.
+#'
+#' @keywords internal
 pbinbf01_singlearm_exact <- function(
     k, n, p0,
     a0 = 1, b0 = 1,
@@ -122,12 +183,63 @@ pbinbf01_singlearm_exact <- function(
   }
 }
 
-#' Construct strict single-arm Bayes factor evidence regions
+#' Construct strict Bayes factor evidence regions
+#'
+#' Classifies Bayes factors into an efficacy region and,
+#' optionally, a region of compelling evidence for H0
+#' and an inconclusive region.
+#'
+#' @param bfvals Numeric vector of nonnegative Bayes factors
+#'   BF01 comparing H0 with H1, without missing values.
+#'   Zero and positive infinity are permitted.
+#' @param k Positive finite efficacy threshold on BF01.
+#'   Efficacy is defined by the strict inequality
+#'   \eqn{BF_{01}<k}.
+#' @param k_ce Optional positive finite threshold greater
+#'   than \code{k}. Compelling evidence for H0 is defined
+#'   by the strict inequality \eqn{BF_{01}>k_{\mathrm{ce}}}.
+#'   If \code{NULL}, only efficacy and its complement
+#'   are returned.
 #'
 #' @details
-#' Efficacy: BF01 < k.
-#' Compelling evidence for H0: BF01 > k_ce.
-#' Equality at either threshold is inconclusive.
+#' When \code{k_ce} is supplied, the regions are mutually
+#' exclusive and exhaustive. Values equal to either
+#' threshold are classified as inconclusive:
+#' \eqn{k \le BF_{01} \le k_{\mathrm{ce}}}.
+#'
+#' When \code{k_ce = NULL}, \code{not_efficacy} denotes
+#' the complement of efficacy, \eqn{BF_{01}\ge k}.
+#' It should not be interpreted as compelling evidence
+#' for H0.
+#'
+#' The usual evidential interpretation uses
+#' \eqn{0<k<1<k_{\mathrm{ce}}}, although the function
+#' only requires \code{k > 0} and, when supplied,
+#' \code{k_ce > k}.
+#'
+#' Comparisons are applied directly to the supplied
+#' floating-point values without an explicit numerical
+#' tolerance.
+#'
+#' @return A named list of logical vectors, each with
+#'   the same length as \code{bfvals}.
+#'   If \code{k_ce = NULL}, the components are:
+#'   \describe{
+#'     \item{efficacy}{Whether \eqn{BF_{01}<k}.}
+#'     \item{not_efficacy}{Whether \eqn{BF_{01}\ge k}.}
+#'   }
+#'   Otherwise, the components are:
+#'   \describe{
+#'     \item{efficacy}{Whether \eqn{BF_{01}<k}.}
+#'     \item{compelling_h0}{
+#'       Whether \eqn{BF_{01}>k_{\mathrm{ce}}}.
+#'     }
+#'     \item{inconclusive}{
+#'       Whether \eqn{k \le BF_{01} \le k_{\mathrm{ce}}}.
+#'     }
+#'   }
+#'
+#' @keywords internal
 singlearm_bf_regions <- function(
     bfvals,
     k,
