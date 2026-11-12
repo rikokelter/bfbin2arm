@@ -258,8 +258,8 @@ when calibrating our design:
 des <- design_twoarm_onestage_bf(
   n_min = 10,
   n_max = 75,
-  k = 1/10,
-  k_f = 10,
+  k = 1/3,
+  k_f = 3,
   test = "BF+-",
   calibration = "Bayesian",
   target_power = 0.80,
@@ -274,6 +274,7 @@ des <- design_twoarm_onestage_bf(
   a_2_a = 1, b_2_a = 1,
   # assumed true proportions for frequentist power (optional here)
   p1_power = 0.3, p2_power = 0.6,
+  report_freq_type1 = TRUE,
   # equal randomisation
   alloc1 = 0.5,
   alloc2 = 0.5,
@@ -295,22 +296,25 @@ summary(des)
     Summary: One-stage two-arm Bayes factor design
     ---------------------------------------------
     Mode:        optimal
-    Status:      No feasible one-stage two-arm design found.
+    Status:      Smallest feasible one-stage two-arm design found.
     Calibration: Bayesian
-    Feasible:    no
+    Feasible:    yes
 
     Search overview
       n evaluated          = 66
-      pointwise feasible   = 0
-      sustained feasible   = 0
-      first pointwise n    = NA
-      first sustained n    = NA
+      pointwise feasible   = 35
+      sustained feasible   = 35
+      first pointwise n    = 41
+      first sustained n    = 41
+
+    Selected design
+      n_total = 41, n1 = 20, n2 = 21
 
 Also, we can plot the results:
 
 ``` r
 
-plot(des, type = "old")
+plot(des)
 ```
 
 ![Figure 1: Visualization of the calibrated Bayesian two-arm one-stage
@@ -321,10 +325,11 @@ Figure 1: Visualization of the calibrated Bayesian two-arm one-stage
 phase II design with a binary endpoint
 
 The summary and plot show that for the range of sample sizes provided to
-the function, under flat design priors, no sample size satisfies the
-requirement of Bayesian power $`\geq 0.80`$. Thus, if we want to obtain
-a calibrated design we can either increase `n_max` or choose more
-informative design priors. Alternatively, we could shift to a less
+the function, under flat design priors, recruiting $`41`$ patients in
+total satisfies the requirement of Bayesian power $`\geq 0.80`$. In
+general, if we want to obtain a calibrated design we can either increase
+`n_max` if no calibrated design is found in a search range, or choose
+more informative design priors. Alternatively, we could shift to a less
 stringent threshold for evidence $`k`$, e.g. $`k=1/3`$ instead of
 $`k=1/10`$, so it becomes easier for the Bayes factor to accumulate
 evidence in favour of $`H_+`$.
@@ -386,7 +391,7 @@ and internally calls that function. A simple compatibility call is:
 ``` r
 
 des_legacy <- ntwoarmbinbf01(
-  k = 1/10, k_f = 10,
+  k = 1/3, k_f = 3,
   power = 0.8, alpha = 0.05, pce_H0 = 0.8,
   test = "BF+-",
   nrange = c(10, 75), n_step = 1,
@@ -473,14 +478,14 @@ frequentist type-I-error for the calibrated design by specifying
 
 des_informative <- design_twoarm_onestage_bf(
   n_min = 10,
-  n_max = 100,
-  k = 1/30,
-  k_f = 30,
+  n_max = 200,
+  k = 1/10,
+  k_f = 10,
   test = "BF+-",
   calibration = "Bayesian",
   target_power = 0.80,
   target_type1 = 0.05,
-  target_ce_h0 = 0.60,
+  target_ce_h0 = 0.80,
   # design and analysis priors: flat Beta(1,1) everywhere
   a_0_d = 1, b_0_d = 1,
   a_0_a = 1, b_0_a = 1,
@@ -516,24 +521,24 @@ summary(des_informative)
     Feasible:    yes
 
     Search overview
-      n evaluated          = 91
-      pointwise feasible   = 28
-      sustained feasible   = 27
-      first pointwise n    = 72
-      first sustained n    = 74
+      n evaluated          = 191
+      pointwise feasible   = 85
+      sustained feasible   = 84
+      first pointwise n    = 115
+      first sustained n    = 117
 
     Selected design
-      n_total = 74, n1 = 37, n2 = 37
+      n_total = 117, n1 = 58, n2 = 59
 
 The output shows that the first feasible sample size for which the
-target constraints hold was $`n=72`$. However, as we require the next
+target constraints hold was $`n=115`$. However, as we require the next
 ten sample sizes for the operating characteristics not to violate their
 respective constraint (that is, power should not decrease below its
 specified target threshold, type-I-error not increase above its
 specified target threshold and probability of compelling evidence not
 drop below its specified target threshold for the next ten
-observations), the first sample size for which this holds is $`n=74`$.
-This leads to the selected design with $`n_1=37`$ and $`n_2=37`$
+observations), the first sample size for which this holds is $`n=117`$.
+This leads to the selected design with $`n_1=58`$ and $`n_2=59`$
 patients in the control and treatment group.
 
 **Details on the implementation:** For each operating characteristic we
@@ -551,9 +556,9 @@ are drawn at these metric‑specific sustained crossing points. This
 ensures that the plotted “required” sample sizes reflect the same
 sustained feasibility logic as the calibration itself, so that, for
 example, Bayesian power may first reach its nominal threshold at
-$`n=72`$, but the corresponding vertical line will only be shown at
-$`n=74`$ if the power constraint fails to remain satisfied over the next
-`sustain_n` total sample sizes.
+$`n=115`$, but the corresponding vertical line will only be shown at
+$`n=117`$ if the power constraint fails to remain satisfied over the
+next `sustain_n` total sample sizes.
 
 ![](bfbin2arm-twoarm_onestage_Bayesian_files/figure-html/sustain-logic-schematic-1.png)
 The above figure illustrates the sustained feasibility logic which
@@ -579,14 +584,14 @@ Figure 3: Visualization of the calibrated Bayesian two-arm one-stage
 phase II design with a binary endpoint, using informative design priors
 under the alternative hypothesis
 
-We see that now the Bayesian power is calibrated for $`n=74`$ patients
+We see that now the Bayesian power is calibrated for $`n=43`$ patients
 per trial arm and does not drop below the required 80% for at least the
 next ten sample sizes (it does not drop below the 80% for any sample
-size up to $`n=100`$, as can be verified by the plot). Frequentist power
-is calibrated for $`n=81`$ patients trial arm. The Bayesian type-I-error
-is already calibrated for $`n=10`$, requiring only $`5`$ patients per
-trial arm. Importantly, the frequentist type-I-error is also calibrated
-and is $`0.034<0.05`$, as can be inspected by
+size up to $`n=200`$, as can be verified by the plot). Frequentist power
+is calibrated for $`n=52`$ patients trial arm already. The Bayesian
+type-I-error is already calibrated for $`n=10`$, requiring only $`5`$
+patients per trial arm. Importantly, the frequentist type-I-error is,
+however, not calibrated and is $`0.0982>0.05`$, as can be inspected by
 
 ``` r
 
@@ -599,48 +604,46 @@ print(des_informative)
     Status: Smallest feasible one-stage two-arm design found.
     Calibration: Bayesian
     Optional freq. Type-I reporting: on
-    Design: n_total = 74, n1 = 37, n2 = 37
+    Design: n_total = 117, n1 = 58, n2 = 59
 
     Operating characteristics
-     Power = 0.8004
-     Type-I error = 0.0021
-     CE(H0) = 0.6697
-     Freq. Type-I = 0.0340
-     Freq. Power = 0.7778
+     Power = 0.8921
+     Type-I error = 0.0059
+     CE(H0) = 0.8031
+     Freq. Type-I = 0.0982
+     Freq. Power = 0.9784
 
 The probability of compelling evidence for $`H_-`$ is shown in the
-bottom plot. It is calibrated for $`n=49`$, so the trial design is fully
-calibrated from a Bayesian perspective if $`n=74`$ patients are
-recruited in total ($`n_1=37`$ in the control and $`n_2=37`$ in the
+bottom plot. It is calibrated for $`n=117`$, so the trial design is
+fully calibrated from a Bayesian perspective if $`n=117`$ patients are
+recruited in total ($`n_1=58`$ in the control and $`n_2=59`$ in the
 treatment group). Then, the probability of compelling evidence is also
 calibrated.
 
 Based on the above plot we can see that the probability of compelling
-evidence does not reach 80% in the sample size range up to $`n=100`$
-patients. However, suppose we want a trial design which achieves such a
-high probability of compelling evidence for $`H_0`$, but we cannot
-afford to recruit more than $`n=100`$ patients in total. A possible
-solution is to modify the design priors under $`H_-`$ to express more
-information about our expectation of the effect the novel drug or
-treatment has.
+evidence is the limiting factor of all operating characteristics.
+However, suppose we want a trial design which achieves such a high
+probability of compelling evidence for $`H_0`$, but we cannot afford to
+recruit more than $`n=100`$ patients in total. A possible solution is to
+modify the design priors under $`H_-`$ to express more information about
+our expectation of the effect the novel drug or treatment has.
 
 Thus, we perform a sample size search for new ICT-107-type trial
-(balanced arms) under informative design priors with very strong
-evidence thresholds, and change the design prior under H- to achieve the
-target probability of compelling evidence PCE(H0) for even smaller
-sample sizes. Note that now, additionally, the design prior
-hyperparameters of the Beta design priors for $`p_1`$ and $`p_2`$ under
-$`H_-`$ are specified in `a_1_d_Hminus = 2, b_1_d_Hminus = 1` and
-`a_2_d_Hminus = 1, b_2_d_Hminus = 2`. Note that we increased
-`target_ce_h0 = 60` to `target_ce_h0 = 0.80`:
+(balanced arms) under informative design priors with strong evidence
+thresholds, and change the design prior under H- to achieve the target
+probability of compelling evidence PCE(H0) for even smaller sample
+sizes. Note that now, additionally, the design prior hyperparameters of
+the Beta design priors for $`p_1`$ and $`p_2`$ under $`H_-`$ are
+specified in `a_1_d_Hminus = 2, b_1_d_Hminus = 1` and
+`a_2_d_Hminus = 1, b_2_d_Hminus = 2`.
 
 ``` r
 
 des_informative_higher_ce <- design_twoarm_onestage_bf(
   n_min = 10,
-  n_max = 100,
-  k = 1/30,
-  k_f = 30,
+  n_max = 200,
+  k = 1/10,
+  k_f = 10,
   test = "BF+-",
   calibration = "Bayesian",
   target_power = 0.80,
@@ -684,14 +687,14 @@ summary(des_informative_higher_ce)
     Feasible:    yes
 
     Search overview
-      n evaluated          = 91
-      pointwise feasible   = 28
-      sustained feasible   = 27
-      first pointwise n    = 72
-      first sustained n    = 74
+      n evaluated          = 191
+      pointwise feasible   = 159
+      sustained feasible   = 158
+      first pointwise n    = 41
+      first sustained n    = 43
 
     Selected design
-      n_total = 74, n1 = 37, n2 = 37
+      n_total = 43, n1 = 22, n2 = 21
 
 The design has not changed. Why is that? We plot the results:
 
@@ -722,7 +725,7 @@ prior probability mass to large success probabilities in the control
 group with parameter $`p_1`$. This is precisely expressed by
 $`H_-:p_2 \leq p_1`$, and thus under $`H_0`$, we can expect that
 evidence for $`H_0`$ accumulates faster. This is reflected in the bottom
-panel for the probability of compelling evidence, as now $`n=74`$
+panel for the probability of compelling evidence, as now $`n=43`$
 patients suffice to reach 80% probability of compelling evidence for
 $`H_0`$.
 
@@ -732,12 +735,74 @@ than 5%, and our requirement of 80% on the probability of compelling
 evidence for $`H_0`$ (that is, $`H_-`$ in this case).
 
 What about the frequentist operating characteristics of this design? We
-see that $`n=81`$ patients in total suffice to calibrate the design
+see that $`n=52`$ patients in total suffice to calibrate the design
 additionally in terms of frequentist power.
 
 ``` r
 
 print(des_informative_higher_ce)
+```
+
+    One-stage two-arm Bayes factor design
+    ------------------------------------
+    Mode: optimal
+    Status: Smallest feasible one-stage two-arm design found.
+    Calibration: Bayesian
+    Optional freq. Type-I reporting: on
+    Design: n_total = 43, n1 = 22, n2 = 21
+
+    Operating characteristics
+     Power = 0.8114
+     Type-I error = 0.0056
+     CE(H0) = 0.8114
+     Freq. Type-I = 0.1128
+     Freq. Power = 0.7910
+
+The type-I-error is not calibrated, however, so choosing $`n=52`$
+patients in total does not yield a calibrated design from a frequentist
+perspective. To change this, we could use a stricter evidence threshold
+$`k=1/30`$, for example.
+
+``` r
+
+des_informative_higher_ce_very_strong <- design_twoarm_onestage_bf(
+  n_min = 10,
+  n_max = 200,
+  k = 1/30,
+  k_f = 30,
+  test = "BF+-",
+  calibration = "Bayesian",
+  target_power = 0.80,
+  target_type1 = 0.05,
+  target_ce_h0 = 0.80,
+  # design and analysis priors: flat Beta(1,1) everywhere
+  a_0_d = 1, b_0_d = 1,
+  a_0_a = 1, b_0_a = 1,
+  a_1_d = 1, b_1_d = 2,
+  a_2_d = 2, b_2_d = 1,
+  a_1_a = 1, b_1_a = 1,
+  a_2_a = 1, b_2_a = 1,
+  # design prior parameters under H_-
+  a_1_d_Hminus = 2, b_1_d_Hminus = 1,
+  a_2_d_Hminus = 1, b_2_d_Hminus = 2,
+  # assumed true proportions for frequentist power (optional here)
+  p1_power = 0.3, p2_power = 0.6,
+  # report frequentist type-I-error? (optional here)
+  report_freq_type1 = TRUE,
+  # equal randomisation
+  alloc1 = 0.5,
+  alloc2 = 0.5,
+  # require sustained feasibility over the next 10 larger n
+  sustain_n = 10L,
+  progress = FALSE
+)
+```
+
+We check the results:
+
+``` r
+
+print(des_informative_higher_ce_very_strong)
 ```
 
     One-stage two-arm Bayes factor design
@@ -755,30 +820,29 @@ print(des_informative_higher_ce)
      Freq. Type-I = 0.0340
      Freq. Power = 0.7778
 
-The type-I-error is still calibrated, so choosing $`n=81`$ patients in
-total even yields a fully calibrated design both from a Bayesian and
-frequentist perspective.
+We see that now the frequentist type-I-error is calibrated and the
+sample size increases from $`n=43`$ to $`n=74`$ in total.
 
 The calibration function `design_twoarm_onestage_bf` reveals several
 aspects. If a balanced design with equal randomization probabilities is
 desired, then:
 
-- **n=81 patients in total** (41 patients per trial arm) are needed for
+- **n=52 patients in total** (41 patients per trial arm) are needed for
   80% frequentist power at ICT-107 effect size when evidence threshold
-  $`k=1/30`$ is used. Here, the assumption is that the true proportions
+  $`k=1/10`$ is used. Here, the assumption is that the true proportions
   are $`p_1=0.3`$ and $`p_2=0.6`$, which can easily be modified if a
   more optimistic or pessimistic assumption is warranted
-- **n=74 patients in total** (37 patients per trial arm) are needed for
+- **n=43 patients in total** (22 patients per trial arm) are needed for
   80% Bayesian power at ICT-107 effect size when evidence threshold
-  $`k=1/30`$ is used, and slightly informative Beta design priors are
+  $`k=1/10`$ is used, and slightly informative Beta design priors are
   assumed under $`H_+`$.
 - **Type-I error control** both from a frequentist perspective (≤5%
   across designs when $`k=1/30`$ is used) and from a Bayesian
   perspective, where for the latter only **$`n=10`$ patients in total**
   (5 patients per trial arm) are required.
 - **High P(CE\|H-)** guarantees that under $`H_-`$ there is 80%
-  probability to find a Bayes factor of at least $`k_f=30`$ in favour of
-  $`H_-`$. **n=74 patients in total** (37 patients per trial arm) are
+  probability to find a Bayes factor of at least $`k_f=10`$ in favour of
+  $`H_-`$. **n=43 patients in total** (22 patients per trial arm) are
   required to assert this probability of compelling evidence for
   $`H_-`$.
 
@@ -798,8 +862,8 @@ trial:
 des_informative_higher_ce_uneq_alloc <- design_twoarm_onestage_bf(
   n_min = 10,
   n_max = 100,
-  k = 1/30,
-  k_f = 30,
+  k = 1/10,
+  k_f = 10,
   test = "BF+-",
   calibration = "Bayesian",
   target_power = 0.80,
@@ -844,13 +908,13 @@ summary(des_informative_higher_ce_uneq_alloc)
 
     Search overview
       n evaluated          = 91
-      pointwise feasible   = 18
-      sustained feasible   = 18
-      first pointwise n    = 83
-      first sustained n    = 83
+      pointwise feasible   = 52
+      sustained feasible   = 51
+      first pointwise n    = 48
+      first sustained n    = 50
 
     Selected design
-      n_total = 83, n1 = 28, n2 = 55
+      n_total = 50, n1 = 17, n2 = 33
 
 We plot the results:
 
@@ -875,11 +939,11 @@ randomization probabilities are used when calibrating the design.
 Remember that the sample size shown at the x-axis in the power and
 type-I-error rate plot as well as in the probability of compelling
 evidence plot is the total sample size in both arms. We see that now we
-need $`n=83`$ patients in total to reach Bayesian power of 80%, while
-$`n=88`$ patients in total are required for frequentist power
+need $`n=50`$ patients in total to reach Bayesian power of 80%, while
+$`n=58`$ patients in total are required for frequentist power
 calibration of 80%. The probability of compelling evidence reaches 80%
-at $`n=83`$ patients in total. The frequentist type-I-error rate is
-still below the required 5% threshold, too:
+at $`n=50`$ patients in total. The frequentist type-I-error rate is not
+below the required 5% threshold, however:
 
 ``` r
 
@@ -892,49 +956,41 @@ print(des_informative_higher_ce_uneq_alloc)
     Status: Smallest feasible one-stage two-arm design found.
     Calibration: Bayesian
     Optional freq. Type-I reporting: on
-    Design: n_total = 83, n1 = 28, n2 = 55
+    Design: n_total = 50, n1 = 17, n2 = 33
 
     Operating characteristics
-     Power = 0.8018
-     Type-I error = 0.0011
-     CE(H0) = 0.8018
-     Freq. Type-I = 0.0369
-     Freq. Power = 0.7829
+     Power = 0.8067
+     Type-I error = 0.0046
+     CE(H0) = 0.8067
+     Freq. Type-I = 0.1051
+     Freq. Power = 0.7491
+
+Increasing the evidence threshold to $`k=1/30`$ can solve this aspect.
 
 ### 6. Design Recommendations based on the calibration
 
 If the original 2:1 randomization of the ICT-107 trial is used and two
 thirds of the patients are randomized into the treatment group, then:
 
-- **n=83 patients in total** (28 patients in the control arm and 55 in
+- **n=50 patients in total** (25 patients in the control arm and 25 in
   the treatment arm) are needed for 80% Bayesian power at ICT-107 effect
-  size when evidence threshold $`k=1/30`$ is used, and slightly
+  size when evidence threshold $`k=1/10`$ is used, and slightly
   informative Beta design priors are assumed under $`H_+`$.
 - **Type-I error control** both from a frequentist perspective (≤5%
   across designs when $`k=1/30`$ is used) and from a Bayesian
   perspective, where for the latter only **$`n=10`$ patients in total**
   (both arms) are required.
 - **High P(CE\|H-)** guarantees that under $`H_-`$ there is 80%
-  probability to find a Bayes factor of at least $`k_f=30`$ in favour of
-  $`H_-`$. **n=83 patients in total** (28 in the control arm and 55 in
+  probability to find a Bayes factor of at least $`k_f=10`$ in favour of
+  $`H_-`$. **n=50 patients in total** (25 in the control arm and 25 in
   the treatment arm) are required to assert this probability of
   compelling evidence for $`H_-`$.
-- **n=88 patients in total** (29 patients in the control arm and 59 in
+- **n=58 patients in total** (29 patients in the control arm and 29 in
   the treatment arm) are needed for 80% frequentist power at ICT-107
-  effect size when evidence threshold $`k=1/30`$ is used. Here, the
+  effect size when evidence threshold $`k=1/10`$ is used. Here, the
   assumption is that the true proportions are $`p_1=0.3`$ and
   $`p_2=0.6`$, which can easily be modified if a more optimistic or
   pessimistic assumption is warranted
-
-To fulfill all four requirements, it thus suffices if $`n_1=29`$
-patients in the control arm and $`n_2=59`$ in the treatment arm are
-enrolled in the trial, and the Bayes factor thresholds $`k=1/30`$ and
-$`k_f=30`$ are used for decision making about the hypotheses $`H_+`$ and
-$`H_-`$ under consideration.
-
-For a Bayesian calibration only, it suffices if $`n_1=28`$ patients in
-the control arm and $`n_2=55`$ in the treatment arm are enrolled in the
-trial.
 
 ## Clinical Example 2: Adjuvant therapy for salivary duct carcinoma
 

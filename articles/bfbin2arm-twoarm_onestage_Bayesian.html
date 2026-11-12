@@ -80,7 +80,7 @@ Faculty of Medicine<br>
 University of Cologne<br>
 Cologne, Germany</div></h4>
             
-            <h4 data-toc-skip class="date">11 November 2026</h4>
+            <h4 data-toc-skip class="date">12 November 2026</h4>
       
 
       <div class="d-none name"><code>bfbin2arm-twoarm_onestage_Bayesian.Rmd</code></div>
@@ -362,8 +362,8 @@ design:</p>
 <code class="sourceCode R"><span><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_twoarm_onestage_bf.html">design_twoarm_onestage_bf</a></span><span class="op">(</span></span>
 <span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  n_max <span class="op">=</span> <span class="fl">75</span>,</span>
-<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>,</span>
-<span>  k_f <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  k_f <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
 <span>  calibration <span class="op">=</span> <span class="st">"Bayesian"</span>,</span>
 <span>  target_power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -378,6 +378,7 @@ design:</p>
 <span>  a_2_a <span class="op">=</span> <span class="fl">1</span>, b_2_a <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="co"># assumed true proportions for frequentist power (optional here)</span></span>
 <span>  p1_power <span class="op">=</span> <span class="fl">0.3</span>, p2_power <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  report_freq_type1 <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="co"># equal randomisation</span></span>
 <span>  alloc1 <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  alloc2 <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -392,19 +393,22 @@ and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">su
 <pre><code>Summary: One-stage two-arm Bayes factor design
 ---------------------------------------------
 Mode:        optimal
-Status:      No feasible one-stage two-arm design found.
+Status:      Smallest feasible one-stage two-arm design found.
 Calibration: Bayesian
-Feasible:    no
+Feasible:    yes
 
 Search overview
   n evaluated          = 66
-  pointwise feasible   = 0
-  sustained feasible   = 0
-  first pointwise n    = NA
-  first sustained n    = NA</code></pre>
+  pointwise feasible   = 35
+  sustained feasible   = 35
+  first pointwise n    = 41
+  first sustained n    = 41
+
+Selected design
+  n_total = 41, n1 = 20, n2 = 21</code></pre>
 <p>Also, we can plot the results:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des</span>, type <span class="op">=</span> <span class="st">"old"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/twoarm_onestage_fig1.png" class="r-plt" alt="Figure 1: Visualization of the calibrated Bayesian two-arm one-stage phase II design with a binary endpoint" width="80%"><p class="caption">
 Figure 1: Visualization of the calibrated Bayesian two-arm one-stage
@@ -412,12 +416,14 @@ phase II design with a binary endpoint
 </p>
 </div>
 <p>The summary and plot show that for the range of sample sizes provided
-to the function, under flat design priors, no sample size satisfies the
-requirement of Bayesian power
+to the function, under flat design priors, recruiting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>41</mn><annotation encoding="application/x-tex">41</annotation></semantics></math>
+patients in total satisfies the requirement of Bayesian power
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>0.80</mn></mrow><annotation encoding="application/x-tex">\geq 0.80</annotation></semantics></math>.
-Thus, if we want to obtain a calibrated design we can either increase
-<code>n_max</code> or choose more informative design priors.
-Alternatively, we could shift to a less stringent threshold for evidence
+In general, if we want to obtain a calibrated design we can either
+increase <code>n_max</code> if no calibrated design is found in a search
+range, or choose more informative design priors. Alternatively, we could
+shift to a less stringent threshold for evidence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
 e.g. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">k=1/3</annotation></semantics></math>
 instead of
@@ -481,7 +487,7 @@ backward compatibility. It now returns the same design object as
 function. A simple compatibility call is:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">des_legacy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ntwoarmbinbf01.html">ntwoarmbinbf01</a></span><span class="op">(</span></span>
-<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>, k_f <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, k_f <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  power <span class="op">=</span> <span class="fl">0.8</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, pce_H0 <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
 <span>  nrange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">75</span><span class="op">)</span>, n_step <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -582,14 +588,14 @@ for the calibrated design by specifying
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">des_informative</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_twoarm_onestage_bf.html">design_twoarm_onestage_bf</a></span><span class="op">(</span></span>
 <span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  n_max <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">30</span>,</span>
-<span>  k_f <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>,</span>
+<span>  k_f <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
 <span>  calibration <span class="op">=</span> <span class="st">"Bayesian"</span>,</span>
 <span>  target_power <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>  target_type1 <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  target_ce_h0 <span class="op">=</span> <span class="fl">0.60</span>,</span>
+<span>  target_ce_h0 <span class="op">=</span> <span class="fl">0.80</span>,</span>
 <span>  <span class="co"># design and analysis priors: flat Beta(1,1) everywhere</span></span>
 <span>  a_0_d <span class="op">=</span> <span class="fl">1</span>, b_0_d <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  a_0_a <span class="op">=</span> <span class="fl">1</span>, b_0_a <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -619,17 +625,17 @@ Calibration: Bayesian
 Feasible:    yes
 
 Search overview
-  n evaluated          = 91
-  pointwise feasible   = 28
-  sustained feasible   = 27
-  first pointwise n    = 72
-  first sustained n    = 74
+  n evaluated          = 191
+  pointwise feasible   = 85
+  sustained feasible   = 84
+  first pointwise n    = 115
+  first sustained n    = 117
 
 Selected design
-  n_total = 74, n1 = 37, n2 = 37</code></pre>
+  n_total = 117, n1 = 58, n2 = 59</code></pre>
 <p>The output shows that the first feasible sample size for which the
 target constraints hold was
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>72</mn></mrow><annotation encoding="application/x-tex">n=72</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>115</mn></mrow><annotation encoding="application/x-tex">n=115</annotation></semantics></math>.
 However, as we require the next ten sample sizes for the operating
 characteristics not to violate their respective constraint (that is,
 power should not decrease below its specified target threshold,
@@ -637,11 +643,11 @@ type-I-error not increase above its specified target threshold and
 probability of compelling evidence not drop below its specified target
 threshold for the next ten observations), the first sample size for
 which this holds is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>74</mn></mrow><annotation encoding="application/x-tex">n=74</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>117</mn></mrow><annotation encoding="application/x-tex">n=117</annotation></semantics></math>.
 This leads to the selected design with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>37</mn></mrow><annotation encoding="application/x-tex">n_1=37</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>58</mn></mrow><annotation encoding="application/x-tex">n_1=58</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>37</mn></mrow><annotation encoding="application/x-tex">n_2=37</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">n_2=59</annotation></semantics></math>
 patients in the control and treatment group.</p>
 <p><strong>Details on the implementation:</strong> For each operating
 characteristic we also compute a metric‑specific sustained attainment
@@ -661,9 +667,9 @@ drawn at these metric‑specific sustained crossing points. This ensures
 that the plotted “required” sample sizes reflect the same sustained
 feasibility logic as the calibration itself, so that, for example,
 Bayesian power may first reach its nominal threshold at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>72</mn></mrow><annotation encoding="application/x-tex">n=72</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>115</mn></mrow><annotation encoding="application/x-tex">n=115</annotation></semantics></math>,
 but the corresponding vertical line will only be shown at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>74</mn></mrow><annotation encoding="application/x-tex">n=74</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>117</mn></mrow><annotation encoding="application/x-tex">n=117</annotation></semantics></math>
 if the power constraint fails to remain satisfied over the next
 <code>sustain_n</code> total sample sizes.</p>
 <p><img src="bfbin2arm-twoarm_onestage_Bayesian_files/figure-html/sustain-logic-schematic-1.png" class="r-plt" alt="" width="80%" style="display: block; margin: auto;">
@@ -693,20 +699,21 @@ under the alternative hypothesis
 </p>
 </div>
 <p>We see that now the Bayesian power is calibrated for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>74</mn></mrow><annotation encoding="application/x-tex">n=74</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>43</mn></mrow><annotation encoding="application/x-tex">n=43</annotation></semantics></math>
 patients per trial arm and does not drop below the required 80% for at
 least the next ten sample sizes (it does not drop below the 80% for any
 sample size up to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>200</mn></mrow><annotation encoding="application/x-tex">n=200</annotation></semantics></math>,
 as can be verified by the plot). Frequentist power is calibrated for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>
-patients trial arm. The Bayesian type-I-error is already calibrated for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>52</mn></mrow><annotation encoding="application/x-tex">n=52</annotation></semantics></math>
+patients trial arm already. The Bayesian type-I-error is already
+calibrated for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">n=10</annotation></semantics></math>,
 requiring only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>
-patients per trial arm. Importantly, the frequentist type-I-error is
-also calibrated and is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.034</mn><mo>&lt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">0.034&lt;0.05</annotation></semantics></math>,
+patients per trial arm. Importantly, the frequentist type-I-error is,
+however, not calibrated and is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.0982</mn><mo>&gt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">0.0982&gt;0.05</annotation></semantics></math>,
 as can be inspected by</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">des_informative</span><span class="op">)</span></span></code></pre></div>
@@ -716,31 +723,30 @@ Mode: optimal
 Status: Smallest feasible one-stage two-arm design found.
 Calibration: Bayesian
 Optional freq. Type-I reporting: on
-Design: n_total = 74, n1 = 37, n2 = 37
+Design: n_total = 117, n1 = 58, n2 = 59
 
 Operating characteristics
- Power = 0.8004
- Type-I error = 0.0021
- CE(H0) = 0.6697
- Freq. Type-I = 0.0340
- Freq. Power = 0.7778</code></pre>
+ Power = 0.8921
+ Type-I error = 0.0059
+ CE(H0) = 0.8031
+ Freq. Type-I = 0.0982
+ Freq. Power = 0.9784</code></pre>
 <p>The probability of compelling evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>
 is shown in the bottom plot. It is calibrated for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>49</mn></mrow><annotation encoding="application/x-tex">n=49</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>117</mn></mrow><annotation encoding="application/x-tex">n=117</annotation></semantics></math>,
 so the trial design is fully calibrated from a Bayesian perspective if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>74</mn></mrow><annotation encoding="application/x-tex">n=74</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>117</mn></mrow><annotation encoding="application/x-tex">n=117</annotation></semantics></math>
 patients are recruited in total
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>37</mn></mrow><annotation encoding="application/x-tex">n_1=37</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>58</mn></mrow><annotation encoding="application/x-tex">n_1=58</annotation></semantics></math>
 in the control and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>37</mn></mrow><annotation encoding="application/x-tex">n_2=37</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">n_2=59</annotation></semantics></math>
 in the treatment group). Then, the probability of compelling evidence is
 also calibrated.</p>
 <p>Based on the above plot we can see that the probability of compelling
-evidence does not reach 80% in the sample size range up to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>
-patients. However, suppose we want a trial design which achieves such a
-high probability of compelling evidence for
+evidence is the limiting factor of all operating characteristics.
+However, suppose we want a trial design which achieves such a high
+probability of compelling evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>,
 but we cannot afford to recruit more than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>
@@ -750,25 +756,24 @@ under
 to express more information about our expectation of the effect the
 novel drug or treatment has.</p>
 <p>Thus, we perform a sample size search for new ICT-107-type trial
-(balanced arms) under informative design priors with very strong
-evidence thresholds, and change the design prior under H- to achieve the
-target probability of compelling evidence PCE(H0) for even smaller
-sample sizes. Note that now, additionally, the design prior
-hyperparameters of the Beta design priors for
+(balanced arms) under informative design priors with strong evidence
+thresholds, and change the design prior under H- to achieve the target
+probability of compelling evidence PCE(H0) for even smaller sample
+sizes. Note that now, additionally, the design prior hyperparameters of
+the Beta design priors for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>1</mn></msub><annotation encoding="application/x-tex">p_1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mn>2</mn></msub><annotation encoding="application/x-tex">p_2</annotation></semantics></math>
 under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>
 are specified in <code>a_1_d_Hminus = 2, b_1_d_Hminus = 1</code> and
-<code>a_2_d_Hminus = 1, b_2_d_Hminus = 2</code>. Note that we increased
-<code>target_ce_h0 = 60</code> to <code>target_ce_h0 = 0.80</code>:</p>
+<code>a_2_d_Hminus = 1, b_2_d_Hminus = 2</code>.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">des_informative_higher_ce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_twoarm_onestage_bf.html">design_twoarm_onestage_bf</a></span><span class="op">(</span></span>
 <span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  n_max <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">30</span>,</span>
-<span>  k_f <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>,</span>
+<span>  k_f <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
 <span>  calibration <span class="op">=</span> <span class="st">"Bayesian"</span>,</span>
 <span>  target_power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -806,14 +811,14 @@ Calibration: Bayesian
 Feasible:    yes
 
 Search overview
-  n evaluated          = 91
-  pointwise feasible   = 28
-  sustained feasible   = 27
-  first pointwise n    = 72
-  first sustained n    = 74
+  n evaluated          = 191
+  pointwise feasible   = 159
+  sustained feasible   = 158
+  first pointwise n    = 41
+  first sustained n    = 43
 
 Selected design
-  n_total = 74, n1 = 37, n2 = 37</code></pre>
+  n_total = 43, n1 = 22, n2 = 21</code></pre>
 <p>The design has not changed. Why is that? We plot the results:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_informative_higher_ce</span><span class="op">)</span></span></code></pre></div>
@@ -846,7 +851,7 @@ we can expect that evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>
 accumulates faster. This is reflected in the bottom panel for the
 probability of compelling evidence, as now
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>74</mn></mrow><annotation encoding="application/x-tex">n=74</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>43</mn></mrow><annotation encoding="application/x-tex">n=43</annotation></semantics></math>
 patients suffice to reach 80% probability of compelling evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>.</p>
 <p>The result is a fully calibrated Bayesian design which meets Bayesian
@@ -859,11 +864,66 @@ evidence for
 in this case).</p>
 <p>What about the frequentist operating characteristics of this design?
 We see that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>52</mn></mrow><annotation encoding="application/x-tex">n=52</annotation></semantics></math>
 patients in total suffice to calibrate the design additionally in terms
 of frequentist power.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">des_informative_higher_ce</span><span class="op">)</span></span></code></pre></div>
+<pre><code>One-stage two-arm Bayes factor design
+------------------------------------
+Mode: optimal
+Status: Smallest feasible one-stage two-arm design found.
+Calibration: Bayesian
+Optional freq. Type-I reporting: on
+Design: n_total = 43, n1 = 22, n2 = 21
+
+Operating characteristics
+ Power = 0.8114
+ Type-I error = 0.0056
+ CE(H0) = 0.8114
+ Freq. Type-I = 0.1128
+ Freq. Power = 0.7910</code></pre>
+<p>The type-I-error is not calibrated, however, so choosing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>52</mn></mrow><annotation encoding="application/x-tex">n=52</annotation></semantics></math>
+patients in total does not yield a calibrated design from a frequentist
+perspective. To change this, we could use a stricter evidence threshold
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>,
+for example.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">des_informative_higher_ce_very_strong</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_twoarm_onestage_bf.html">design_twoarm_onestage_bf</a></span><span class="op">(</span></span>
+<span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">30</span>,</span>
+<span>  k_f <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
+<span>  calibration <span class="op">=</span> <span class="st">"Bayesian"</span>,</span>
+<span>  target_power <span class="op">=</span> <span class="fl">0.80</span>,</span>
+<span>  target_type1 <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  target_ce_h0 <span class="op">=</span> <span class="fl">0.80</span>,</span>
+<span>  <span class="co"># design and analysis priors: flat Beta(1,1) everywhere</span></span>
+<span>  a_0_d <span class="op">=</span> <span class="fl">1</span>, b_0_d <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_0_a <span class="op">=</span> <span class="fl">1</span>, b_0_a <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_1_d <span class="op">=</span> <span class="fl">1</span>, b_1_d <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  a_2_d <span class="op">=</span> <span class="fl">2</span>, b_2_d <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_1_a <span class="op">=</span> <span class="fl">1</span>, b_1_a <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_2_a <span class="op">=</span> <span class="fl">1</span>, b_2_a <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="co"># design prior parameters under H_-</span></span>
+<span>  a_1_d_Hminus <span class="op">=</span> <span class="fl">2</span>, b_1_d_Hminus <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  a_2_d_Hminus <span class="op">=</span> <span class="fl">1</span>, b_2_d_Hminus <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  <span class="co"># assumed true proportions for frequentist power (optional here)</span></span>
+<span>  p1_power <span class="op">=</span> <span class="fl">0.3</span>, p2_power <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  <span class="co"># report frequentist type-I-error? (optional here)</span></span>
+<span>  report_freq_type1 <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="co"># equal randomisation</span></span>
+<span>  alloc1 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  alloc2 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  <span class="co"># require sustained feasibility over the next 10 larger n</span></span>
+<span>  sustain_n <span class="op">=</span> <span class="fl">10L</span>,</span>
+<span>  progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>We check the results:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">des_informative_higher_ce_very_strong</span><span class="op">)</span></span></code></pre></div>
 <pre><code>One-stage two-arm Bayes factor design
 ------------------------------------
 Mode: optimal
@@ -878,19 +938,21 @@ Operating characteristics
  CE(H0) = 0.8004
  Freq. Type-I = 0.0340
  Freq. Power = 0.7778</code></pre>
-<p>The type-I-error is still calibrated, so choosing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>
-patients in total even yields a fully calibrated design both from a
-Bayesian and frequentist perspective.</p>
+<p>We see that now the frequentist type-I-error is calibrated and the
+sample size increases from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>43</mn></mrow><annotation encoding="application/x-tex">n=43</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>74</mn></mrow><annotation encoding="application/x-tex">n=74</annotation></semantics></math>
+in total.</p>
 <p>The calibration function <code>design_twoarm_onestage_bf</code>
 reveals several aspects. If a balanced design with equal randomization
 probabilities is desired, then:</p>
 <ul>
 <li>
-<strong>n=81 patients in total</strong> (41 patients per trial arm)
+<strong>n=52 patients in total</strong> (41 patients per trial arm)
 are needed for 80% frequentist power at ICT-107 effect size when
 evidence threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">k=1/10</annotation></semantics></math>
 is used. Here, the assumption is that the true proportions are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">p_1=0.3</annotation></semantics></math>
 and
@@ -898,10 +960,10 @@ and
 which can easily be modified if a more optimistic or pessimistic
 assumption is warranted</li>
 <li>
-<strong>n=74 patients in total</strong> (37 patients per trial arm)
+<strong>n=43 patients in total</strong> (22 patients per trial arm)
 are needed for 80% Bayesian power at ICT-107 effect size when evidence
 threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">k=1/10</annotation></semantics></math>
 is used, and slightly informative Beta design priors are assumed under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>+</mo></msub><annotation encoding="application/x-tex">H_+</annotation></semantics></math>.</li>
 <li>
@@ -915,10 +977,10 @@ patients in total</strong> (5 patients per trial arm) are required.</li>
 <strong>High P(CE|H-)</strong> guarantees that under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>
 there is 80% probability to find a Bayes factor of at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>=</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">k_f=30</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">k_f=10</annotation></semantics></math>
 in favour of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>.
-<strong>n=74 patients in total</strong> (37 patients per trial arm) are
+<strong>n=43 patients in total</strong> (22 patients per trial arm) are
 required to assert this probability of compelling evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>.</li>
 </ul>
@@ -936,12 +998,12 @@ randomization probabilities for the control and treatment arms and carry
 out the Bayesian sample size calculations based on these randomization
 probabilities. As an example, we rerun the last calibration, but use the
 randomization probabilities of the ICT-107 trial:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">des_informative_higher_ce_uneq_alloc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/design_twoarm_onestage_bf.html">design_twoarm_onestage_bf</a></span><span class="op">(</span></span>
 <span>  n_min <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  n_max <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">30</span>,</span>
-<span>  k_f <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>,</span>
+<span>  k_f <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  test <span class="op">=</span> <span class="st">"BF+-"</span>,</span>
 <span>  calibration <span class="op">=</span> <span class="st">"Bayesian"</span>,</span>
 <span>  target_power <span class="op">=</span> <span class="fl">0.80</span>,</span>
@@ -969,7 +1031,7 @@ randomization probabilities of the ICT-107 trial:</p>
 <span>  progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>We summarize the results:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">des_informative_higher_ce_uneq_alloc</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Summary: One-stage two-arm Bayes factor design
 ---------------------------------------------
@@ -980,15 +1042,15 @@ Feasible:    yes
 
 Search overview
   n evaluated          = 91
-  pointwise feasible   = 18
-  sustained feasible   = 18
-  first pointwise n    = 83
-  first sustained n    = 83
+  pointwise feasible   = 52
+  sustained feasible   = 51
+  first pointwise n    = 48
+  first sustained n    = 50
 
 Selected design
-  n_total = 83, n1 = 28, n2 = 55</code></pre>
+  n_total = 50, n1 = 17, n2 = 33</code></pre>
 <p>We plot the results:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">des_informative_higher_ce_uneq_alloc</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/twoarm_onestage_fig5.png" class="r-plt" alt="Figure 5: Visualization of the calibrated Bayesian two-arm one-stage phase II design with a binary endpoint, using informative design priors under both hypotheses and a stronger requirement on the probability of compelling evidence (80% instead of only 60%). Additionally, unequal randomization probabilities are used when calibrating the design." width="80%"><p class="caption">
@@ -1003,15 +1065,15 @@ randomization probabilities are used when calibrating the design.
 type-I-error rate plot as well as in the probability of compelling
 evidence plot is the total sample size in both arms. We see that now we
 need
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">n=83</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">n=50</annotation></semantics></math>
 patients in total to reach Bayesian power of 80%, while
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>88</mn></mrow><annotation encoding="application/x-tex">n=88</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>58</mn></mrow><annotation encoding="application/x-tex">n=58</annotation></semantics></math>
 patients in total are required for frequentist power calibration of 80%.
 The probability of compelling evidence reaches 80% at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">n=83</annotation></semantics></math>
-patients in total. The frequentist type-I-error rate is still below the
-required 5% threshold, too:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">n=50</annotation></semantics></math>
+patients in total. The frequentist type-I-error rate is not below the
+required 5% threshold, however:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">des_informative_higher_ce_uneq_alloc</span><span class="op">)</span></span></code></pre></div>
 <pre><code>One-stage two-arm Bayes factor design
 ------------------------------------
@@ -1019,14 +1081,17 @@ Mode: optimal
 Status: Smallest feasible one-stage two-arm design found.
 Calibration: Bayesian
 Optional freq. Type-I reporting: on
-Design: n_total = 83, n1 = 28, n2 = 55
+Design: n_total = 50, n1 = 17, n2 = 33
 
 Operating characteristics
- Power = 0.8018
- Type-I error = 0.0011
- CE(H0) = 0.8018
- Freq. Type-I = 0.0369
- Freq. Power = 0.7829</code></pre>
+ Power = 0.8067
+ Type-I error = 0.0046
+ CE(H0) = 0.8067
+ Freq. Type-I = 0.1051
+ Freq. Power = 0.7491</code></pre>
+<p>Increasing the evidence threshold to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>
+can solve this aspect.</p>
 </div>
 <div class="section level3">
 <h3 id="design-recommendations-based-on-the-calibration">6. Design Recommendations based on the calibration<a class="anchor" aria-label="anchor" href="#design-recommendations-based-on-the-calibration"></a>
@@ -1036,10 +1101,10 @@ two thirds of the patients are randomized into the treatment group,
 then:</p>
 <ul>
 <li>
-<strong>n=83 patients in total</strong> (28 patients in the control
-arm and 55 in the treatment arm) are needed for 80% Bayesian power at
+<strong>n=50 patients in total</strong> (25 patients in the control
+arm and 25 in the treatment arm) are needed for 80% Bayesian power at
 ICT-107 effect size when evidence threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">k=1/10</annotation></semantics></math>
 is used, and slightly informative Beta design priors are assumed under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>+</mo></msub><annotation encoding="application/x-tex">H_+</annotation></semantics></math>.</li>
 <li>
@@ -1053,18 +1118,18 @@ patients in total</strong> (both arms) are required.</li>
 <strong>High P(CE|H-)</strong> guarantees that under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>
 there is 80% probability to find a Bayes factor of at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>=</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">k_f=30</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">k_f=10</annotation></semantics></math>
 in favour of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>.
-<strong>n=83 patients in total</strong> (28 in the control arm and 55 in
+<strong>n=50 patients in total</strong> (25 in the control arm and 25 in
 the treatment arm) are required to assert this probability of compelling
 evidence for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>.</li>
 <li>
-<strong>n=88 patients in total</strong> (29 patients in the control
-arm and 59 in the treatment arm) are needed for 80% frequentist power at
+<strong>n=58 patients in total</strong> (29 patients in the control
+arm and 29 in the treatment arm) are needed for 80% frequentist power at
 ICT-107 effect size when evidence threshold
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">k=1/10</annotation></semantics></math>
 is used. Here, the assumption is that the true proportions are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">p_1=0.3</annotation></semantics></math>
 and
@@ -1072,25 +1137,6 @@ and
 which can easily be modified if a more optimistic or pessimistic
 assumption is warranted</li>
 </ul>
-<p>To fulfill all four requirements, it thus suffices if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>29</mn></mrow><annotation encoding="application/x-tex">n_1=29</annotation></semantics></math>
-patients in the control arm and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">n_2=59</annotation></semantics></math>
-in the treatment arm are enrolled in the trial, and the Bayes factor
-thresholds
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>30</mn></mrow><annotation encoding="application/x-tex">k=1/30</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>f</mi></msub><mo>=</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">k_f=30</annotation></semantics></math>
-are used for decision making about the hypotheses
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>+</mo></msub><annotation encoding="application/x-tex">H_+</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mo>−</mo></msub><annotation encoding="application/x-tex">H_-</annotation></semantics></math>
-under consideration.</p>
-<p>For a Bayesian calibration only, it suffices if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>28</mn></mrow><annotation encoding="application/x-tex">n_1=28</annotation></semantics></math>
-patients in the control arm and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub><mo>=</mo><mn>55</mn></mrow><annotation encoding="application/x-tex">n_2=55</annotation></semantics></math>
-in the treatment arm are enrolled in the trial.</p>
 </div>
 </div>
 <div class="section level2">
@@ -1172,7 +1218,7 @@ Design-prior concentration 20 is illustrative, not estimated from the
 two retrospective percentages. The beta parameters below describe basis
 distributions before truncation; their means are not generally the
 marginal means after directional truncation.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_pC</span> <span class="op">&lt;-</span> <span class="fl">0.277</span></span>
 <span><span class="va">sdc_pE</span> <span class="op">&lt;-</span> <span class="fl">0.550</span></span>
 <span></span>
@@ -1254,7 +1300,7 @@ requirements.</p>
 <code>sustain_n = 0</code>. Selected sizes are therefore pointwise
 minima within the package’s search, rather than minima satisfying a
 forward window.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_calibrate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">mode</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frequentist"</span>, <span class="st">"Bayesian"</span>, <span class="st">"hybrid"</span>, <span class="st">"full"</span><span class="op">)</span>,</span>
 <span>    <span class="va">pce_target</span> <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -1304,9 +1350,9 @@ forward window.</p>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_designs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"sdc_designs.rds"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_modes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frequentist"</span>, <span class="st">"Bayesian"</span>, <span class="st">"hybrid"</span>, <span class="st">"full"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sdc_designs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span></span>
@@ -1457,7 +1503,7 @@ Search overview
 
 Selected design
   n_total = 124, n1 = 62, n2 = 62</code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_design_row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">mode</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">feasible</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">feasible</span><span class="op">)</span></span>
 <span></span>
@@ -1673,7 +1719,7 @@ reported but not constrained.</caption>
 <p>The same plotting interface is available irrespective of the
 calibration mode. The active criteria determine sample-size selection;
 other displayed operating characteristics remain diagnostic.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sdc_designs</span><span class="op">$</span><span class="va">frequentist</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/twoarm_onestage_fig6.png" class="r-plt" alt="Figure 6: Visualization of the frequentist calibrated two-arm one-stage Bayes factor design with a binary endpoint" width="80%"><p class="caption">
@@ -1688,7 +1734,7 @@ Bayes factor design with a binary endpoint
 <p>A finer null grid changes the assessment of error, not the decision
 rule. The following helper evaluates fixed arm sizes without
 recalibrating them.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_oc_at_n</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">n_control</span>,</span>
 <span>    <span class="va">n_experimental</span> <span class="op">=</span> <span class="va">n_control</span>,</span>
@@ -1718,7 +1764,7 @@ recalibrating them.</p>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="fu">bfbin2arm</span><span class="fu">::</span><span class="va"><a href="../reference/powertwoarmbinbf01.html">powertwoarmbinbf01</a></span>, <span class="va">args</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_oc_coarse</span> <span class="op">&lt;-</span> <span class="fu">sdc_oc_at_n</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span><span class="op">)</span></span>
 <span><span class="va">sdc_oc_fine</span> <span class="op">&lt;-</span> <span class="fu">sdc_oc_at_n</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span>, grid <span class="op">=</span> <span class="va">sdc_grid_fine</span><span class="op">)</span></span>
 <span></span>
@@ -1764,7 +1810,7 @@ directional regions have prior probability one-half. Consequently,
 equals the posterior odds of the non-positive versus positive direction
 under the unrestricted uniform model. This identity is specific to the
 stated analysis priors.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_beta_prob_greater</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">aX</span>, <span class="va">bX</span>, <span class="va">aY</span>, <span class="va">bY</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span></span>
 <span>    <span class="va">aX</span> <span class="op">&gt;=</span> <span class="fl">1</span>,</span>
@@ -1868,7 +1914,7 @@ rejection probability.</p>
 <p>The maximization scans 10,001 boundary points, refines identified
 local maxima, and includes the endpoints. It is a numerical search, not
 a formally certified upper bound.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_boundary_size</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">reject</span>, <span class="va">grid_length</span> <span class="op">=</span> <span class="fl">10001L</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">nC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span></span>
 <span>  <span class="va">nE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">reject</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1L</span></span>
@@ -1956,7 +2002,7 @@ a formally certified upper bound.</p>
 <p>The following compares both rules at 41 and 45 evaluable participants
 per arm. These are diagnostic evaluations; the minimum-size search below
 determines whether smaller equal-arm designs meet both targets.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_bf41</span> <span class="op">&lt;-</span> <span class="fu">sdc_bf_region</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span><span class="op">)</span></span>
 <span><span class="va">sdc_fisher41</span> <span class="op">&lt;-</span> <span class="fu">sdc_fisher_region</span><span class="op">(</span><span class="fl">41L</span>, <span class="fl">41L</span><span class="op">)</span></span>
 <span></span>
@@ -2068,7 +2114,7 @@ bounds, not necessarily achieved error rates.</caption>
 </h3>
 <p>This check compares independent reconstruction and the package at the
 same arm sizes and on the same coarse null grid.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_pkg_power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span></span>
 <span>  <span class="va">sdc_oc_coarse</span><span class="op">[</span><span class="st">"Frequentist_Power"</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
@@ -2141,7 +2187,7 @@ output conventions.</p>
 power is evaluated first. Designs reaching the power target are then
 assessed for composite-null size. No monotonicity in sample size is
 assumed.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sdc_find_minimum</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">method</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BF"</span>, <span class="st">"Fisher"</span><span class="op">)</span>,</span>
 <span>    <span class="va">n_arm_max</span> <span class="op">=</span> <span class="fl">60L</span><span class="op">)</span> <span class="op">{</span></span>
@@ -2269,7 +2315,7 @@ actual sizes.</p>
 </h3>
 <p>The following arithmetic illustrates a 10% allowance for unavailable
 binary outcomes, using the independently selected equal-arm designs.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span></span>
 <span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">sdc_minimum_bf</span><span class="op">$</span><span class="va">selected</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span>
 <span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">sdc_minimum_fisher</span><span class="op">$</span><span class="va">selected</span><span class="op">)</span></span>
@@ -2331,7 +2377,7 @@ ascertainment, missing-data strategy, and analysis time remain
 substantive protocol choices. The binomial illustration should not
 replace a time-to-event calculation if the intended primary analysis
 uses censored DFS times.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"bfbin2arm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] '0.1.8'</span></span></code></pre></div>
 </div>

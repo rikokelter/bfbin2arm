@@ -119,9 +119,6 @@
 - [`optimal_twostage_singlearm_bf()`](https://rikokelter.github.io/bfbin2arm/reference/optimal_twostage_singlearm_bf.md)
   : Optimal two-stage single-arm Bayes factor design
 
-- [`pbinbf01_singlearm_exact()`](https://rikokelter.github.io/bfbin2arm/reference/pbinbf01_singlearm_exact.md)
-  : Exact probability of a single-arm Bayes factor threshold event
-
 - [`plot(`*`<bf_ttest_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.bf_ttest_design.md)
   : Plot method for calibrated Bayesian t-test designs
 
@@ -136,6 +133,9 @@
 
 - [`plot(`*`<singlearm_rope_twostage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.singlearm_rope_twostage_design.md)
   : Plot a single-arm two-stage ROPE design
+
+- [`plot(`*`<twoarm_onestage_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.twoarm_onestage_bf_design.md)
+  : Plot a one-stage two-arm Bayes factor design
 
 - [`plot(`*`<twoarm_rope_directional_onestage_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/plot.twoarm_rope_directional_onestage_design.md)
   : Plot a two-arm directional ROPE design
@@ -194,9 +194,6 @@
 
 - [`priorProbHplus()`](https://rikokelter.github.io/bfbin2arm/reference/priorProbHplus.md)
   : Prior probability P(p2 \> p1) under independent Beta priors
-
-- [`singlearm_bf_regions()`](https://rikokelter.github.io/bfbin2arm/reference/singlearm_bf_regions.md)
-  : Construct strict single-arm Bayes factor evidence regions
 
 - [`summary(`*`<singlearm_bf_design>`*`)`](https://rikokelter.github.io/bfbin2arm/reference/summary.singlearm_bf_design.md)
   : Summary for single-arm BF designs
